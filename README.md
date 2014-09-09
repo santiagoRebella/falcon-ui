@@ -47,7 +47,7 @@ Web UI Stack
  - Express*
  - Node*
 
-**for development*
+*for development*
 
 
 
