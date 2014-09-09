@@ -43,7 +43,6 @@ Web UI Stack
  - D3JS
  - jQuery (no final decition yet)
  - X2JS
-
  - LESS*
  - Node*
  - Express*
