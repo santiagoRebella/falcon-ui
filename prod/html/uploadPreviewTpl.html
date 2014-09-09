@@ -1,0 +1,11 @@
+<div class="col-sm-12" id="uploadPreviewTpl">
+	<h4>Preview <span ng-class="{'text-danger':fileJson.valid === false, 'text-success':fileJson.valid === true}">{{fileJson.entityType}}</span></h4>
+	<h6>
+		<strong>{{ fileJson.name }}</strong> {{ fileJson.type }} type, {{ fileJson.size }} bytes, last modified: {{ fileJson.modDate }}
+    </h6>
+    
+    <pre ng-class="{'bg-success':fileJson.valid === true, 'bg-danger':fileJson.valid === false}"> {{ fileJson.content }} </pre>
+    
+    <button type="button" class="btn btn-primary pull-right" ng-click="confirmUpload()"> Confirm </button>
+    <button type="button" class="btn btn-danger pull-right" ng-click="cancelUpload()" ui-sref="root"> Cancel </button>
+</div>

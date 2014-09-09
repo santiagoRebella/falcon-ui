@@ -1,0 +1,77 @@
+[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{
+  display:none !important;
+}
+.mainUIView {
+  padding: 10px 0 30px 0;
+}
+//---------navHeader----------------------//
+.navbar {
+  background-color: @headerNavBG;
+  border-bottom: 1px solid black;
+  margin-bottom:0;
+  h1 {
+    line-height: 50px;
+    font-size: 20px;
+    margin: 0;
+    color: white;
+  }
+}   
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+  background-color: black;
+  color: white;
+}
+.navbar-default .navbar-nav > li > a {
+  color: black;
+}
+.navbar-nav.navbar-right:last-child {
+  margin: 5px;
+
+}
+//-----------------------------------------//
+//----------------HOME---------------------//
+.wrappingHomeBox {
+  text-align: center;
+  padding: 50px 0 10px 0;
+  button {
+    margin: 40px 0 40px 30px;
+  }
+  >div {
+    display: inline-block;
+    padding-right: 30px;
+    border: 1px solid @gray;
+    border-radius: 5px;
+  }
+  >div>div {
+    display: inline-block;
+  }
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+//--------------------root.upload----------------//
+#uploadPreviewTpl {
+  > pre {
+    font-size: 10px;
+  }
+  > button {
+    margin-left: 15px;
+  }
+}
