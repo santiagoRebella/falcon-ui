@@ -44,8 +44,8 @@ Web UI Stack
  - jQuery (no final decition yet)
  - X2JS
  - LESS*
- - Express*
  - Node*
+ - Express*
 
  *for development
 
