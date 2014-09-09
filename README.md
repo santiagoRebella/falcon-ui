@@ -7,8 +7,8 @@ Development
 ===========
 
 The server.js file is an express server serving two static folders:
-  dev in port 3000
-  prod in port 3100
+  /dev in port 3000
+  /prod in port 3100
 You can launch the server with the command 
   grunt 
 (the grunt default task)  
