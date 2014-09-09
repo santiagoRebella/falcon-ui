@@ -6,6 +6,8 @@ Web UI to manage feeds, clusters and processes with the falcon REST API
 Development
 ===========
 
+Run **/npm install** from the root folder
+
 The server.js file is an express server serving two static folders:
 
  - **/dev in port 3000**   
