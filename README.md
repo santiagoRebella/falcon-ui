@@ -7,8 +7,10 @@ Development
 ===========
 
 The server.js file is an express server serving two static folders:
-  **/dev in port 3000**
-  **/prod in port 3100**
+
+ - **/dev in port 3000**   
+ - **/prod in port 3100**
+
 You can launch the server with the command 
 
     grunt 
@@ -34,19 +36,18 @@ Navigate to **localhost:15000**
 [1]This is done mainly to leave out the .less sources, leaving just one main.css, in the future the idea is to minify and concatenate the js files also. The exact files and folders are located in the Gruntfile.
 
 Web UI Stack
-=====
-AngularJS
-Bootstrap-UI
-UI-Router
-D3JS
-jQuery (no final decition yet)
-X2JS
+===========
+ - AngularJS
+ - Bootstrap-UI
+ - UI-Router
+ - D3JS
+ - jQuery (no final decition yet)
+ - X2JS
+ - LESS*
+ - Express*
+ - Node*
 
-LESS*
-Express*
-Node*
-
-*for development
+**for development*
 
 
 
