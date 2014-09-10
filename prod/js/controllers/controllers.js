@@ -14,7 +14,7 @@
 	  
 	}]);
 	
-	app.controller('homeCtrl', ["$scope", "Falcon", "XMLEntity", "$state", function($scope, Falcon, XMLEntity, $state) {
+	app.controller('homeCtrl', ["$scope", "Falcon", "XMLEntity", "$state", "X2jsService", function($scope, Falcon, XMLEntity, $state, X2jsService) {
 		
 		$scope.fileJson = {};
 	
@@ -30,8 +30,13 @@
 					reader.readAsText(theFile, "UTF-8");
 
 			        return function(e) {
-
-			            XMLEntity.json = XMLEntity.xml_str2json( e.target.result );	  
+			        	console.log(e.target);
+						console.log(e.target.result);
+						console.log(typeof e.target.result);
+			            //XMLEntity.json = X2jsService.xml_str2json( e.target.result );	
+			            XMLEntity.json = X2jsService.xml_str2json( e.target.result );	 
+			            XMLEntity.file = X2jsService.json2xml( XMLEntity.json );	 
+			            console.log(e.target.result);
 			            XMLEntity.identifyEntityType();
 			            XMLEntity.validateEntity();
 			            
@@ -58,10 +63,21 @@
 			}    
 		};
 		$scope.cancelUpload = function () {
-			alert('cancel');
+			console.info('upload cancelled');
+			$scope.fileJson = {};
 		};
 		$scope.confirmUpload = function () {
-
+			console.log(XMLEntity.file);
+			
+			var xmlToSend = X2jsService.json2xml(XMLEntity.json);
+			console.log(xmlToSend);
+			
+			Falcon.postValidateEntity(xmlToSend, XMLEntity.type).success(function (data) {
+				console.log(data);
+			}).error(function (err) {
+				console.log('TTTTTTTTTTTTTTTTTTT');
+				console.log(err);
+			});
 		};
 		
        
