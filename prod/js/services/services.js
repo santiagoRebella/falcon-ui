@@ -41,59 +41,13 @@
 		
 		XMLEntity.json = null;
 		
-		XMLEntity.identifyEntityType = function () {
-			
-			if(XMLEntity.json.feed !== undefined) {
-				XMLEntity.type = "feed";
-			}
-			else if(XMLEntity.json.cluster !== undefined) {
-				XMLEntity.type = "cluster";
-			}
-			else if(XMLEntity.json.process !== undefined) {
-				XMLEntity.type = "process";
-			}
-			else {
-				XMLEntity.type = 'Type not recognized';
-			}
-			
+		XMLEntity.identifyEntityType = function () {		
+			if(XMLEntity.json.feed) { XMLEntity.type = "feed"; }
+			else if(XMLEntity.json.cluster) { XMLEntity.type = "cluster"; }
+			else if(XMLEntity.json.process) { XMLEntity.type = "process"; }
+			else { XMLEntity.type = 'Type not recognized'; }			
 		};
-		XMLEntity.validateEntity = function () {
-			
-			if(XMLEntity.type === "feed") {
-				if( XMLEntity.json.feed.ACL !== undefined && XMLEntity.json.feed.clusters !== undefined && XMLEntity.json.feed.frequency !== undefined && XMLEntity.json.feed.tags !== undefined && XMLEntity.json.feed.groups !== undefined && XMLEntity.json.feed.locations !== undefined && XMLEntity.json.feed.schema !== undefined) {
-					console.log('valid feed xml');
-					XMLEntity.valid = true;
-				}
-				else {
-					console.log('incomplete feed xml');
-					XMLEntity.valid = false;
-				}
-			}
-			else if(XMLEntity.type === "cluster") {
-				if( XMLEntity.json.cluster.interfaces !== undefined && XMLEntity.json.cluster.locations !== undefined ) {
-					console.log('valid cluster xml');
-					XMLEntity.valid = true;
-				}
-				else {
-					console.log('incomplete cluster xml');
-					XMLEntity.valid = false;
-				}
-			}
-			else if(XMLEntity.type === "process") {
-				if( XMLEntity.json.process.tags !== undefined && XMLEntity.json.process.clusters !== undefined && XMLEntity.json.process.parallel !== undefined && XMLEntity.json.process.order !== undefined && XMLEntity.json.process.frequency !== undefined && XMLEntity.json.process.outputs !== undefined && XMLEntity.json.process.workflow !== undefined && XMLEntity.json.process.retry !== undefined) {
-					console.log('valid process xml');
-					XMLEntity.valid = true;
-				}
-				else {
-					console.log('incomplete process xml');
-					XMLEntity.valid = false;
-				}
-			}
-			else {
-				XMLEntity.valid = false;
-			}
-			
-		};	
+	
 	    return XMLEntity;
 	    
 	}]);
@@ -106,7 +60,7 @@
 		X2jsService.xml_str2json = function (string) {
 			return x2js.xml_str2json( string );
 		};
-		X2jsService.json2xml = function (jsonObj) {
+		X2jsService.json2xml_str = function (jsonObj) {
 			return x2js.json2xml_str( jsonObj );
 		};
 
@@ -114,5 +68,37 @@
 	    return X2jsService;
 	    
 	}]);
+	
+	app.factory('FileApi', ["$http", "$q", function($http, $q) {
 		
+		var FileApi = {};
+		
+		FileApi.supported = (window.File && window.FileReader && window.FileList && window.Blob);
+		FileApi.errorMessage = 'The File APIs are not fully supported in this browser.';
+		
+		FileApi.loadFile = function (evt) {
+			
+			var deferred = $q.defer(),
+			    reader = new FileReader(), 
+				file = evt.target.files[0];
+				
+	        reader.onload = (function(theFile) {
+
+				reader.readAsText(theFile, "UTF-8");
+
+		        return function(e) {
+					deferred.resolve({
+						srcString: e.target.result,
+						fileDetails: theFile
+					});	
+		        };
+		        
+		    })(file);	
+		    
+		    return deferred.promise;	
+		};
+		
+		return FileApi; 
+	}]);
+	
 })();

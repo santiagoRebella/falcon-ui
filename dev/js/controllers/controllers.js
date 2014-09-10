@@ -14,68 +14,54 @@
 	  
 	}]);
 	
-	app.controller('homeCtrl', ["$scope", "Falcon", "XMLEntity", "$state", "X2jsService", function($scope, Falcon, XMLEntity, $state, X2jsService) {
+	app.controller('homeCtrl', [
+								"$scope", "Falcon", "FileApi", 
+								"XMLEntity", "$state", "X2jsService", 
+								"$rootScope", function($scope, Falcon, FileApi, XMLEntity, $state, X2jsService, $rootScope) {
 		
 		$scope.fileJson = {};
 	
 		$scope.handleFile = function (evt) {
-			
-			if (window.File && window.FileReader && window.FileList && window.Blob) {
-				
-			    var reader = new FileReader(), 
-					file = evt.target.files[0];
-				
-		        reader.onload = (function(theFile) {
-	
-					reader.readAsText(theFile, "UTF-8");
 
-			        return function(e) {
-			        	console.log(e.target);
-						console.log(e.target.result);
-						console.log(typeof e.target.result);
-			            //XMLEntity.json = X2jsService.xml_str2json( e.target.result );	
-			            XMLEntity.json = X2jsService.xml_str2json( e.target.result );	 
-			            XMLEntity.file = X2jsService.json2xml( XMLEntity.json );	 
-			            console.log(e.target.result);
-			            XMLEntity.identifyEntityType();
-			            XMLEntity.validateEntity();
-			            
-			            $scope.fileJson = {
-							name : file.name,
-							type : file.type || 'n/a',
-							modDate : file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a',
-							size : file.size,
-							content : e.target.result,
-							valid: XMLEntity.valid,
-							entityType: XMLEntity.type
-			            };
+			FileApi.loadFile(evt).then(function (data) {
 
-						$scope.$apply();   
-						$state.go('root.upload'); 
-					
-			        };
-			        
-			    })(file);
+				XMLEntity.json = X2jsService.xml_str2json( data.srcString );	 
+	            XMLEntity.identifyEntityType();
+	            Falcon.postValidateEntity(data.srcString, XMLEntity.type).success(function (data) {
+	            	console.log(data);
+	            	XMLEntity.valid = true;
+	            	$scope.fileJson.valid = true;
+	            }).error(function (err) {
+	            	console.log(err);
+	            	XMLEntity.valid = false;
+	            	$scope.fileJson.valid = false;
+	            });   
+	            
+	            $scope.fileJson = {
+					name : data.fileDetails.name,
+					type : data.fileDetails.type || 'n/a',
+					modDate : data.fileDetails.lastModifiedDate ? data.fileDetails.lastModifiedDate.toLocaleDateString() : 'n/a',
+					size : data.fileDetails.size,
+					content : data.srcString,
+					entityType: XMLEntity.type
+	            };
 
-	
-			} else {
-			    alert('The File APIs are not fully supported in this browser.');
-			}    
+			}).then( function() { 
+				$state.go('root.upload'); 
+			});
+			     
 		};
 		$scope.cancelUpload = function () {
 			console.info('upload cancelled');
 			$scope.fileJson = {};
 		};
 		$scope.confirmUpload = function () {
-			console.log(XMLEntity.file);
 			
-			var xmlToSend = X2jsService.json2xml(XMLEntity.json);
-			console.log(xmlToSend);
+			var xmlToSend = X2jsService.json2xml_str(XMLEntity.json);
 			
 			Falcon.postValidateEntity(xmlToSend, XMLEntity.type).success(function (data) {
 				console.log(data);
 			}).error(function (err) {
-				console.log('TTTTTTTTTTTTTTTTTTT');
 				console.log(err);
 			});
 		};

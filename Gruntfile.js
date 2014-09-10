@@ -1,6 +1,32 @@
 module.exports = function(grunt) {
 
-    grunt.initConfig({    
+	grunt.initConfig({  
+		copy: {
+		    main: {
+                cwd: 'dev/',
+		        src: ['js/**','html/*','index.html', 'css/main.css', 'css/fonts/*'],
+		        dest: 'prod/',
+		        expand: true
+		    }
+		},
+		scp: {
+		    options: {
+		        host: '127.0.0.1',
+		        username: 'root',
+		        password: 'hadoop',
+		        port: 2222
+		    },
+		    sandbox: {
+		        files: [{
+					cwd: 'prod',
+		            src: '**',
+		            filter: 'isFile',
+		           
+		            // path on the server
+		            dest: '/var/lib/falcon/webapp/falcon'
+		        }]
+		    }
+		},  
         uglify: {
             options: {
                 beautify: false,
@@ -37,14 +63,7 @@ module.exports = function(grunt) {
                 src: ["public/css/*.css"]
             }
         },
-        copy: {
-		    main: {
-                cwd: 'dev/',
-		        src: ['js/**','html/*','index.html', 'css/main.css', 'css/fonts/*'],
-		        dest: 'prod/',
-		        expand: true
-		    }
-		},
+        
         datauri: {
 		    "default": {
 		        options: {
@@ -123,7 +142,11 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask("default", ["express","watch"]); // van en orden primero el primero    
-
+	
+	grunt.registerTask("deploy", ["copy","scp"]);
+	
+	// grunt.registerTask("livedeploy", ["copy","scp"]); --- i need more time on this to configure it to listen changes and deploy auto
+	
     grunt.registerTask("data64", ["datauri"]);
 
     grunt.loadNpmTasks("grunt-contrib-uglify");
@@ -131,7 +154,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-less");
     grunt.loadNpmTasks("grunt-contrib-csslint");    
-    grunt.loadNpmTasks("grunt-contrib-copy");   
+    grunt.loadNpmTasks("grunt-contrib-copy");  
+    grunt.loadNpmTasks('grunt-scp'); 
     grunt.loadNpmTasks('grunt-express-server'); 
     grunt.loadNpmTasks('grunt-datauri');
 };
