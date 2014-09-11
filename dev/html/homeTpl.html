@@ -8,15 +8,30 @@
         		</div> Upload an entity
         	</div>
         	<div>
-        		<div type="button" class="btn btn-default" ng-click=""> 
-        			<span class="glyphicon glyphicon-plus-sign"></span> 
-        		</div> Create an entity
+        	    <div class="plusButton" ng-class="{hidden: plusButton.clicked===true}">
+            		<div class="btn btn-default" ng-click="plusButton.clicked=true"> 
+            			<span class="glyphicon glyphicon-plus-sign"></span> 
+            		</div> 
+            		Create an entity
+        		</div>
+        		<div class="btn btn-default hideGroupButton" ng-class="{shown: plusButton.clicked===true}"> 
+                    <div class="" ng-click="">
+                        <span class="glyphicon glyphicon-inbox"></span> Feed
+                    </div>
+                    <div class="" ng-click="">
+                        <span class="glyphicon glyphicon-refresh"></span> Process
+                    </div>
+                    <div class="" ng-click="">
+                        <span class="glyphicon glyphicon-cloud-upload"></span> Cluster
+                    </div>     
+                </div> 
+        		
+        		
+        		
         	</div>
         </div> 
     </div>      
 </div>
-
-<output id="list"></output>
 
 <div class="row" ui-view>
 	

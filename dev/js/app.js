@@ -14,8 +14,13 @@
                 templateUrl : 'html/homeTpl.html',
                 controller  : 'homeCtrl'
             })
-            .state('root.upload', {
-                templateUrl : 'html/uploadPreviewTpl.html'
+            .state('root.submitPreview', {
+                templateUrl : 'html/submitPreviewTpl.html',
+                controller: 'submitPreviewCtrl'
+            })
+            .state('root.submited', {
+                templateUrl : 'html/submitedTpl.html',
+                controller: 'submitedCtrl'
             })
             .state('exampleState', {
                 url: '/',

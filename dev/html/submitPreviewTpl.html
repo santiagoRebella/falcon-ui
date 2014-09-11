@@ -1,0 +1,19 @@
+<div class="col-sm-12" id="submitPreview">
+	<h4>Preview <span ng-class="{'text-danger':fileJson.valid === false, 'text-success':fileJson.valid === true}">{{fileJson.entityType}}</span></h4>
+	<h6>
+		<strong>{{ fileJson.name }}</strong> {{ fileJson.type }} type, {{ fileJson.size }} bytes, last modified: {{ fileJson.modDate }}
+    </h6>
+    
+    <div class="panel panel-default">
+        <div class="panel-body" ng-class="{'bg-success': fileJson.valid === true, 'bg-danger':fileJson.valid === false}">
+            <strong>Server validation</strong> 
+            <span ng-class="{'text-danger':fileJson.valid === false, 'text-success':fileJson.valid === true}">{{ fileJson.serverMessage.status }}</span> 
+            <small>{{ fileJson.serverMessage.message }} <span class="text-muted pull-right"> request ID -{{ fileJson.serverMessage.requestId }}</span></small>
+        </div>
+    </div>
+    
+    <pre ng-class="{'bg-success':fileJson.valid === true, 'bg-danger':fileJson.valid === false}"> {{ fileJson.content }} </pre>
+    
+    <div type="button" class="btn btn-primary pull-right" ng-disabled="!fileJson.valid" ng-click="confirmUpload()"> Submit </div>
+    <div type="button" class="btn btn-danger pull-right" ng-click="cancelUpload()" ui-sref="root"> Cancel </div>
+</div>

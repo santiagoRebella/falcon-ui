@@ -5,7 +5,7 @@
 	app.factory('Falcon', ["$http", function($http) {
 		
 		var Falcon = {},
-			USER_ID = 'dashboard';
+			USER_ID = 'admin';
 
 	    function add_user(url) {
 			var paramSeparator = (url.indexOf('?') != -1) ? '&' : '?';
@@ -19,17 +19,20 @@
             return $http.get(add_user('/api/admin/stack'));  
         };
         Falcon.postValidateEntity = function (xml, type) {   
-
-           // return $http.post(add_user('/api/entities/validate/' + type), xml, {headers: {'Content-Type': 'application/xml'} });  
-           return $http({
-                        method: "post",
-                        url: add_user('/api/entities/validate/' + type),
-                        dataType: 'xml',
-                        data: xml,
-                        headers: {"Content-Type":"text/plain"}
-                    });
-           
+           return $http.post(add_user('/api/entities/validate/' + type), xml, { headers: {'Content-Type': 'text/plain'} });  
         };
+        Falcon.postSubmitEntity = function (xml, type) {   
+           return $http.post(add_user('/api/entities/submit/' + type), xml, { headers: {'Content-Type': 'text/plain'} });  
+        };
+        Falcon.deleteEntity = function (type, name) {   
+           return $http.delete(add_user('api/entities/delete/' + type + '/' + name));  
+        };
+        Falcon.getEntities = function (type) {   
+            return $http.get(add_user('/api/entities/list/' + type +'?fields=:fields'));  
+        };
+        
+        
+        
         //----------------------------------------------//
 	    return Falcon;
 	    
