@@ -18,15 +18,17 @@
                 templateUrl : 'html/submitPreviewTpl.html',
                 controller: 'submitPreviewCtrl'
             })
-            .state('root.submited', {
-                templateUrl : 'html/submitedTpl.html',
-                controller: 'submitedCtrl'
+            .state('root.dashboard', {
+                templateUrl : 'html/dashboardTpl.html',
+                controller: 'dashboardCtrl'
             })
-            .state('exampleState', {
-                url: '/',
-                templateUrl : 'html/exampleTpl.html',
-                controller  : 'homeCtrl'
-            });          
+            .state('root.forms', {
+                templateUrl : 'html/formsTpl.html',
+                controller: 'formCtrl'
+            })   
+            .state('root.forms.cluster', {
+                templateUrl : 'html/clusterFormTpl.html'
+            });        
     }]);
     
 })();

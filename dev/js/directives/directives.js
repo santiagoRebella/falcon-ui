@@ -23,6 +23,35 @@
 	    };
 	});
 	
-	
+	app.directive('listTable', function() {
+        return {
+            scope: {
+                input: "=",
+                edit: "=",
+                clone: "=",
+                remove: "=",
+                relations: "=",
+                caption:"@"
+            },
+            restrict: "EA",
+            templateUrl: 'html/tableDv.html',
+            link: function (scope, element, attrs) { 
+                scope.info = {};
+                
+                scope.$watch('input', function() {
+                    if(scope.input.length < 1) {
+                        scope.info.empty = true;
+                    }
+                    else {
+                        scope.info.empty = false;
+                    }
+                }, true);
+                
+                
+                
+
+            }
+        };
+    });
 	
 })();

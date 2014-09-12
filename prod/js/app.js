@@ -18,9 +18,9 @@
                 templateUrl : 'html/submitPreviewTpl.html',
                 controller: 'submitPreviewCtrl'
             })
-            .state('root.submited', {
-                templateUrl : 'html/submitedTpl.html',
-                controller: 'submitedCtrl'
+            .state('root.dashboard', {
+                templateUrl : 'html/dashboardTpl.html',
+                controller: 'dashboardCtrl'
             })
             .state('exampleState', {
                 url: '/',

@@ -5,7 +5,7 @@
 	app.factory('Falcon', ["$http", function($http) {
 		
 		var Falcon = {},
-			USER_ID = 'admin';
+			USER_ID = 'dashboard';
 
 	    function add_user(url) {
 			var paramSeparator = (url.indexOf('?') != -1) ? '&' : '?';

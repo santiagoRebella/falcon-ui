@@ -24,6 +24,7 @@
     font-size: 20px;
     margin: 0;
     color: white;
+    cursor:pointer;
   }
 }   
 .navbar-default .navbar-nav > .active > a, 
@@ -44,11 +45,12 @@
 .wrappingHomeBox {
   text-align: center;
   padding: 50px 0 10px 0;
-
+  
   >div {
     display: inline-block;
     border: 1px solid @gray;
     border-radius: 5px;   
+    min-width: 390px;
   }
   >div>div {
     display: inline-block;
@@ -110,7 +112,7 @@
   }
 }
 //--------------------root.upload----------------//
-#submitPreview {
+#submitPreview { 
   > pre {
     font-size: 10px;
   }
@@ -120,4 +122,10 @@
   .panel {
     margin-left: 0;
   }
+} 
+#dashboard {
+  .buttonCell { width: 5%; }
+  .typeCell { width: 10%; }
+  .nameCell { width: 30%; }
+  
 }
