@@ -149,5 +149,16 @@
         };
         
        
+    }]);  
+    
+    app.controller('formCtrl', [ "$scope", "Falcon", "XMLEntity", "$state", "X2jsService", 
+                                           function($scope, Falcon, XMLEntity, $state, X2jsService) {     
+
+        $scope.entity = {};
+        
+        
+       
     }]);    
+    
+      
 })();

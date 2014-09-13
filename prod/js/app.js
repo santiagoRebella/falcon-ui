@@ -22,11 +22,13 @@
                 templateUrl : 'html/dashboardTpl.html',
                 controller: 'dashboardCtrl'
             })
-            .state('exampleState', {
-                url: '/',
-                templateUrl : 'html/exampleTpl.html',
-                controller  : 'homeCtrl'
-            });          
+            .state('root.forms', {
+                templateUrl : 'html/formsTpl.html',
+                controller: 'formCtrl'
+            })   
+            .state('root.forms.cluster', {
+                templateUrl : 'html/clusterFormTpl.html'
+            });        
     }]);
     
 })();
