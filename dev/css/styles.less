@@ -1,66 +1,58 @@
 //--------------my mixins--------------------//
 .transition (@prop: all, @time: 1s, @ease: linear) {
   -webkit-transition: @prop @time @ease;
-     -moz-transition: @prop @time @ease;
+     -moz-transition: @prop @time @ease;    
        -o-transition: @prop @time @ease;
-      -ms-transition: @prop @time @ease;
+      -ms-transition: @prop @time @ease; 
           transition: @prop @time @ease;
-}
+}  
 //-------------------------------------------//
 
 [ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{
   display:none !important;
 }
 .mainUIView {
-  padding: 10px 0 30px 0;
+  //padding: 10px 0 30px 0;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 //---------navHeader----------------------//
 .navbar {
   background-color: @headerNavBG;
   border-bottom: 1px solid black;
   margin-bottom:0;
-  h1 {
-    line-height: 50px;
-    font-size: 20px;
-    margin: 0;
-    color: white;
-    cursor:pointer;
-  }
 }   
-.navbar-default .navbar-nav > .active > a, 
-.navbar-default .navbar-nav > .active > a:hover, 
-.navbar-default .navbar-nav > .active > a:focus {
-  background-color: black;
+.navbar-right{ margin:5px; }
+.navbar-header{ 
+  margin: 0 5px; 
+  line-height: 50px;
+  font-size: 20px;
   color: white;
-}
-.navbar-default .navbar-nav > li > a {
-  color: black;
-}
-.navbar-nav.navbar-right:last-child {
-  margin: 5px;
-
+  cursor:pointer;
 }
 //-----------------------------------------//
-//----------------HOME---------------------//
+//----------------landing---------------------//
 .wrappingHomeBox {
   text-align: center;
-  padding: 50px 0 10px 0;
+  padding: 10px 0; 
+  h2 { font-weight: 0.7;}
+  h4 { color: @gray-light2; margin-top: 35px; }
   
-  >div {
-    display: inline-block;
-    border: 1px solid @gray;
-    border-radius: 5px;   
-    min-width: 390px;
+  .createHomeSection {
+    border-bottom: 1px solid @gray-light2;
+    padding-bottom: 25px;
+    div {
+      display: inline-block;
+      margin: 5px 10px;
+      cursor: pointer;
+    }
   }
-  >div>div {
-    display: inline-block;
-  }
-
 }
 .btn-file {
+    cursor: pointer;
     position: relative;
     overflow: hidden;
-    margin: 40px 0 40px 30px;
+   // margin: 40px 0 40px 30px;
 }
 .btn-file input[type=file] {
     position: absolute;
@@ -77,40 +69,8 @@
     cursor: inherit;
     display: block;
 }
-.plusButton {
-  display: inline-block;
-  margin: 40px 0 40px 30px;
-}
-.hideGroupButton { 
-  overflow: hidden;
-  display: inline-block;
-  margin: 40px 0 40px 30px;
-  width:0;
-  padding: 0;
-  border-width: 0;
-  &:active {
-    .box-shadow(inset 0 0 0 rgba(0,0,0,.125));
-  }
-  &:hover {
-    background-color: white;
-  }
-  .transition(width, 1s, ease-out);
-  &.shown {
-    width:229px;
-    border-width: 1px;
-    margin-right: 30px;
-  }
-  div {
-    display: inline-block;
-    padding:6px 6px;
-    &:hover {
-      background-color: #CCC;
-    }
-    &:active {
-      .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
-    }
-  }
-}
+
+
 //--------------------root.upload----------------//
 #submitPreview { 
   > pre {
@@ -128,4 +88,68 @@
   .typeCell { width: 10%; }
   .nameCell { width: 30%; }
   
+}
+//----------------main---------------------------------//
+#main { text-align: center; }
+ 
+.alert {
+  .transition(opacity, 1s, ease-out);
+  opacity:1;
+  &.alertFade {
+    opacity:0; 
+  }
+}
+
+.d3placeholder {
+  background-color: gray;
+  border: 1px solid black;
+  font-size: 25px;
+  margin:0 auto;
+  padding: 50px 0;
+  width: 600px;
+}
+.buttonsWrapper {
+  text-align: center;
+}
+.buttonsMain {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid @gray-light;
+  border-radius: 5px;
+  margin:10px;
+  //text-align: center;
+}
+.plusButton {
+  display: inline-block;
+  margin-right: -3px;
+}
+.hideGroupButton { 
+  overflow: hidden;
+  margin: 0;
+  width:0;
+  padding: 0;
+  border-width: 0;
+  
+  &:active {
+    .box-shadow(inset 0 0 0 rgba(0,0,0,.125));
+  }
+  &:hover {
+    background-color: white;
+  }
+  .transition(width, 1s, ease-out);
+  &.shown {
+    width:229px;
+    border-width: 1px;
+  }
+  >div {
+    display: inline-block;
+    padding:6px 6px;
+    &:hover {
+      background-color: #CCC;
+    }
+    &:active {
+      .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
+    }
+    
+  }
 }

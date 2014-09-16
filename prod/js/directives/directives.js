@@ -4,7 +4,7 @@
 	
 	app.directive('navHeader', function () {
 		return {
-			replace:true,
+			replace:false,
 			restrict: 'A',
 			templateUrl: 'html/navTpl.html',
 			controller: 'headerCtrl'

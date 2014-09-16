@@ -1,0 +1,28 @@
+
+<div class="col-sm-4 col-sm-offset-4 wrappingHomeBox">
+    <h2>Welcome to Falcon</h2>
+   
+        <div class="createHomeSection">
+        <h4>Create an entity</h4>
+        <div ui-sref="main.forms.cluster">
+            <span class="entypo archive"></span> Cluster
+        </div>
+        <div ui-sref="main.forms.feed">
+            <span class="entypo download"></span> Feed
+        </div>
+        <div ui-sref="main.forms.process">
+            <span class="entypo cycle"></span> Process
+        </div>
+           
+    </div>
+	<div>
+	    <h4>or Submit it</h4>
+		<div class="btn-file">
+			<span class="entypo up"></span> 
+			<input type="file" id="files" name="files[]" multiple fileinput-change="handleFile" ng-model="fileJson">
+			<u> Browse for the XML file </u>
+		</div> 
+	</div>
+</div>      
+
+

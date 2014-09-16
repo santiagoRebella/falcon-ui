@@ -14,83 +14,48 @@
 	  
 	}]);
 	
-	app.controller('homeCtrl', [ "$scope", "Falcon", "FileApi", "XMLEntity", "$state", "X2jsService",  
-	                             function($scope, Falcon, FileApi, XMLEntity, $state, X2jsService) {
+	app.controller('rootCtrl', [ "$scope", "$timeout", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",  
+	                             function($scope, $timeout, Falcon, FileApi, EntityModel, $state, X2jsService) {
 		
 		$scope.fileJson = {};
 	
 		$scope.handleFile = function (evt) {
 
-			FileApi.loadFile(evt).then(function (data) {
-
-				XMLEntity.json = X2jsService.xml_str2json( data.srcString );	 
-	            XMLEntity.identifyEntityType();
-	            
-	            Falcon.postValidateEntity(data.srcString, XMLEntity.type).success(function (response) {
-                    XMLEntity.valid = true;
-                    $scope.fileJson.valid = true;
-                    $scope.fileJson.serverMessage = response;
-                    XMLEntity.response = response;
+			FileApi.loadFile(evt).then(function () {       
+	            Falcon.postSubmitEntity(FileApi.fileRaw, EntityModel.type).success(function (response) {
+                    $scope.valid = true;
+                    $scope.serverResponse = response;
+                    $state.go('main'); 
+                    $timeout(function() {
+                        $scope.serverResponse.status = undefined;
+                    }, 3000);
+               
 	            }).error(function (err) {   
 	                var error = X2jsService.xml_str2json( err );            
-                    XMLEntity.valid = false;                 
-                    $scope.fileJson.valid = false;                                        
-                    $scope.fileJson.serverMessage = error.result;
-                    XMLEntity.response = error;
+                    $scope.valid = false;                 
+                    $scope.serverResponse = error.result; 
+                    console.log($scope.serverResponse);
+                    console.log(err);
+                    $state.go('main'); 
 	            });   
-	            
-	            $scope.fileJson = {
-					name : data.fileDetails.name,
-					type : data.fileDetails.type || 'n/a',
-					modDate : data.fileDetails.lastModifiedDate ? data.fileDetails.lastModifiedDate.toLocaleDateString() : 'n/a',
-					size : data.fileDetails.size,
-					content : data.srcString,
-					entityType: XMLEntity.type					
-	            };
-
-			}).then( function() { 
-				$state.go('root.submitPreview'); 
 			});
 			     
 		};		
        
 	}]);	
 	
-	app.controller('submitPreviewCtrl', [ "$scope", "Falcon", "XMLEntity", "$state", "X2jsService", 
-                                           function($scope, Falcon, XMLEntity, $state, X2jsService) {     
-
-        $scope.cancelUpload = function () {
-            console.info('upload cancelled');
+	app.controller('mainCtrl', [ "$scope", "Falcon", "EntityModel", "FileApi", "$state", "X2jsService", 
+                                           function($scope, Falcon, EntityModel, FileApi, $state, X2jsService) {     
+        $scope.closeAlert = function () {
+            $scope.serverResponse.status = undefined;
         };
-        $scope.confirmUpload = function () {
-            
-            var xmlToSend = X2jsService.json2xml_str(XMLEntity.json);
-            
-            Falcon.postSubmitEntity(xmlToSend, XMLEntity.type).success(function (data) {
-                XMLEntity.serverMessage = data;               
-                XMLEntity.showServerMessage = true;      
-                $state.go('root.dashboard'); 
-            }).error(function (err) {   
-                $scope.$parent.fileJson.serverMessage = X2jsService.xml_str2json( err ).result;
-                $scope.$parent.fileJson.valid = false;  
-            });
-        };
-        
-       
-    }]);    
+  
+    }]); 
     
-    app.controller('dashboardCtrl', [ "$scope", "Falcon", "FileApi", "XMLEntity", "$state", "X2jsService",
-                                     function($scope, Falcon, FileApi, XMLEntity, $state, X2jsService) {
+    app.controller('dashboardCtrl', [ "$scope", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",
+                                     function($scope, Falcon, FileApi, EntityModel, $state, X2jsService) {
         
-        $scope.showServerMessage = (function() { return XMLEntity.showServerMessage; })();
         
-        if($scope.showServerMessage === true) {
-            $scope.fileJson = {
-                serverMessage : XMLEntity.serverMessage,
-                type : XMLEntity.type,
-                valid : XMLEntity.valid
-            };   
-        }
         $scope.lists = {};
         $scope.lists.feedList = [];
         $scope.lists.clusterList = [];
@@ -139,7 +104,8 @@
                 .error(function (err) { console.log( err ); });  
         };
         $scope.cloneEntity = function (type, name) {         
-            console.log("clone " + type + " - " + name);
+            Falcon.getEntityDefinition(type, name).success(function (data) { console.log( data ); })
+                .error(function (err) { console.log( err ); });  
         };
         $scope.editEntity = function (type, name) {         
             console.log("edit " + type + " - " + name);
@@ -151,8 +117,8 @@
        
     }]);  
     
-    app.controller('formCtrl', [ "$scope", "Falcon", "XMLEntity", "$state", "X2jsService", 
-                                           function($scope, Falcon, XMLEntity, $state, X2jsService) {     
+    app.controller('formCtrl', [ "$scope", "Falcon", "EntityModel", "$state", "X2jsService", 
+                                           function($scope, Falcon, EntityModel, $state, X2jsService) {     
 
         $scope.entity = {};
         

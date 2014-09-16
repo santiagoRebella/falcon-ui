@@ -31,6 +31,10 @@
             return $http.get(add_user('/api/entities/list/' + type +'?fields=:fields'));  
         };
         
+        Falcon.getEntityDefinition = function (type, name) {   
+            return $http.get(add_user('api/entities/definition/' + type + '/'+ name));  
+        };
+        
         
         
         //----------------------------------------------//
@@ -38,20 +42,24 @@
 	    
 	}]);
 	
-	app.factory('XMLEntity', ["$http", function($http) {
+	app.factory('EntityModel', ["$http", "X2jsService", function($http, X2jsService) {
 		
-		var XMLEntity = {};
+		var EntityModel = {};
 		
-		XMLEntity.json = null;
+		EntityModel.json = null;
 		
-		XMLEntity.identifyEntityType = function () {		
-			if(XMLEntity.json.feed) { XMLEntity.type = "feed"; }
-			else if(XMLEntity.json.cluster) { XMLEntity.type = "cluster"; }
-			else if(XMLEntity.json.process) { XMLEntity.type = "process"; }
-			else { XMLEntity.type = 'Type not recognized'; }			
-		};
+		EntityModel.identifyType = function(json) {      
+            if(json.feed) { EntityModel.type = "feed"; }
+            else if(json.cluster) { EntityModel.type = "cluster"; }
+            else if(json.process) { EntityModel.type = "process"; }
+            else { EntityModel.type = 'Type not recognized'; }            
+        };
+        EntityModel.getJson = function(xmlString) { 
+            EntityModel.json = X2jsService.xml_str2json( xmlString );
+            return EntityModel.identifyType(EntityModel.json);  
+        };
 	
-	    return XMLEntity;
+	    return EntityModel;
 	    
 	}]);
 	
@@ -72,12 +80,15 @@
 	    
 	}]);
 	
-	app.factory('FileApi', ["$http", "$q", function($http, $q) {
+	app.factory('FileApi', ["$http", "$q", "EntityModel", function($http, $q, EntityModel) {
 		
 		var FileApi = {};
 		
 		FileApi.supported = (window.File && window.FileReader && window.FileList && window.Blob);
 		FileApi.errorMessage = 'The File APIs are not fully supported in this browser.';
+		
+		FileApi.fileDetails = "No file loaded";
+		FileApi.fileRaw = "No file loaded";
 		
 		FileApi.loadFile = function (evt) {
 			
@@ -90,10 +101,10 @@
 				reader.readAsText(theFile, "UTF-8");
 
 		        return function(e) {
-					deferred.resolve({
-						srcString: e.target.result,
-						fileDetails: theFile
-					});	
+		            FileApi.fileRaw = e.target.result; 
+                    FileApi.fileDetails = theFile;                   
+		            EntityModel.getJson(FileApi.fileRaw); 
+					deferred.resolve();	
 		        };
 		        
 		    })(file);	

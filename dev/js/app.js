@@ -9,25 +9,24 @@
         $urlRouterProvider.otherwise("/");
         
         $stateProvider
-            .state('root', {
+            .state('landing', {
                 url: '/',
-                templateUrl : 'html/homeTpl.html',
-                controller  : 'homeCtrl'
+                templateUrl : 'html/landingTpl.html'
             })
-            .state('root.submitPreview', {
-                templateUrl : 'html/submitPreviewTpl.html',
-                controller: 'submitPreviewCtrl'
+            .state('main', {
+                templateUrl : 'html/mainTpl.html',
+                controller: 'mainCtrl'
             })
-            .state('root.dashboard', {
-                templateUrl : 'html/dashboardTpl.html',
-                controller: 'dashboardCtrl'
-            })
-            .state('root.forms', {
+            .state('main.forms', {
                 templateUrl : 'html/formsTpl.html',
                 controller: 'formCtrl'
             })   
-            .state('root.forms.cluster', {
+            .state('main.forms.cluster', {
                 templateUrl : 'html/clusterFormTpl.html'
+            })
+            .state('main.dashboard', {
+                templateUrl : 'html/dashboardTpl.html',
+                controller: 'dashboardCtrl'
             });        
     }]);
     
