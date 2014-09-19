@@ -47,6 +47,7 @@
                     }
                     else {
                         scope.info.empty = false;
+                        
                     }
                 }, true);
                 

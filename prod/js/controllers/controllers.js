@@ -48,6 +48,7 @@
             }, function() {
                 $scope.serverResponse = Falcon.serverResponse; 
                 $scope.success = Falcon.success; 
+                refreshLists(); 
         }, true);
         
         
@@ -97,8 +98,7 @@
             Falcon.deleteEntity(type, name)
                 .success(function (data) { 
                     Falcon.success = true;
-                    Falcon.serverResponse = response;
-                    refreshLists(); 
+                    Falcon.serverResponse = data; 
                 })
                 .error(function (err) { 
                     var error = X2jsService.xml_str2json(err);            
@@ -123,7 +123,8 @@
         $scope.editEntity = function (type, name) {         
             Falcon.getEntityDefinition(type, name)
                 .success(function (data) {             
-                    EntityModel.clusterModel = X2jsService.xml_str2json(data);                         
+                    EntityModel.clusterModel = X2jsService.xml_str2json(data);    
+                    $scope.editingMode = true;                     
                     $state.go('main.forms.' + type + ".general");
                  })
                 .error(function (err) { 
@@ -154,6 +155,7 @@
     
     app.controller('clusterFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
                                            function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
+        
         $scope.secondStep = false;  
         $scope.newLocation = {};
         $scope.clusterEntity = EntityModel.clusterModel;
@@ -180,13 +182,13 @@
        }; 
        
        $scope.goSummaryStep = function () {
-           //takes out the $$hashKey from object
+           
+           //takes out the $$hashKey from object      
            $scope.jsonString = angular.toJson($scope.clusterEntity);
            //goes back to js to have x2js parse it correctly
            $scope.jsonString = JSON.parse($scope.jsonString);
            $scope.jsonString = X2jsService.json2xml_str($scope.jsonString);  
-           $scope.secondStep = true;     
-           console.log($scope.secondStep);   
+           $scope.secondStep = true;        
        };
        $scope.goGeneralStep = function () {
            $scope.secondStep = false;     
@@ -195,6 +197,24 @@
        $scope.saveCluster = function () {
         
            Falcon.postSubmitEntity($scope.jsonString, "cluster").success(function (response) {
+                Falcon.success = true;
+                Falcon.serverResponse = response;
+                $state.go('main'); 
+                $timeout(function() {
+                    Falcon.serverResponse = { serverResponse: null, success: null };
+                }, 5000); 
+            }).error(function (err) {   
+                var error = X2jsService.xml_str2json(err);            
+                Falcon.success = false;                 
+                Falcon.serverResponse = error.result; 
+                $state.go('main'); 
+            }); 
+           
+           
+       };
+       
+       $scope.updateCluster = function () {
+           Falcon.postUpdateEntity($scope.jsonString, "cluster", $scope.clusterEntity.cluster._name).success(function (response) {
                 Falcon.success = true;
                 Falcon.serverResponse = response;
                 $state.go('main'); 

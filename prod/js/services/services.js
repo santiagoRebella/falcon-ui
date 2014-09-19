@@ -27,6 +27,12 @@
         Falcon.postSubmitEntity = function (xml, type) {   
            return $http.post(add_user('/api/entities/submit/' + type), xml, { headers: {'Content-Type': 'text/plain'} });  
         };
+        Falcon.postUpdateEntity = function (xml, type, name) { 
+            console.log(name);  
+           return $http.post(add_user('/api/entities/update/' + type + '/' + name), xml, { headers: {'Content-Type': 'text/plain'} });  
+        };
+        
+        
         Falcon.deleteEntity = function (type, name) {   
            return $http.delete(add_user('api/entities/delete/' + type + '/' + name));  
         };
@@ -68,51 +74,40 @@
                  interface:[  
                     {  
                        _type:"readonly",
-                       _endpoint:"hftp://sandbox.hortonworks.com:50070",
-                       _version:"2.2.0"
+                       _endpoint:"hftp://",
+                       _version:""
                     },
                     {  
                        _type:"write",
-                       _endpoint:"hdfs://sandbox.hortonworks.com:8020",
-                       _version:"2.2.0"
+                       _endpoint:"hdfs://",
+                       _version:""
                     },
                     {  
                        _type:"execute",
-                       _endpoint:"sandbox.hortonworks.com:8050",
-                       _version:"2.2.0"
+                       _endpoint:"",
+                       _version:""
                     },
                     {  
                        _type:"workflow",
-                       _endpoint:"http://sandbox.hortonworks.com:11000/oozie/",
-                       _version:"4.0.0"
+                       _endpoint:"http://",
+                       _version:""
                     },
                     {  
                        _type:"messaging",
-                       _endpoint:"tcp://sandbox.hortonworks.com:61616?daemon=true",
-                       _version:"5.1.6"
+                       _endpoint:"tcp://",
+                       _version:""
                     }
                  ]
               },
               locations:{  
                  location:[  
-                    {  
-                       _name:"staging",
-                       _path:"/apps/falcon/backupCluster/staging"
-                    },
-                    {  
-                       _name:"temp",
-                       _path:"/tmp"
-                    },
-                    {  
-                       _name:"working",
-                       _path:"/apps/falcon/backupCluster/working"
-                    }
+                    
                  ]
               },
               _xmlns:"uri:falcon:cluster:0.1",
-              _name:"backupCluster",
-              _description:"virginiaHadoopCluster",
-              _colo:"USEastVirginia"
+              _name:"",
+              _description:"",
+              _colo:""
            }
         };
 	    
