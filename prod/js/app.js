@@ -19,10 +19,17 @@
             })
             .state('main.forms', {
                 templateUrl : 'html/formsTpl.html',
-                controller: 'formCtrl'
+                
             })   
             .state('main.forms.cluster', {
+                controller: 'clusterFormCtrl',
                 templateUrl : 'html/clusterFormTpl.html'
+            })
+            .state('main.forms.cluster.general', {
+                templateUrl : 'html/clusterFormGeneralStepTpl.html'
+            })
+            .state('main.forms.cluster.summary', {
+                templateUrl : 'html/clusterFormSummaryStepTpl.html'
             })
             .state('main.dashboard', {
                 templateUrl : 'html/dashboardTpl.html',

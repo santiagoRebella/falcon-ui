@@ -1,14 +1,26 @@
 
-<div class="col-sm-10 col-sm-offset-1 alert alert-dismissible" ng-class="{'alert-success': valid, 'alert-danger': !valid}" ng-show='serverResponse.status'>  
+<div class="col-sm-20 col-sm-offset-2 alert" ng-class="{'alert-success': success, 'alert-danger': !success}" ng-show='serverResponse.status'>  
     {{ serverResponse.status }} {{ serverResponse.message }}        
     <span class="entypo cross pull-right" ng-show='serverResponse.status === "FAILED"' ng-click="closeAlert()"></span>  
 </div>
 
-<div class="col-sm-12">  
-    <div class="d3placeholder">D3 diagram</div>          
+<div class="col-sm-24 dashboardBox">   
+   
+    <div class="col-sm-6 col-sm-offset-3">
+        <entities-list input="lists.clusterList" caption="Clusters" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
+  
+    </div>  
+    <div class="col-sm-6">
+        <entities-list input="lists.feedList" caption="Feeds" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
+        
+    </div>  
+    <div class="col-sm-6">
+        <entities-list input="lists.processList" caption="Processes" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
+        
+    </div>         
 </div> 
 
-<div class="col-sm-12"> 
+<div class="col-sm-24"> 
     <div class="buttonsWrapper">
         <div class="buttonsMain"> 
             
@@ -24,7 +36,7 @@
                 </div> 
             </div>
             <div class="btn btn-default hideGroupButton" ng-class="{shown: plusButton.clicked===true}"> 
-                <div ui-sref="main.forms.cluster">
+                <div ui-sref="main.forms.cluster.general">
                     <span class="entypo archive"></span> Cluster
                 </div>
                 <div ui-sref="main.forms.feed">
@@ -39,6 +51,6 @@
     </div>   
 </div>             
 
-<div class="col-sm-12" ui-view>
+<div class="col-sm-24" ui-view>
     
 </div>

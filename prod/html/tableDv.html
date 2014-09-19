@@ -1,7 +1,7 @@
 <div class="table-responsive">
-    <table class="table table-hover table-striped">
+    <table class="">
         <caption>
-            <h4> Your list of <span class="text-primary">{{caption}}</span></h4>
+            <h4> <span class="text-primary">{{caption}}</span></h4>
         </caption>
         
         <thead>       
@@ -9,7 +9,6 @@
             
             <tr ng-hide="info.empty">
                 <td class="typeCell"> Name </td>
-                <td class="nameCell"> Type</td>
                 <td class="buttonCell"> Clone</td>
                 <td class="buttonCell"> Edit </td>
                 <td class="buttonCell"> Remove </td>
@@ -18,7 +17,6 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in input">
-                <td class="typeCell">{{item.type}}</td>
                 <td class="nameCell">{{item.name}}</td>
                 <td class="buttonCell">
                     <div class="btn btn-info btn-xs" ng-click="clone(item.type, item.name)">  
@@ -35,11 +33,7 @@
                         <span class="glyphicon glyphicon-remove"></span> remove 
                     </div>
                 </td>
-                <td class="buttonCell">
-                    <div class="btn btn-primary btn-xs" ng-click="relations(item.type, item.name)">  
-                        <span class="glyphicon glyphicon-link"></span> relations 
-                    </div>
-                </td>  
+                
             </tr>
         </tbody>
     </table>

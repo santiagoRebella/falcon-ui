@@ -16,26 +16,22 @@
 	
 	app.controller('rootCtrl', [ "$scope", "$timeout", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",  
 	                             function($scope, $timeout, Falcon, FileApi, EntityModel, $state, X2jsService) {
-		
-		$scope.fileJson = {};
 	
 		$scope.handleFile = function (evt) {
 
 			FileApi.loadFile(evt).then(function () {       
 	            Falcon.postSubmitEntity(FileApi.fileRaw, EntityModel.type).success(function (response) {
-                    $scope.valid = true;
-                    $scope.serverResponse = response;
+                    Falcon.success = true;
+                    Falcon.serverResponse = response;
                     $state.go('main'); 
                     $timeout(function() {
-                        $scope.serverResponse.status = undefined;
-                    }, 3000);
+                        Falcon.serverResponse = { serverResponse: null, success: null };
+                    }, 5000);
                
 	            }).error(function (err) {   
-	                var error = X2jsService.xml_str2json( err );            
-                    $scope.valid = false;                 
-                    $scope.serverResponse = error.result; 
-                    console.log($scope.serverResponse);
-                    console.log(err);
+	                var error = X2jsService.xml_str2json(err);            
+                    Falcon.success = false;                 
+                    Falcon.serverResponse = error.result; 
                     $state.go('main'); 
 	            });   
 			});
@@ -45,15 +41,14 @@
 	}]);	
 	
 	app.controller('mainCtrl', [ "$scope", "Falcon", "EntityModel", "FileApi", "$state", "X2jsService", 
-                                           function($scope, Falcon, EntityModel, FileApi, $state, X2jsService) {     
-        $scope.closeAlert = function () {
-            $scope.serverResponse.status = undefined;
-        };
-  
-    }]); 
-    
-    app.controller('dashboardCtrl', [ "$scope", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",
-                                     function($scope, Falcon, FileApi, EntityModel, $state, X2jsService) {
+                                           function($scope, Falcon, EntityModel, FileApi, $state, X2jsService) {    
+        $scope.serverResponse = Falcon.serverResponse; 
+        $scope.$watch(function () { 
+                return Falcon.serverResponse; 
+            }, function() {
+                $scope.serverResponse = Falcon.serverResponse; 
+                $scope.success = Falcon.success; 
+        }, true);
         
         
         $scope.lists = {};
@@ -100,30 +95,121 @@
  
         $scope.deleteEntity = function (type, name) {         
             Falcon.deleteEntity(type, name)
-                .success(function (data) { console.log( data ); refreshLists(); })
-                .error(function (err) { console.log( err ); });  
+                .success(function (data) { 
+                    Falcon.success = true;
+                    Falcon.serverResponse = response;
+                    refreshLists(); 
+                })
+                .error(function (err) { 
+                    var error = X2jsService.xml_str2json(err);            
+                    Falcon.success = false;                 
+                    Falcon.serverResponse = error.result;  
+                
+                });  
         };
         $scope.cloneEntity = function (type, name) {         
-            Falcon.getEntityDefinition(type, name).success(function (data) { console.log( data ); })
-                .error(function (err) { console.log( err ); });  
+            Falcon.getEntityDefinition(type, name)
+                .success(function (data) {             
+                    EntityModel.clusterModel = X2jsService.xml_str2json(data);            
+                    EntityModel.clusterModel.cluster._name = "";               
+                    $state.go('main.forms.' + type + ".general");
+                 })
+                .error(function (err) { 
+                    var error = X2jsService.xml_str2json(err);            
+                    Falcon.success = false;                 
+                    Falcon.serverResponse = error.result;  
+                 });  
         };
         $scope.editEntity = function (type, name) {         
-            console.log("edit " + type + " - " + name);
+            Falcon.getEntityDefinition(type, name)
+                .success(function (data) {             
+                    EntityModel.clusterModel = X2jsService.xml_str2json(data);                         
+                    $state.go('main.forms.' + type + ".general");
+                 })
+                .error(function (err) { 
+                    var error = X2jsService.xml_str2json(err);            
+                    Falcon.success = false;                 
+                    Falcon.serverResponse = error.result;  
+                 });  
+        };
+        $scope.playEntity = function (type, name) {         
+            console.log("play " + type + " - " + name);
+        };
+        $scope.stopEntity = function (type, name) {         
+            console.log("stop " + type + " - " + name);
+        };
+        $scope.pauseEntity = function (type, name) {         
+            console.log("pause " + type + " - " + name);
         };
         $scope.relationsEntity = function (type, name) {         
             console.log("relations " + type + " - " + name);
         };
-        
-       
-    }]);  
+                                              
+                                                
+        $scope.closeAlert = function () {
+            $scope.serverResponse.status = undefined;
+        };
+  
+    }]); 
     
-    app.controller('formCtrl', [ "$scope", "Falcon", "EntityModel", "$state", "X2jsService", 
-                                           function($scope, Falcon, EntityModel, $state, X2jsService) {     
-
-        $scope.entity = {};
-        
-        
+    app.controller('clusterFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
+                                           function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
+        $scope.secondStep = false;  
+        $scope.newLocation = {};
+        $scope.clusterEntity = EntityModel.clusterModel;
+        $scope.$watch(function () { 
+                return EntityModel.clusterModel; 
+            }, function() {
+                $scope.clusterEntity = EntityModel.clusterModel;
+        }, true);    
+            
        
+       
+       $scope.addLocation = function () {   
+           if(!$scope.newLocation._name || !$scope.newLocation._path) {
+               console.log('location empty');  
+           }    
+           else {
+               $scope.clusterEntity.cluster.locations.location.push($scope.newLocation);
+               $scope.newLocation = {};
+           }   
+             
+       };
+       $scope.removeLocation = function (index) {
+           $scope.clusterEntity.cluster.locations.location.splice(index, 1);
+       }; 
+       
+       $scope.goSummaryStep = function () {
+           //takes out the $$hashKey from object
+           $scope.jsonString = angular.toJson($scope.clusterEntity);
+           //goes back to js to have x2js parse it correctly
+           $scope.jsonString = JSON.parse($scope.jsonString);
+           $scope.jsonString = X2jsService.json2xml_str($scope.jsonString);  
+           $scope.secondStep = true;     
+           console.log($scope.secondStep);   
+       };
+       $scope.goGeneralStep = function () {
+           $scope.secondStep = false;     
+           console.log($scope.secondStep);   
+       };
+       $scope.saveCluster = function () {
+        
+           Falcon.postSubmitEntity($scope.jsonString, "cluster").success(function (response) {
+                Falcon.success = true;
+                Falcon.serverResponse = response;
+                $state.go('main'); 
+                $timeout(function() {
+                    Falcon.serverResponse = { serverResponse: null, success: null };
+                }, 5000); 
+            }).error(function (err) {   
+                var error = X2jsService.xml_str2json(err);            
+                Falcon.success = false;                 
+                Falcon.serverResponse = error.result; 
+                $state.go('main'); 
+            }); 
+           
+           
+       };
     }]);    
     
       

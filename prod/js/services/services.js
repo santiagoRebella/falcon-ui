@@ -4,7 +4,10 @@
 	
 	app.factory('Falcon', ["$http", function($http) {
 		
-		var Falcon = {},
+		var Falcon = {
+    		    serverResponse: null,
+    		    success: null    
+    		},
 			USER_ID = 'dashboard';
 
 	    function add_user(url) {
@@ -58,7 +61,61 @@
             EntityModel.json = X2jsService.xml_str2json( xmlString );
             return EntityModel.identifyType(EntityModel.json);  
         };
-	
+	    
+	    EntityModel.clusterModel = {
+           cluster:{  
+              interfaces:{  
+                 interface:[  
+                    {  
+                       _type:"readonly",
+                       _endpoint:"hftp://sandbox.hortonworks.com:50070",
+                       _version:"2.2.0"
+                    },
+                    {  
+                       _type:"write",
+                       _endpoint:"hdfs://sandbox.hortonworks.com:8020",
+                       _version:"2.2.0"
+                    },
+                    {  
+                       _type:"execute",
+                       _endpoint:"sandbox.hortonworks.com:8050",
+                       _version:"2.2.0"
+                    },
+                    {  
+                       _type:"workflow",
+                       _endpoint:"http://sandbox.hortonworks.com:11000/oozie/",
+                       _version:"4.0.0"
+                    },
+                    {  
+                       _type:"messaging",
+                       _endpoint:"tcp://sandbox.hortonworks.com:61616?daemon=true",
+                       _version:"5.1.6"
+                    }
+                 ]
+              },
+              locations:{  
+                 location:[  
+                    {  
+                       _name:"staging",
+                       _path:"/apps/falcon/backupCluster/staging"
+                    },
+                    {  
+                       _name:"temp",
+                       _path:"/tmp"
+                    },
+                    {  
+                       _name:"working",
+                       _path:"/apps/falcon/backupCluster/working"
+                    }
+                 ]
+              },
+              _xmlns:"uri:falcon:cluster:0.1",
+              _name:"backupCluster",
+              _description:"virginiaHadoopCluster",
+              _colo:"USEastVirginia"
+           }
+        };
+	    
 	    return EntityModel;
 	    
 	}]);

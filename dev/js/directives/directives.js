@@ -23,18 +23,21 @@
 	    };
 	});
 	
-	app.directive('listTable', function() {
+	
+    app.directive('entitiesList', function() {
         return {
             scope: {
                 input: "=",
-                edit: "=",
+                play: "=",  
+                pause: "=",
+                stop:"=",
                 clone: "=",
                 remove: "=",
-                relations: "=",
-                caption:"@"
+                edit: "=",
+                caption: "@"
             },
             restrict: "EA",
-            templateUrl: 'html/tableDv.html',
+            templateUrl: 'html/entitiesListDv.html',
             link: function (scope, element, attrs) { 
                 scope.info = {};
                 
@@ -47,11 +50,26 @@
                     }
                 }, true);
                 
-                
-                
-
+                if(scope.caption === "Clusters") {
+                   scope.action = ""; 
+                }
+                else {
+                   scope.action = 'stopped'; 
+                }
+                scope.scopePlay = function (type, name) {
+                    scope.action = 'running'; 
+                    scope.play(type, name);
+                };
+                scope.scopeStop = function (type, name) {
+                    scope.action = 'stopped'; 
+                    scope.stop(type, name);
+                };
+                scope.scopePause = function (type, name) {
+                    scope.action = 'paused';
+                    scope.pause(type, name);
+                };
+ 
             }
         };
     });
-	
 })();

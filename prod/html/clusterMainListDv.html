@@ -1,0 +1,33 @@
+<div class="listTable">
+    <table class="">
+        <caption>
+            <h4> <span class="text-primary">Clusters</span></h4>
+        </caption>
+        
+        <thead>       
+            <tr ng-show="info.empty"><td> There are no clusters </td></tr>          
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in input">
+                <td class="nameCell">{{item.name}}</td>
+                
+                <td class="buttonCell">
+                    <div class="btn btn-default btn-xs" ng-click="edit(item.type, item.name)">  
+                        <span class="entypo cog"></span> 
+                    </div>
+                </td>
+                <td class="buttonCell">
+                    <div class="btn btn-default btn-xs" ng-click="clone(item.type, item.name)">  
+                        <span class="entypo docs"></span> 
+                    </div>
+                </td>
+                <td class="buttonCell">
+                    <div class="btn btn-default btn-xs" ng-click="remove(item.type, item.name)">
+                        <span class="entypo trash"></span> 
+                    </div>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>

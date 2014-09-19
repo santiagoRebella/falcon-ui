@@ -181,17 +181,17 @@
 //** Text color for `<input>`s
 @input-color:                    @gray;
 //** `<input>` border color
-@input-border:                   #ccc;
+@input-border:                   @gray-light;
 //** `<input>` border radius
-@input-border-radius:            @border-radius-base;
+@input-border-radius:            0;
 //** Border color for inputs on focus
 @input-border-focus:             #66afe9;
 
 //** Placeholder text color
-@input-color-placeholder:        @gray-light;
+@input-color-placeholder:        @gray-light2;
 
 //** Default `.form-control` height
-@input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-base:              (@line-height-computed + (@padding-base-vertical) / 2);
 //** Large `.form-control` height
 @input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
 //** Small `.form-control` height
@@ -301,9 +301,9 @@
 //## Define your custom responsive grid.
 
 //** Number of columns in the grid.
-@grid-columns:              12;
+@grid-columns:              24;
 //** Padding between columns. Gets divided in half for the left and right.
-@grid-gutter-width:         30px;
+@grid-gutter-width:         10px;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
 @grid-float-breakpoint:     @screen-sm-min;
