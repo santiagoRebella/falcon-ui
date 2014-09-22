@@ -232,5 +232,30 @@
        };
     }]);    
     
+    
+    app.controller('feedFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
+                                           function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
+        
+        
+
+        
+        $scope.feedEntity = EntityModel.feedModel;
+        
+        $scope.$watch(function () { 
+                return EntityModel.feedModel; 
+            }, function() {
+                $scope.feedEntity = EntityModel.feedModel;
+        }, true);    
+            
+        $scope.isActive = function (route) {
+            return route === $state.$current.name;
+        };
+       
+       
+       
+    }]);    
+    
+    
+    
       
 })();

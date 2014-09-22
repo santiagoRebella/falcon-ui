@@ -71,18 +71,7 @@
 }
 
 
-//--------------------root.upload----------------//
-#submitPreview { 
-  > pre {
-    font-size: 10px;
-  }
-  > div { 
-    margin-left: 15px;    
-  }
-  .panel {
-    margin-left: 0;
-  }
-} 
+
 
 //-----------------cluster/feed/processes list ---//
 .dashboardBox {
@@ -106,6 +95,8 @@
     font-weight: bold;
     small {
       margin-top:-5px;
+      display: block;
+      font-weight: bold;
     }
     //border-bottom:1px solid @gray;
   }
@@ -197,7 +188,7 @@
   padding: 5px;
   font-size: 16px;
   .entypo{ font-size: 35px; line-height: 9px;}
-  .archive, .save, .trash {
+  .archive, .save, .trash, .download {
     display: inline-block;
     
   }
@@ -210,7 +201,7 @@
     cursor: pointer;
   }
 }
-.clusterForm {
+.clusterForm, .feedForm {
   input { padding-left:1px; }
   >div {
     &:first-child {
@@ -225,26 +216,17 @@
     font-size: 12px;
     line-height: 12px;
   }
+  u {
+    line-height: 30px;
+    cursor: pointer;
+  }
 }
 .locationPlus {
   line-height: 65px;
   cursor: pointer;
 }
 
-.clusterProgressBox {
-  font-weight: bold;
-  font-size: 16px;
-  span {
-    text-align: center;
-  }
-  &.summary {
-    .progressBar {
-      div {
-        margin-left: -33%;
-      }
-    }
-  }
-}
+
 .progressBar {
   overflow:hidden;
   padding: 5px; 
@@ -261,6 +243,60 @@
       background-color: @gray-dark;
       float: right;
       margin: -4px -5px 0 0;
+    }
+  }
+}
+
+.clusterProgressBox {
+  font-weight: bold;
+  font-size: 16px;
+  span {
+    text-align: center;
+  }
+  &.summary {
+    .progressBar {
+      div {
+        margin-left: -33%;
+      }
+    }
+  }
+}
+
+.feedProgressBox {
+  font-size: 14px;
+  &.general {
+    .progressBar {
+      div {
+        margin-left: -95%;
+      }
+    }
+  }
+  &.properties {
+    .progressBar {
+      div {
+        margin-left: -70%;
+      }
+    }
+  }
+  &.location {
+    .progressBar {
+      div {
+        margin-left: -50%;
+      }
+    }
+  }
+  &.clusters {
+    .progressBar {
+      div {
+        margin-left: -30%;
+      }
+    }
+  }
+  &.summary {
+    .progressBar {
+      div {
+        margin-left: -5%;
+      }
     }
   }
 }

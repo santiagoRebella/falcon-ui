@@ -111,6 +111,10 @@
            }
         };
 	    
+	    EntityModel.clusterModel = {};
+	    
+	    
+	    
 	    return EntityModel;
 	    
 	}]);
