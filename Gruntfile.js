@@ -2,9 +2,16 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     copy: {
-      main: {
+      resources: {
+        cwd: 'app',
+        src: ['views/*.html', 'index.html', 'styles/fonts/*'],
+        dest: 'dist/',
+        expand: true
+      },
+
+      dependencies: {
         cwd: 'app/',
-        src: ['views/*', 'index.html', 'styles/fonts/*', 'scripts/lib/**'],
+        src: ['scripts/lib/**', 'styles/fonts/*'],
         dest: 'dist/',
         expand: true
       }
@@ -87,25 +94,29 @@ module.exports = function (grunt) {
     },
 
     watch: {
-      livereload: {
-        options: {
-          livereload: true
-        },
-        files: [
-          'app/styles/main.css',
-          'app/styles/*.html',
-          'app/styles/*.js',
-          'app/styles/**/*.js'
-        ],
-        tasks: ['copy']
-      },
 
       less: {
         files: ['app/styles/*.less', 'app/styles/less/*.less'],
-        tasks: ['csslint', 'less'],
+        tasks: ['less', 'csslint'],
         options: {
           nospawn: true
         }
+      },
+
+      resources: {
+        options: {
+          livereload: true
+        },
+        files: ['app/views/*', 'app/index.html', 'app/styles/fonts/*'],
+        tasks: ['resources']
+      },
+
+      source: {
+        options: {
+          livereload: true
+        },
+        files: ['app/scrips/*.js'],
+        tasks: ['jshint', 'uglify']
       }
     },
 
@@ -115,15 +126,34 @@ module.exports = function (grunt) {
           script: 'server.js'
         }
       }
-
     },
 
-    clean: ["dist"]
+    clean: ["dist"],
+
+    scp: {
+      options: {
+        host: '127.0.0.1',
+        username: 'root',
+        password: 'hadoop',
+        port: 2222
+      },
+
+      sandbox: {
+        files: [{
+          cwd: 'dist',
+          src: '**',
+          filter: 'isFile',
+
+          // path on the server
+          dest: '/var/lib/falcon/webapp/falcon'
+        }]
+      }
+    }
   });
 
-  grunt.registerTask('lint', ['jshint', 'less', 'csslint']);
-
-  grunt.registerTask('default', ['clean', 'uglify', 'less', 'copy', 'express', 'watch']);
+  grunt.registerTask('resources', ['copy:resources']);
+  grunt.registerTask('dependencies', ['copy:dependencies']);
+  grunt.registerTask('default', ['clean', 'uglify', 'less', 'resources', 'dependencies', 'express', 'watch']);
   grunt.registerTask('data64', ['datauri']);
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
