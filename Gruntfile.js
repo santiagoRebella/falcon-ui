@@ -5,7 +5,7 @@ module.exports = function (grunt) {
       main: {
         cwd: 'app/',
         src: ['scripts/**', 'views/*', 'index.html', 'styles/main.css', 'styles/fonts/*'],
-        dest: 'public/',
+        dest: 'dist/',
         expand: true
       }
     },
@@ -19,7 +19,7 @@ module.exports = function (grunt) {
       sandbox: {
         files: [
           {
-            cwd: 'prod',
+            cwd: 'dist',
             src: '**',
             filter: 'isFile',
 
@@ -40,8 +40,8 @@ module.exports = function (grunt) {
         banner: "/**** Created by Santiago Rebella ***/"
       },
       main: {
-        src: "js/main.js",
-        dest: "prod/js/main.min.js"
+        src: "scripts/main.js",
+        dest: "dist/scripts/main.min.js"
       }
     },
     jshint: {
@@ -54,15 +54,15 @@ module.exports = function (grunt) {
       target: {
         src: [
           "*.js",
-          "dev/js/*.js",
-          "dev/js/**/*.js",
-          "!dev/js/lib/*.js"
+          "app/scripts/*.js",
+          "app/scripts/**/*.js",
+          "!app/scripts/lib/*.js"
         ]
       }
     },
     csslint: {
       strict: {
-        src: ["public/css/*.css"]
+        src: ["public/styles/*.css"]
       }
     },
 
@@ -72,10 +72,10 @@ module.exports = function (grunt) {
           classPrefix: "data-"
         },
         src: [
-          "css/img/*.png",
-          "css/img/*.gif",
-          "css/img/*.jpg",
-          "css/img/*.bmp"
+          "styles/img/*.png",
+          "styles/img/*.gif",
+          "styles/img/*.jpg",
+          "styles/img/*.bmp"
         ],
         dest: [
           "tmp/base64Images.css"
@@ -96,7 +96,7 @@ module.exports = function (grunt) {
           ieCompat: false
         },
         files: {
-          "dev/css/main.css": "dev/css/main.less"
+          "app/styles/main.css": "app/styles/main.less"
         }
       }
     },
@@ -104,14 +104,14 @@ module.exports = function (grunt) {
       livereload: {
         options: { livereload: true },
         files: [
-          "dev/css/main.css",
-          "dev/html/*.html",
-          "dev/js/*.js",
-          "dev/js/**/*.js"
+          "app/styles/main.css",
+          "app/styles/*.html",
+          "app/styles/*.js",
+          "app/styles/**/*.js"
         ]
       },
       less: {
-        files: ["dev/css/*.less", "dev/css/less/*.less"],
+        files: ["app/styles/*.less", "app/styles/less/*.less"],
         tasks: ["less", "csslint"],
         options: {
           nospawn: true
