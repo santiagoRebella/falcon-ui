@@ -4,31 +4,12 @@ module.exports = function (grunt) {
     copy: {
       main: {
         cwd: 'app/',
-        src: ['scripts/**', 'views/*', 'index.html', 'styles/main.css', 'styles/fonts/*'],
+        src: ['views/*', 'index.html', 'styles/fonts/*', 'scripts/lib/**'],
         dest: 'dist/',
         expand: true
       }
     },
-    scp: {
-      options: {
-        host: '127.0.0.1',
-        username: 'root',
-        password: 'hadoop',
-        port: 2222
-      },
-      sandbox: {
-        files: [
-          {
-            cwd: 'dist',
-            src: '**',
-            filter: 'isFile',
 
-            // path on the server
-            dest: '/var/lib/falcon/webapp/falcon'
-          }
-        ]
-      }
-    },
     uglify: {
       options: {
         beautify: false,
@@ -36,14 +17,16 @@ module.exports = function (grunt) {
         compress: true,
         preserveComments: false,
         drop_console: false,
-        sourceMap: "dist/application.map",
-        banner: "/**** Created by Santiago Rebella ***/"
+        sourceMap: 'dist/application.map',
+        banner: '/**** Created by Santiago Rebella ***/'
       },
       main: {
-        src: "scripts/main.js",
-        dest: "dist/scripts/main.min.js"
+        files: {
+          'dist/scripts/main.min.js': ['app/scripts/**/*.js', '!app/scripts/lib/*.js']
+        }
       }
     },
+
     jshint: {
       options: {
         eqeqeq: true,
@@ -53,35 +36,37 @@ module.exports = function (grunt) {
       },
       target: {
         src: [
-          "*.js",
-          "app/scripts/*.js",
-          "app/scripts/**/*.js",
-          "!app/scripts/lib/*.js"
+          '*.js',
+          'app/scripts/*.js',
+          'app/scripts/**/*.js',
+          '!app/scripts/lib/*.js'
         ]
       }
     },
+
     csslint: {
       strict: {
-        src: ["public/styles/*.css"]
+        src: ['dist/styles/*.css']
       }
     },
 
     datauri: {
-      "default": {
+      'default': {
         options: {
-          classPrefix: "data-"
+          classPrefix: 'data-'
         },
         src: [
-          "styles/img/*.png",
-          "styles/img/*.gif",
-          "styles/img/*.jpg",
-          "styles/img/*.bmp"
+          'styles/img/*.png',
+          'styles/img/*.gif',
+          'styles/img/*.jpg',
+          'styles/img/*.bmp'
         ],
         dest: [
-          "tmp/base64Images.css"
+          'tmp/base64Images.css'
         ]
       }
     },
+
     less: {
       development: {
         options: {
@@ -96,28 +81,34 @@ module.exports = function (grunt) {
           ieCompat: false
         },
         files: {
-          "app/styles/main.css": "app/styles/main.less"
+          'dist/styles/main.css': 'app/styles/main.less'
         }
       }
     },
+
     watch: {
       livereload: {
-        options: { livereload: true },
+        options: {
+          livereload: true
+        },
         files: [
-          "app/styles/main.css",
-          "app/styles/*.html",
-          "app/styles/*.js",
-          "app/styles/**/*.js"
-        ]
+          'app/styles/main.css',
+          'app/styles/*.html',
+          'app/styles/*.js',
+          'app/styles/**/*.js'
+        ],
+        tasks: ['copy']
       },
+
       less: {
-        files: ["app/styles/*.less", "app/styles/less/*.less"],
-        tasks: ["less", "csslint"],
+        files: ['app/styles/*.less', 'app/styles/less/*.less'],
+        tasks: ['csslint', 'less'],
         options: {
           nospawn: true
         }
       }
     },
+
     express: {
       server: {
         options: {
@@ -125,21 +116,23 @@ module.exports = function (grunt) {
         }
       }
 
-    }
+    },
+
+    clean: ["dist"]
   });
 
-  grunt.registerTask("default", ["express", "watch"]);
+  grunt.registerTask('lint', ['jshint', 'less', 'csslint']);
 
-  grunt.registerTask("deploy", ["copy", "scp"]);
+  grunt.registerTask('default', ['clean', 'uglify', 'less', 'copy', 'express', 'watch']);
+  grunt.registerTask('data64', ['datauri']);
 
-  grunt.registerTask("data64", ["datauri"]);
-
-  grunt.loadNpmTasks("grunt-contrib-uglify");
-  grunt.loadNpmTasks("grunt-contrib-jshint");
-  grunt.loadNpmTasks("grunt-contrib-watch");
-  grunt.loadNpmTasks("grunt-contrib-less");
-  grunt.loadNpmTasks("grunt-contrib-csslint");
-  grunt.loadNpmTasks("grunt-contrib-copy");
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-scp');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-datauri');

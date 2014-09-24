@@ -6,7 +6,7 @@
 		return {
 			replace:false,
 			restrict: 'A',
-			templateUrl: 'html/navTpl.html',
+			templateUrl: 'views/navTpl.html',
 			controller: 'headerCtrl'
 		};
 	});
@@ -37,7 +37,7 @@
                 caption: "@"
             },
             restrict: "EA",
-            templateUrl: 'html/entitiesListDv.html',
+            templateUrl: 'views/entitiesListDv.html',
             link: function (scope, element, attrs) { 
                 scope.info = {};
                 
