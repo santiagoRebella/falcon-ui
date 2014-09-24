@@ -236,11 +236,9 @@
     app.controller('feedFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
                                            function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
         
-        
-
-        
         $scope.feedEntity = EntityModel.feedModel;
-        
+        $scope.fileSysSection = true;
+        $scope.sourceSection = true;
         $scope.$watch(function () { 
                 return EntityModel.feedModel; 
             }, function() {
