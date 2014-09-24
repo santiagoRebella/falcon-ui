@@ -39,7 +39,8 @@ module.exports = function (grunt) {
         eqeqeq: true,
         curly: true,
         undef: false,
-        unused: true
+        unused: true,
+        force: true
       },
       target: {
         src: [
@@ -115,7 +116,7 @@ module.exports = function (grunt) {
         options: {
           livereload: true
         },
-        files: ['app/scrips/*.js'],
+        files: ['app/scripts/**/*.js'],
         tasks: ['jshint', 'uglify']
       }
     },

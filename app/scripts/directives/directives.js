@@ -38,7 +38,7 @@
             },
             restrict: "EA",
             templateUrl: 'views/entitiesListDv.html',
-            link: function (scope, element, attrs) { 
+            link: function (scope) {
                 scope.info = {};
                 
                 scope.$watch('input', function() {

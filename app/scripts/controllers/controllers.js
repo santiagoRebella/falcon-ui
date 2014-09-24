@@ -2,7 +2,7 @@
 	
 	var app = angular.module('app.controllers', ['app.services']);
 	
-	app.controller('headerCtrl', ["$scope", "Falcon", "$filter", function($scope, Falcon, $filter) {
+	app.controller('headerCtrl', ["$scope", "Falcon", "$filter", function($scope, Falcon) {
 		$scope.adminResource = {};		
 
 	    Falcon.getServerVersion().success(function (data) {
@@ -234,7 +234,7 @@
     
     
     app.controller('feedFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
-                                           function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
+                                           function($scope, $timeout, Falcon, EntityModel, $state) {
         
         
 
