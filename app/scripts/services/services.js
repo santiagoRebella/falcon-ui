@@ -70,35 +70,33 @@
 	    
 	    EntityModel.clusterModel = {
            cluster:{  
-              interfaces:{  
-                 interface:[  
-                    {  
-                       _type:"readonly",
-                       _endpoint:"hftp://",
-                       _version:""
-                    },
-                    {  
-                       _type:"write",
-                       _endpoint:"hdfs://",
-                       _version:""
-                    },
-                    {  
-                       _type:"execute",
-                       _endpoint:"",
-                       _version:""
-                    },
-                    {  
-                       _type:"workflow",
-                       _endpoint:"http://",
-                       _version:""
-                    },
-                    {  
-                       _type:"messaging",
-                       _endpoint:"tcp://",
-                       _version:""
-                    }
-                 ]
-              },
+              interfaces: [
+                {
+                 _type:"readonly",
+                 _endpoint:"hftp://",
+                 _version:""
+                },
+                {
+                 _type:"write",
+                 _endpoint:"hdfs://",
+                 _version:""
+                },
+                {
+                 _type:"execute",
+                 _endpoint:"",
+                 _version:""
+                },
+                {
+                 _type:"workflow",
+                 _endpoint:"http://",
+                 _version:""
+                },
+                {
+                 _type:"messaging",
+                 _endpoint:"tcp://",
+                 _version:""
+                }
+              ],
               locations:{  
                  location:[  
                     
