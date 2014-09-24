@@ -13,18 +13,11 @@
     </div>
     <h4 class="col-sm-12"> Default Location </h4>
     
-    <div class="col-sm-24" ng-show="fileSysSection">
-        <label class="light">Data path</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
+    <div class="col-sm-24" ng-show="fileSysSection" ng-repeat="item in feedEntity.feed.locations.location">
+        <label class="light">{{item._type}} path</label>
+        <input type="text" class="form-control" ng-model="feedEntity.feed.locations.location[$index]._path" ng-required novalidate/>
     </div>
-    <div class="col-sm-24" ng-show="fileSysSection">
-        <label class="light">Stats path</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
-    </div>
-    <div class="col-sm-24" ng-show="fileSysSection">
-        <label class="light">Metadata path</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
-    </div>
+
     <div class="col-sm-24" ng-show="!fileSysSection">
         <label class="light">Table uri</label>
         <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>

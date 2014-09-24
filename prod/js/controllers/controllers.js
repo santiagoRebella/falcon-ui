@@ -110,8 +110,8 @@
         $scope.cloneEntity = function (type, name) {         
             Falcon.getEntityDefinition(type, name)
                 .success(function (data) {             
-                    EntityModel.clusterModel = X2jsService.xml_str2json(data);            
-                    EntityModel.clusterModel.cluster._name = "";               
+                    EntityModel[type + "Model"] = X2jsService.xml_str2json(data);            
+                    console.log(JSON.stringify(EntityModel[type + "Model"]));          
                     $state.go('main.forms.' + type + ".general");
                  })
                 .error(function (err) { 
@@ -236,22 +236,47 @@
     app.controller('feedFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
                                            function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
         
-        
-
-        
         $scope.feedEntity = EntityModel.feedModel;
-        
+        $scope.fileSysSection = true;
+        $scope.sourceSection = true;
         $scope.$watch(function () { 
                 return EntityModel.feedModel; 
             }, function() {
-                $scope.feedEntity = EntityModel.feedModel;
+                $scope.feedEntity = EntityModel.feedModel;   
         }, true);    
+        $scope.$watch(function () { 
+                return $scope.temp; 
+            }, function() {
+                EntityModel.feedModel.feed.frequency = $scope.temp.freqUnit + "(" + $scope.temp.freqNumber + ")";  
+                
+                EntityModel.feedModel.feed["late-arrival"]["_cut-off"] = $scope.temp.lateArrivalUnit + "(" + $scope.temp.lateArrivalNumber + ")";  
+                
+                console.log(EntityModel.feedModel.feed.frequency);  
+                console.log(EntityModel.feedModel.feed["late-arrival"]["_cut-off"]);   
+        }, true); 
+        
+        
+        
+        
+        
             
         $scope.isActive = function (route) {
             return route === $state.$current.name;
         };
-       
-       
+        
+        $scope.temp = {
+            freqNumber : 1,
+            freqUnit: "days",
+            lateArrivalNumber: "",
+            lateArrivalUnit: "",
+            newPropertiesArray : []
+        };
+        $scope.addProperty = function () {
+            EntityModel.feedModel.feed[$scope.temp.newPropertyName] = $scope.temp.newPropertyValue; 
+            $scope.temp.newPropertiesArray.push({name: $scope.temp.newPropertyName, value: $scope.temp.newPropertyValue});     
+        };
+        
+        
        
     }]);    
     
