@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
       dependencies: {
         cwd: 'app/',
-        src: ['scripts/lib/**', 'styles/fonts/*'],
+        src: ['scripts/lib/*.js', 'styles/fonts/*'],
         dest: 'dist/',
         expand: true
       }
@@ -29,7 +29,12 @@ module.exports = function (grunt) {
       },
       main: {
         files: {
-          'dist/scripts/main.min.js': ['app/scripts/**/*.js', '!app/scripts/lib/*.js']
+          'dist/scripts/main.min.js': [
+            'app/scripts/app.js',
+            'app/scripts/controllers/*.js',
+            'app/scripts/directives/*.js',
+            'app/scripts/services/*.js'
+          ]
         }
       }
     },
@@ -117,7 +122,7 @@ module.exports = function (grunt) {
           livereload: true
         },
         files: ['app/scripts/**/*.js'],
-        tasks: ['jshint', 'uglify']
+        tasks: ['jshint', 'karma:unit:run', 'uglify']
       }
     },
 
@@ -149,12 +154,32 @@ module.exports = function (grunt) {
           dest: '/var/lib/falcon/webapp/falcon'
         }]
       }
+    },
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        background: true,
+        singleRun: false,
+        autoWatch: false
+      },
+
+      build: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        autoWatch: false,
+        browsers: ['PhantomJS']
+      }
     }
+
   });
 
   grunt.registerTask('resources', ['copy:resources']);
   grunt.registerTask('dependencies', ['copy:dependencies']);
-  grunt.registerTask('default', ['clean', 'uglify', 'less', 'resources', 'dependencies', 'express', 'watch']);
+  grunt.registerTask('build', ['clean', 'uglify', 'less', 'resources', 'dependencies', 'karma:build']);
+  grunt.registerTask('w', ['clean', 'uglify', 'less', 'resources', 'dependencies', 'karma:unit:start', 'watch']);
+  grunt.registerTask('server', ['express','w']);
+  grunt.registerTask('default', ['server']);
   grunt.registerTask('data64', ['datauri']);
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -167,4 +192,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-scp');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-datauri');
+  grunt.loadNpmTasks('grunt-karma');
+
 };

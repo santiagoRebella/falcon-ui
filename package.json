@@ -9,6 +9,7 @@
   "author": "santiago rebella",
   "license": "ISC",
   "devDependencies": {
+    "angular-mocks": "^1.2.22",
     "express": "~4.0.0",
     "grunt": "~0.4.4",
     "grunt-contrib-clean": "^0.6.0",
@@ -20,6 +21,12 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-datauri": "~0.4.0",
     "grunt-express-server": "~0.4.13",
-    "grunt-scp": "^0.1.7"
+    "grunt-karma": "^0.9.0",
+    "grunt-scp": "^0.1.7",
+    "jasmine": "^2.0.1",
+    "karma": "^0.12.23",
+    "karma-jasmine": "^0.1.5",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "phantomjs": "^1.9.10"
   }
 }
