@@ -23,13 +23,13 @@
             })   
                 .state('main.forms.cluster', {
                     controller: 'clusterFormCtrl',
-                    templateUrl : 'html/clusterFormTpl.html'
+                    templateUrl : 'html/cluster/clusterFormTpl.html'
                 })
                     .state('main.forms.cluster.general', {
-                        templateUrl : 'html/clusterFormGeneralStepTpl.html'
+                        templateUrl : 'html/cluster/clusterFormGeneralStepTpl.html'
                     })
                     .state('main.forms.cluster.summary', {
-                        templateUrl : 'html/clusterFormSummaryStepTpl.html'
+                        templateUrl : 'html/cluster/clusterFormSummaryStepTpl.html'
                     })
                 .state('main.forms.feed', {
                     controller: 'feedFormCtrl',
