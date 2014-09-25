@@ -112,52 +112,52 @@
         };
 	    
 	    EntityModel.feedModel = {
-            "feed": {
-                "tags": "",
-                "groups": "",
-                "frequency": "",
-                "timezone": "",
+            feed: {
+                tags: "",
+                groups: "",
+                frequency: "",
+                timezone: "",
                 "late-arrival": {
                     "_cut-off": ""
                 },
-                "clusters": {
+                clusters: [{
                     "cluster": {
-                        "validity": {
-                            "_start": "",
-                            "_end": ""
+                        validity: {
+                            _start: "",
+                            _end: ""
                         },
-                        "retention": {
-                            "_limit": "",
-                            "_action": ""
+                        retention: {
+                            _limit: "",
+                            _action: ""
                         },
-                        "_name": "",
-                        "_type": ""
+                        _name: "",
+                        _type: "source"
                     }
-                },
-                "locations": {
-                    "location": [{
-                        "_type": "data",
-                        "_path": "/none"
+                }],
+                locations: {
+                    location: [{
+                        _type: "data",
+                        _path: "/none"
                     }, {
-                        "_type": "stats",
-                        "_path": "/none"
+                        _type: "stats",
+                        _path: "/none"
                     }, {
-                        "_type": "meta",
-                        "_path": "/none"
+                        _type: "meta",
+                        _path: "/none"
                     }]
                 },
-                "ACL": {
-                    "_owner": "",
-                    "_group": "",
-                    "_permission": ""
+                ACL: {
+                    _owner: "",
+                    _group: "",
+                    _permission: ""
                 },
-                "schema": {
-                    "_location": "/none",
-                    "_provider": "none"
+                schema: {
+                    _location: "/none",
+                    _provider: "none"
                 },
-                "_xmlns": "uri:falcon:feed:0.1",
-                "_name": "",
-                "_description": ""
+                _xmlns: "uri:falcon:feed:0.1",
+                _name: "",
+                _description: ""
             }
         };
 	    

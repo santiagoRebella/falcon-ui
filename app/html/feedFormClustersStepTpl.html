@@ -1,28 +1,27 @@
 <div class="row"> 
     <div class="col-sm-14">
-        <div class="sourceReplicationButton" ng-class="{active: sourceSection}" ng-click="sourceSection = true">
-            <small>Source</small>
-            Cluster
-        </div>
-        <div class="sourceReplicationButton" ng-class="{active: !sourceSection}" ng-click="sourceSection = false" ng-show="replicationCluster">
-            <small>Replication</small>
+        <div class="sourceReplicationButton" ng-repeat="cluster in feedEntity.feed.clusters" ng-class="{active: $index === clusterSelectedSection}" ng-click="clusterSelectedSection = $index">
+            <small>{{cluster.cluster._type}}</small>
             Cluster
         </div>
     </div> 
-    <div class="pull-right col-sm-10" ng-click=" replicationCluster = true; sourceSection = false;">
+    <div class="pull-right col-sm-10" ng-click="addReplicationCluster()" ng-hide="feedEntity.feed.clusters[{{clusterSelectedSection}}].retention._action === 'Archive'">
         Add Replication Cluster <span class="entypo circled-plus"></span>
+    </div> 
+    <div class="pull-right col-sm-10" ng-click="addArchiveCluster()" ng-show="feedEntity.feed.clusters[{{clusterSelectedSection}}].retention._action === 'Archive'">
+        Add Archive Cluster <span class="entypo circled-plus"></span>
     </div>   
 </div>
 
-<div class="row"> 
-    <h4 class="col-sm-24"> Source Cluster </h4>
-    <select ng-model="feedEntity.feed.something">
-        <option value="primaryCluster">primaryCluster</option>
+<div class="row" ng-repeat="cluster in feedEntity.feed.clusters" ng-show="$index === clusterSelectedSection"> 
+    <h4 class="col-sm-24"> {{cluster.cluster._type}} Cluster </h4>
+    <select ng-model="feedEntity.feed.something">       
+        <option ng-repeat="cluster in clusterList" value="{{cluster.name}}">{{cluster.name}}</option>
     </select> 
     
     <h4 class="col-sm-24"> Retention </h4>
     <div class="col-sm-24 composedField">
-        <select ng-model="feedEntity.feed.something">
+        <select ng-model="feedEntity.feed.clusters[$index].retention._action">
             <option selected value="Chown">Chown</option>
             <option value="Delete">Delete</option>
             <option value="Chmod">Chmod</option>
@@ -82,36 +81,31 @@
       <option value="12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
     </select>
 </div>
+
+
 <div class="row">
     <div class="col-sm-24 feedLocationNavBox">
-        <h4 class="col-sm-10" ng-show="fileSysSection"> Default Storage type </h4>
-        <h4 class="col-sm-10" ng-show="!fileSysSection"> Storage type </h4>
+        <h4 class="col-sm-10" ng-show="$parent.fileSysSection"> Default Storage type </h4>
+        <h4 class="col-sm-10" ng-show="!$parent.fileSysSection"> Storage type </h4>
         <div class="col-sm-14 feedLocationNav">
-            <div class="btn btn-default pull-right" ng-class="{active:!fileSysSection}" ng-click="fileSysSection = false">
+            <div class="btn btn-default pull-right" ng-class="{active:!$parent.fileSysSection}">
                 Catalog Storage
             </div>
-            <div class="btn btn-default pull-right" ng-class="{active:fileSysSection}" ng-click="fileSysSection = true">
+            <div class="btn btn-default pull-right" ng-class="{active:$parent.fileSysSection}">
                 File System
             </div>
         </div>
     </div>
     <h4 class="col-sm-12"> Default Location </h4>
     
-    <div class="col-sm-24" ng-show="fileSysSection">
-        <label class="light">Data path</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
+    <div class="col-sm-24" ng-show="$parent.fileSysSection" ng-repeat="item in feedEntity.feed.locations.location">
+        <label class="light">{{item._type}} path</label>
+        <input ng-disabled="true" type="text" class="form-control" ng-model="feedEntity.feed.locations.location[$index]._path" ng-required novalidate/>
     </div>
-    <div class="col-sm-24" ng-show="fileSysSection">
-        <label class="light">Stats path</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
-    </div>
-    <div class="col-sm-24" ng-show="fileSysSection">
-        <label class="light">Metadata path</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
-    </div>
-    <div class="col-sm-24" ng-show="!fileSysSection">
+
+    <div class="col-sm-24" ng-show="!$parent.fileSysSection">
         <label class="light">Table uri</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required novalidate/>
+        <input ng-disabled="true" type="text" class="form-control" ng-model="feedEntity.feed.table.uri" novalidate/>
     </div>
 </div>
 
