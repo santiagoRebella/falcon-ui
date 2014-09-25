@@ -220,6 +220,12 @@
     line-height: 30px;
     cursor: pointer;
   }
+  h4 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 14px;
+    margin: 20px 0 5px;
+  }
 }
 .locationPlus {
   line-height: 65px;
@@ -298,5 +304,64 @@
         margin-left: -5%;
       }
     }
+  }
+}
+.feedForm {
+  .composedField {
+    select, .small {
+      display: inline-block;
+    }
+    .small {
+      width: 30px;
+      height: 20px;
+    }
+    .checkbox {
+      margin: 0;
+      input { margin:-1px 0 0 -20px; }
+    }
+    
+  }
+  .feedLocationNavBox { 
+    h4 {
+      margin-top: 10px;
+    }
+  }
+  .feedLocationNav {
+    color: black;
+    .btn { background-color: @gray-light; }
+    .active {
+      color: white;
+      background-color: @gray-dark;
+    }
+  }
+  .feedBottomButtons {
+    margin:10px 0;
+  }
+  
+  .sourceReplicationButton {
+    width: 45px;
+    display: inline-block;
+    border-bottom: 3px solid @gray-light;
+    color: @gray-light;
+    cursor: pointer;
+    small {
+      font-size: 60%;
+      margin-bottom: -5px;
+      display: block;
+    }
+    &.active {
+      border-color: @gray-dark;
+      color: @gray-dark;
+    }
+    
+  }
+  .validityDateBox {
+    .light {
+      display: block;
+    }
+    input {
+      display: inline-block;
+    }
+
   }
 }
