@@ -5,7 +5,7 @@
         appDev = express(),
         appProd = express();
     
-    appDev.use(express.static(__dirname+'/dev'));    
+    appDev.use(express.static(__dirname+'/app'));
     appDev.listen(3000);
     
 	appProd.use(express.static(__dirname+'/prod'));    

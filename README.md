@@ -8,10 +8,9 @@ Development
 
 Run **/npm install** from the root folder
 
-The server.js file is an express server serving two static folders:
+The server.js file is an express server serving a static folder:
 
- - **/dev in port 3000**   
- - **/prod in port 3100**
+ - **/app in port 3000**
 
 You can launch the server with the command 
 
