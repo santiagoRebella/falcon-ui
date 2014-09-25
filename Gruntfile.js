@@ -177,7 +177,7 @@ module.exports = function (grunt) {
   grunt.registerTask('dependencies', ['copy:dependencies']);
   grunt.registerTask('test', ['karma:continuous']);
   grunt.registerTask('build', ['clean', 'uglify', 'less', 'resources', 'dependencies']);
-  grunt.registerTask('w', ['build', 'test', 'karma:unit:start', 'watch']);
+  grunt.registerTask('w', ['build', 'karma:unit:start', 'watch']);
   grunt.registerTask('server', ['express','w']);
   grunt.registerTask('default', ['server']);
   grunt.registerTask('data64', ['datauri']);
