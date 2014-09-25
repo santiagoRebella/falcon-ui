@@ -11,48 +11,48 @@
         $stateProvider
             .state('landing', {
                 url: '/',
-                templateUrl : 'views/landingTpl.html'
+                templateUrl : 'html/landingTpl.html'
             })
             .state('main', {
-                templateUrl : 'views/mainTpl.html',
+                templateUrl : 'html/mainTpl.html',
                 controller: 'mainCtrl'
             })
             .state('main.forms', {
-                templateUrl : 'views/formsTpl.html'
+                templateUrl : 'html/formsTpl.html'
                 
             })   
                 .state('main.forms.cluster', {
                     controller: 'clusterFormCtrl',
-                    templateUrl : 'views/clusterFormTpl.html'
+                    templateUrl : 'html/clusterFormTpl.html'
                 })
                     .state('main.forms.cluster.general', {
-                        templateUrl : 'views/clusterFormGeneralStepTpl.html'
+                        templateUrl : 'html/clusterFormGeneralStepTpl.html'
                     })
                     .state('main.forms.cluster.summary', {
-                        templateUrl : 'views/clusterFormSummaryStepTpl.html'
+                        templateUrl : 'html/clusterFormSummaryStepTpl.html'
                     })
                 .state('main.forms.feed', {
                     controller: 'feedFormCtrl',
-                    templateUrl : 'views/feedFormTpl.html'
+                    templateUrl : 'html/feedFormTpl.html'
                 })
                     .state('main.forms.feed.general', {
-                        templateUrl : 'views/feedFormGeneralStepTpl.html'
+                        templateUrl : 'html/feedFormGeneralStepTpl.html'
                     })
                     .state('main.forms.feed.properties', {
-                        templateUrl : 'views/feedFormPropertiesStepTpl.html'
+                        templateUrl : 'html/feedFormPropertiesStepTpl.html'
                     })
                     .state('main.forms.feed.location', {
-                        templateUrl : 'views/feedFormLocationStepTpl.html'
+                        templateUrl : 'html/feedFormLocationStepTpl.html'
                     })
                     .state('main.forms.feed.clusters', {
-                        templateUrl : 'views/feedFormClustersStepTpl.html'
+                        templateUrl : 'html/feedFormClustersStepTpl.html'
                     })
                     .state('main.forms.feed.summary', {
-                        templateUrl : 'views/feedFormSummaryStepTpl.html'
+                        templateUrl : 'html/feedFormSummaryStepTpl.html'
                     })
 
             .state('main.dashboard', {
-                templateUrl : 'views/dashboardTpl.html',
+                templateUrl : 'html/dashboardTpl.html',
                 controller: 'dashboardCtrl'
             });        
     }]);

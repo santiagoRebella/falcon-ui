@@ -4,14 +4,14 @@ module.exports = function (grunt) {
     copy: {
       resources: {
         cwd: 'app',
-        src: ['views/*.html', 'index.html', 'styles/fonts/*'],
+        src: ['html/*.html', 'index.html', 'css/fonts/*'],
         dest: 'dist/',
         expand: true
       },
 
       dependencies: {
         cwd: 'app/',
-        src: ['scripts/lib/*.js', 'styles/fonts/*'],
+        src: ['js/lib/*.js', 'css/fonts/*'],
         dest: 'dist/',
         expand: true
       }
@@ -29,11 +29,11 @@ module.exports = function (grunt) {
       },
       main: {
         files: {
-          'dist/scripts/main.min.js': [
-            'app/scripts/app.js',
-            'app/scripts/controllers/*.js',
-            'app/scripts/directives/*.js',
-            'app/scripts/services/*.js'
+          'dist/js/main.min.js': [
+            'app/js/app.js',
+            'app/js/controllers/*.js',
+            'app/js/directives/*.js',
+            'app/js/services/*.js'
           ]
         }
       }
@@ -49,17 +49,16 @@ module.exports = function (grunt) {
       },
       target: {
         src: [
-          '*.js',
-          'app/scripts/*.js',
-          'app/scripts/**/*.js',
-          '!app/scripts/lib/*.js'
-        ]
+          'app/js/app.js',
+          'app/js/controllers/*.js',
+          'app/js/directives/*.js',
+          'app/js/services/*.js'        ]
       }
     },
 
     csslint: {
       strict: {
-        src: ['dist/styles/*.css']
+        src: ['dist/css/*.css']
       }
     },
 
@@ -69,10 +68,10 @@ module.exports = function (grunt) {
           classPrefix: 'data-'
         },
         src: [
-          'styles/img/*.png',
-          'styles/img/*.gif',
-          'styles/img/*.jpg',
-          'styles/img/*.bmp'
+          'css/img/*.png',
+          'css/img/*.gif',
+          'css/img/*.jpg',
+          'css/img/*.bmp'
         ],
         dest: [
           'tmp/base64Images.css'
@@ -94,7 +93,7 @@ module.exports = function (grunt) {
           ieCompat: false
         },
         files: {
-          'dist/styles/main.css': 'app/styles/main.less'
+          'dist/css/main.css': 'app/css/main.less'
         }
       }
     },
@@ -102,7 +101,7 @@ module.exports = function (grunt) {
     watch: {
 
       less: {
-        files: ['app/styles/*.less', 'app/styles/less/*.less'],
+        files: ['app/css/*.less', 'app/css/less/*.less'],
         tasks: ['less', 'csslint'],
         options: {
           nospawn: true
@@ -113,7 +112,7 @@ module.exports = function (grunt) {
         options: {
           livereload: true
         },
-        files: ['app/views/*', 'app/index.html', 'app/styles/fonts/*'],
+        files: ['app/html/*', 'app/index.html', 'app/css/fonts/*'],
         tasks: ['resources']
       },
 
@@ -121,8 +120,8 @@ module.exports = function (grunt) {
         options: {
           livereload: true
         },
-        files: ['app/scripts/**/*.js'],
-        tasks: ['jshint', 'karma:unit:run', 'uglify']
+        files: ['app/js/**/*.js'],
+        tasks: ['jshint', 'karma:unit:run']
       }
     },
 
@@ -164,7 +163,7 @@ module.exports = function (grunt) {
         autoWatch: false
       },
 
-      build: {
+      continuous: {
         configFile: 'karma.conf.js',
         singleRun: true,
         autoWatch: false,
@@ -176,8 +175,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('resources', ['copy:resources']);
   grunt.registerTask('dependencies', ['copy:dependencies']);
-  grunt.registerTask('build', ['clean', 'uglify', 'less', 'resources', 'dependencies', 'karma:build']);
-  grunt.registerTask('w', ['clean', 'uglify', 'less', 'resources', 'dependencies', 'karma:unit:start', 'watch']);
+  grunt.registerTask('test', ['karma:continuous']);
+  grunt.registerTask('build', ['clean', 'uglify', 'less', 'resources', 'dependencies']);
+  grunt.registerTask('w', ['build', 'test', 'karma:unit:start', 'watch']);
   grunt.registerTask('server', ['express','w']);
   grunt.registerTask('default', ['server']);
   grunt.registerTask('data64', ['datauri']);

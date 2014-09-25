@@ -15,18 +15,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/scripts/lib/angular.js',
-      'app/scripts/lib/angular-mocks.js',
+      'app/js/lib/angular.js',
+      'app/js/lib/angular-mocks.js',
 
-      'app/scripts/lib/jquery-1.11.1.min.js',
+      'app/js/lib/jquery-1.11.1.min.js',
 
-      'app/scripts/lib/d3.min.js',
-      'app/scripts/lib/ui-bootstrap-tpls-0.11.0.min.js',
-      'app/scripts/lib/uirouter.min.js',
-      'app/scripts/lib/xml2json.min.js',
+      'app/js/lib/d3.min.js',
+      'app/js/lib/ui-bootstrap-tpls-0.11.0.min.js',
+      'app/js/lib/uirouter.min.js',
+      'app/js/lib/xml2json.min.js',
 
-      'app/scripts/controllers/controllers.js',
-      'app/scripts/services/services.js',
+      'app/js/controllers/controllers.js',
+      'app/js/services/services.js',
 
       'app/test/controllers/headerCtrlSpec.js'
 
