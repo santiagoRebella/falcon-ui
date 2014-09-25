@@ -1,5 +1,6 @@
 (function () {
-	
+  'use strict';
+
 	var app = angular.module('app.services', []);
 	
 	app.factory('Falcon', ["$http", function($http) {
@@ -53,7 +54,50 @@
 	
 	app.factory('EntityModel', ["$http", "X2jsService", function($http, X2jsService) {
 		
-		var EntityModel = {};
+		var EntityModel = {
+      clusterModel: {
+        cluster:{
+          interfaces:{
+            "interface":[
+              {
+                _type:"readonly",
+                _endpoint:"hftp://",
+                _version:""
+              },
+              {
+                _type:"write",
+                _endpoint:"hdfs://",
+                _version:""
+              },
+              {
+                _type:"execute",
+                _endpoint:"",
+                _version:""
+              },
+              {
+                _type:"workflow",
+                _endpoint:"http://",
+                _version:""
+              },
+              {
+                _type:"messaging",
+                _endpoint:"tcp://",
+                _version:""
+              }
+            ]
+          },
+          locations:{
+            location:[
+
+            ]
+          },
+          _xmlns:"uri:falcon:cluster:0.1",
+          _name:"",
+          _description:"",
+          _colo:""
+        }
+      }
+    };
 		
 		EntityModel.json = null;
 		
@@ -67,51 +111,6 @@
             EntityModel.json = X2jsService.xml_str2json( xmlString );
             return EntityModel.identifyType(EntityModel.json);  
         };
-	    
-	    EntityModel.clusterModel = {
-           cluster:{  
-              interfaces: [
-                {
-                 _type:"readonly",
-                 _endpoint:"hftp://",
-                 _version:""
-                },
-                {
-                 _type:"write",
-                 _endpoint:"hdfs://",
-                 _version:""
-                },
-                {
-                 _type:"execute",
-                 _endpoint:"",
-                 _version:""
-                },
-                {
-                 _type:"workflow",
-                 _endpoint:"http://",
-                 _version:""
-                },
-                {
-                 _type:"messaging",
-                 _endpoint:"tcp://",
-                 _version:""
-                }
-              ],
-              locations:{  
-                 location:[  
-
-                 ]
-              },
-              _xmlns:"uri:falcon:cluster:0.1",
-              _name:"",
-              _description:"",
-              _colo:""
-           }
-        };
-	    
-	    EntityModel.clusterModel = {};
-	    
-	    
 	    
 	    return EntityModel;
 	    

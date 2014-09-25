@@ -28,7 +28,9 @@ module.exports = function(config) {
       'app/js/controllers/controllers.js',
       'app/js/services/services.js',
 
-      'app/test/controllers/headerCtrlSpec.js'
+      'app/test/controllers/HeaderControllerSpec.js',
+      'app/test/controllers/ClusterFormControllerSpec.js',
+      'app/test/services/EntityModelSpec.js'
 
     ],
 

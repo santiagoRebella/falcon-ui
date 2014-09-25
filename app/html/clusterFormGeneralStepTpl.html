@@ -16,64 +16,30 @@
 </div>
 
 <h4 class="col-sm-24"> Interfaces </h4>
+<div id="interfaces-header">
+  <div class="col-xs-4">
+      Type
+  </div>
+  <div class="col-xs-16">
+      Endpoint
+  </div>
+  <div class="col-xs-4">
+      Version
+  </div>
+</div>
 
-<div class="col-xs-4">
-    Type
+<div id="interfaces-detail" ng-repeat="_interface in clusterEntity.cluster.interfaces.interface">
+  <div class="col-xs-4">
+    <label>{{_interface._type}}</label>
+  </div>
+  <div class="col-xs-16">
+    <input type="text" class="form-control" ng-model="_interface._endpoint">
+  </div>
+  <div class="col-xs-4">
+    <input type="text" class="form-control" ng-model="_interface._version">
+  </div>
 </div>
-<div class="col-xs-16">       
-    Endpoint
-</div>
-<div class="col-xs-4">
-    Version
-</div>
-    
-<div class="col-xs-4">
-    <label>readonly</label>
-</div>
-<div class="col-xs-16">       
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[0]._endpoint">
-</div>
-<div class="col-xs-4">
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[0]._version">
-</div>    
-    
-<div class="col-xs-4">
-    <label>write</label>
-</div>
-<div class="col-xs-16">       
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[1]._endpoint">
-</div>
-<div class="col-xs-4">
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[1]._version">
-</div>
-<div class="col-xs-4">
-    <label>execute</label>
-</div>
-<div class="col-xs-16">       
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[2]._endpoint">
-</div>
-<div class="col-xs-4">
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[2]._version">
-</div>
-<div class="col-xs-4">
-    <label>workflow</label>
-</div>
-<div class="col-xs-16">       
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[3]._endpoint">
-</div>
-<div class="col-xs-4">
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[3]._version">
-</div>
-<div class="col-xs-4">
-    <label>messaging</label>
-</div>
-<div class="col-xs-16">       
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[4]._endpoint">
-</div>
-<div class="col-xs-4">
-    <input type="text" class="form-control" ng-model="clusterEntity.cluster.interfaces.interface[4]._version">
-</div>    
- 
+
 <h4 class="col-xs-24"> Location </h4>    
 
 <div class="col-xs-24" ng-repeat="location in clusterEntity.cluster.locations.location">

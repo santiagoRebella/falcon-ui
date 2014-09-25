@@ -155,17 +155,10 @@
     
     app.controller('clusterFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
                                            function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
-        
-        $scope.secondStep = false;  
+
+        $scope.secondStep = false;
         $scope.newLocation = {};
         $scope.clusterEntity = EntityModel.clusterModel;
-        $scope.$watch(function () { 
-                return EntityModel.clusterModel; 
-            }, function() {
-                $scope.clusterEntity = EntityModel.clusterModel;
-        }, true);    
-            
-       
        
        $scope.addLocation = function () {   
            if(!$scope.newLocation._name || !$scope.newLocation._path) {
