@@ -3,9 +3,9 @@ module.exports = function(grunt) {
 	grunt.initConfig({  
 		copy: {
 		    main: {
-                cwd: 'dev/',
+                cwd: 'app/',
 		        src: ['js/**','html/*','index.html', 'css/main.css', 'css/fonts/*'],
-		        dest: 'prod/',
+		        dest: 'dist/',
 		        expand: true
 		    }
 		},
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 		    },
 		    sandbox: {
 		        files: [{
-					cwd: 'prod',
+					cwd: 'dist',
 		            src: '**',
 		            filter: 'isFile',
 		           
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
             },
             main: {                             
                 src: "js/main.js",              
-                dest: "prod/js/main.min.js"     
+                dest: "dist/js/main.min.js"     
             }                                   
         },
         jshint: {
@@ -52,9 +52,9 @@ module.exports = function(grunt) {
             target: {
                 src: [ 
                     "*.js",
-	                "dev/js/*.js", 
-	                "dev/js/**/*.js",
-	                "!dev/js/lib/*.js"
+	                "app/js/*.js", 
+	                "app/js/**/*.js",
+	                "!app/js/lib/*.js"
                 ]
             }
         },       
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                     ieCompat: false    
                 },
                 files: {
-                    "dev/css/main.css": "dev/css/main.less"
+                    "app/css/main.css": "app/css/main.less"
                 }
             }
         },
@@ -102,21 +102,21 @@ module.exports = function(grunt) {
             livereload: {
               options: { livereload: true },
               files: [
-                  "dev/css/main.css", 
-                  "dev/html/*.html", 
-                  "dev/js/*.js", 
-                  "dev/js/**/*.js"
+                  "app/css/main.css", 
+                  "app/html/*.html", 
+                  "app/js/*.js", 
+                  "app/js/**/*.js"
               ]
             },
    //         scripts: {
    //             files: [
-   //                 "dev/js/*.js",
-   //                 "dev/js/**/*.js"
+   //                 "app/js/*.js",
+   //                 "app/js/**/*.js"
    //             ],
    //             tasks: ["jshint"]
    //         },
             less: {
-                files: ["dev/css/*.less", "dev/css/less/*.less"],
+                files: ["app/css/*.less", "app/css/less/*.less"],
                 tasks: ["less", "csslint"], 
                 options: {
                     nospawn: true
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
 		}
     });
 
-    grunt.registerTask("default", ["express","watch"]); // van en orden primero el primero    
+    grunt.registerTask("default", ["copy", "express","watch"]); // van en orden primero el primero
 	
 	grunt.registerTask("deploy", ["copy","scp"]);
 	
