@@ -33,22 +33,22 @@
                     })
                 .state('main.forms.feed', {
                     controller: 'feedFormCtrl',
-                    templateUrl : 'html/feedFormTpl.html'
+                    templateUrl : 'html/feed/feedFormTpl.html'
                 })
                     .state('main.forms.feed.general', {
-                        templateUrl : 'html/feedFormGeneralStepTpl.html'
+                        templateUrl : 'html/feed/feedFormGeneralStepTpl.html'
                     })
                     .state('main.forms.feed.properties', {
-                        templateUrl : 'html/feedFormPropertiesStepTpl.html'
+                        templateUrl : 'html/feed/feedFormPropertiesStepTpl.html'
                     })
                     .state('main.forms.feed.location', {
-                        templateUrl : 'html/feedFormLocationStepTpl.html'
+                        templateUrl : 'html/feed/feedFormLocationStepTpl.html'
                     })
                     .state('main.forms.feed.clusters', {
-                        templateUrl : 'html/feedFormClustersStepTpl.html'
+                        templateUrl : 'html/feed/feedFormClustersStepTpl.html'
                     })
                     .state('main.forms.feed.summary', {
-                        templateUrl : 'html/feedFormSummaryStepTpl.html'
+                        templateUrl : 'html/feed/feedFormSummaryStepTpl.html'
                     })
 
             .state('main.dashboard', {
