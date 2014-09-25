@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		    main: {
                 cwd: 'app/',
 		        src: ['js/**','html/*','index.html', 'css/main.css', 'css/fonts/*'],
-		        dest: 'prod/',
+		        dest: 'dist/',
 		        expand: true
 		    }
 		},
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 		    },
 		    sandbox: {
 		        files: [{
-					cwd: 'prod',
+					cwd: 'dist',
 		            src: '**',
 		            filter: 'isFile',
 		           
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
             },
             main: {                             
                 src: "js/main.js",              
-                dest: "prod/js/main.min.js"     
+                dest: "dist/js/main.min.js"     
             }                                   
         },
         jshint: {
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
 		}
     });
 
-    grunt.registerTask("default", ["express","watch"]); // van en orden primero el primero    
+    grunt.registerTask("default", ["copy", "express","watch"]); // van en orden primero el primero
 	
 	grunt.registerTask("deploy", ["copy","scp"]);
 	

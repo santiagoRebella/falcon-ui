@@ -25,13 +25,13 @@ Deploy
 
 Using the hortonworks-sandbox deploy to => **/var/lib/falcon/webapp/falcon** 
 
-    scp -r -P 2222 prod/** root@127.0.0.1:/var/lib/falcon/webapp/falcon
+    scp -r -P 2222 dist/** root@127.0.0.1:/var/lib/falcon/webapp/falcon
 
 If you use Grunt, The task deploy 
   
     grunt deploy 
 
-will copy the necessary files from /dev folder to /prod folder. [1] and copy with scp from prod to hortonworks sandbox location, the access are set as the default 'root' 'hadoop', easily changeable in the Gruntfile
+will copy the necessary files from /app folder to /dist folder. [1] and copy with scp from dist to hortonworks sandbox location, the access are set as the default 'root' 'hadoop', easily changeable in the Gruntfile
 
   
 Navigate to **localhost:15000**
