@@ -11,7 +11,7 @@
 			USER_ID = 'dashboard';
 
 	    function add_user(url) {
-			var paramSeparator = (url.indexOf('?') != -1) ? '&' : '?';
+			var paramSeparator = (url.indexOf('?') !== -1) ? '&' : '?';
 			return url + paramSeparator + 'user.name=' + USER_ID;
 	    }
 		//----------methods----------------------------//
@@ -168,7 +168,7 @@
 	}]);
 	
 	
-	app.factory('X2jsService', ["$http", function($http) {
+	app.factory('X2jsService', ["$http", function() {
 		
 		var x2js = new X2JS(), X2jsService = {};
 

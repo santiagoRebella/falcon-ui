@@ -4,7 +4,7 @@ module.exports = function (grunt) {
         copy: {
             resources: {
                 cwd: 'app',
-                src: ['html/*.html', 'index.html', 'css/fonts/*'],
+                src: ['html/**/*.html', 'index.html', 'css/fonts/*'],
                 dest: 'dist/',
                 expand: true
             },
@@ -24,7 +24,7 @@ module.exports = function (grunt) {
                 compress: true,
                 preserveComments: false,
                 drop_console: false,
-                sourceMap: 'dist/application.map',
+                sourceMap: true,
                 banner: '/**** Created by Santiago Rebella ***/'
             },
             main: {
@@ -112,7 +112,7 @@ module.exports = function (grunt) {
                 options: {
                     livereload: true
                 },
-                files: ['app/html/*', 'app/index.html', 'app/css/fonts/*'],
+                files: ['app/html/**/*.html', 'app/index.html', 'app/css/fonts/*'],
                 tasks: ['resources']
             },
 

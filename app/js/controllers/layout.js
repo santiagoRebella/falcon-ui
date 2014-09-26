@@ -18,24 +18,19 @@
 (function () {
   'use strict';
 
-  describe('HeaderController', function () {
-    var controller;
-    var mockService = jasmine.createSpyObj('Falcon', ['getServerVersion']);
-    var q;
+  angular.module('app.controllers.layout', ['app.services'])
 
-    beforeEach(module('app.controllers.layout'));
+    .controller('HeaderController', ["$scope", "Falcon", function($scope, Falcon) {
+      $scope.adminResource = {};
 
-    beforeEach(inject(function($q, $rootScope, $controller) {
+      Falcon.getServerVersion().success(function (data) {
+        $scope.adminResource.version = data.properties[0].value;
+        $scope.adminResource.mode = data.properties[1].value;
+      }).error(function (err) {
+        console.log(err);
+      });
 
-      q = $q;
+    }]);
 
 
-    }));
-
-
-    it('should run here few assertions', function() {
-      expect(true).toBe(true);
-    });
-
-  });
 })();

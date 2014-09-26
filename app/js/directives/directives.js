@@ -7,7 +7,7 @@
 			replace:false,
 			restrict: 'A',
 			templateUrl: 'html/navTpl.html',
-			controller: 'headerCtrl'
+			controller: 'HeaderController'
 		};
 	});
 	
@@ -38,7 +38,7 @@
             },
             restrict: "EA",
             templateUrl: 'html/entitiesListDv.html',
-            link: function (scope, element, attrs) { 
+            link: function (scope) {
                 scope.info = {};
                 
                 scope.$watch('input', function() {
