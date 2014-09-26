@@ -1,7 +1,7 @@
 <div class="col-sm-12 col-sm-offset-6 clusterForm">
     <div class="formTitle">
         Editing <div class="entypo archive"></div>  {{ clusterEntity.cluster._name }}     
-        <div class="entypo save" ng-click="goSummaryStep();saveCluster();" ui-sref="main"></div>
+        <div class="entypo save" ng-disabled="clusterForm.$invalid" ng-click="goSummaryStep();saveCluster();" ui-sref="main"></div>
         <div class="entypo trash" ui-sref="main" ></div>
     </div>
     
