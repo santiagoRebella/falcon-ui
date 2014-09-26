@@ -133,11 +133,16 @@
         };
         $scope.relationsEntity = function (type, name) {         
             console.log("relations " + type + " - " + name);
-        };
-                                              
-                                                
+        };                                                                                
         $scope.closeAlert = function () {
             $scope.serverResponse.status = undefined;
+        };
+        $scope.resetCluster = function () {
+            EntityModel.clusterModel = {cluster:{interfaces:{interface:[{_type:"readonly",_endpoint:"hftp://",_version:""},
+                    {_type:"write",_endpoint:"hdfs://",_version:""},{_type:"execute",_endpoint:"",_version:""},
+                    {_type:"workflow",_endpoint:"http://",_version:""},{_type:"messaging",_endpoint:"tcp://",_version:""}]},
+                    locations:{location:[]},_xmlns:"uri:falcon:cluster:0.1",_name:"",_description:"",_colo:""}
+            };
         };
   
     }]); 
