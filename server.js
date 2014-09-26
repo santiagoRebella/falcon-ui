@@ -3,7 +3,6 @@
 
   var express = require('express');
   var port = 3000;
-  http://localhost:15000/api/entities/list/feed?
   var app = express();
   app.use('/', express.static(__dirname + '/dist'));
   app.use('/app', express.static(__dirname + '/app'));
