@@ -29,7 +29,7 @@
                     <span class="entypo stop"></span> 
                 </div>
             </td>            
-            <td class="buttonCell" ng-show="action === 'stopped' || action === ''">
+            <td class="buttonCell" ng-show="action === 'stopped' && caption !== 'Clusters'">
                 <div class="btn btn-default btn-xs" ng-click="edit(item.type, item.name)">  
                     <span class="entypo cog"></span> 
                 </div>
