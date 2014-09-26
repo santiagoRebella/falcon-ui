@@ -25,6 +25,7 @@ module.exports = function(config) {
       'app/js/lib/uirouter.min.js',
       'app/js/lib/xml2json.min.js',
 
+      'app/js/controllers/header.js',
       'app/js/controllers/controllers.js',
       'app/js/services/services.js',
 

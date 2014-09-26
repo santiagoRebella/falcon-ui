@@ -24,7 +24,7 @@ module.exports = function (grunt) {
                 compress: true,
                 preserveComments: false,
                 drop_console: false,
-                sourceMap: 'dist/application.map',
+                sourceMap: true,
                 banner: '/**** Created by Santiago Rebella ***/'
             },
             main: {

@@ -1,11 +1,10 @@
 (function () {
     
-    var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services']);
+    var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout']);
             
     app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
         
-        //$httpProvider.defaults.headers.post = {'Content-Type': 'application/xml'};
-            
+
         $urlRouterProvider.otherwise("/");
         
         $stateProvider

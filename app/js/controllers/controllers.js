@@ -1,20 +1,9 @@
 (function () {
 	
 	var app = angular.module('app.controllers', ['app.services']);
-	
-	app.controller('headerCtrl', ["$scope", "Falcon", "$filter", function($scope, Falcon, $filter) {
-		$scope.adminResource = {};		
 
-	    Falcon.getServerVersion().success(function (data) {
-		        $scope.adminResource.version = data.properties[0].value;
-		        $scope.adminResource.mode = data.properties[1].value;		        
-		    }).error(function (err) {
-		        console.log(err);
-		    });
-	  
-	}]);
-	
-	app.controller('rootCtrl', [ "$scope", "$timeout", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",  
+
+	app.controller('rootCtrl', [ "$scope", "$timeout", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",
 	                             function($scope, $timeout, Falcon, FileApi, EntityModel, $state, X2jsService) {
 	
 		$scope.handleFile = function (evt) {
@@ -233,8 +222,8 @@
     }]);    
     
     
-    app.controller('feedFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "X2jsService", 
-                                           function($scope, $timeout, Falcon, EntityModel, $state, X2jsService) {     
+    app.controller('feedFormCtrl', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state",
+                                           function($scope, $timeout, Falcon, EntityModel, $state) {
         
         $scope.feedEntity = EntityModel.feedModel;
         $scope.fileSysSection = true;
