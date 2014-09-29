@@ -22,7 +22,6 @@
     .controller('FeedController', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state",
       function($scope, $timeout, Falcon, EntityModel, $state) {
         $scope.feedEntity = EntityModel.feedModel;
-        $scope.feedEntity = EntityModel.feedModel;
         $scope.fileSysSection = true;
         $scope.sourceSection = true;
         $scope.clusterSelectedSection = 0;
