@@ -96,6 +96,11 @@
                        _type:"messaging",
                        _endpoint:"tcp://",
                        _version:""
+                    },
+                    {  
+                       _type:"registry",
+                       _endpoint:"tbd://",
+                       _version:""
                     }
                  ]
               },
