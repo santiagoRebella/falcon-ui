@@ -1,6 +1,6 @@
 (function () {
 
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout', 'app.controllers.feed']);
 
   app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 
@@ -30,7 +30,7 @@
         templateUrl: 'html/cluster/clusterFormSummaryStepTpl.html'
       })
       .state('main.forms.feed', {
-        controller: 'feedFormCtrl',
+        controller: 'FeedController',
         templateUrl: 'html/feed/feedFormTpl.html'
       })
       .state('main.forms.feed.general', {
@@ -48,7 +48,6 @@
       .state('main.forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html'
       })
-
       .state('main.dashboard', {
         templateUrl: 'html/dashboardTpl.html',
         controller: 'dashboardCtrl'
