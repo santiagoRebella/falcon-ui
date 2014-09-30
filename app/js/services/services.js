@@ -70,6 +70,7 @@
 	    
 	    EntityModel.clusterModel = {
            cluster:{  
+              groups: "",
               interfaces:{  
                  interface:[  
                     {  
@@ -104,6 +105,7 @@
                     }
                  ]
               },
+              
               locations:{  
                  location:[  
                     
@@ -113,6 +115,7 @@
               _name:"",
               _description:"",
               _colo:""
+              
            }
         };
 	    

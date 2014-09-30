@@ -9,8 +9,9 @@
         <label>Description</label>: {{clusterEntity.cluster._description}}
     </div> 
     <div class="col-sm-24">
-        <label>Groups</label>: {{entity.groups}}
-    </div> 
+        <label>Groups</label>: {{clusterEntity.cluster.groups}}
+    </div>     
+    
     <h4 class="col-sm-24">
         Interfaces
     </h4>
@@ -32,7 +33,7 @@
         Previous
     </div>     
     
-    <div class="btn btn-default col-xs-6 pull-right" ng-click="saveCluster()" ui-sref="main">
+    <div class="btn btn-default col-xs-6 pull-right" ng-click="saveCluster()">
         Save
     </div>  
     

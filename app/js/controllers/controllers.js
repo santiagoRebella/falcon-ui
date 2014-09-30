@@ -168,25 +168,22 @@
            else {
                $scope.clusterEntity.cluster.locations.location.push($scope.newLocation);
                $scope.newLocation = {};
-           }   
-             
+           }                
        };
        $scope.removeLocation = function (index) {
            $scope.clusterEntity.cluster.locations.location.splice(index, 1);
        }; 
        
-       $scope.goSummaryStep = function () {
-           
+       $scope.goSummaryStep = function () {         
            //takes out the $$hashKey from object      
            $scope.jsonString = angular.toJson($scope.clusterEntity);
            //goes back to js to have x2js parse it correctly
            $scope.jsonString = JSON.parse($scope.jsonString);
            $scope.jsonString = X2jsService.json2xml_str($scope.jsonString);  
-           $scope.secondStep = true;        
+           $scope.secondStep = true;       
        };
        $scope.goGeneralStep = function () {
-           $scope.secondStep = false;     
-           console.log($scope.secondStep);   
+           $scope.secondStep = false;        
        };
        $scope.saveCluster = function () {
         
@@ -201,10 +198,8 @@
                 var error = X2jsService.xml_str2json(err);            
                 Falcon.success = false;                 
                 Falcon.serverResponse = error.result; 
-                $state.go('main'); 
-            }); 
-           
-           
+                
+            });     
        };
        
        $scope.updateCluster = function () {
@@ -220,9 +215,7 @@
                 Falcon.success = false;                 
                 Falcon.serverResponse = error.result; 
                 $state.go('main'); 
-            }); 
-           
-           
+            });     
        };
     }]);    
 
