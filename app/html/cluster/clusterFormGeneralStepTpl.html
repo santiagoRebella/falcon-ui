@@ -1,7 +1,7 @@
 <form name="clusterForm">
     <div class="col-sm-8">
         <label class="light">Name</label>
-        <input type="text" class="form-control" ng-pattern="/^[a-zA-Z0-9]{1,20}$/" ng-model="clusterEntity.cluster._name" ng-required="true" novalidate/>
+        <input type="text" class="form-control" ng-pattern="/^[a-zA-Z0-9]{1,39}$/" ng-model="clusterEntity.cluster._name" ng-required="true" novalidate/>
     </div>
     <div class="col-sm-16">
         <label class="light">Colo</label>
@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-24">
         <label class="light">Groups (comma separated)</label>
-        <input type="text" class="form-control" ng-pattern="/^[a-zA-Z0-9,]{1,20}$/" ng-model="entity.groups">
+        <input type="text" class="form-control" ng-pattern="/^[a-zA-Z0-9,]{1,20}$/" ng-model="clusterEntity.cluster.groups">
     </div>
     
     <h4 class="col-sm-24"> Interfaces </h4>
