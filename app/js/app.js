@@ -64,7 +64,7 @@
       });
   }]);
 
-  app.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
+  app.run(['$rootScope', '$state', '$stateParams', function ($rootScope) {
     $rootScope.$on('$stateChangeError',
       function(event, toState, toParams, fromState, fromParams, error){
         console.log('error: ' + error);
