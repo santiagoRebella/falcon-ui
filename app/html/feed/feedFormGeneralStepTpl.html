@@ -1,51 +1,55 @@
-<div class="row">
+<form name="generalInformationStepForm">
+  <div class="row">
     <div class="col-sm-8">
-        <label class="light">Name</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required="true"/>
+      <label class="light">Name</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required="true"/>
     </div>
     <div class="col-sm-16">
-        <label class="light">Description</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed._description">
+      <label class="light">Description</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed._description">
     </div>
     <div class="col-sm-24">
-        <label class="light">Tags</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed.tags">
+      <label class="light">Tags</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.tags">
     </div>
     <div class="col-sm-24">
-        <label class="light">Groups (comma separated)</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed.groups">
+      <label class="light">Groups (comma separated)</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.groups">
     </div>
-    
+
     <h4 class="col-sm-24"> Access Control List </h4>
-    
+
     <div class="col-xs-8">
-        <label class="light">Owner</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._owner">
-    </div>
-    <div class="col-xs-8"> 
-        <label class="light">Group</label>      
-        <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._group">
+      <label class="light">Owner</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._owner">
     </div>
     <div class="col-xs-8">
-        <label class="light">Permissions</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._permission">
-    </div>  
-     
-    <h4 class="col-xs-24"> Schema </h4>    
-    <div class="col-xs-12"> 
-        <label class="light">Location</label>      
-        <input type="text" class="form-control" ng-model="feedEntity.feed.schema._location">
+      <label class="light">Group</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._group">
+    </div>
+    <div class="col-xs-8">
+      <label class="light">Permissions</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._permission">
+    </div>
+
+    <h4 class="col-xs-24"> Schema </h4>
+
+    <div class="col-xs-12">
+      <label class="light">Location</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.schema._location">
     </div>
     <div class="col-xs-12">
-        <label class="light">Provider</label>
-        <input type="text" class="form-control" ng-model="feedEntity.feed.schema._provider">
-    </div>    
-</div>
-<div class="feedBottomButtons">
-    <div class="btn btn-default col-xs-6 pull-right" ui-sref="main.forms.feed.properties">
-        Next
+      <label class="light">Provider</label>
+      <input type="text" class="form-control" ng-model="feedEntity.feed.schema._provider">
+    </div>
+  </div>
+  <div class="feedBottomButtons">
+    <div class="btn btn-default col-xs-6 pull-right" ui-sref="main.forms.feed.properties"
+         ng-disabled="generalInformationStepForm.$invalid">
+      Next
     </div>
     <div class="col-xs-4 pull-right">
-        <u ui-sref="main">Cancel</u>
-    </div>          
-</div>
+      <u ui-sref="main">Cancel</u>
+    </div>
+  </div>
+</form>

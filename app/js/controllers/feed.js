@@ -19,26 +19,28 @@
   'use strict';
 
   angular.module('app.controllers.feed', ['app.services'])
-    .controller('FeedController', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state",
-      function($scope, $timeout, Falcon, EntityModel, $state) {
-        $scope.feedEntity = EntityModel.feedModel;
-        $scope.fileSysSection = true;
-        $scope.sourceSection = true;
-        $scope.clusterSelectedSection = 0;
+    .controller('FeedController', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "clusters",
 
-        $scope.$watch(function () {
-          return EntityModel.feedModel;
-        }, function() {
-          $scope.feedEntity = EntityModel.feedModel;
-        }, true);
+      function($scope, $timeout, Falcon, EntityModel, $state, clusters) {
+
+        $scope.init = function() {
+          $scope.feedEntity = angular.copy(EntityModel.feedModel);
+          $scope.fileSysSection = true;
+          $scope.sourceSection = true;
+          $scope.clusterSelectedSection = 0;
+          console.log(clusters);
+        };
+
+        $scope.init();
+/*
         $scope.$watch(function () {
           return $scope.temp;
         }, function() {
           EntityModel.feedModel.feed.frequency = $scope.temp.freqUnit + "(" + $scope.temp.freqNumber + ")";
           EntityModel.feedModel.feed["late-arrival"]["_cut-off"] = $scope.temp.lateArrivalUnit + "(" + $scope.temp.lateArrivalNumber + ")";
-        }, true);
+        }, true);*/
 
-        Falcon.getEntities("cluster")
+/*        Falcon.getEntities("cluster")
           .success(function (data) {
             var typeOfData = Object.prototype.toString.call(data.entity);
             if(data === "null") { $scope.clusterList = []; }
@@ -46,7 +48,7 @@
             else if(typeOfData === "[object Object]") { $scope.clusterList[0] = data.entity; }
             else { console.log("type of data not recognized"); }
           })
-          .error(function (err) { console.log( err ); });
+          .error(function (err) { console.log( err ); });*/
 
         $scope.isActive = function (route) {
           return route === $state.$current.name;

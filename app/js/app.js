@@ -1,6 +1,6 @@
 (function () {
 
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout', 'app.controllers.feed']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout', 'app.controllers.feed', 'app.services.entity']);
 
   app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 
@@ -30,8 +30,18 @@
         templateUrl: 'html/cluster/clusterFormSummaryStepTpl.html'
       })
       .state('main.forms.feed', {
-        controller: 'FeedController',
-        templateUrl: 'html/feed/feedFormTpl.html'
+        templateUrl: 'html/feed/feedFormTpl.html',
+        resolve: {
+          clusters: ['EntityService', function(EntityService) {
+            return EntityService.findByType('cluster').then(
+              function(response) {
+                return response.data;
+              });
+            }
+          ]
+        },
+        controller: 'FeedController'
+
       })
       .state('main.forms.feed.general', {
         templateUrl: 'html/feed/feedFormGeneralStepTpl.html'
@@ -51,6 +61,13 @@
       .state('main.dashboard', {
         templateUrl: 'html/dashboardTpl.html',
         controller: 'dashboardCtrl'
+      });
+  }]);
+
+  app.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
+    $rootScope.$on('$stateChangeError',
+      function(event, toState, toParams, fromState, fromParams, error){
+        console.log('error: ' + error);
       });
   }]);
 
