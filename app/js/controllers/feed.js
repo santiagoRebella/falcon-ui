@@ -18,6 +18,13 @@
 (function () {
   'use strict';
 
+  /***
+   * @ngdoc controller
+   * @name app.controllers.feed.FeedController
+   * @requires clusters the list of clusters to display for selection of source
+   * @requires EntityModel the entity model to copy the feed entity from
+   * @requires Falcon the falcon entity service
+   */
   angular.module('app.controllers.feed', ['app.services'])
     .controller('FeedController', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "clusters",
 
@@ -28,7 +35,7 @@
           $scope.fileSysSection = true;
           $scope.sourceSection = true;
           $scope.clusterSelectedSection = 0;
-          console.log(clusters);
+          $scope.clustes = clusters;
         };
 
         $scope.init();
