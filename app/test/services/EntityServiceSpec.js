@@ -18,34 +18,30 @@
 (function () {
   'use strict';
 
-  describe('EntityModel', function () {
+  describe('EntityService', function () {
+    var httpBackendMock;
+    var entitiesService;
 
-    var EntityModel, httpBackend, X2jsServiceMock;
+    beforeEach(module('app.services.entity'));
 
-    beforeEach(module('app.services', function($provide) {
-      X2jsServiceMock = jasmine.createSpyObj('X2jsService', ['xml_str2json']);
-      $provide.value('X2jsService', X2jsServiceMock);
+    beforeEach(inject(function($httpBackend, EntityService) {
+      httpBackendMock = $httpBackend;
+      entitiesService = EntityService;
     }));
 
-    beforeEach(inject(function($httpBackend, _EntityModel_) {
-      EntityModel = _EntityModel_;
-      httpBackend = $httpBackend;
-    }));
+    it('Should return the expected entities', function() {
+      var expectedEntities = [{name: 'cluster1'}];
+      var entities = [];
 
+      httpBackendMock.expectGET('/api/entities/list/cluster?user.name=dashboard').respond(expectedEntities);
 
-    it('Should set type as not recognized if the entity is not feed, cluster or process', function() {
-      EntityModel.identifyType({});
+      entitiesService.findByType('cluster').then(function(response) {
+        entities = response.data;
+      });
 
-      expect(EntityModel.type).toBe('Type not recognized');
+      httpBackendMock.flush();
+      expect(entities).toEqual(expectedEntities);
+
     });
-
-    it('Should contain the proper Feed Model', function() {
-      var feed = EntityModel.feedModel.feed;
-
-      expect(feed).toNotBe(null);
-      expect(feed._name).toEqual("");
-    });
-
-
   });
 })();

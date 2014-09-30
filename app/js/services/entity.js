@@ -17,35 +17,22 @@
  */
 (function () {
   'use strict';
+  var module = angular.module('app.services.entity', []);
 
-  describe('EntityModel', function () {
+  module.factory('EntityService', ['$http', function($http) {
+    return {
+      findByType: function(type) {
+        return $http.get('/api/entities/list/' + type, withUser('dashboard'));
+      }
+    };
+  }]);
 
-    var EntityModel, httpBackend, X2jsServiceMock;
+  function withUser(userName) {
+    return {
+      params: {
+        'user.name': userName
+      }
+    };
+  }
 
-    beforeEach(module('app.services', function($provide) {
-      X2jsServiceMock = jasmine.createSpyObj('X2jsService', ['xml_str2json']);
-      $provide.value('X2jsService', X2jsServiceMock);
-    }));
-
-    beforeEach(inject(function($httpBackend, _EntityModel_) {
-      EntityModel = _EntityModel_;
-      httpBackend = $httpBackend;
-    }));
-
-
-    it('Should set type as not recognized if the entity is not feed, cluster or process', function() {
-      EntityModel.identifyType({});
-
-      expect(EntityModel.type).toBe('Type not recognized');
-    });
-
-    it('Should contain the proper Feed Model', function() {
-      var feed = EntityModel.feedModel.feed;
-
-      expect(feed).toNotBe(null);
-      expect(feed._name).toEqual("");
-    });
-
-
-  });
 })();
