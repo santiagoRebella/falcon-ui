@@ -37,7 +37,7 @@
     }));
 
 
-    it('should be initialized properly', function() {
+    it('Should be initialized properly', function() {
       scope.fileSysSection = false;
 
       scope.init();
@@ -46,9 +46,35 @@
       expect(scope.sourceSection).toBe(true);
       expect(scope.clusterSelectedSection).toBe(0);
       expect(scope.feedEntity).toEqual(createEntityMock().feedModel);
+      expect(scope.feedForm.tags).toEqual([{
+        key: null,
+        value: null
+      }]);
+    });
+
+    it('Should add a new empty tag', function() {
+      expect(scope.feedForm.tags.length).toEqual(1);
+
+      scope.addTag();
+
+      expect(scope.feedForm.tags.length).toEqual(2);
+      expect(scope.feedForm.tags[1]).toEqual({key: null, value: null});
+    });
+
+    it('Should remove a tag', function() {
+      scope.feedForm.tags = [
+        {key: 'key', value: 'value'},
+        {key: 'toDeleteKey', value: 'toDeleteValue'}
+      ];
+
+      scope.removeTag();
+
+      expect(scope.feedForm.tags.length).toEqual(1);
+      expect(scope.feedForm.tags).toEqual([{key: 'key', value: 'value'}]);
     });
 
   });
+
 
   function createEntityMock() {
     return {

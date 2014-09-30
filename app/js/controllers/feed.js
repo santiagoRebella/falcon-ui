@@ -36,9 +36,19 @@
           $scope.sourceSection = true;
           $scope.clusterSelectedSection = 0;
           $scope.clustes = clusters;
+          $scope.feedForm = {};
+          $scope.feedForm.tags = [{key: null, value: null}];
         };
 
         $scope.init();
+
+        $scope.addTag = function() {
+          $scope.feedForm.tags.push({key: null, value: null});
+        };
+
+        $scope.removeTag = function() {
+          $scope.feedForm.tags.pop();
+        };
 /*
         $scope.$watch(function () {
           return $scope.temp;

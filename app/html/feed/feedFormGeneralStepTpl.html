@@ -20,14 +20,17 @@
       <label class="light">Tags</label>
     </div>
 
-    <div class="col-md-11">
-      <input type="text" class="form-control"/>
-    </div>
-    <div class="col-md-12">
-      <input type="text" class="form-control"/>
-    </div>
-    <div class="col-md-1">
-      <span class="entypo circled-plus"/>
+    <div ng-repeat="tag in feedForm.tags">
+      <div class="col-md-11">
+        <input type="text" class="form-control" ng-model="tag.key">
+      </div>
+      <div class="col-md-12">
+        <input type="text" class="form-control" ng-model="tag.value">
+      </div>
+      <div class="col-md-1">
+        <span class="entypo circled-plus" ng-if="$last" ng-click="addTag()">
+        <span class="entypo circled-minus" ng-if="!$last" ng-click="removeTag()">
+      </div>
     </div>
 
     <div class="col-md-24">
