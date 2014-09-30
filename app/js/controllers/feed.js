@@ -46,8 +46,10 @@
           $scope.feedForm.tags.push({key: null, value: null});
         };
 
-        $scope.removeTag = function() {
-          $scope.feedForm.tags.pop();
+        $scope.removeTag = function(index) {
+          if(index >= 0 && $scope.feedForm.tags.length > 1) {
+            $scope.feedForm.tags.splice(index, 1);
+          }
         };
 /*
         $scope.$watch(function () {

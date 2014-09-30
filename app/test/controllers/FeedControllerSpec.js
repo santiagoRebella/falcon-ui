@@ -61,16 +61,36 @@
       expect(scope.feedForm.tags[1]).toEqual({key: null, value: null});
     });
 
-    it('Should remove a tag', function() {
+    it('Should remove a tag at the specified index', function() {
       scope.feedForm.tags = [
-        {key: 'key', value: 'value'},
-        {key: 'toDeleteKey', value: 'toDeleteValue'}
+        {key: 'key0', value: 'value0'},
+        {key: 'key1', value: 'value1'},
+        {key: 'key2', value: 'value2'}
+      ];
+
+      scope.removeTag(1);
+
+      expect(scope.feedForm.tags.length).toEqual(2);
+      expect(scope.feedForm.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key2', value: 'value2'}]);
+    });
+
+    it('Should not delete if there is only one element', function() {
+      scope.feedForm.tags = [{key: 'key', value: 'value'}];
+
+      scope.removeTag(0);
+
+      expect(scope.feedForm.tags).toEqual([{key: 'key', value: 'value'}]);
+    });
+
+    it('Should not delete if index is not passed in', function() {
+      scope.feedForm.tags = [
+        {key: 'key0', value: 'value0'},
+        {key: 'key1', value: 'value1'}
       ];
 
       scope.removeTag();
 
-      expect(scope.feedForm.tags.length).toEqual(1);
-      expect(scope.feedForm.tags).toEqual([{key: 'key', value: 'value'}]);
+      expect(scope.feedForm.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
     });
 
   });

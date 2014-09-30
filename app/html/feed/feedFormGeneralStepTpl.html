@@ -9,7 +9,7 @@
     </div>
 
     <div class="col-md-8">
-      <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required="true" ng-pattern="/(([a-zA-Z]([\-a-zA-Z0-9])*){1,39})/" ng-maxlength="39"/>
+      <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required="true" ng-pattern="/(([a-zA-Z]([\-a-zA-Z0-9])){1,39})/" ng-maxlength="39"/>
     </div>
     <div class="col-md-16">
       <input type="text" class="form-control" ng-model="feedEntity.feed._description" ng-maxlength="60"/>
@@ -21,15 +21,19 @@
     </div>
 
     <div ng-repeat="tag in feedForm.tags">
-      <div class="col-md-11">
-        <input type="text" class="form-control" ng-model="tag.key">
+      <div class="col-md-11 dynamic-table-spacer">
+        <input type="text" class="form-control" ng-model="tag.key"  ng-required="tag.value" />
       </div>
-      <div class="col-md-12">
-        <input type="text" class="form-control" ng-model="tag.value">
+      <div class="col-md-12 dynamic-table-spacer">
+        <input type="text" class="form-control" ng-model="tag.value"  ng-required="tag.key" />
       </div>
-      <div class="col-md-1">
-        <span class="entypo circled-plus" ng-if="$last" ng-click="addTag()">
-        <span class="entypo circled-minus" ng-if="!$last" ng-click="removeTag()">
+      <div class="col-md-1 top-buffer" >
+        <div ng-if="!$last">
+          <span class="entypo circled-minus dynamic-table-spacer" ng-click="removeTag($index)" />
+        </div>
+        <div ng-if="$last">
+          <span class="entypo circled-plus dynamic-table-spacer" ng-click="addTag()"/>
+        </div>
       </div>
     </div>
 
