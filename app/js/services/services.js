@@ -70,7 +70,7 @@
 	    
 	    EntityModel.clusterModel = {
            cluster:{  
-              groups: "",
+              
               interfaces:{  
                  interface:[  
                     {  
