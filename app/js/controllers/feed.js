@@ -174,7 +174,7 @@
         $scope.selectedCluster.selected = false;
         var newCluster = {
           name: null,
-            type: 'replication',
+            type: 'target',
           selected: true
         };
         $scope.feed.clusters.push(newCluster);
@@ -201,6 +201,7 @@
           $scope.feed.clusters[index].type !== 'source') {
 
           $scope.feed.clusters.splice(index, 1);
+          $scope.selectCluster($scope.sourceCluster)
         }
       };
 
