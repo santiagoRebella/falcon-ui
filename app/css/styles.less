@@ -385,6 +385,23 @@
     }
     
   }
+  .addReplicationButton {
+    width: 70px;
+    display: inline-block;
+    border-bottom: 3px solid @gray-light;
+    color: @gray-light;
+    cursor: pointer;
+    small {
+      font-size: 60%;
+      margin-bottom: -5px;
+      display: block;
+    }
+    &.active {
+      border-color: @gray-dark;
+      color: @gray-dark;
+    }
+
+  }
   .validityDateBox {
     .light {
       display: block;

@@ -163,48 +163,19 @@
 
   }]);
 
-  feedModule.controller('FeedClustersController', [ "$scope", 'clusters',
-    function($scope, clusters) {
+  feedModule.controller('FeedClustersController', [ "$scope",
+    function($scope) {
 
-    unwrapClusters(clusters);
+      var i = 0;
+      var j = 0;
+      $scope.addCluster = function() {
+        console.log('add: ' + i++);
+      };
 
-    $scope.selectCluster = function(index) {
-      for(var i = 0, n = clusters.length; i < n; i++) {
-        clusters[i].selected = (i === index);
-      }
-    };
-
-
-    function unwrapClusters(clusters) {
-      $scope.clusterList = [];
-      var typeOfData = Object.prototype.toString.call(clusters.entity);
-      if(typeOfData === "[object Array]") {
-        $scope.clusterList = clusters.entity;
-      } else if(typeOfData === "[object Object]") {
-        $scope.clusterList = [clusters.entity];
-      } else {
-        console.log("type of data not recognized");
-      }
-    }
+      $scope.removeCluster = function() {
+        console.log('remove: ' + j++);
+      };
 
   }]);
-
-/*
-
- $scope.addReplicationCluster = function () {
- var repClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };
- $scope.feedEntity.feed.clusters.push(repClusterObj);
- };
- $scope.addArchiveCluster = function () {
- var arcClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };
- $scope.feedEntity.feed.clusters.push(arcClusterObj);
- };
-
-        */
-
-
-/*
-*/
-
 
 })();
