@@ -27,7 +27,7 @@
    */
   var feedModule = angular.module('app.controllers.feed', []);
 
-  feedModule.controller('FeedController', [ "$scope", function($scope) {
+  feedModule.controller('FeedController', [ "$scope", "$state", function($scope, $state) {
 
     $scope.init = function() {
       $scope.feed = newFeed();
@@ -39,6 +39,10 @@
 
     $scope.saveEntity = function() {
       console.log('FeedController.saveEntity  not implemented yet');
+    };
+
+    $scope.isActive = function (route) {
+      return route === $state.$current.name;
     };
 
 

@@ -28,7 +28,11 @@
 
       controller = $controller('FeedController', {
         $scope: scope,
-        $state: {}
+        $state: {
+          $current:{
+            name: 'main.forms.feed.general'
+          }
+        }
       });
     }));
 
@@ -78,10 +82,20 @@
 
     });
 
+    it('Should return true when the current state is the general view', function() {
+      expect(scope.isActive('main.forms.feed.general')).toBe(true);
+    });
+
+    it('Should return true when the current state is not the general view', function() {
+      expect(scope.isActive('main.forms.feed.location')).toBe(false);
+    });
+
 
     it('TODO', function() {
       scope.saveEntity();
     });
+
+
 
 
   });
