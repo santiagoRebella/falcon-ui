@@ -2,11 +2,10 @@
   <div class="row">
     <div class="sourceReplicationButton"
          ng-repeat="cluster in feed.clusters"
-      ng-click="removeCluster()"
-      ng-class="{active: true}">
-      {{cluster}}
+      ng-click="handleCluster(cluster, $index)"
+      ng-class="{active: cluster.selected}">
       <div><span class="entypo circled-down"></span></div>
-      <div><small>Source</small> Cluster</div>
+      <div><small>{{capitalize(cluster.type)}}</small> Cluster</div>
     </div>
     <div class="sourceReplicationButton pull-right"
       ng-click="addCluster()">

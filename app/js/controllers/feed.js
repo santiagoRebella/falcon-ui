@@ -166,14 +166,38 @@
   feedModule.controller('FeedClustersController', [ "$scope",
     function($scope) {
 
-      var i = 0;
-      var j = 0;
+      $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
+
       $scope.addCluster = function() {
-        console.log('add: ' + i++);
+        $scope.selectedCluster.selected = false;
+        var newCluster = {
+          name: null,
+            type: 'replication',
+          selected: true
+        };
+        $scope.feed.clusters.push(newCluster);
+        $scope.selectedCluster = newCluster;
       };
 
-      $scope.removeCluster = function() {
-        console.log('remove: ' + j++);
+      $scope.handleCluster = function(cluster, index) {
+        if(cluster.selected) {
+          $scope.removeCluster(index);
+        } else {
+          $scope.selectCluster(cluster);
+        }
+      };
+
+      $scope.selectCluster = function (cluster) {
+        $scope.selectedCluster.selected = false;
+        cluster.selected = true;
+        $scope.selectedCluster = cluster;
+      };
+
+
+      $scope.removeCluster = function(index) {
+        if(index >= 0 && $scope.feed.clusters.length > 1) {
+          $scope.feed.clusters.splice(index, 1);
+        }
       };
 
   }]);
