@@ -78,26 +78,7 @@
       expect(scope.feed.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
     });
 
-    it('Should have default validations definitions', function() {
-      scope.init();
-      var validations = scope.validations;
 
-      expect(validations.id).toEqual({
-        pattern: /^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/,
-        maxlength: 39,
-        minlength: 0,
-        required: true
-      });
-
-      expect(validations.freeText).toEqual({
-        pattern: /^([\sa-zA-Z0-9]){1,40}$/,
-        maxlength: 1000,
-        minlength: 0,
-        required: false
-      });
-
-    });
-
-  });
+  })
 
 })();

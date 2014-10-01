@@ -31,6 +31,7 @@
 
     $scope.init = function() {
       $scope.feed = newFeed();
+      $scope.validations = defineValidations();
     };
 
     $scope.init();
@@ -48,9 +49,36 @@
         groups: null,
         tags: [{key: null, value: null}],
         ACL: {owner: null, group: null, permission: '*'},
-        schema: {location: '/', provider: null}
+        schema: {location: '/', provider: null},
+        frequency: {quantity: null, unit: null},
+        lateArrival: {active: false, cutOff: {quantity: null, unit: null}},
+        availabilityFlag: false
       };
     }
+
+    function defineValidations() {
+      return {
+        id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
+        freeText: validate(/^([\sa-zA-Z0-9]){1,40}$/),
+        alpha: validate(/^([a-zA-Z0-9]){1,20}$/),
+        commaSeparated: validate(/^[a-zA-Z0-9,]{1,80}$/),
+        unixId: validate(/^([a-z_][a-z0-9_\.]{0,30})$/),
+        unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
+        osPath: validate(/^[^\0]+$/),
+        twoDigits: validate(/^([0-9]){1,2}$/)
+      };
+    }
+
+    function validate(pattern, maxlength, minlength, required) {
+      return {
+        pattern: pattern,
+        maxlength: maxlength || 1000,
+        minlength: minlength || 0,
+        required: required || false
+      };
+    }
+
+
 
   }]);
 
@@ -60,8 +88,6 @@
       $scope.fileSysSection = true;
       $scope.sourceSection = true;
       $scope.clusterSelectedSection = 0;
-      $scope.validations = defineValidations();
-
     };
 
     $scope.init();
@@ -75,27 +101,6 @@
         $scope.feed.tags.splice(index, 1);
       }
     };
-
-    function defineValidations() {
-      return {
-        id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
-        freeText: validate(/^([\sa-zA-Z0-9]){1,40}$/),
-        alpha: validate(/^([a-zA-Z0-9]){1,20}$/),
-        commaSeparated: validate(/^[a-zA-Z0-9,]{1,80}$/),
-        unixId: validate(/^([a-z_][a-z0-9_\.]{0,30})$/),
-        unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
-        osPath: validate(/^[^\0]+$/)
-      };
-    }
-
-    function validate(pattern, maxlength, minlength, required) {
-      return {
-        pattern: pattern,
-        maxlength: maxlength || 1000,
-        minlength: minlength || 0,
-        required: required || false
-      };
-    }
 
 
   }]);

@@ -1,6 +1,87 @@
-<div class="row">
-  <div class="col-sm-9 composedField">
-    <label class="light col-xs-24">Frequency</label>
+<form name="feedForm">
+  <div class="row">
+
+    <div class="col-md-8">
+      <label class="light">Frequency</label>
+    </div>
+    <div class="col-md-1">
+      <input type="checkbox" ng-model="feed.lateArrival.active">
+    </div>
+    <div class="col-md-7">
+      <label class="light">Late Arrival</label>
+    </div>
+    <div class="col-md-8">
+      <label class="light">Availability Flag</label>
+    </div>
+
+    <div class="col-md-2">
+      <label class="light">Every</label>
+    </div>
+    <div class="col-md-2 composedField">
+      <input type="text" class="form-control small light"
+       ng-model="feed.frequency.quantity"
+       ng-required="true"
+       ng-pattern="validations.twoDigits.pattern"/>
+    </div>
+    <div class="col-md-4">
+      <select
+        ng-model="feed.frequency.unit"
+        ng-required="true">
+        <option selected value="hours">hours</option>
+        <option value="days">days</option>
+        <option value="weeks">weeks</option>
+        <option value="months">months</option>
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <label class="light">Up to</label>
+    </div>
+    <div class="col-md-2 composedField">
+      <input type="text" class="form-control small light"
+        ng-model="feed.lateArrival.cutOff.quantity"
+        ng-disabled="!feed.lateArrival.active"
+        ng-pattern="validations.twoDigits.pattern"
+        ng-required="feed.lateArrival.active"/>
+    </div>
+    <div class="col-md-4">
+      <select
+        ng-model="feed.lateArrival.cutOff.unit"
+        ng-required="feed.lateArrival.active">
+        <option value="hours">hours</option>
+        <option value="days">days</option>
+        <option value="weeks">weeks</option>
+        <option selected value="months">months</option>
+      </select>
+    </div>
+    <div class="col-md-8">
+      <select
+        ng-model="feed.availabilityFlag">
+        <option selected ng-value="true">true</option>
+        <option ng-value="false">false</option>
+      </select>
+    </div>
+
+    <div class="col-md-24"><label class="light"> </label></div>
+    
+
+    <div class="feedBottomButtons">
+      <div class="btn btn-default col-md-6" ui-sref="main">
+        Cancel
+      </div>
+      <div class="btn btn-default col-md-6 pull-right"
+           ng-disabled="feedForm.$invalid"
+           ui-sref="main.forms.feed.location">
+        Next
+      </div>
+    </div>
+  </div>
+</form>
+<!--
+
+  <div class="row">
+  <div class="col-md-9 composedField">
+    <label class="light col-md-24">Frequency</label>
     <label class="light">Every</label>
     <input type="text" class="small" ng-model="temp.freqNumber" ng-required novalidate/>
     <select ng-model="temp.freqUnit">
@@ -10,7 +91,7 @@
       <option value="months">months</option>
     </select>
   </div>
-  <div class="col-sm-9 composedField">
+  <div class="col-md-9 composedField">
     <div class="checkbox">
       <label>
         <input type="checkbox" ng-model="temp.lateArrival"> Late arrival
@@ -26,30 +107,30 @@
     </select>
 
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label class="light">Availability Flag</label>
     <input type="text" class="form-control" ng-model="feedEntity.feed.availability" novalidate/>
   </div>
 
-  <h4 class="col-sm-24"> Properties </h4>
+  <h4 class="col-md-24"> Properties </h4>
 
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label class="light">Name</label>
   </div>
-  <div class="col-sm-18">
+  <div class="col-md-18">
     <label class="light">Value</label>
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label>queueName</label>
   </div>
-  <div class="col-sm-18">
+  <div class="col-md-18">
     <input type="text" class="form-control" ng-model="feedEntity.feed.queueName">
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label>jobPriority</label>
   </div>
-  <div class="col-sm-18">
-    <select ng-model="feedEntity.feed.jobPriority" class="col-sm-24">
+  <div class="col-md-18">
+    <select ng-model="feedEntity.feed.jobPriority" class="col-md-24">
       <option value="VERY_HIGH" selected>VERY_HIGH</option>
       <option value="HIGH">HIGH</option>
       <option value="NORMAL" selected>NORMAL</option>
@@ -59,10 +140,10 @@
   </div>
   <div class="clearfix"></div>
 
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label>timeout</label>
   </div>
-  <div class="col-sm-18 composedField">
+  <div class="col-md-18 composedField">
     <label class="light">At</label>
     <input type="text" class="small" ng-model="feedEntity.feed.something" ng-required novalidate/>
     <select ng-model="feedEntity.feed.something">
@@ -72,49 +153,50 @@
       <option value="months">months</option>
     </select>
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label>parallel</label>
   </div>
-  <div class="col-sm-18">
+  <div class="col-md-18">
     <input type="text" class="form-control" ng-model="feedEntity.feed.parallel">
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label>maxMaps</label>
   </div>
-  <div class="col-sm-18">
+  <div class="col-md-18">
     <input type="text" class="form-control" ng-model="feedEntity.feed.maxMaps">
   </div>
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <label>mapBandwidthKB</label>
   </div>
-  <div class="col-sm-18">
+  <div class="col-md-18">
     <input type="text" class="form-control" ng-model="feedEntity.feed.mapBandwidthKB">
   </div>
   <div ng-repeat="item in temp.newPropertiesArray">
-    <div class="col-sm-6">
+    <div class="col-md-6">
       <label>{{item.name}}</label>
     </div>
-    <div class="col-sm-18">
+    <div class="col-md-18">
       <input type="text" class="form-control" ng-model="feedEntity.feed[item.name]">
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-md-6">
     <input type="text" class="form-control" ng-model="temp.newPropertyName" placeholder="New Property">
   </div>
-  <div class="col-sm-18">
-    <input type="text" class="col-xs-22" ng-model="temp.newPropertyValue">
+  <div class="col-md-18">
+    <input type="text" class="col-md-22" ng-model="temp.newPropertyValue">
     <span class="entypo circled-plus addProperty" ng-click="addProperty()"></span>
   </div>
 </div>
 <div class="feedBottomButtons">
-  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.general">
+  <div class="btn btn-default col-md-6" ui-sref="main.forms.feed.general">
     Previous
   </div>
-  <div class="btn btn-default col-xs-6 pull-right" ui-sref="main.forms.feed.location">
+  <div class="btn btn-default col-md-6 pull-right" ui-sref="main.forms.feed.location">
     Next
   </div>
-  <div class="col-xs-4 pull-right">
+  <div class="col-md-4 pull-right">
     <u ui-sref="main">Cancel</u>
   </div>
 </div>
+-->
