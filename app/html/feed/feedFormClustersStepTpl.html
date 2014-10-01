@@ -12,7 +12,7 @@
             }">
         </span>
       </div>
-      <div><small>{{capitalize(cluster.type)}}</small> Cluster</div>
+      <div><small>{{capitalize(cluster.type === 'target' ? 'replication' : cluster.type)}}</small> Cluster</div>
     </div>
     <div class="sourceReplicationButton pull-right"
       ng-click="addCluster()">
