@@ -44,9 +44,18 @@
       expect(scope.feed.ACL).toEqual({ owner: null, group: null, permission: '*'});
       expect(scope.feed.schema.location).toBe('/');
       expect(scope.feed.schema.provider).toBe(null);
-      expect(scope.feed.frequency).toEqual({quantity: null, unit: null});
-      expect(scope.feed.lateArrival).toEqual({active: false, cutOff: {quantity: null, unit: null}});
+      expect(scope.feed.frequency).toEqual({quantity: null, unit: 'hours'});
+      expect(scope.feed.lateArrival).toEqual({active: false, cutOff: {quantity: null, unit: 'hours'}});
       expect(scope.feed.availabilityFlag).toEqual(false);
+      expect(scope.feed.properties).toEqual({
+        queueName: null,
+        jobPriority: 'NORMAL',
+        timeout: {quantity: null, unit: 'hours'},
+        parallel: null,
+        maxMaps: null,
+        mapBandwidthKB: null
+      });
+      expect(scope.feed.customProperties).toEqual([{key: null, value: null}]);
     });
 
     it('Should have default validations definitions', function() {

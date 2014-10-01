@@ -1,92 +1,190 @@
 <form name="feedForm">
-  <div class="row">
 
-    <div class="col-md-8">
-      <label class="light">Frequency</label>
-    </div>
-    <div class="col-md-1">
-      <input type="checkbox" ng-model="feed.lateArrival.active">
-    </div>
-    <div class="col-md-7">
-      <label class="light">Late Arrival</label>
-    </div>
-    <div class="col-md-8">
-      <label class="light">Availability Flag</label>
-    </div>
-
-    <div class="col-md-2">
-      <label class="light">Every</label>
-    </div>
-    <div class="col-md-2 composedField">
-      <input type="text" class="form-control small light"
-       ng-model="feed.frequency.quantity"
-       ng-required="true"
-       ng-pattern="validations.twoDigits.pattern"/>
-    </div>
-    <div class="col-md-4">
-      <select
-        ng-model="feed.frequency.unit"
-        ng-required="true">
-        <option selected value="hours">hours</option>
-        <option value="days">days</option>
-        <option value="weeks">weeks</option>
-        <option value="months">months</option>
-      </select>
-    </div>
-
-    <div class="col-md-2">
-      <label class="light">Up to</label>
-    </div>
-    <div class="col-md-2 composedField">
-      <input type="text" class="form-control small light"
-        ng-model="feed.lateArrival.cutOff.quantity"
-        ng-disabled="!feed.lateArrival.active"
-        ng-pattern="validations.twoDigits.pattern"
-        ng-required="feed.lateArrival.active"/>
-    </div>
-    <div class="col-md-4">
-      <select
-        ng-model="feed.lateArrival.cutOff.unit"
-        ng-required="feed.lateArrival.active">
-        <option value="hours">hours</option>
-        <option value="days">days</option>
-        <option value="weeks">weeks</option>
-        <option selected value="months">months</option>
-      </select>
-    </div>
-    <div class="col-md-8">
-      <select
-        ng-model="feed.availabilityFlag">
-        <option selected ng-value="true">true</option>
-        <option ng-value="false">false</option>
-      </select>
-    </div>
-
-    <h4 class="col-md-24">Properties</h4>
-    <div class="col-md-12">
-      <label class="light">Name</label>
-    </div>
-    <div class="col-md-12">
-      <label class="light">Value</label>
-    </div>
-
-
-    <div class="col-md-24"><label class="light"> </label></div>
-
-
-    <div class="feedBottomButtons">
-      <div class="btn btn-default col-md-6" ui-sref="main">
-        Cancel
+    <div class="row">
+      <div class="col-md-8">
+        <label class="light">Frequency</label>
       </div>
-      <div class="btn btn-default col-md-6 pull-right"
-           ng-disabled="feedForm.$invalid"
-           ui-sref="main.forms.feed.location">
-        Next
+      <div class="col-md-1">
+        <input type="checkbox" ng-model="feed.lateArrival.active">
+      </div>
+      <div class="col-md-7">
+        <label class="light">Late Arrival</label>
+      </div>
+      <div class="col-md-8">
+        <label class="light">Availability Flag</label>
+      </div>
+
+      <div class="col-md-2">
+        <label class="light">Every</label>
+      </div>
+      <div class="col-md-2 composedField">
+        <input type="text" class="form-control small light"
+         ng-model="feed.frequency.quantity"
+         ng-required="true"
+         ng-pattern="validations.twoDigits.pattern"/>
+      </div>
+      <div class="col-md-4">
+        <select
+          ng-model="feed.frequency.unit"
+          ng-required="true">
+          <option value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="light">Up to</label>
+      </div>
+      <div class="col-md-2 composedField">
+        <input type="text" class="form-control small light"
+          ng-model="feed.lateArrival.cutOff.quantity"
+          ng-disabled="!feed.lateArrival.active"
+          ng-pattern="validations.twoDigits.pattern"
+          ng-required="feed.lateArrival.active"/>
+      </div>
+      <div class="col-md-4">
+        <select
+          ng-model="feed.lateArrival.cutOff.unit"
+          ng-required="feed.lateArrival.active">
+          <option value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
+      </div>
+      <div class="col-md-8">
+        <select
+          ng-model="feed.availabilityFlag">
+          <option selected ng-value="true">true</option>
+          <option ng-value="false">false</option>
+        </select>
+      </div>
+
+      <h4 class="col-md-24">Properties</h4>
+      <div class="col-md-4">
+        <label class="light">Name</label>
+      </div>
+      <div class="col-md-20">
+        <label class="light">Value</label>
+      </div>
+
+      <div class="col-md-4 dynamic-table-spacer">
+        <label>queueName</label>
+      </div>
+      <div class="col-md-10 dynamic-table-spacer">
+        <input type="text" class="form-control"
+          ng-model="feed.properties.queueName"
+          ng-patter="validations.alpha.pattern"/>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-md-4 dynamic-table-spacer">
+        <label>jobPriority</label>
+      </div>
+      <div class="col-md-10 dynamic-table-spacer">
+        <select ng-model="feed.properties.jobPriority">
+          <option value="VERY_HIGH">VERY_HIGH</option>
+          <option value="HIGH">HIGH</option>
+          <option value="NORMAL">NORMAL</option>
+          <option value="LOW">LOW</option>
+          <option value="VERY_LOW">VERY_LOW</option>
+        </select>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+
+      <div class="col-md-4 dynamic-table-spacer">
+        <label>timeout</label>
+      </div>
+      <div class="col-md-1 dynamic-table-spacer">
+        At
+      </div>
+      <div class="col-md-2 dynamic-table-spacer composedField">
+        <input type="text" class="form-control small light"
+          ng-model="feed.properties.timeout.quantity"
+          ng-pattern="validations.twoDigits.pattern"/>
+      </div>
+      <div class="col-md-7 dynamic-table-spacer">
+        <select
+          ng-model="feed.properties.timeout.unit">
+          <option value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-md-4 dynamic-table-spacer">
+        <label>parallel</label>
+      </div>
+      <div class="col-md-10 dynamic-table-spacer">
+        <input type="text" class="form-control"
+               ng-model="feed.properties.parallel"
+               ng-patter="validations.alpha.pattern"/>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-md-4 dynamic-table-spacer">
+        <label>maxMaps</label>
+      </div>
+      <div class="col-md-10 dynamic-table-spacer">
+        <input type="text" class="form-control"
+               ng-model="feed.properties.maxMaps"
+               ng-patter="validations.alpha.pattern"/>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-md-4 dynamic-table-spacer">
+        <label>mapBandwidthKB</label>
+      </div>
+      <div class="col-md-10 dynamic-table-spacer">
+        <input type="text" class="form-control"
+               ng-model="feed.properties.mapBandwidthKB"
+               ng-patter="validations.alpha.pattern"/>
+      </div>
+
+
+
+
+      <div class="clearfix hidden-md"></div>
+      {{feed}}
+      <div class="feedBottomButtons">
+        <div class="btn btn-default col-md-6" ui-sref="main">
+          Cancel
+        </div>
+        <div class="btn btn-default col-md-6 pull-right"
+             ng-disabled="feedForm.$invalid"
+             ui-sref="main.forms.feed.location">
+          Next
+        </div>
       </div>
     </div>
-  </div>
 </form>
 <!--
+
+      <div>
+        <div class="col-md-pu-0 col-md-4 dynamic-table-spacer">
+          <label>jobPriority</label>
+        </div>
+
+        <div class="col-md-10 dynamic-table-spacer">
+          <select ng-model="feedEntity.feed.jobPriority" class="col-md-24">
+            <option value="VERY_HIGH" selected>VERY_HIGH</option>
+            <option value="HIGH">HIGH</option>
+            <option value="NORMAL" selected>NORMAL</option>
+            <option value="LOW">LOW</option>
+            <option value="VERY_LOW" selected>VERY_LOW</option>
+          </select>
+        </div>
+      </div>
 
   <div class="row">
   <div class="col-md-9 composedField">

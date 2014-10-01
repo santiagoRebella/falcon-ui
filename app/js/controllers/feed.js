@@ -50,9 +50,18 @@
         tags: [{key: null, value: null}],
         ACL: {owner: null, group: null, permission: '*'},
         schema: {location: '/', provider: null},
-        frequency: {quantity: null, unit: null},
-        lateArrival: {active: false, cutOff: {quantity: null, unit: null}},
-        availabilityFlag: false
+        frequency: {quantity: null, unit: 'hours'},
+        lateArrival: {active: false, cutOff: {quantity: null, unit: 'hours'}},
+        availabilityFlag: false,
+        properties: {
+          queueName: null,
+          jobPriority: 'NORMAL',
+          timeout: {quantity: null, unit: 'hours'},
+          parallel: null,
+          maxMaps: null,
+          mapBandwidthKB: null
+        },
+        customProperties: [{key: null, value: null}]
       };
     }
 
