@@ -159,16 +159,16 @@
       <div ng-repeat="property in feed.customProperties">
         <div class="col-md-4 dynamic-table-spacer">
           <input type="text" class="form-control"
-                 ng-model="tag.key"
+                 ng-model="property.key"
                  ng-pattern="validations.alpha.pattern"
-                 ng-required="tag.value"/>
+                 ng-required="property.value"/>
         </div>
 
         <div class="col-md-9 dynamic-table-spacer">
           <input type="text" class="form-control"
-                 ng-model="tag.value"
+                 ng-model="property.value"
                  ng-pattern="validations.alpha.pattern"
-                 ng-required="tag.key"/>
+                 ng-required="property.key"/>
         </div>
         <div class="col-md-1 top-buffer" >
           <div ng-if="!$last">
