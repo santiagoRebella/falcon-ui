@@ -169,7 +169,10 @@
       $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
       $scope.sourceCluster = $scope.sourceCluster || $scope.feed.clusters[0];
       $scope.archiveCluster = null;
-      
+/*
+      $scope.selectedClusterName = {value: null};
+*/
+
       unwrapClusters(clustersList);
 
       $scope.addCluster = function() {
@@ -197,6 +200,7 @@
         $scope.selectedCluster = cluster;
       };
 
+      //ng-model="selectedClusterName.value" ng-change="updateSelectedClusterName()"
 
       $scope.removeCluster = function(index) {
         if(index >= 0 && $scope.feed.clusters.length > 1 &&
@@ -206,6 +210,12 @@
         }
       };
 
+/*
+      $scope.updateSelectedClusterName = function () {
+        $scope.selectedCluster.name = $scope.selectedClusterName.value;
+      };
+
+*/
       function unwrapClusters(clusters) {
         $scope.clusterList = [];
         var typeOfData = Object.prototype.toString.call(clusters.entity);

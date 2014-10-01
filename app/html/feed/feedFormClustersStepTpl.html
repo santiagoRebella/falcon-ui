@@ -21,14 +21,17 @@
     </div>
   </div>
 
+  <div ng-repeat="cluster in feed.clusters" ng-show="cluster.selected">
+    <div class="row">
+      <h4 class="col-sm-24">{{capitalize(cluster.type)}} Cluster </h4>
+    </div>
 
-  <div class="row">
-    <h4 class="col-sm-24">{{capitalize(selectedCluster.type)}} Cluster </h4>
+    <select ng-model="cluster.name" ng-required="true">
+      <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
+    </select>
   </div>
 
-  <select>
-    <option>primaryCluster</option>
-  </select>
+
 
   <h4 class="col-sm-24"> Retention </h4>
 
@@ -126,6 +129,7 @@
     </div>
   </div>
 
+  {{feed}}
 
   <div class="row feedBottomButtons">
     <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.location">
