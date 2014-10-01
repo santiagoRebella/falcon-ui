@@ -25,6 +25,9 @@
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
+      scope.feed = {
+        customProperties: [{key: null, value: null}]
+      };
 
       controller = $controller('FeedPropertiesController', {
         $scope: scope,
@@ -32,10 +35,47 @@
       });
     }));
 
+    it('Should add a new empty property', function() {
+      expect(scope.feed.customProperties.length).toEqual(1);
 
-    it('Should be initialized properly', function() {
+      scope.addCustomProperty();
 
+      expect(scope.feed.customProperties.length).toEqual(2);
+      expect(scope.feed.customProperties[1]).toEqual({key: null, value: null});
     });
+
+    it('Should remove a property at the specified index', function() {
+      scope.feed.customProperties = [
+        {key: 'key0', value: 'value0'},
+        {key: 'key1', value: 'value1'},
+        {key: 'key2', value: 'value2'}
+      ];
+
+      scope.removeCustomProperty(1);
+
+      expect(scope.feed.customProperties.length).toEqual(2);
+      expect(scope.feed.customProperties).toEqual([{key: 'key0', value: 'value0'}, {key: 'key2', value: 'value2'}]);
+    });
+
+    it('Should not delete if there is only one element', function() {
+      scope.feed.customProperties = [{key: 'key', value: 'value'}];
+
+      scope.removeCustomProperty(0);
+
+      expect(scope.feed.customProperties).toEqual([{key: 'key', value: 'value'}]);
+    });
+
+    it('Should not delete if index is not passed in', function() {
+      scope.feed.customProperties = [
+        {key: 'key0', value: 'value0'},
+        {key: 'key1', value: 'value1'}
+      ];
+
+      scope.removeCustomProperty();
+
+      expect(scope.feed.customProperties).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
+    });
+
 
   });
 

@@ -93,13 +93,6 @@
 
   feedModule.controller('FeedGeneralInformationController', [ "$scope",function($scope) {
 
-    $scope.init = function() {
-      $scope.fileSysSection = true;
-      $scope.sourceSection = true;
-      $scope.clusterSelectedSection = 0;
-    };
-
-    $scope.init();
 
     $scope.addTag = function() {
       $scope.feed.tags.push({key: null, value: null});
@@ -115,33 +108,18 @@
   }]);
 
   feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
-    $scope.temp = {
-      freqNumber : 1,
-      freqUnit: "days",
-      lateArrivalNumber: "",
-      lateArrivalUnit: "",
-      newPropertiesArray : []
+    $scope.addCustomProperty = function () {
+      $scope.feed.customProperties.push({key: null, value: null});
     };
-    $scope.addProperty = function () {
-      EntityModel.feedModel.feed[$scope.temp.newPropertyName] = $scope.temp.newPropertyValue;
-      $scope.temp.newPropertiesArray.push({name: $scope.temp.newPropertyName, value: $scope.temp.newPropertyValue});
+
+    $scope.removeCustomProperty = function(index) {
+      if(index >= 0 && $scope.feed.customProperties.length > 1) {
+        $scope.feed.customProperties.splice(index, 1);
+      }
     };
-    $scope.addReplicationCluster = function () {
-      var repClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };
-      $scope.feedEntity.feed.clusters.push(repClusterObj);
-    };
-    $scope.addArchiveCluster = function () {
-      var arcClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };
-      $scope.feedEntity.feed.clusters.push(arcClusterObj);
-    };
+
   }]);
-/*
-        $scope.$watch(function () {
-          return $scope.temp;
-        }, function() {
-          EntityModel.feedModel.feed.frequency = $scope.temp.freqUnit + "(" + $scope.temp.freqNumber + ")";
-          EntityModel.feedModel.feed["late-arrival"]["_cut-off"] = $scope.temp.lateArrivalUnit + "(" + $scope.temp.lateArrivalNumber + ")";
-        }, true);*/
+
 
 /*        Falcon.getEntities("cluster")
           .success(function (data) {
@@ -155,7 +133,21 @@
 /*
         $scope.isActive = function (route) {
           return route === $state.$current.name;
-        };*/
+        };
+
+
+ $scope.addReplicationCluster = function () {
+ var repClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };
+ $scope.feedEntity.feed.clusters.push(repClusterObj);
+ };
+ $scope.addArchiveCluster = function () {
+ var arcClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };
+ $scope.feedEntity.feed.clusters.push(arcClusterObj);
+ };
+
+        */
+
+
 /*
 */
 
