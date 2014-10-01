@@ -94,7 +94,8 @@
         clusters: [{
           name: null,
           type: 'source',
-          selected: true
+          selected: true,
+          retention: {action: null, quantity: null, unit: 'hours'}
         }]
       };
     }
@@ -176,8 +177,9 @@
         $scope.selectedCluster.selected = false;
         var newCluster = {
           name: null,
-            type: 'target',
-          selected: true
+          type: 'target',
+          selected: true,
+          retention: {action: null, quantity: null, unit: 'hours'}
         };
         $scope.feed.clusters.push(newCluster);
         $scope.selectedCluster = newCluster;
@@ -196,8 +198,6 @@
         cluster.selected = true;
         $scope.selectedCluster = cluster;
       };
-
-      //ng-model="selectedClusterName.value" ng-change="updateSelectedClusterName()"
 
       $scope.removeCluster = function(index) {
         if(index >= 0 && $scope.feed.clusters.length > 1 &&

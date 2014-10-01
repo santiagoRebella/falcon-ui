@@ -80,7 +80,8 @@
       expect(scope.feed.clusters).toEqual([{
         name: null,
         type: 'source',
-        selected: true
+        selected: true,
+        retention: {action: null, quantity: null, unit: 'hours'}
       }]);
     });
 
