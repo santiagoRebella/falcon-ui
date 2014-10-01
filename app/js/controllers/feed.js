@@ -96,7 +96,14 @@
           type: 'source',
           selected: true,
           retention: {action: null, quantity: null, unit: 'hours'},
-          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null}
+          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null},
+          catalog: {
+            active: false,
+            catalogTable: {
+              uri: null,
+              focused: false
+            }
+          }
         }]
       };
     }
@@ -181,7 +188,14 @@
           type: 'target',
           selected: true,
           retention: {action: null, quantity: null, unit: 'hours'},
-          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null}
+          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null},
+          catalog: {
+            active: false,
+            catalogTable: {
+              uri: null,
+              focused: false
+            }
+          }
         };
         $scope.feed.clusters.push(newCluster);
         $scope.selectedCluster = newCluster;
