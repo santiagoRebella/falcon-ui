@@ -95,7 +95,8 @@
           name: null,
           type: 'source',
           selected: true,
-          retention: {action: null, quantity: null, unit: 'hours'}
+          retention: {action: null, quantity: null, unit: 'hours'},
+          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null}
         }]
       };
     }
@@ -179,7 +180,8 @@
           name: null,
           type: 'target',
           selected: true,
-          retention: {action: null, quantity: null, unit: 'hours'}
+          retention: {action: null, quantity: null, unit: 'hours'},
+          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null}
         };
         $scope.feed.clusters.push(newCluster);
         $scope.selectedCluster = newCluster;
@@ -203,7 +205,7 @@
         if(index >= 0 && $scope.feed.clusters.length > 1 &&
           $scope.feed.clusters[index].type !== 'source') {
           $scope.feed.clusters.splice(index, 1);
-          $scope.selectCluster($scope.sourceCluster)
+          $scope.selectCluster($scope.sourceCluster);
         }
       };
 

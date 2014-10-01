@@ -81,7 +81,8 @@
         name: null,
         type: 'source',
         selected: true,
-        retention: {action: null, quantity: null, unit: 'hours'}
+        retention: {action: null, quantity: null, unit: 'hours'},
+        validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null}
       }]);
     });
 
