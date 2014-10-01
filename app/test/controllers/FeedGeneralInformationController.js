@@ -20,13 +20,13 @@
   var scope;
   var controller;
 
-  describe('FeedController', function () {
+  describe('FeedGeneralInformationController', function () {
     beforeEach(module('app.controllers.feed'));
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
 
-      controller = $controller('FeedController', {
+      controller = $controller('FeedGeneralInformationController', {
         $scope: scope,
         $state: {}
       });

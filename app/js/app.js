@@ -17,7 +17,6 @@
       })
       .state('main.forms', {
         templateUrl: 'html/formsTpl.html'
-
       })
       .state('main.forms.cluster', {
         controller: 'clusterFormCtrl',
@@ -31,20 +30,11 @@
       })
       .state('main.forms.feed', {
         templateUrl: 'html/feed/feedFormTpl.html',
-        resolve: {
-          clusters: ['EntityService', function(EntityService) {
-            return EntityService.findByType('cluster').then(
-              function(response) {
-                return response.data;
-              });
-            }
-          ]
-        },
-        controller: 'FeedController'
-
+        controller: 'FeedGeneralInformationController'
       })
       .state('main.forms.feed.general', {
-        templateUrl: 'html/feed/feedFormGeneralStepTpl.html'
+        templateUrl: 'html/feed/feedFormGeneralStepTpl.html',
+        controller: 'FeedPropertiesController'
       })
       .state('main.forms.feed.properties', {
         templateUrl: 'html/feed/feedFormPropertiesStepTpl.html'
@@ -53,7 +43,16 @@
         templateUrl: 'html/feed/feedFormLocationStepTpl.html'
       })
       .state('main.forms.feed.clusters', {
-        templateUrl: 'html/feed/feedFormClustersStepTpl.html'
+        templateUrl: 'html/feed/feedFormClustersStepTpl.html',
+        resolve: {
+          clusters: ['EntityService', function(EntityService) {
+            return EntityService.findByType('cluster').then(
+              function(response) {
+                return response.data;
+              });
+          }
+          ]
+        }
       })
       .state('main.forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html'
