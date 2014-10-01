@@ -25,30 +25,30 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  angular.module('app.controllers.feed', ['app.services'])
-    .controller('FeedController', [ "$scope", "$timeout", "Falcon", "EntityModel", "$state", "clusters",
+  angular.module('app.controllers.feed', [])
+    .controller('FeedController',
+    [ "$scope",
 
-      function($scope, $timeout, Falcon, EntityModel, $state, clusters) {
+      function($scope) {
+
 
         $scope.init = function() {
-          $scope.feedEntity = angular.copy(EntityModel.feedModel);
           $scope.fileSysSection = true;
           $scope.sourceSection = true;
           $scope.clusterSelectedSection = 0;
-          $scope.clustes = clusters;
-          $scope.feedForm = {};
-          $scope.feedForm.tags = [{key: null, value: null}];
+          $scope.feed = newFeed();
+          $scope.validations = defineValidations();
         };
 
         $scope.init();
 
         $scope.addTag = function() {
-          $scope.feedForm.tags.push({key: null, value: null});
+          $scope.feed.tags.push({key: null, value: null});
         };
 
         $scope.removeTag = function(index) {
-          if(index >= 0 && $scope.feedForm.tags.length > 1) {
-            $scope.feedForm.tags.splice(index, 1);
+          if(index >= 0 && $scope.feed.tags.length > 1) {
+            $scope.feed.tags.splice(index, 1);
           }
         };
 /*
@@ -68,10 +68,10 @@
             else { console.log("type of data not recognized"); }
           })
           .error(function (err) { console.log( err ); });*/
-
+/*
         $scope.isActive = function (route) {
           return route === $state.$current.name;
-        };
+        };*/
 
         $scope.temp = {
           freqNumber : 1,
@@ -93,5 +93,36 @@
           $scope.feedEntity.feed.clusters.push(arcClusterObj);
         };
 
+        function newFeed() {
+          return {
+            name: null,
+            description: null,
+            groups: null,
+            tags: [{key: null, value: null}],
+            ACL: {owner: null, group: null, permission: '*'},
+            schema : {location: '/', provider: null}
+          };
+        }
+
+        function defineValidations() {
+          return {
+            id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
+            freeText: validate(/^([\sa-zA-Z0-9]){1,40}$/),
+            alpha: validate(/^([a-zA-Z0-9]){1,20}$/),
+            commaSeparated: validate(/^[a-zA-Z0-9,]{1,80}$/),
+            unixId: validate(/^([a-z_][a-z0-9_\.]{0,30})$/),
+            unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
+            osPath: validate(/^[^\0]+$/)
+          };
+        }
+
+        function validate(pattern, maxlength, minlength, required) {
+          return {
+            pattern: pattern,
+            maxlength: maxlength || 1000,
+            minlength: minlength || 0,
+            required: required || false
+          };
+        }
       }]);
 })();

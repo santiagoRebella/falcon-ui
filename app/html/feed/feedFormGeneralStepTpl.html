@@ -1,4 +1,4 @@
-<form name="generalInformationStepForm">
+<form name="feedForm">
   <div class="row">
 
     <div class="col-md-8">
@@ -9,23 +9,35 @@
     </div>
 
     <div class="col-md-8">
-      <input type="text" class="form-control" ng-model="feedEntity.feed._name" ng-required="true" ng-pattern="/(([a-zA-Z]([\-a-zA-Z0-9])){1,39})/" ng-maxlength="39"/>
+      <input type="text" class="form-control"
+        ng-model="feed.name"
+        ng-required="validations.id.required"
+        ng-maxlength="39"
+        ng-pattern="validations.id.pattern"/>
     </div>
     <div class="col-md-16">
-      <input type="text" class="form-control" ng-model="feedEntity.feed._description" ng-maxlength="60"/>
+      <input type="text" class="form-control"
+        ng-model="feed.description"
+        ng-pattern="validations.freeText.pattern"/>
     </div>
-
 
     <div class="col-md-24">
       <label class="light">Tags</label>
     </div>
 
-    <div ng-repeat="tag in feedForm.tags">
+    <div ng-repeat="tag in feed.tags">
       <div class="col-md-11 dynamic-table-spacer">
-        <input type="text" class="form-control" ng-model="tag.key"  ng-required="tag.value" />
+        <input type="text" class="form-control"
+          ng-model="tag.key"
+          ng-pattern="validations.alpha.pattern"
+          ng-required="tag.value"/>
       </div>
+
       <div class="col-md-12 dynamic-table-spacer">
-        <input type="text" class="form-control" ng-model="tag.value"  ng-required="tag.key" />
+        <input type="text" class="form-control"
+          ng-model="tag.value"
+          ng-pattern="validations.alpha.pattern"
+          ng-required="tag.key"/>
       </div>
       <div class="col-md-1 top-buffer" >
         <div ng-if="!$last">
@@ -39,42 +51,60 @@
 
     <div class="col-md-24">
       <label class="light">Groups (comma separated)</label>
-      <input type="text" class="form-control" ng-model="feedEntity.feed.groups">
+      <input type="text" class="form-control"
+        ng-pattern="validations.commaSeparated.pattern"
+        ng-model="feed.groups"/>
     </div>
 
     <h4 class="col-md-24"> Access Control List </h4>
-
     <div class="col-md-8">
       <label class="light">Owner</label>
-      <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._owner">
+      <input type="text" class="form-control"
+        ng-pattern="validations.unixId.pattern"
+        ng-model="feed.ACL.owner"/>
     </div>
     <div class="col-md-8">
       <label class="light">Group</label>
-      <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._group">
+      <input type="text" class="form-control"
+       ng-pattern="validations.unixId.pattern"
+       ng-model="feed.ACL.group"/>
     </div>
     <div class="col-md-8">
       <label class="light">Permissions</label>
-      <input type="text" class="form-control" ng-model="feedEntity.feed.ACL._permission">
+      <input type="text" class="form-control"
+        ng-pattern="validations.unixPermissions.pattern"
+        ng-model="feed.ACL.permission"/>
     </div>
 
-    <h4 class="col-md-24"> Schema </h4>
-
+    <h4 class="col-md-24">Schema</h4>
     <div class="col-md-12">
       <label class="light">Location</label>
-      <input type="text" class="form-control" ng-model="feedEntity.feed.schema._location">
+      <input type="text" class="form-control"
+        ng-maxlength="200"
+        ng-pattern="validations.osPath.pattern"
+        ng-model="feed.schema.location"/>
     </div>
     <div class="col-md-12">
       <label class="light">Provider</label>
-      <input type="text" class="form-control" ng-model="feedEntity.feed.schema._provider">
+      <input type="text" class="form-control"
+        ng-pattern="validations.alpha.pattern"
+        ng-model="feed.schema.provider"/>
     </div>
   </div>
+
+
+  <div class="col-md-24"><label class="light"> </label></div>
+
   <div class="feedBottomButtons">
-    <div class="btn btn-default col-md-6 pull-right" ui-sref="main.forms.feed.properties"
-         ng-disabled="generalInformationStepForm.$invalid">
+    <div class="btn btn-default col-md-6" ui-sref="main">
+      Cancel
+    </div>
+    <div class="btn btn-default col-md-6 pull-right"
+         ng-disabled="feedForm.$invalid"
+         ui-sref="main.forms.feed.properties">
       Next
     </div>
-    <div class="col-md-4 pull-right">
-      <u ui-sref="main">Cancel</u>
-    </div>
   </div>
+
+
 </form>

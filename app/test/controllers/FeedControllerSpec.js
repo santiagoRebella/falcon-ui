@@ -28,11 +28,7 @@
 
       controller = $controller('FeedController', {
         $scope: scope,
-        $timeout: {},
-        Falcon: {},
-        EntityModel: createEntityMock(),
-        $state: {},
-        clusters: {}
+        $state: {}
       });
     }));
 
@@ -45,24 +41,33 @@
       expect(scope.fileSysSection).toBe(true);
       expect(scope.sourceSection).toBe(true);
       expect(scope.clusterSelectedSection).toBe(0);
-      expect(scope.feedEntity).toEqual(createEntityMock().feedModel);
-      expect(scope.feedForm.tags).toEqual([{
+      expect(scope.feed.name).toBe(null);
+      expect(scope.feed.description).toBe(null);
+      expect(scope.feed.groups).toBe(null);
+      expect(scope.feed.tags).toEqual([{
         key: null,
         value: null
       }]);
+      expect(scope.feed.ACL).toEqual({
+        owner: null,
+        group: null,
+        permission: '*'
+      });
+      expect(scope.feed.schema.location).toBe('/');
+      expect(scope.feed.schema.provider).toBe(null);
     });
 
     it('Should add a new empty tag', function() {
-      expect(scope.feedForm.tags.length).toEqual(1);
+      expect(scope.feed.tags.length).toEqual(1);
 
       scope.addTag();
 
-      expect(scope.feedForm.tags.length).toEqual(2);
-      expect(scope.feedForm.tags[1]).toEqual({key: null, value: null});
+      expect(scope.feed.tags.length).toEqual(2);
+      expect(scope.feed.tags[1]).toEqual({key: null, value: null});
     });
 
     it('Should remove a tag at the specified index', function() {
-      scope.feedForm.tags = [
+      scope.feed.tags = [
         {key: 'key0', value: 'value0'},
         {key: 'key1', value: 'value1'},
         {key: 'key2', value: 'value2'}
@@ -70,84 +75,49 @@
 
       scope.removeTag(1);
 
-      expect(scope.feedForm.tags.length).toEqual(2);
-      expect(scope.feedForm.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key2', value: 'value2'}]);
+      expect(scope.feed.tags.length).toEqual(2);
+      expect(scope.feed.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key2', value: 'value2'}]);
     });
 
     it('Should not delete if there is only one element', function() {
-      scope.feedForm.tags = [{key: 'key', value: 'value'}];
+      scope.feed.tags = [{key: 'key', value: 'value'}];
 
       scope.removeTag(0);
 
-      expect(scope.feedForm.tags).toEqual([{key: 'key', value: 'value'}]);
+      expect(scope.feed.tags).toEqual([{key: 'key', value: 'value'}]);
     });
 
     it('Should not delete if index is not passed in', function() {
-      scope.feedForm.tags = [
+      scope.feed.tags = [
         {key: 'key0', value: 'value0'},
         {key: 'key1', value: 'value1'}
       ];
 
       scope.removeTag();
 
-      expect(scope.feedForm.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
+      expect(scope.feed.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
+    });
+
+    it('Should have default validations definitions', function() {
+      scope.init();
+      var validations = scope.validations;
+
+      expect(validations.id).toEqual({
+        pattern: /^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/,
+        maxlength: 39,
+        minlength: 0,
+        required: true
+      });
+
+      expect(validations.freeText).toEqual({
+        pattern: /^([\sa-zA-Z0-9]){1,40}$/,
+        maxlength: 1000,
+        minlength: 0,
+        required: false
+      });
+
     });
 
   });
-
-
-  function createEntityMock() {
-    return {
-      feedModel: {
-        feed: {
-          tags: "",
-          groups: "",
-          frequency: "",
-          timezone: "",
-          "late-arrival": {
-            "_cut-off": ""
-          },
-          clusters: [{
-            "cluster": {
-              validity: {
-                _start: "",
-                _end: ""
-              },
-              retention: {
-                _limit: "",
-                _action: ""
-              },
-              _name: "",
-              _type: "source"
-            }
-          }],
-          locations: {
-            location: [{
-              _type: "data",
-              _path: "/none"
-            }, {
-              _type: "stats",
-              _path: "/none"
-            }, {
-              _type: "meta",
-              _path: "/none"
-            }]
-          },
-          ACL: {
-            _owner: "",
-            _group: "",
-            _permission: ""
-          },
-          schema: {
-            _location: "/none",
-            _provider: "none"
-          },
-          _xmlns: "uri:falcon:feed:0.1",
-          _name: "",
-          _description: ""
-        }
-      }
-    };
-  }
 
 })();
