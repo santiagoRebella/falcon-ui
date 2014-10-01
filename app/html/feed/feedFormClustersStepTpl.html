@@ -29,28 +29,28 @@
     <select ng-model="cluster.name" ng-required="true">
       <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
     </select>
+    <h4 class="col-sm-24"> Retention </h4>
+    <div class="col-sm-24 composedField">
+      <select>
+        <option selected value="Chown">Chown</option>
+        <option value="Delete">Delete</option>
+        <option value="Chmod">Chmod</option>
+        <option value="Archive">Archive</option>
+      </select>
+      in
+      <input type="text" class="small" ng-required="true"/>
+      <select>
+        <option selected value="hours">hours</option>
+        <option value="days">days</option>
+        <option value="weeks">weeks</option>
+        <option value="months">months</option>
+      </select>
+    </div>
   </div>
 
 
 
-  <h4 class="col-sm-24"> Retention </h4>
 
-  <div class="col-sm-24 composedField">
-    <select>
-      <option selected value="Chown">Chown</option>
-      <option value="Delete">Delete</option>
-      <option value="Chmod">Chmod</option>
-      <option value="Archive">Archive</option>
-    </select>
-    in
-    <input type="text" class="small" ng-required="true"/>
-    <select>
-      <option selected value="hours">hours</option>
-      <option value="days">days</option>
-      <option value="weeks">weeks</option>
-      <option value="months">months</option>
-    </select>
-  </div>
 
   <h4 class="col-sm-24"> Validity </h4>
 
@@ -125,7 +125,7 @@
 
     <div class="col-sm-24" ng-show="feed.storage.catalog.active">
       <label class="light">Table uri</label>
-      <input ng-disabled="true" type="text" class="form-control" ng-model="feed.storage.catalog.catalogTable.uri"/>
+      <input type="text" class="form-control" ng-model="feed.storage.catalog.catalogTable.uri"/>
     </div>
   </div>
 

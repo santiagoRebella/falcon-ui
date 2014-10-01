@@ -169,9 +169,6 @@
       $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
       $scope.sourceCluster = $scope.sourceCluster || $scope.feed.clusters[0];
       $scope.archiveCluster = null;
-/*
-      $scope.selectedClusterName = {value: null};
-*/
 
       unwrapClusters(clustersList);
 
@@ -210,12 +207,6 @@
         }
       };
 
-/*
-      $scope.updateSelectedClusterName = function () {
-        $scope.selectedCluster.name = $scope.selectedClusterName.value;
-      };
-
-*/
       function unwrapClusters(clusters) {
         $scope.clusterList = [];
         var typeOfData = Object.prototype.toString.call(clusters.entity);
