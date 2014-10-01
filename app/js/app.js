@@ -30,14 +30,15 @@
       })
       .state('main.forms.feed', {
         templateUrl: 'html/feed/feedFormTpl.html',
-        controller: 'FeedGeneralInformationController'
+        controller: 'FeedController'
       })
       .state('main.forms.feed.general', {
         templateUrl: 'html/feed/feedFormGeneralStepTpl.html',
-        controller: 'FeedPropertiesController'
+        controller: 'FeedGeneralInformationController'
       })
       .state('main.forms.feed.properties', {
-        templateUrl: 'html/feed/feedFormPropertiesStepTpl.html'
+        templateUrl: 'html/feed/feedFormPropertiesStepTpl.html',
+        controller: 'FeedPropertiesController'
       })
       .state('main.forms.feed.location', {
         templateUrl: 'html/feed/feedFormLocationStepTpl.html'

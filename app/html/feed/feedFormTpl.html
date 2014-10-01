@@ -1,9 +1,9 @@
-<div class="col-sm-12 col-sm-offset-6 feedForm">
+<div class="col-md-12 col-md-offset-6 feedForm">
   <div class="formTitle">
     Editing
     <div class="entypo download"></div>
     {{feed.name}}
-    <div class="entypo save" ng-click="saveFeed()" ui-sref="main"></div>
+    <div class="entypo save" ng-click="saveEntity()"></div>
     <div class="entypo trash" ui-sref="main"></div>
   </div>
 
@@ -14,14 +14,14 @@
         clusters:isActive('main.forms.feed.clusters'),
         summary:isActive('main.forms.feed.summary')
         }">
-    <span class="col-xs-5">General</span>
-    <span class="col-xs-5">Properties</span>
-    <span class="col-xs-5">Location</span>
-    <span class="col-xs-5">Clusters</span>
-    <span class="col-xs-4">Summary</span>
+    <span class="col-md-5">General</span>
+    <span class="col-md-5">Properties</span>
+    <span class="col-md-5">Location</span>
+    <span class="col-md-5">Clusters</span>
+    <span class="col-md-4">Summary</span>
 
     <div class="clearfix"></div>
-    <div class="progressBar col-xs-24">
+    <div class="progressBar col-md-24">
       <div>
         <div></div>
       </div>

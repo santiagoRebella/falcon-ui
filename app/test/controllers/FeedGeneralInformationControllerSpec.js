@@ -20,11 +20,13 @@
   var scope;
   var controller;
 
+
   describe('FeedGeneralInformationController', function () {
     beforeEach(module('app.controllers.feed'));
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
+      scope.feed = {};
 
       controller = $controller('FeedGeneralInformationController', {
         $scope: scope,
@@ -35,6 +37,7 @@
 
     it('Should be initialized properly', function() {
       scope.fileSysSection = false;
+
 
       scope.init();
 
@@ -56,6 +59,7 @@
       expect(scope.feed.schema.location).toBe('/');
       expect(scope.feed.schema.provider).toBe(null);
     });
+
 
     it('Should add a new empty tag', function() {
       expect(scope.feed.tags.length).toEqual(1);

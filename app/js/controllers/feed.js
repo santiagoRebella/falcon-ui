@@ -27,14 +27,29 @@
    */
   var feedModule = angular.module('app.controllers.feed', []);
 
+  feedModule.controller('FeedController', [ "$scope", function($scope) {
+
+    $scope.init = function() {
+      $scope.feed = {};
+    };
+
+    $scope.init();
+
+
+    $scope.saveEntity = function() {
+      console.log('FeedController.saveEntity  not implemented yet');
+    };
+
+  }]);
+
   feedModule.controller('FeedGeneralInformationController', [ "$scope",function($scope) {
 
     $scope.init = function() {
       $scope.fileSysSection = true;
       $scope.sourceSection = true;
       $scope.clusterSelectedSection = 0;
-      $scope.feed = newFeed();
       $scope.validations = defineValidations();
+      addGeneralInformation($scope.feed);
     };
 
     $scope.init();
@@ -70,16 +85,15 @@
       };
     }
 
-    function newFeed() {
-      return {
-        name: null,
-        description: null,
-        groups: null,
-        tags: [{key: null, value: null}],
-        ACL: {owner: null, group: null, permission: '*'},
-        schema : {location: '/', provider: null}
-      };
+    function addGeneralInformation(feed) {
+      feed.name = null;
+      feed.description = null;
+      feed.groups = null;
+      feed.tags = [{key: null, value: null}];
+      feed.ACL = {owner: null, group: null, permission: '*'};
+      feed.schema = {location: '/', provider: null};
     }
+
   }]);
 
   feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
