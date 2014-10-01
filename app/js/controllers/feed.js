@@ -49,6 +49,11 @@
       return input.charAt(0).toUpperCase() + input.slice(1);
     };
 
+    $scope.appendVariable = function(timeVariable, holder, fieldName) {
+      holder[fieldName] = holder[fieldName] ? (holder[fieldName] + '-' + timeVariable) : timeVariable;
+      holder.focused = false;
+    };
+
     function newFeed() {
       return {
         name: null,
@@ -73,15 +78,16 @@
           fileSystem: {
             active: true,
             locations: [
-              {type: 'data', path: '/'},
-              {type: 'stats', path: '/'},
-              {type: 'meta', path: '/'}
+              {type: 'data', path: '/', focused: false},
+              {type: 'stats', path: '/', focused: false},
+              {type: 'meta', path: '/', focused: false}
             ]
           },
           catalog: {
             active: false,
             catalogTable: {
-              uri: null
+              uri: null,
+              focused: false
             }
           }
         }
