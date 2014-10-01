@@ -127,7 +127,7 @@
 
   <div class="row">
     <div class="col-sm-24 feedLocationNavBox">
-      <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Default Storage type</h4>
+      <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
       <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Storage type</h4>
 
       <div class="col-sm-14 feedLocationNav">
@@ -139,7 +139,17 @@
         </div>
       </div>
     </div>
-    <h4 class="col-sm-12"> Default Location </h4>
+
+    <div class="clearfix hidden-md"></div>
+
+    <div class="col-sm-19">
+      <label>Location</label>
+      <label class="light">(if not defined, will use default location)
+      </label>
+    </div>
+
+
+    <div class="clearfix hidden-md"></div>
 
     <div class="col-sm-24"
       ng-show="feed.storage.fileSystem.active"
