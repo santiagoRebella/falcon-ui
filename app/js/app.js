@@ -46,7 +46,15 @@
       })
       .state('main.forms.feed.clusters', {
         templateUrl: 'html/feed/feedFormClustersStepTpl.html',
-        controller: 'FeedClustersController'
+        controller: 'FeedClustersController',
+        resolve: {
+          clustersList: ['EntityService', function(EntityService) {
+            return EntityService.findByType('cluster').then(
+              function(response) {
+                return response.data;
+              });
+          }]
+        }
       })
       .state('main.forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html'

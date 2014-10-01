@@ -163,12 +163,14 @@
 
   }]);
 
-  feedModule.controller('FeedClustersController', [ "$scope",
-    function($scope) {
+  feedModule.controller('FeedClustersController', [ "$scope","clustersList",
+    function($scope, clustersList) {
 
       $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
       $scope.sourceCluster = $scope.sourceCluster || $scope.feed.clusters[0];
       $scope.archiveCluster = null;
+      
+      unwrapClusters(clustersList);
 
       $scope.addCluster = function() {
         $scope.selectedCluster.selected = false;
@@ -199,12 +201,24 @@
       $scope.removeCluster = function(index) {
         if(index >= 0 && $scope.feed.clusters.length > 1 &&
           $scope.feed.clusters[index].type !== 'source') {
-
           $scope.feed.clusters.splice(index, 1);
           $scope.selectCluster($scope.sourceCluster)
         }
       };
 
-  }]);
+      function unwrapClusters(clusters) {
+        $scope.clusterList = [];
+        var typeOfData = Object.prototype.toString.call(clusters.entity);
+        if(typeOfData === "[object Array]") {
+          $scope.clusterList = clusters.entity;
+        } else if(typeOfData === "[object Object]") {
+          $scope.clusterList = [clusters.entity];
+        } else {
+          console.log("type of data not recognized");
+        }
+      }
+
+
+    }]);
 
 })();
