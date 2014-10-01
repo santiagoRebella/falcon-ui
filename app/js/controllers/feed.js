@@ -45,6 +45,9 @@
       return route === $state.$current.name;
     };
 
+    $scope.capitalize = function(input) {
+      return input.charAt(0).toUpperCase() + input.slice(1);
+    };
 
     function newFeed() {
       return {
@@ -94,7 +97,8 @@
         unixId: validate(/^([a-z_][a-z0-9_\.]{0,30})$/),
         unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
         osPath: validate(/^[^\0]+$/),
-        twoDigits: validate(/^([0-9]){1,2}$/)
+        twoDigits: validate(/^([0-9]){1,2}$/),
+        tableUri: validate(/^[^\0]+$/)
       };
     }
 
@@ -109,8 +113,7 @@
 
   }]);
 
-  feedModule.controller('FeedGeneralInformationController', [ "$scope",function($scope) {
-
+  feedModule.controller('FeedGeneralInformationController', [ "$scope", function($scope) {
 
     $scope.addTag = function() {
       $scope.feed.tags.push({key: null, value: null});
@@ -121,7 +124,6 @@
         $scope.feed.tags.splice(index, 1);
       }
     };
-
 
   }]);
 
@@ -138,14 +140,16 @@
   }]);
 
   feedModule.controller('FeedLocationController', [ "$scope",function($scope) {
+
     $scope.toggleStorage = function() {
       toggle($scope.feed.storage.fileSystem);
       toggle($scope.feed.storage.catalog);
-    }
+    };
 
     function toggle(storage) {
       storage.active = !storage.active;
     }
+
   }]);
 
 /*        Falcon.getEntities("cluster")

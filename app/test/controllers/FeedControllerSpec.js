@@ -107,10 +107,13 @@
     });
 
 
+    it('Should capitalize properly', function() {
+      expect(scope.capitalize('hello')).toBe('Hello');
+    });
+
     it('TODO', function() {
       scope.saveEntity();
     });
-
 
 
 

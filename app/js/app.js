@@ -45,7 +45,7 @@
         controller: 'FeedLocationController'
       })
       .state('main.forms.feed.clusters', {
-        templateUrl: 'html/feed/feedFormClustersStepTpl.html',
+        templateUrl: 'html/feed/feedFormClustersStepTpl.html'/*,
         resolve: {
           clusters: ['EntityService', function(EntityService) {
             return EntityService.findByType('cluster').then(
@@ -54,7 +54,7 @@
               });
           }
           ]
-        }
+        }*/
       })
       .state('main.forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html'
