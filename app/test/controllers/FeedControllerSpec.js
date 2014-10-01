@@ -33,10 +33,17 @@
     }));
 
 
+
     it('Should be initialized properly', function() {
       scope.init();
 
-      expect(scope.feed).toEqual({});
+      expect(scope.feed.name).toBe(null);
+      expect(scope.feed.description).toBe(null);
+      expect(scope.feed.groups).toBe(null);
+      expect(scope.feed.tags).toEqual([{key: null, value: null}]);
+      expect(scope.feed.ACL).toEqual({ owner: null, group: null, permission: '*'});
+      expect(scope.feed.schema.location).toBe('/');
+      expect(scope.feed.schema.provider).toBe(null);
     });
 
 

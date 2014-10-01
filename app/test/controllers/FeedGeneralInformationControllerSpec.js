@@ -26,39 +26,15 @@
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
-      scope.feed = {};
+      scope.feed = {
+        tags: [{key: null, value: null}]
+      };
 
       controller = $controller('FeedGeneralInformationController', {
         $scope: scope,
         $state: {}
       });
     }));
-
-
-    it('Should be initialized properly', function() {
-      scope.fileSysSection = false;
-
-
-      scope.init();
-
-      expect(scope.fileSysSection).toBe(true);
-      expect(scope.sourceSection).toBe(true);
-      expect(scope.clusterSelectedSection).toBe(0);
-      expect(scope.feed.name).toBe(null);
-      expect(scope.feed.description).toBe(null);
-      expect(scope.feed.groups).toBe(null);
-      expect(scope.feed.tags).toEqual([{
-        key: null,
-        value: null
-      }]);
-      expect(scope.feed.ACL).toEqual({
-        owner: null,
-        group: null,
-        permission: '*'
-      });
-      expect(scope.feed.schema.location).toBe('/');
-      expect(scope.feed.schema.provider).toBe(null);
-    });
 
 
     it('Should add a new empty tag', function() {

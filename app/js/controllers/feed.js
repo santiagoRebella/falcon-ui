@@ -30,7 +30,7 @@
   feedModule.controller('FeedController', [ "$scope", function($scope) {
 
     $scope.init = function() {
-      $scope.feed = {};
+      $scope.feed = newFeed();
     };
 
     $scope.init();
@@ -39,6 +39,18 @@
     $scope.saveEntity = function() {
       console.log('FeedController.saveEntity  not implemented yet');
     };
+
+
+    function newFeed() {
+      return {
+        name: null,
+        description: null,
+        groups: null,
+        tags: [{key: null, value: null}],
+        ACL: {owner: null, group: null, permission: '*'},
+        schema: {location: '/', provider: null}
+      };
+    }
 
   }]);
 
@@ -49,7 +61,7 @@
       $scope.sourceSection = true;
       $scope.clusterSelectedSection = 0;
       $scope.validations = defineValidations();
-      addGeneralInformation($scope.feed);
+
     };
 
     $scope.init();
@@ -85,14 +97,6 @@
       };
     }
 
-    function addGeneralInformation(feed) {
-      feed.name = null;
-      feed.description = null;
-      feed.groups = null;
-      feed.tags = [{key: null, value: null}];
-      feed.ACL = {owner: null, group: null, permission: '*'};
-      feed.schema = {location: '/', provider: null};
-    }
 
   }]);
 
