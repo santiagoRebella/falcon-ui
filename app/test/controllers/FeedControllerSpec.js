@@ -77,6 +77,11 @@
           }
         }
       });
+      expect(scope.feed.clusters).toEqual([{
+        name: null,
+        type: 'source',
+        selected: true
+      }]);
     });
 
     it('Should have default validations definitions', function() {

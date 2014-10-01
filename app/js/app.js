@@ -45,16 +45,18 @@
         controller: 'FeedLocationController'
       })
       .state('main.forms.feed.clusters', {
-        templateUrl: 'html/feed/feedFormClustersStepTpl.html'/*,
+        templateUrl: 'html/feed/feedFormClustersStepTpl.html',
+        controller: 'FeedClustersController',
+
         resolve: {
           clusters: ['EntityService', function(EntityService) {
             return EntityService.findByType('cluster').then(
               function(response) {
                 return response.data;
               });
-          }
+            }
           ]
-        }*/
+        }
       })
       .state('main.forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html'
@@ -68,7 +70,7 @@
   app.run(['$rootScope', '$state', '$stateParams', function ($rootScope) {
     $rootScope.$on('$stateChangeError',
       function(event, toState, toParams, fromState, fromParams, error){
-        console.log('error: ' + error);
+        console.log('Manual log of stateChangeError: ' + error);
       });
   }]);
 

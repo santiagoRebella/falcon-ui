@@ -90,7 +90,12 @@
               focused: false
             }
           }
-        }
+        },
+        clusters: [{
+          name: null,
+          type: 'source',
+          selected: true
+        }]
       };
     }
 
@@ -158,20 +163,33 @@
 
   }]);
 
-/*        Falcon.getEntities("cluster")
-          .success(function (data) {
-            var typeOfData = Object.prototype.toString.call(data.entity);
-            if(data === "null") { $scope.clusterList = []; }
-            else if(typeOfData === "[object Array]") { $scope.clusterList = data.entity; }
-            else if(typeOfData === "[object Object]") { $scope.clusterList[0] = data.entity; }
-            else { console.log("type of data not recognized"); }
-          })
-          .error(function (err) { console.log( err ); });*/
-/*
-        $scope.isActive = function (route) {
-          return route === $state.$current.name;
-        };
+  feedModule.controller('FeedClustersController', [ "$scope", 'clusters',
+    function($scope, clusters) {
 
+    unwrapClusters(clusters);
+
+    $scope.selectCluster = function(index) {
+      for(var i = 0, n = clusters.length; i < n; i++) {
+        clusters[i].selected = (i === index);
+      }
+    };
+
+
+    function unwrapClusters(clusters) {
+      $scope.clusterList = [];
+      var typeOfData = Object.prototype.toString.call(clusters.entity);
+      if(typeOfData === "[object Array]") {
+        $scope.clusterList = clusters.entity;
+      } else if(typeOfData === "[object Object]") {
+        $scope.clusterList = [clusters.entity];
+      } else {
+        console.log("type of data not recognized");
+      }
+    }
+
+  }]);
+
+/*
 
  $scope.addReplicationCluster = function () {
  var repClusterObj = { cluster: { validity: { _start: "", _end: "" }, retention: { _limit: "", _action: ""}, _name: "", _type: "target" } };

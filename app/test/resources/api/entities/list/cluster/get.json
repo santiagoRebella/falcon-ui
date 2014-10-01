@@ -1,1 +1,1 @@
-{"entity":{"type":"cluster","name":"backupCluster"}}
+{"entity":[{"type":"cluster","name":"backupCluster"},{"type":"cluster","name":"primaryCluster"}]}
