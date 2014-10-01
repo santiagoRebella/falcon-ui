@@ -1,16 +1,18 @@
 <form name="feedForm">
   <div class="row">
-      <div class="sourceReplicationButton"
-        ng-click="removeCluster()"
-        ng-class="{active: true}">
-        <div><span class="entypo circled-down"></span></div>
-        <div><small>Source</small> Cluster</div>
-      </div>
-      <div class="sourceReplicationButton pull-right"
-        ng-click="addCluster()">
-        <div><span class="entypo circled-plus"></span></div>
-        <div><small>Add</small>  Cluster</div>
-      </div>
+    <div class="sourceReplicationButton"
+         ng-repeat="cluster in feed.clusters"
+      ng-click="removeCluster()"
+      ng-class="{active: true}">
+      {{cluster}}
+      <div><span class="entypo circled-down"></span></div>
+      <div><small>Source</small> Cluster</div>
+    </div>
+    <div class="sourceReplicationButton pull-right"
+      ng-click="addCluster()">
+      <div><span class="entypo circled-plus"></span></div>
+      <div><small>Add</small>  Cluster</div>
+    </div>
   </div>
 
   <div class="row feedBottomButtons">
