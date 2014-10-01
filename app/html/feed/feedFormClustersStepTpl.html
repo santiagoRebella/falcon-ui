@@ -31,7 +31,8 @@
     </select>
     <h4 class="col-sm-24"> Retention </h4>
     <div class="col-sm-24 composedField">
-      <select ng-model="cluster.retention.action">
+      <select ng-model="cluster.retention.action"
+        ng-required="true">
         <option selected value="chown">Chown</option>
         <option value="delete">Delete</option>
         <option value="chmod">Chmod</option>
@@ -41,7 +42,9 @@
       <input type="text" class="small"
         ng-required="true" ng-model="cluster.retention.quantity"
         ng-pattern="validations.twoDigits.pattern">
-      <select ng-model="cluster.retention.unit">
+
+      <select ng-model="cluster.retention.unit"
+        ng-required="true">
         <option selected value="hours">hours</option>
         <option value="days">days</option>
         <option value="weeks">weeks</option>
