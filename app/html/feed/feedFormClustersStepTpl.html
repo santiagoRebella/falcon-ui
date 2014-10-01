@@ -4,7 +4,12 @@
          ng-repeat="cluster in feed.clusters"
       ng-click="handleCluster(cluster, $index)"
       ng-class="{active: cluster.selected}">
-      <div><span class="entypo circled-down"></span></div>
+      <div><span class="entypo"
+                 ng-class="{
+                  'circled-down': !cluster.selected || cluster.type === 'source',
+                  'circled-cross': cluster.selected && cluster.type !== 'source'
+                 }">
+       </span></div>
       <div><small>{{capitalize(cluster.type)}}</small> Cluster</div>
     </div>
     <div class="sourceReplicationButton pull-right"

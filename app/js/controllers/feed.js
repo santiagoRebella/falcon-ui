@@ -167,6 +167,8 @@
     function($scope) {
 
       $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
+      $scope.sourceCluster = $scope.sourceCluster || $scope.feed.clusters[0];
+      $scope.archiveCluster = null;
 
       $scope.addCluster = function() {
         $scope.selectedCluster.selected = false;
@@ -195,7 +197,9 @@
 
 
       $scope.removeCluster = function(index) {
-        if(index >= 0 && $scope.feed.clusters.length > 1) {
+        if(index >= 0 && $scope.feed.clusters.length > 1 &&
+          $scope.feed.clusters[index].type !== 'source') {
+
           $scope.feed.clusters.splice(index, 1);
         }
       };
