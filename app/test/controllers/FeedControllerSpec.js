@@ -60,6 +60,22 @@
         mapBandwidthKB: null
       });
       expect(scope.feed.customProperties).toEqual([{key: null, value: null}]);
+      expect(scope.feed.storage).toEqual({
+        fileSystem: {
+          active: true,
+          locations: [
+            {type: 'data', path: '/'},
+            {type: 'stats', path: '/'},
+            {type: 'meta', path: '/'}
+          ]
+        },
+        catalog: {
+          active: false,
+          catalogTable: {
+            uri: null
+          }
+        }
+      });
     });
 
     it('Should have default validations definitions', function() {

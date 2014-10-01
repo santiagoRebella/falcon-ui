@@ -41,7 +41,8 @@
         controller: 'FeedPropertiesController'
       })
       .state('main.forms.feed.location', {
-        templateUrl: 'html/feed/feedFormLocationStepTpl.html'
+        templateUrl: 'html/feed/feedFormLocationStepTpl.html',
+        controller: 'FeedLocationController'
       })
       .state('main.forms.feed.clusters', {
         templateUrl: 'html/feed/feedFormClustersStepTpl.html',

@@ -65,7 +65,23 @@
           maxMaps: null,
           mapBandwidthKB: null
         },
-        customProperties: [{key: null, value: null}]
+        customProperties: [{key: null, value: null}],
+        storage: {
+          fileSystem: {
+            active: true,
+            locations: [
+              {type: 'data', path: '/'},
+              {type: 'stats', path: '/'},
+              {type: 'meta', path: '/'}
+            ]
+          },
+          catalog: {
+            active: false,
+            catalogTable: {
+              uri: null
+            }
+          }
+        }
       };
     }
 
@@ -90,8 +106,6 @@
         required: required || false
       };
     }
-
-
 
   }]);
 
@@ -121,9 +135,18 @@
         $scope.feed.customProperties.splice(index, 1);
       }
     };
-
   }]);
 
+  feedModule.controller('FeedLocationController', [ "$scope",function($scope) {
+    $scope.toggleStorage = function() {
+      toggle($scope.feed.storage.fileSystem);
+      toggle($scope.feed.storage.catalog);
+    }
+
+    function toggle(storage) {
+      storage.active = !storage.active;
+    }
+  }]);
 
 /*        Falcon.getEntities("cluster")
           .success(function (data) {
