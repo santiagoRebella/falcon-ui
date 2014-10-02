@@ -55,11 +55,9 @@
         </select>
       </div>
       <div class="col-md-8">
-        <select
-          ng-model="feed.availabilityFlag">
-          <option selected ng-value="true">true</option>
-          <option ng-value="false">false</option>
-        </select>
+        <input type="text" class="form-control small light"
+          ng-model="feed.availabilityFlag"
+          ng-pattern="validations.alpha.pattern">
       </div>
 
       <h4 class="col-md-24">Properties</h4>

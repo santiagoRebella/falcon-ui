@@ -34,7 +34,8 @@
           }
         },
         Falcon: {},
-        EntityModel: {}
+        EntityModel: {},
+        X2jsService: {}
       });
     }));
 
@@ -52,7 +53,7 @@
       expect(scope.feed.schema.provider).toBe(null);
       expect(scope.feed.frequency).toEqual({quantity: null, unit: 'hours'});
       expect(scope.feed.lateArrival).toEqual({active: false, cutOff: {quantity: null, unit: 'hours'}});
-      expect(scope.feed.availabilityFlag).toEqual(false);
+      expect(scope.feed.availabilityFlag).toEqual(null);
       expect(scope.feed.properties).toEqual({
         queueName: null,
         jobPriority: 'NORMAL',

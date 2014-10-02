@@ -6,7 +6,7 @@
     <label>Name</label>: {{feed.name}}
   </div>
   <div class="col-sm-12">
-    <label>Description</label>: {{feed.description}}
+    <label>Description</label>: {{optional(feed.description)}}
   </div>
 
   <div class="clearfix hidden-md"></div>
@@ -38,13 +38,13 @@
   </h4>
   <div class="clearfix hidden-md"></div>
   <div class="col-sm-8">
-    <label>Owner</label>: {{feed.ACL.owner}}
+    <label>Owner</label>: {{optional(feed.ACL.owner)}}
   </div>
   <div class="col-sm-8">
-    <label>Group</label>: {{feed.ACL.group}}
+    <label>Group</label>: {{optional(feed.ACL.group)}}
   </div>
   <div class="col-sm-8">
-    <label>Permissions</label>: {{feed.ACL.permission}}
+    <label>Permissions</label>: {{optional(feed.ACL.permission)}}
   </div>
 
   <div class="clearfix hidden-md"></div>
@@ -54,60 +54,56 @@
   </h4>
   <div class="clearfix hidden-md"></div>
   <div class="col-sm-12">
-    <label>Location</label>: {{feed.schema.location}}
+    <label>Location</label>: {{optional(feed.schema.location)}}
   </div>
   <div class="col-sm-12">
-    <label>Provider</label>: {{feed.schema.provider}}
-  </div>
-  <div class="col-sm-8">
-    <label>Permissions</label>: {{feed.ACL.permission}}
+    <label>Provider</label>: {{optional(feed.schema.provider)}}
   </div>
 
   <div class="clearfix hidden-md"></div>
+  <div class="clearfix hidden-md"></div>
 
+  <div class="col-sm-8">
+    <label>Frequency</label>: Every {{feed.frequency.quantity}} {{feed.frequency.unit}}
+  </div>
+  <div class="col-sm-8">
+    <label>Late Arrival</label>:
+    {{optional(feed.lateArrival.active, 'Up to ' + feed.lateArrival.cutOff.quantity + feed.lateArrival.cutOff.unit)}}
+  </div>
+  <div class="col-sm-8">
+    <label>Availability Flag</label>: {{optional(feed.availabilityFlag)}}
+  </div>
+
+  <div class="clearfix hidden-md"></div>
 
   <h4 class="col-sm-24">
     Properties
   </h4>
-  <div class="clearfix hidden-md"></div>
-  <div class="col-sm-8">
-    <label>Frequency</label>: {{feed.frequency.unit}}({{feed.frequency.quantity}})
-  </div>
-  <div class="col-sm-8">
-    <label>Late Arrival</label>: {{feed.frequency.unit}}({{feed.frequency.quantity}})
-  </div>
-  <div class="col-sm-8">
-    <label>Availability Flag</label>: {{feed.availabilityFlag}}
-  </div>
-  <div class="clearfix hidden-md"></div>
-  <div class="col-sm-8">
-    <label>queueName</label>: {{feed.properties.queueName}}
-  </div>
-  <div class="col-sm-8">
-    <label>jobPriority</label>: {{feed.properties.jobPriority}}
-  </div>
-  <div class="col-sm-8">
-    <label>timeout</label>: {{feed.properties.timeout.unit}}({{feed.properties.timeout.quantity}})
-  </div>
 
-  <div class="clearfix hidden-md"></div>
-  <div class="col-sm-8" ng-repeat="property in feed.customProperties">
+  <div class="col-sm-8">
+    <label>queueName</label>: {{optional(feed.properties.queueName)}}
+  </div>
+  <div class="col-sm-8">
+    <label>jobPriority</label>: {{optional(feed.properties.jobPriority)}}
+  </div>
+  <div class="col-sm-8">
+    <label>timeout</label>: {{
+      optional(feed.properties.timeout.quantity,
+      'At ' + feed.properties.timeout.quantity + ' ' +
+      feed.properties.timeout.unit)
+    }}
+  </div>
+  <div class="col-sm-8" ng-repeat="property in feed.customProperties | filter: {key: '!!'}">
     <label>{{property.key}}</label>: {{property.value}}
   </div>
 
   <div class="clearfix hidden-md"></div>
 
-  <h4 class="col-sm-24">
-    Location
-  </h4>
-  <div class="col-sm-24" ng-repeat="location in feed.storage.fileSystem.locations">
-    <label>{{name}}</label>: {{location.path}}
-  </div>
 </div>
 
 
 <div class="row">
-  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.clusters" ng-click="goGeneralStep()">
+  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.clusters">
     Previous
   </div>
 

@@ -25,10 +25,10 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  var feedModule = angular.module('app.controllers.feed', []);
+  var feedModule = angular.module('app.controllers.feed', ['app.services']);
 
-  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel",
-    function($scope, $state, Falcon, EntityModel) {
+  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", "X2jsService",
+    function($scope, $state, Falcon, EntityModel, X2jsService) {
 
     $scope.init = function() {
       $scope.feed = newFeed();
@@ -39,7 +39,7 @@
 
 
     $scope.saveEntity = function() {
-      var feedEntity = EntityModel.feedModel;
+      console.log('todo');
     };
 
     $scope.isActive = function (route) {
@@ -65,7 +65,7 @@
         schema: {location: '/', provider: null},
         frequency: {quantity: null, unit: 'hours'},
         lateArrival: {active: false, cutOff: {quantity: null, unit: 'hours'}},
-        availabilityFlag: false,
+        availabilityFlag: null,
         properties: {
           queueName: null,
           jobPriority: 'NORMAL',
@@ -146,7 +146,7 @@
     };
   }]);
 
-  feedModule.controller('FeedGeneralInformationController', [ "$scope", "$filter", function($scope, $filter) {
+  feedModule.controller('FeedGeneralInformationController', [ "$scope", function($scope) {
 
     $scope.addTag = function() {
       $scope.feed.tags.push({key: null, value: null});
@@ -278,12 +278,13 @@
 
 
     $scope.hasTags = function() {
-
       var filteredTags = $filter('filter')($scope.feed.tags, {key: '!!'});
-
       return filteredTags.length > 0;
     };
 
+    $scope.optional = function(input, output) {
+      return input ? (output || input) : 'Not specified';
+    };
 
   }]);
 

@@ -47,6 +47,22 @@
     });
 
 
+    it('Should return "Not specified if not present" if empty string', function() {
+      expect(scope.optional('')).toBe('Not specified');
+    });
+
+    it('Should return "Not specified if not present" if empty string', function() {
+      expect(scope.optional()).toBe('Not specified');
+    });
+
+    it('Should return the specified value if the expression is true', function() {
+      expect(scope.optional(true, 'Up 2 hours')).toBe('Up 2 hours');
+    });
+
+    it('Should return "Not specified if the expression is false', function() {
+      expect(scope.optional(false, 'Up 2 hours')).toBe('Not specified');
+    });
+
 
   });
 
