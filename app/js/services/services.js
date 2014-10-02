@@ -203,27 +203,31 @@
 		FileApi.fileRaw = "No file loaded";
 		
 		FileApi.loadFile = function (evt) {
-			
-			var deferred = $q.defer(),
-			    reader = new FileReader(), 
-				file = evt.target.files[0];
-				
-	        reader.onload = (function(theFile) {
 
-				reader.readAsText(theFile, "UTF-8");
-
-		        return function(e) {
-		            FileApi.fileRaw = e.target.result; 
-                    FileApi.fileDetails = theFile;                   
-		            EntityModel.getJson(FileApi.fileRaw); 
-					deferred.resolve();	
-		        };
-		        
-		    })(file);	
-		    
-		    return deferred.promise;	
+			if(FileApi.supported) {
+			   var deferred = $q.defer(),
+                   reader = new FileReader(), 
+                   file = evt.target.files[0];
+                    
+                reader.onload = (function(theFile) {
+    
+                    reader.readAsText(theFile, "UTF-8");
+    
+                    return function(e) {
+                        FileApi.fileRaw = e.target.result; 
+                        FileApi.fileDetails = theFile;                   
+                        EntityModel.getJson(FileApi.fileRaw); 
+                        deferred.resolve(); 
+                    };
+                        
+                })(file);   
+            
+                return deferred.promise;     
+			}
+			else {
+			    alert(FileApi.errorMessage);
+			}		
 		};
-		
 		return FileApi; 
 	}]);
 	
