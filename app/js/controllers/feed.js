@@ -27,7 +27,7 @@
    */
   var feedModule = angular.module('app.controllers.feed', []);
 
-  feedModule.controller('FeedController', [ "$scope", "$state", function($scope, $state) {
+  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", function($scope, $state, Falcon, EntityModel) {
 
     $scope.init = function() {
       $scope.feed = newFeed();
@@ -38,7 +38,9 @@
 
 
     $scope.saveEntity = function() {
-      console.log('FeedController.saveEntity  not implemented yet');
+      var feedEntity = EntityModel.feedModel;
+
+
     };
 
     $scope.isActive = function (route) {
@@ -175,18 +177,44 @@
   feedModule.controller('FeedClustersController', [ "$scope","clustersList",
     function($scope, clustersList) {
 
-      $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
-      $scope.sourceCluster = $scope.sourceCluster || $scope.feed.clusters[0];
-      $scope.archiveCluster = null;
 
       unwrapClusters(clustersList);
 
+      $scope.updateRetention = function() {
+        if($scope.selectedCluster.retention.action === 'archive' && $scope.selectedCluster.type === 'source') {
+          $scope.allClusters.length = 0;
+          $scope.allClusters.concat($scope.feed.clusters);
+
+          $scope.feed.clusters.length = 0;
+          $scope.feed.clusters.push($scope.sourceCluster);
+          $scope.feed.clusters.push($scope.archiveCluster);
+
+          $scope.archiveCluster.selected = true;
+          $scope.archiveCluster.active = true;
+        }
+
+        if($scope.selectedCluster.retention.action !== 'archive'&& $scope.selectedCluster.type === 'source' && $scope.archiveCluster.active) {
+          $scope.archiveCluster.selected = false;
+          $scope.feed.clusters.length = 0;
+          $scope.allClusters.length = 0;
+          $scope.feed.clusters.push($scope.sourceCluster);
+          $scope.sourceCluster.selected = true;
+          $scope.archiveCluster.active = false;
+        }
+      };
+
       $scope.addCluster = function() {
         $scope.selectedCluster.selected = false;
-        var newCluster = {
+        var cluster = $scope.newCluster(true);
+        $scope.feed.clusters.push(cluster);
+        $scope.selectedCluster = cluster;
+      };
+
+      $scope.newCluster = function(selected) {
+        return {
           name: null,
           type: 'target',
-          selected: true,
+          selected: selected,
           retention: {action: null, quantity: null, unit: 'hours'},
           validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null},
           catalog: {
@@ -197,8 +225,6 @@
             }
           }
         };
-        $scope.feed.clusters.push(newCluster);
-        $scope.selectedCluster = newCluster;
       };
 
       $scope.handleCluster = function(cluster, index) {
@@ -217,7 +243,8 @@
 
       $scope.removeCluster = function(index) {
         if(index >= 0 && $scope.feed.clusters.length > 1 &&
-          $scope.feed.clusters[index].type !== 'source') {
+          $scope.feed.clusters[index].type !== 'source' &&
+          !$scope.archiveCluster.active) {
           $scope.feed.clusters.splice(index, 1);
           $scope.selectCluster($scope.sourceCluster);
         }
@@ -235,6 +262,12 @@
         }
       }
 
+
+      $scope.selectedCluster = $scope.selectedCluster || $scope.feed.clusters[0];
+      $scope.sourceCluster = $scope.sourceCluster || $scope.feed.clusters[0];
+      $scope.archiveCluster = $scope.newCluster(false);
+      $scope.archiveCluster.active = false;
+      $scope.allClusters = [];
 
     }]);
 
