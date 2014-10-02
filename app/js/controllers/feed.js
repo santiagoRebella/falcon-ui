@@ -27,7 +27,8 @@
    */
   var feedModule = angular.module('app.controllers.feed', []);
 
-  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", function($scope, $state, Falcon, EntityModel) {
+  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel",
+    function($scope, $state, Falcon, EntityModel) {
 
     $scope.init = function() {
       $scope.feed = newFeed();
@@ -39,8 +40,6 @@
 
     $scope.saveEntity = function() {
       var feedEntity = EntityModel.feedModel;
-
-
     };
 
     $scope.isActive = function (route) {
@@ -135,7 +134,19 @@
 
   }]);
 
-  feedModule.controller('FeedGeneralInformationController', [ "$scope", function($scope) {
+  feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
+    $scope.addCustomProperty = function () {
+      $scope.feed.customProperties.push({key: null, value: null});
+    };
+
+    $scope.removeCustomProperty = function(index) {
+      if(index >= 0 && $scope.feed.customProperties.length > 1) {
+        $scope.feed.customProperties.splice(index, 1);
+      }
+    };
+  }]);
+
+  feedModule.controller('FeedGeneralInformationController', [ "$scope", "$filter", function($scope, $filter) {
 
     $scope.addTag = function() {
       $scope.feed.tags.push({key: null, value: null});
@@ -147,18 +158,6 @@
       }
     };
 
-  }]);
-
-  feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
-    $scope.addCustomProperty = function () {
-      $scope.feed.customProperties.push({key: null, value: null});
-    };
-
-    $scope.removeCustomProperty = function(index) {
-      if(index >= 0 && $scope.feed.customProperties.length > 1) {
-        $scope.feed.customProperties.splice(index, 1);
-      }
-    };
   }]);
 
   feedModule.controller('FeedLocationController', [ "$scope",function($scope) {
@@ -272,5 +271,20 @@
       $scope.allClusters = [];
 
     }]);
+
+
+
+  feedModule.controller('FeedSummaryController', [ "$scope", "$filter", function($scope, $filter) {
+
+
+    $scope.hasTags = function() {
+
+      var filteredTags = $filter('filter')($scope.feed.tags, {key: '!!'});
+
+      return filteredTags.length > 0;
+    };
+
+
+  }]);
 
 })();

@@ -24,7 +24,7 @@
   describe('FeedGeneralInformationController', function () {
     beforeEach(module('app.controllers.feed'));
 
-    beforeEach(inject(function($q, $rootScope, $controller) {
+    beforeEach(inject(function($q, $rootScope, $controller, $filter) {
       scope = $rootScope.$new();
       scope.feed = {
         tags: [{key: null, value: null}]
@@ -32,7 +32,8 @@
 
       controller = $controller('FeedGeneralInformationController', {
         $scope: scope,
-        $state: {}
+        $state: {},
+        $filter: $filter
       });
     }));
 
@@ -77,8 +78,6 @@
 
       expect(scope.feed.tags).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
     });
-
-
   })
 
 })();

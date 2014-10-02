@@ -57,7 +57,8 @@
         }
       })
       .state('main.forms.feed.summary', {
-        templateUrl: 'html/feed/feedFormSummaryStepTpl.html'
+        templateUrl: 'html/feed/feedFormSummaryStepTpl.html',
+        controller: 'FeedSummaryController'
       })
       .state('main.dashboard', {
         templateUrl: 'html/dashboardTpl.html',

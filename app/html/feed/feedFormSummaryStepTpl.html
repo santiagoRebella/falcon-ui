@@ -1,29 +1,38 @@
 <div class="row">
-  <h4 class="col-sm-24" feed.storage.fileSystem>
+  <h4 class="col-sm-24">
     General
   </h4>
-  <div class="col-sm-24">
+  <div class="col-sm-12">
     <label>Name</label>: {{feed.name}}
   </div>
-  <div class="col-sm-24">
+  <div class="col-sm-12">
     <label>Description</label>: {{feed.description}}
   </div>
+
+  <div class="clearfix hidden-md"></div>
 
   <h4 class="col-sm-24">
     Tags
   </h4>
-  <div class="col-sm-24" ng-repeat="tag in feed.tags">
-    <label>{{tag.key}}</label>: {{tag.value}}
+  <div class="col-sm-24">
+    <div ng-repeat="tag in feed.tags | filter:{key: '!!'}">
+      {{tag.key}} = {{tag.value}}
+    </div>
+    <div ng-show="!hasTags()">No tags selected</div>
   </div>
 
+  <div class="clearfix hidden-md"></div>
 
   <h4 class="col-sm-24">
     Groups
   </h4>
   <div class="col-sm-24">
     {{feed.groups}}
+    <div ng-show="!feed.groups">No groups selected</div>
   </div>
+
   <div class="clearfix hidden-md"></div>
+
   <h4 class="col-sm-24">
     Access Control List
   </h4>
@@ -37,22 +46,19 @@
   <div class="col-sm-8">
     <label>Permissions</label>: {{feed.ACL.permission}}
   </div>
-  <div class="clearfix hidden-md"></div>
 
+  <div class="clearfix hidden-md"></div>
 
   <h4 class="col-sm-24">
     Schema
   </h4>
   <div class="clearfix hidden-md"></div>
-
   <div class="col-sm-12">
     <label>Location</label>: {{feed.schema.location}}
   </div>
-
   <div class="col-sm-12">
     <label>Provider</label>: {{feed.schema.provider}}
   </div>
-
   <div class="col-sm-8">
     <label>Permissions</label>: {{feed.ACL.permission}}
   </div>
@@ -81,7 +87,7 @@
     <label>jobPriority</label>: {{feed.properties.jobPriority}}
   </div>
   <div class="col-sm-8">
-    <label>timeout</label>: {{feed.properties.timeout}}
+    <label>timeout</label>: {{feed.properties.timeout.unit}}({{feed.properties.timeout.quantity}})
   </div>
 
   <div class="clearfix hidden-md"></div>
@@ -101,7 +107,7 @@
 
 
 <div class="row">
-  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.general" ng-click="goGeneralStep()">
+  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.clusters" ng-click="goGeneralStep()">
     Previous
   </div>
 
