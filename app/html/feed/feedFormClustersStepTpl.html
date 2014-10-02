@@ -85,7 +85,7 @@
         ng-model="cluster.validity.timezone"
         ng-model="true"/>
     </div>
-    <div class="col-md-6 composedField">
+    <div class="col-md-6">
       <select class="form-control light"
         ng-mode="">
         <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
@@ -126,6 +126,10 @@
 
 
   <div class="row">
+
+    <div class="clearfix hidden-md"></div>
+
+
     <div class="col-sm-24 feedLocationNavBox">
       <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
       <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Storage type</h4>
@@ -154,17 +158,15 @@
       ng-show="feed.storage.fileSystem.active"
       ng-repeat="location in feed.storage.fileSystem.locations">
       <label class="light">{{location.type}} path</label>
-      <input ng-disabled="true" type="text" class="form-control"
+      <input type="text" class="form-control"
         ng-model="location.path"/>
     </div>
 
     <div class="col-sm-24" ng-show="feed.storage.catalog.active">
-      <label class="light">Table uri</label>
       <input type="text" class="form-control" ng-model="cluster.catalog.catalogTable.uri"/>
+      <label class="light">Table uri</label>
     </div>
   </div>
-
-  {{feed}}
 
   <div class="row feedBottomButtons">
     <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.location">
