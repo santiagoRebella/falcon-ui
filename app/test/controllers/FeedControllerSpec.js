@@ -32,7 +32,9 @@
           $current:{
             name: 'main.forms.feed.general'
           }
-        }
+        },
+        Falcon: {},
+        EntityModel: {}
       });
     }));
 

@@ -7,15 +7,16 @@
       <div>
         <span class="entypo"
           ng-class="{
-            'circled-down': !cluster.selected || cluster.type === 'source',
-            'circled-cross': cluster.selected && cluster.type !== 'source'
+            'circled-down': !cluster.selected || cluster.type === 'source' || archiveCluster.active,
+            'circled-cross': cluster.selected && cluster.type !== 'source' && !archiveCluster.active
             }">
         </span>
       </div>
-      <div><small>{{capitalize(cluster.type === 'target' ? 'replication' : cluster.type)}}</small> Cluster</div>
+      <div><small>{{capitalize(cluster.type === 'target' ? (archiveCluster.active ? 'archive': 'replication') : cluster.type)}}</small> Cluster</div>
     </div>
     <div class="sourceReplicationButton pull-right"
-      ng-click="addCluster()">
+      ng-click="addCluster()"
+      ng-show="!archiveCluster.active">
       <div><span class="entypo circled-plus"></span></div>
       <div><small>Add</small>  Cluster</div>
     </div>
@@ -32,11 +33,12 @@
     <h4 class="col-sm-24"> Retention </h4>
     <div class="col-sm-24 composedField">
       <select ng-model="cluster.retention.action"
-        ng-required="true">
+        ng-required="true"
+        ng-change="updateRetention()">
         <option selected value="chown">Chown</option>
         <option value="delete">Delete</option>
         <option value="chmod">Chmod</option>
-        <option value="archive">Archive</option>
+        <option ng-show="cluster.type === 'source'" show value="archive">Archive</option>
       </select>
       in
       <input type="text" class="small"

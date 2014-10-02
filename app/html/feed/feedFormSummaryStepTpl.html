@@ -1,11 +1,112 @@
 <div class="row">
-    <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.clusters">
-        Previous
-    </div>
-    <div class="btn btn-default col-xs-6 pull-right" ng-click="saveFeed()" ui-sref="main">
-        Save
-    </div>
-    <div class="col-xs-4 pull-right">
-        <u ui-sref="main">Cancel</u>
-    </div>          
+  <h4 class="col-sm-24" feed.storage.fileSystem>
+    General
+  </h4>
+  <div class="col-sm-24">
+    <label>Name</label>: {{feed.name}}
+  </div>
+  <div class="col-sm-24">
+    <label>Description</label>: {{feed.description}}
+  </div>
+
+  <h4 class="col-sm-24">
+    Tags
+  </h4>
+  <div class="col-sm-24" ng-repeat="tag in feed.tags">
+    <label>{{tag.key}}</label>: {{tag.value}}
+  </div>
+
+
+  <h4 class="col-sm-24">
+    Groups
+  </h4>
+  <div class="col-sm-24">
+    {{feed.groups}}
+  </div>
+  <div class="clearfix hidden-md"></div>
+  <h4 class="col-sm-24">
+    Access Control List
+  </h4>
+  <div class="clearfix hidden-md"></div>
+  <div class="col-sm-8">
+    <label>Owner</label>: {{feed.ACL.owner}}
+  </div>
+  <div class="col-sm-8">
+    <label>Group</label>: {{feed.ACL.group}}
+  </div>
+  <div class="col-sm-8">
+    <label>Permissions</label>: {{feed.ACL.permission}}
+  </div>
+  <div class="clearfix hidden-md"></div>
+
+
+  <h4 class="col-sm-24">
+    Schema
+  </h4>
+  <div class="clearfix hidden-md"></div>
+
+  <div class="col-sm-12">
+    <label>Location</label>: {{feed.schema.location}}
+  </div>
+
+  <div class="col-sm-12">
+    <label>Provider</label>: {{feed.schema.provider}}
+  </div>
+
+  <div class="col-sm-8">
+    <label>Permissions</label>: {{feed.ACL.permission}}
+  </div>
+
+  <div class="clearfix hidden-md"></div>
+
+
+  <h4 class="col-sm-24">
+    Properties
+  </h4>
+  <div class="clearfix hidden-md"></div>
+  <div class="col-sm-8">
+    <label>Frequency</label>: {{feed.frequency.unit}}({{feed.frequency.quantity}})
+  </div>
+  <div class="col-sm-8">
+    <label>Late Arrival</label>: {{feed.frequency.unit}}({{feed.frequency.quantity}})
+  </div>
+  <div class="col-sm-8">
+    <label>Availability Flag</label>: {{feed.availabilityFlag}}
+  </div>
+  <div class="clearfix hidden-md"></div>
+  <div class="col-sm-8">
+    <label>queueName</label>: {{feed.properties.queueName}}
+  </div>
+  <div class="col-sm-8">
+    <label>jobPriority</label>: {{feed.properties.jobPriority}}
+  </div>
+  <div class="col-sm-8">
+    <label>timeout</label>: {{feed.properties.timeout}}
+  </div>
+
+  <div class="clearfix hidden-md"></div>
+  <div class="col-sm-8" ng-repeat="property in feed.customProperties">
+    <label>{{property.key}}</label>: {{property.value}}
+  </div>
+
+  <div class="clearfix hidden-md"></div>
+
+  <h4 class="col-sm-24">
+    Location
+  </h4>
+  <div class="col-sm-24" ng-repeat="location in feed.storage.fileSystem.locations">
+    <label>{{name}}</label>: {{location.path}}
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.general" ng-click="goGeneralStep()">
+    Previous
+  </div>
+
+  <div class="btn btn-default col-xs-6 pull-right" ng-click="saveEntity()">
+    Save
+  </div>
+
 </div>
