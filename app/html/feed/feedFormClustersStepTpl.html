@@ -7,8 +7,8 @@
       <div>
         <span class="entypo"
           ng-class="{
-            'circled-down': !cluster.selected || cluster.type === 'source',
-            'circled-cross': cluster.selected && cluster.type !== 'source'
+            'circled-down': !cluster.selected || cluster.type === 'source' || archiveCluster.active,
+            'circled-cross': cluster.selected && cluster.type !== 'source' && !archiveCluster.active
             }">
         </span>
       </div>
@@ -38,7 +38,7 @@
         <option selected value="chown">Chown</option>
         <option value="delete">Delete</option>
         <option value="chmod">Chmod</option>
-        <option value="archive">Archive</option>
+        <option ng-show="cluster.type === 'source'" show value="archive">Archive</option>
       </select>
       in
       <input type="text" class="small"

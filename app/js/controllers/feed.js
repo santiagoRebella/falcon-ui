@@ -189,8 +189,10 @@
           $scope.feed.clusters.push($scope.sourceCluster);
           $scope.feed.clusters.push($scope.archiveCluster);
 
+          $scope.sourceCluster.selected = false;
           $scope.archiveCluster.selected = true;
           $scope.archiveCluster.active = true;
+          $scope.selectedCluster = $scope.archiveCluster;
         }
 
         if($scope.selectedCluster.retention.action !== 'archive'&& $scope.selectedCluster.type === 'source' && $scope.archiveCluster.active) {
