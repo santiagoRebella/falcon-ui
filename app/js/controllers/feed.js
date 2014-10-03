@@ -62,7 +62,7 @@
         groups: null,
         tags: [{key: null, value: null}],
         ACL: {owner: null, group: null, permission: '*'},
-        schema: {location: '/', provider: null},
+        schema: {location: null, provider: null},
         frequency: {quantity: null, unit: 'hours'},
         lateArrival: {active: false, cutOff: {quantity: null, unit: 'hours'}},
         availabilityFlag: null,

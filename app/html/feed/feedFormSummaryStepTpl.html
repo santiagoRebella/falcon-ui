@@ -66,11 +66,10 @@
   </h4>
 
   <div class="col-sm-8">
-    <label>Frequency</label>: Every {{feed.frequency.quantity}} {{feed.frequency.unit}}
+    <label>Frequency</label>: <frequency value="feed.frequency" prefix="Every"/>
   </div>
   <div class="col-sm-8">
-    <label>Late Arrival</label>:
-    {{optional(feed.lateArrival.active, 'Up to ' + feed.lateArrival.cutOff.quantity + feed.lateArrival.cutOff.unit)}}
+    <label>Late Arrival</label>: <frequency value="feed.lateArrival.cutOff" prefix="Up to"/>
   </div>
   <div class="col-sm-8">
     <label>Availability Flag</label>: {{optional(feed.availabilityFlag)}}
@@ -86,11 +85,7 @@
     <label>jobPriority</label>: {{optional(feed.properties.jobPriority)}}
   </div>
   <div class="col-sm-8">
-    <label>timeout</label>: {{
-      optional(feed.properties.timeout.quantity,
-      'at ' + feed.properties.timeout.quantity + ' ' +
-      feed.properties.timeout.unit)
-    }}
+    <label>timeout</label>: <frequency value="feed.properties.timeout" prefix="at"/>
   </div>
   <div class="col-sm-8" ng-repeat="property in feed.customProperties | filter: {key: '!!'}">
     <label>{{property.key}}</label>: {{property.value}}

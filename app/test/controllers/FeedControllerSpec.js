@@ -49,7 +49,7 @@
       expect(scope.feed.groups).toBe(null);
       expect(scope.feed.tags).toEqual([{key: null, value: null}]);
       expect(scope.feed.ACL).toEqual({ owner: null, group: null, permission: '*'});
-      expect(scope.feed.schema.location).toBe('/');
+      expect(scope.feed.schema.location).toBe(null);
       expect(scope.feed.schema.provider).toBe(null);
       expect(scope.feed.frequency).toEqual({quantity: null, unit: 'hours'});
       expect(scope.feed.lateArrival).toEqual({active: false, cutOff: {quantity: null, unit: 'hours'}});

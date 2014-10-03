@@ -63,7 +63,6 @@
       expect(scope.optional(false, 'Up 2 hours')).toBe('Not specified');
     });
 
-
   });
 
 })();

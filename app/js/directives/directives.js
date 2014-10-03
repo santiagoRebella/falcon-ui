@@ -73,4 +73,23 @@
             }
         };
     });
+
+    app.directive('frequency', function() {
+      return {
+        replace: false,
+        scope: {
+          value: "=",
+          prefix: "@"
+        },
+        restrict: 'E',
+        template: '{{output}}',
+        link: function(scope) {
+          if(scope.value.quantity) {
+            scope.output = scope.prefix + ' ' + scope.value.quantity + ' ' + scope.value.unit;
+          } else {
+            scope.output = 'Not specified';
+          }
+        }
+      };
+    });
 })();
