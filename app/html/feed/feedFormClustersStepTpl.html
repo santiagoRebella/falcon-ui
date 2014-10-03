@@ -58,37 +58,31 @@
 
     <div class="clearfix hidden-md"></div>
 
-    <div class="col-md-8 validityDateBox">
-      <label class="light">Start</label>
+    <div class="col-sm-10 validityDateBox">
+        <label class="light">Start</label>
+        <input type="date" class="form-control medium"
+            ng-model="cluster.validity.start.date"
+            ng-model="true"/>
+        <input type="time" class="form-control medium"
+            ng-model="cluster.validity.start.time"
+            ng-model="true"/>
+    
     </div>
-    <div class="col-sm-8 validityDateBox">
+    <div class="col-sm-14 validityDateBox">
       <label class="light">End</label>
-    </div>
-
-    <div class="clearfix hidden-md"></div>
-
-    <div class="col-md-4 composedField">
-      <input type="date" class="form-control light"
+      <input type="date" class="form-control medium"
         ng-model="cluster.validity.start.date"
         ng-model="true"/>
-    </div>
-    <div class="col-md-4 composedField">
-      <input type="time" class="form-control light"
-        ng-model="cluster.validity.start.time"
-        ng-model="true"/>
-    </div>
-    <div class="col-md-4 composedField">
-      <input type="date" class="form-control light"
-        ng-model="cluster.validity.start.date"
-        ng-model="true"/>
-    </div>
-    <div class="col-md-4 composedField">
-      <input type="date" class="form-control light"
+      <input type="date" class="form-control medium"
         ng-model="cluster.validity.timezone"
         ng-model="true"/>
+        
+      
+      
+        
     </div>
-    <div class="col-md-6">
-      <select class="form-control light"
+    <div class="col-sm-24">
+        <select class="padding0 TZSelect form-control"
         ng-mode="">
         <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
         <option value="-11.0">(GMT -11:00) Midway Island, Samoa</option>
@@ -123,14 +117,8 @@
         <option value="12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
       </select>
     </div>
-
-  <div class="clearfix hidden-md"></div>
-
-
-  <div class="row">
-
-    <div class="clearfix hidden-md"></div>
-
+    
+  <div class="row dynamic-table-spacer">
 
     <div class="col-sm-24 feedLocationNavBox">
       <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
@@ -161,7 +149,7 @@
       ng-repeat="location in feed.storage.fileSystem.locations">
       <label class="light">{{location.type}} path</label>
       <input type="text" class="form-control"
-        ng-model="location.path"/>
+        ng-model="location.path" ng-disabled="true"/>
     </div>
 
     <div class="col-sm-24" ng-show="feed.storage.catalog.active">
@@ -179,5 +167,8 @@
          ui-sref="main.forms.feed.summary">
       Next
     </div>
+    <u class="col-sm-3 pull-right" ui-sref="main">
+      Cancel
+    </u>
   </div>
 </form>
