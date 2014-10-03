@@ -21,10 +21,14 @@
   var controller;
 
   describe('FeedController', function () {
+    var entityModelServiceMock;
+
     beforeEach(module('app.controllers.feed'));
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
+      entityModelServiceMock = jasmine.createSpyObj('EntityModel', ['newFeedModel']);
+
 
       controller = $controller('FeedController', {
         $scope: scope,
@@ -34,7 +38,7 @@
           }
         },
         Falcon: {},
-        EntityModel: {},
+        EntityModel: entityModelServiceMock,
         X2jsService: {}
       });
     }));
@@ -139,8 +143,12 @@
       expect(scope.capitalize('hello')).toBe('Hello');
     });
 
-    it('TODO', function() {
+    it('Should get a new feedModel', function() {
+      entityModelServiceMock.newFeedModel.andReturn({});
+
       scope.saveEntity();
+
+      expect(entityModelServiceMock.newFeedModel).toHaveBeenCalled();
     });
 
 

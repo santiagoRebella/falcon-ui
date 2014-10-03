@@ -168,10 +168,13 @@
                 _description: ""
             }
         };
+
+      EntityModel.newFeedModel = function () {
+        var feed = EntityModel.feedModel.feed;
+        return  angular.copy(feed);
+      };
 	    
-	    
-	    
-	    return EntityModel;
+    return EntityModel;
 	    
 	}]);
 	

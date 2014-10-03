@@ -26,9 +26,7 @@
     beforeEach(module('app.controllers.layout'));
 
     beforeEach(inject(function($q, $rootScope, $controller) {
-
       q = $q;
-
 
     }));
 

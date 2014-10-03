@@ -39,7 +39,8 @@
 
 
     $scope.saveEntity = function() {
-      console.log('todo');
+      var feedModel = EntityModel.newFeedModel();
+      console.log(feedModel);
     };
 
     $scope.isActive = function (route) {

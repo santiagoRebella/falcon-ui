@@ -46,6 +46,13 @@
       expect(feed._name).toEqual("");
     });
 
+    it('Should return a new feed model', function() {
+      var feedModel1 = EntityModel.newFeedModel();
+      var feedModel2 = EntityModel.newFeedModel();
+
+      expect(feedModel1).toNotBe(feedModel2);
+    })
+
 
   });
 })();
