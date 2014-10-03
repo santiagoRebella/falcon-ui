@@ -102,7 +102,6 @@
       top: 13px;
       left:0;
       right:0;
-      margin:0;
     }
  
 }
@@ -293,7 +292,9 @@
     }
   }
 }
-
+.padding0 {
+  padding:0;
+}
 .dynamic-table-spacer {
   margin-top:5px;
 }
@@ -337,19 +338,23 @@
   }
 }
 .feedForm {
-  .composedField {
-    select, .small {
-      display: inline-block;
-    }
-    .small {
-      width: 30px;
-      height: 20px;
-    }
-    .checkbox {
-      margin: 0;
-      input { margin:-1px 0 0 -20px; }
-    }
-    
+
+  .small {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+  } 
+  .medium {
+    width: 80px;
+  }
+  .availFlagInput {
+    width: 85px;
+  }
+  .freqTitle {
+    margin: 0 0 5px 0;
+  }
+  .top-buffer {
+    margin-top: 8px;
   }
   .feedLocationNavBox { 
     h4 {
@@ -410,6 +415,9 @@
       display: inline-block;
     }
 
+  }
+  .TZSelect {
+    margin: 5px 0;
   }
   .addProperty {
     margin: 12px 5px;
