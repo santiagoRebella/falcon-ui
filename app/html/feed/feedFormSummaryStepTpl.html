@@ -101,7 +101,61 @@
   </div>
   <div class="clearfix hidden-md"></div>
 
+  <h4 class="col-sm-8" >
+    Default Storage Type:
+  </h4>
+  <div class="clearfix hidden-md"></div>
+
+  <div class="col-sm-8 light" ng-show="feed.storage.fileSystem.active">File System</div>
+  <div class="col-sm-8 light" ng-show="feed.storage.catalog.active">Catalog Storage</div>
+
+  <div class="clearfix hidden-md"></div>
+
+  <h4 class="col-sm-24" >
+    Default Location:
+  </h4>
+  <div class="clearfix hidden-md"></div>
+
+  <div ng-repeat="location in feed.storage.fileSystem.locations" ng-show="feed.storage.fileSystem.active">
+    <label class="col-sm-24" >{{capitalize(location.type)}}</label>
+    <div class="col-sm-24">{{optional(location.path)}}</div>
+  </div>
+
+  <div ng-show="feed.storage.catalog.active">
+    <label class="col-sm-24" >Table uri</label>
+    <div class="col-sm-24">{{optional(feed.storage.catalog.catalogTable.uri)}}</div>
+  </div>
+
+  <div ng-repeat="cluster in feed.clusters" >
+    <h4 class="col-sm-24" >{{capitalize(cluster.type)}} Cluster</h4>
+    <label>Name</label>: {{cluster.name}}
+    <div class="clearfix hidden-md"></div>
+
+    <div class="col-sm-8">
+      <label>Start</label>: {{cluster.validity.start.date}} {{cluster.validity.start.time}}
+    </div>
+    <div class="col-sm-8">
+      <label>End</label>: {{cluster.validity.end.date}} {{cluster.validity.end.time}}
+    </div>
+    <div class="col-sm-8">
+      <label>Timezone</label>: {{cluster.validity.timezone}}
+    </div>
+    <div class="col-sm-8">
+      <label>Retention</label>: <frequency value="cluster.retention" prefix="Archive in"/>
+    </div>
+  </div>
+  <div class="clearfix hidden-md"></div>
+  <h4 class="col-sm-24" >Location</h4>
+  <div ng-repeat="location in cluster.storage.fileSystem.locations" ng-show="cluster.storage.fileSystem">
+    <label class="col-sm-24" >{{capitalize(location.type)}}</label>
+    <div class="col-sm-24">{{optional(location.path)}}</div>
+  </div>
+  <div ng-show="cluster.storage.catalog.active">
+    <label class="col-sm-24" >Table uri</label>
+    <div class="col-sm-24">{{optional(cluster.storage.catalog.catalogTable.uri)}}</div>
+  </div>
 </div>
+
 
 
 <div class="clearfix hidden-md"></div>
