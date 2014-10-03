@@ -87,22 +87,30 @@
   <div class="col-sm-8">
     <label>timeout</label>: <frequency value="feed.properties.timeout" prefix="at"/>
   </div>
+  <div class="col-sm-8">
+    <label>parallel</label>: {{optional(feed.properties.parallel)}}
+  </div>
+  <div class="col-sm-8">
+    <label>maxMaps</label>: {{optional(feed.properties.maxMaps)}}
+  </div>
+  <div class="col-sm-8">
+    <label>mapBandwidthKB</label>: {{optional(feed.properties.mapBandwidthKB)}}
+  </div>
   <div class="col-sm-8" ng-repeat="property in feed.customProperties | filter: {key: '!!'}">
     <label>{{property.key}}</label>: {{property.value}}
   </div>
-
   <div class="clearfix hidden-md"></div>
 
 </div>
 
 
-<div class="row">
-  <div class="btn btn-default col-xs-6" ui-sref="main.forms.feed.clusters">
+<div class="clearfix hidden-md"></div>
+
+<div class="feedBottomButtons">
+  <div class="btn btn-default col-md-6" ui-sref="main.forms.feed.clusters">
     Previous
   </div>
-
   <div class="btn btn-default col-xs-6 pull-right" ng-click="saveEntity()">
     Save
   </div>
-
 </div>
