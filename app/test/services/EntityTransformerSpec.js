@@ -107,6 +107,19 @@
         expect(target).toEqual({nested1: {nested2: { _key: 'key2', nested3: {key: 'key'}}}});
       });
 
+      it('Should be able transform arrays', function() {
+        var  source = {nested: {list: [{key: 'key'}], key2: 'key2'}}, target = {};
+        var nestedTransformation = factory.transform('key', '_key');
+        var transformation = factory.transform('nested.list', 'nested1.nested2.list', function (list) {
+          return list.map(function(input) { return nestedTransformation.apply(input, {}); });
+        });
+
+
+        transformation.apply(source, target);
+
+        expect(target).toEqual({nested1: {nested2: {list: [{_key: 'key'}]}}});
+      });
+
 
     });
   });
