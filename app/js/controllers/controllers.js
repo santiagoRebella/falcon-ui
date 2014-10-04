@@ -1,6 +1,6 @@
 (function () {
 	
-	var app = angular.module('app.controllers', ['app.services']);
+	var app = angular.module('app.controllers', ['app.services', 'app.services.entity.model']);
 
 
 	app.controller('rootCtrl', [ "$scope", "$timeout", "Falcon", "FileApi", "EntityModel", "$state", "X2jsService",

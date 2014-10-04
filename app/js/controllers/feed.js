@@ -25,7 +25,7 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  var feedModule = angular.module('app.controllers.feed', ['app.services']);
+  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model']);
 
   feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", "X2jsService",
     function($scope, $state, Falcon, EntityModel, X2jsService) {
