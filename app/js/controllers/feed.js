@@ -39,8 +39,6 @@
 
 
     $scope.saveEntity = function() {
-      var feedModel = EntityModel.newFeedModel();
-      console.log(feedModel);
     };
 
     $scope.isActive = function (route) {
@@ -57,67 +55,14 @@
     };
 
     function newFeed() {
-      return {
-        name: null,
-        description: null,
-        groups: null,
-        tags: [{key: null, value: null}],
-        ACL: {owner: null, group: null, permission: '*'},
-        schema: {location: null, provider: null},
-        frequency: {quantity: null, unit: 'hours'},
-        lateArrival: {active: false, cutOff: {quantity: null, unit: 'hours'}},
-        availabilityFlag: null,
-        properties: {
-          queueName: null,
-          jobPriority: 'NORMAL',
-          timeout: {quantity: null, unit: 'hours'},
-          parallel: null,
-          maxMaps: null,
-          mapBandwidthKB: null
-        },
-        customProperties: [{key: null, value: null}],
-        storage: {
-          fileSystem: {
-            active: true,
-            locations: [
-              {type: 'data', path: '/', focused: false},
-              {type: 'stats', path: '/', focused: false},
-              {type: 'meta', path: '/', focused: false}
-            ]
-          },
-          catalog: {
-            active: false,
-            catalogTable: {
-              uri: null,
-              focused: false
-            }
-          }
-        },
-        clusters: [{
-          name: null,
-          type: 'source',
-          selected: true,
-          retention: {action: null, quantity: null, unit: 'hours'},
-          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null},
-          storage: {
-            fileSystem: {
-              active: true,
-              locations: [
-                {type: 'data', path: '/', focused: false},
-                {type: 'stats', path: '/', focused: false},
-                {type: 'meta', path: '/', focused: false}
-              ]
-            },
-            catalog: {
-              active: false,
-              catalogTable: {
-                uri: null,
-                focused: false
-              }
-            }
-          }
-        }]
-      };
+      var feed = new Feed();
+      feed.frequency = new Frequency();
+      feed.lateArrival = new LateArrival();
+      feed.properties = new FeedProperties();
+      feed.customProperties = [new Entry()];
+      feed.storage = new Storage();
+      feed.clusters = [new Cluster('source', true)];
+      return feed;
     }
 
     function defineValidations() {
@@ -223,20 +168,7 @@
       };
 
       $scope.newCluster = function(selected) {
-        return {
-          name: null,
-          type: 'target',
-          selected: selected,
-          retention: {action: null, quantity: null, unit: 'hours'},
-          validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null},
-          catalog: {
-            active: false,
-            catalogTable: {
-              uri: null,
-              focused: false
-            }
-          }
-        };
+        return new Cluster('target', selected);
       };
 
       $scope.handleCluster = function(cluster, index) {
@@ -299,4 +231,98 @@
 
   }]);
 
+
+  function Feed() {
+    var self = this;
+    self.name = null;
+    self.description = null;
+    self.groups = null;
+    self.tags = [new Entry()];
+    self.ACL = new ACL();
+    self.schema = new Schema();
+  }
+
+
+  function ACL() {
+    this.owner = null;
+    this.group = null;
+    this.permission = '*';
+  }
+
+  function Schema() {
+    this.location = null;
+    this.provider = null;
+  }
+
+  function FeedProperties() {
+    this.queueName =  null;
+    this.jobPriority = 'NORMAL';
+    this.timeout =  new Frequency();
+    this.parallel =  null;
+    this.maxMaps =  null;
+    this.mapBandwidthKB = null;
+  }
+
+  function LateArrival() {
+    this.active = false;
+    this.cutOff = new Frequency();
+  }
+
+  function Frequency() {
+    this.quantity = null;
+    this.unit = 'hours';
+  }
+
+  function Entry() {
+    this.key = null;
+    this.value = null;
+  }
+
+  function Storage() {
+    this.fileSystem = new FileSystem();
+    this.catalog = new Catalog();
+  }
+
+  function Catalog() {
+    this.active = false,
+    this.catalogTable = new CatalogTable();
+  }
+
+  function CatalogTable() {
+    this.uri = null;
+    this.focused = false;
+  }
+
+  function FileSystem() {
+    this.active = true;
+    this.locations = [new Location('data'), new Location('stats'), new Location('meta')];
+  }
+
+  function Location(type) {
+    this.type = type;
+    this.path= '/';
+    this.focused = false;
+  }
+
+  function Cluster(type, selected) {
+    this.name = null;
+    this.type = type;
+    this.selected = selected;
+    this.retention = new Frequency();
+    this.retention.action = null;
+    this.validity = new Validity();
+    this.storage = new Storage();
+  }
+
+
+  function Validity() {
+    this.start = new DateAndTime();
+    this.end = new DateAndTime();
+    this.timezone = null;
+  }
+
+  function DateAndTime() {
+    this.date = null;
+    this.time = null;
+  }
 })();

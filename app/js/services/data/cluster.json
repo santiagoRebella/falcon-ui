@@ -1,0 +1,46 @@
+{
+  "interfaces": {
+    "interface": [
+      {
+        "_type": "readonly",
+        "_endpoint": "hftp://",
+        "_version": ""
+      },
+      {
+        "_type": "write",
+        "_endpoint": "hdfs://",
+        "_version": ""
+      },
+      {
+        "_type": "execute",
+        "_endpoint": "",
+        "_version": ""
+      },
+      {
+        "_type": "workflow",
+        "_endpoint": "http://",
+        "_version": ""
+      },
+      {
+        "_type": "messaging",
+        "_endpoint": "tcp://",
+        "_version": ""
+      },
+      {
+        "_type": "registry",
+        "_endpoint": "tbd://",
+        "_version": ""
+      }
+    ]
+  },
+
+  "locations": {
+    "location": [
+
+    ]
+  },
+  "_xmlns": "uri:falcon:cluster:0.1",
+  "_name": "",
+  "_description": "",
+  "_colo": ""
+}
