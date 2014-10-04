@@ -31,7 +31,7 @@
     function($scope, $state, Falcon, EntityModel, X2jsService) {
 
     $scope.init = function() {
-      $scope.feed = newFeed();
+      $scope.feed = new Feed();
       $scope.validations = defineValidations();
     };
 
@@ -53,17 +53,6 @@
       holder[fieldName] = holder[fieldName] ? (holder[fieldName] + '-' + timeVariable) : timeVariable;
       holder.focused = false;
     };
-
-    function newFeed() {
-      var feed = new Feed();
-      feed.frequency = new Frequency();
-      feed.lateArrival = new LateArrival();
-      feed.properties = new FeedProperties();
-      feed.customProperties = [new Entry()];
-      feed.storage = new Storage();
-      feed.clusters = [new Cluster('source', true)];
-      return feed;
-    }
 
     function defineValidations() {
       return {
@@ -233,13 +222,19 @@
 
 
   function Feed() {
-    var self = this;
-    self.name = null;
-    self.description = null;
-    self.groups = null;
-    self.tags = [new Entry()];
-    self.ACL = new ACL();
-    self.schema = new Schema();
+    this.name = null;
+    this.description = null;
+    this.groups = null;
+    this.tags = [new Entry()];
+    this.ACL = new ACL();
+    this.schema = new Schema();
+    this.frequency = new Frequency();
+    this.lateArrival = new LateArrival();
+    this.properties = new FeedProperties();
+    this.customProperties = [new Entry()];
+    this.storage = new Storage();
+    this.clusters = [new Cluster('source', true)];
+
   }
 
 

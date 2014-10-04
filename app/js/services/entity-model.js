@@ -138,10 +138,6 @@
       }
     };
 
-    EntityModel.newFeedForm = function () {
-      return new FeedForm();
-    };
-
     EntityModel.newFeedModel = function () {
       var feed = EntityModel.feedModel.feed;
       return angular.copy(feed);
@@ -197,31 +193,6 @@
 
   function locationMapping(input) {
     return {_type : input.type, _path : input.path};
-  }
-
-  function FeedForm() {
-    this.name = null;
-    this.description = null;
-    this.groups = null;
-    this.tags = [new Entry()];
-    this.ACL = new ACLForm();
-    this.schema = new Schema();
-  }
-
-  function Entry() {
-    this.key = null;
-    this.value = null;
-  }
-
-  function ACLForm() {
-    this.owner = null;
-    this.group = null;
-    this.permission = '*';
-  }
-
-  function Schema() {
-    this.location = null;
-    this.provider = null;
   }
 
 })();

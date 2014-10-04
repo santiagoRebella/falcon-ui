@@ -39,16 +39,6 @@
       expect(EntityModel.type).toBe('Type not recognized');
     });
 
-    it('Should create a new feed form with empty attributes', function() {
-      var feedForm = EntityModel.newFeedForm();
-
-      expect(feedForm.name).toEqual(null);
-      expect(feedForm.description).toEqual(null);
-      expect(feedForm.groups).toEqual(null);
-      expect(feedForm.tags).toEqual([{key: null, value: null}]);
-      expect(feedForm.ACL).toEqual({owner: null, group: null, permission: '*'});
-      expect(feedForm.schema).toEqual({location: null, provider: null});
-    });
 
     it('Should contain the proper Feed Model', function() {
       var feed = EntityModel.feedModel.feed;
