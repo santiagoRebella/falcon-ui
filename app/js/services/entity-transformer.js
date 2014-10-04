@@ -94,6 +94,7 @@
       self.apply = function(source, target) {
         self.firstTransformation.apply(source, target);
         self.secondTransformation.apply(source, target);
+        return target;
       };
 
       self.transform = function(sourceField, targetField, mappingCallback) {
