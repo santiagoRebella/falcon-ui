@@ -25,10 +25,10 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model']);
+  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer']);
 
-  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", "X2jsService",
-    function($scope, $state, Falcon, EntityModel, X2jsService) {
+  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", "X2jsService", "EntityTransformerFactory",
+    function($scope, $state, Falcon, EntityModel, X2jsService, transformerFactory) {
 
     $scope.init = function() {
       $scope.feed = new Feed();
@@ -38,7 +38,17 @@
     $scope.init();
 
 
+    $scope.transform = function() {
+      var transform = transformerFactory
+        .transform('name', 'feed._name')
+        .transform('description', 'feed._description');
+
+      return transform.apply($scope.feed, new FeedModel());
+
+    };
+
     $scope.saveEntity = function() {
+      console.log($scope.transform());
     };
 
     $scope.isActive = function (route) {
@@ -279,7 +289,7 @@
   }
 
   function Catalog() {
-    this.active = false,
+    this.active = false;
     this.catalogTable = new CatalogTable();
   }
 
@@ -319,5 +329,9 @@
   function DateAndTime() {
     this.date = null;
     this.time = null;
+  }
+
+  function FeedModel() {
+    this.feed = {_xmlns: "uri:falcon:feed:0.1"};
   }
 })();

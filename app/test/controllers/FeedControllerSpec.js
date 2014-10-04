@@ -144,11 +144,13 @@
     });
 
     xit('Should get a new feedModel', function() {
-      entityModelServiceMock.newFeedModel.andReturn({});
+      scope.feed = {
+        name: 'FeedName',
+        description: 'Feed Description'
+      };
 
-      scope.saveEntity();
+      expect(scope.transform()).toBe('?xml version="1.0" encoding="UTF-8"?>');
 
-      expect(entityModelServiceMock.newFeedModel).toHaveBeenCalled();
     });
 
 
