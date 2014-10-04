@@ -1,5 +1,6 @@
 (function (angular) {
   'use strict';
+  const USER_ID = 'dashboard';
 
   /**
    * The $http response has more data than what we need, we are only interested
@@ -9,19 +10,18 @@
   angular.module('falcon.util.httpConfig', [])
     .config(function ($httpProvider) {
       $httpProvider.interceptors.push([
-        '$q', 'currentUser',
-        function ($q, currentUser) {
+        '$q',
+        function ($q) {
           return {
-            'request': function (config) {
+            request: function (config) {
               config.params = config.params || {};
-              config.params['user.name'] = currentUser;
+              config.params['user.name'] = USER_ID;
               return config;
             },
 
-            'response': function (response) {
-              //we can add code to check if the response is an object or an array
+            response: function (response) {
               if (response.config.url.match(/\list/gi)) {
-                return $q.when(response.data);
+                return $q.when(unwrapList(response.data));
               }
 
               return response;
@@ -30,5 +30,19 @@
         }
       ]);
     });
+
+  function unwrapList(wrappedList) {
+    var clusterList = [];
+    var typeOfData = Object.prototype.toString.call(wrappedList.entity);
+    if(typeOfData === "[object Array]") {
+      clusterList = wrappedList.entity;
+    } else if(typeOfData === "[object Object]") {
+      clusterList = [wrappedList.entity];
+    } else {
+      console.log("type of wrappedList not recognized");
+    }
+    return clusterList;
+  }
+
 
 }());
