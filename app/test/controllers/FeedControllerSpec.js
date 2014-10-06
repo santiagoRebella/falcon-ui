@@ -368,12 +368,12 @@
             {
               name: 'primaryCluster',
               type: 'source',
-              validity: {start: {time: '2014-02-28', end: '00:00'}, end: {time: '2016-03-31', end: '00:00'}}
+              validity: {start: {date: '2014-02-28', time: '00:00'}, end: {date: '2016-03-31', time: '00:00'}}
             },
             {
               name: 'secondaryCluster',
               type: 'target',
-              validity: {start: {time: '2015-02-28', end: '00:00'}, end: {time: '2017-03-31', end: '00:00'}}
+              validity: {start: {date: '2015-02-28', time: '00:00'}, end: {date: '2017-03-31', time: '00:00'}}
             }
           ]
         };
@@ -384,10 +384,10 @@
           "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
             "<clusters>" +
               "<cluster name='primaryCluster' type='source'>" +
-                //"<validity start='2014-02-28T00:00Z' end='2016-03-31T00:00Z'/>" +
+                "<validity start='2014-02-28T00:00Z' end='2016-03-31T00:00Z'/>" +
               "</cluster>" +
               "<cluster name='secondaryCluster' type='target'>" +
-                //"<validity start='2015-02-28T00:00Z' end='2017-03-31T00:00Z'/>" +
+                "<validity start='2015-02-28T00:00Z' end='2017-03-31T00:00Z'/>" +
               "</cluster>" +
             "</clusters>" +
           "</feed>"

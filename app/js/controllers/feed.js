@@ -52,7 +52,9 @@
 
       var clusterTransform = transformerFactory
         .transform('name', '_name')
-        .transform('type', '_type');
+        .transform('type', '_type')
+        .transform('validity.start', 'validity._start', timeAndDateToString)
+        .transform('validity.end', 'validity._end', timeAndDateToString);
 
       var transform = transformerFactory
         .transform('name', 'feed._name')
@@ -111,6 +113,19 @@
 
     $scope.capitalize = function(input) {
       return input.charAt(0).toUpperCase() + input.slice(1);
+    };
+
+    $scope.parseDate = function(input) {
+      return input ? input.split('T')[0] : input;
+    };
+
+    $scope.parseTime = function(input) {
+      if (input) {
+        var partialTime = input.split('T')[1].split(':');
+        partialTime = partialTime[0] + ':' + partialTime[1];
+        return partialTime;
+      }
+      return 'Not defined';
     };
 
     $scope.appendVariable = function(timeVariable, holder, fieldName) {
@@ -387,8 +402,8 @@
   }
 
   function DateAndTime() {
-    this.date = null;
-    this.time = null;
+    this.date = '2014-02-28';
+    this.time = '00:00';
   }
 
   function FeedModel() {
@@ -418,6 +433,10 @@
 
   function frequencyToString(input) {
     return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
+  }
+
+  function timeAndDateToString(input) {
+    return input.date + 'T'  + input.time + 'Z';
   }
 
   function formatXml(xml) {
