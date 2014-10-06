@@ -32,7 +32,7 @@ Using the hortonworks-sandbox deploy to => **/var/lib/falcon/webapp/falcon**
 
 If you use Grunt, The task deploy 
   
-    grunt clean build scip
+    grunt clean build scp
 
 will copy the necessary files from /app folder to /dist folder. [1] and copy with scp from dist to hortonworks sandbox location, the access are set as the default 'root' 'hadoop', easily changeable in the Gruntfile
 
