@@ -224,9 +224,17 @@
 
       });
 
-      xit('Should transform queueName', function () {
+      it('Should transform queueName, jobPriority and timeout and custom properties', function () {
         scope.feed = {name: 'FeedName',
-          properties: {queueName: 'Queue'}
+          properties: [
+            {key: 'queueName', value: 'Queue'},
+            {key: 'jobPriority', value: 'HIGH'},
+            {key: 'timeout', value: {quantity: 7, unit: 'weeks'}}
+          ],
+          customProperties: [
+            {key: 'custom1', value: 'value1'},
+            {key: 'custom2', value: 'value2'}
+          ]
         };
 
         var xml = scope.transform();
@@ -235,15 +243,23 @@
           "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
             "<properties>" +
               "<property name='queueName' value='Queue'></property>" +
+              "<property name='jobPriority' value='HIGH'></property>" +
+              "<property name='timeout' value='weeks(7)'></property>" +
+              "<property name='custom1' value='value1'></property>" +
+              "<property name='custom2' value='value2'></property>" +
             "</properties>" +
           "</feed>"
         );
 
       });
 
-      xit('Should not transform queue name if not present', function () {
+      it('Should transform not add queueName nor timeout if they were not defined', function () {
         scope.feed = {name: 'FeedName',
-          properties: {queueName: null}
+          properties: [
+            {key: 'queueName', value: null},
+            {key: 'jobPriority', value: 'HIGH'},
+            {key: 'timeout', value: {quantity: null, unit: 'weeks'}}
+          ]
         };
 
         var xml = scope.transform();
@@ -251,6 +267,7 @@
         expect(xml).toBe(
           "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
             "<properties>" +
+              "<property name='jobPriority' value='HIGH'></property>" +
             "</properties>" +
           "</feed>"
         );

@@ -40,6 +40,12 @@
 
     $scope.transform = function() {
 
+      var propertyTransform = transformerFactory
+        .transform('key', '_name')
+        .transform('value', '_value', function(value) {
+          return value.quantity ? frequencyToString(value) : value;
+        });
+
       var transform = transformerFactory
         .transform('name', 'feed._name')
         .transform('description', 'feed._description')
@@ -53,11 +59,18 @@
         .transform('ACL.group', 'feed.ACL._group')
         .transform('ACL.permission', 'feed.ACL._permission')
         .transform('schema.location', 'feed.schema._location')
-        .transform('schema.provider', 'feed.schema._provider');
+        .transform('schema.provider', 'feed.schema._provider')
+        .transform('allproperties', 'feed.properties.property', function(properties) {
+          return properties.filter(emptyValue).filter(emptyFrequency).map(function(property) {
+            return propertyTransform.apply(property, {});
+          });
+        });
 
-      var result = transform.apply($scope.feed, new FeedModel());
+      if($scope.feed.properties) {
+        $scope.feed.allproperties = $scope.feed.properties.concat($scope.feed.customProperties);
+      }
 
-      return X2jsService.json2xml_str(result);
+      return X2jsService.json2xml_str(transform.apply($scope.feed, new FeedModel()));
     };
 
 
@@ -361,6 +374,14 @@
     return input.key;
   }
 
+  function emptyValue (input) {
+    return input && input.value;
+  }
+
+  function emptyFrequency (input) {
+    return input.value.unit ? input.value.quantity : input.value;
+  }
+
   function entryToString(input) {
     return input.key + '=' + input.value;
   }
@@ -368,5 +389,4 @@
   function frequencyToString(input) {
     return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
   }
-
 })();
