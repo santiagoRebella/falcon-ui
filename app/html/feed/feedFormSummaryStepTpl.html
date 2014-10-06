@@ -98,9 +98,8 @@
 
   <div class="clearfix hidden-md"></div>
 
-  <h4 class="col-sm-24" >
-    Default Location:
-  </h4>
+  <h4 class="col-sm-24" >Default Location:</h4>
+
   <div class="clearfix hidden-md"></div>
 
   <div ng-repeat="location in feed.storage.fileSystem.locations" ng-show="feed.storage.fileSystem.active">
@@ -142,6 +141,17 @@
     <div class="col-sm-24">{{optional(cluster.storage.catalog.catalogTable.uri)}}</div>
   </div>
 </div>
+
+<h4 class="col-sm-24">
+  XML Preview
+</h4>
+<div class="col-sm-24">
+  <textarea ng-model="prettyXml" rows="5" cols="80" ng-disabled="true">
+
+  </textarea>
+</div>
+
+
 
 
 

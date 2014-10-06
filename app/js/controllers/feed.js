@@ -70,12 +70,18 @@
         $scope.feed.allproperties = $scope.feed.properties.concat($scope.feed.customProperties);
       }
 
-      return X2jsService.json2xml_str(transform.apply($scope.feed, new FeedModel()));
+      var result = transform.apply($scope.feed, new FeedModel());
+
+      var x2j = new X2JS();
+      var xmlStr = x2j.json2xml_str(result);
+      $scope.prettyXml = formatXml(xmlStr);
+      $scope.xml = xmlStr;
+      return  xmlStr;
     };
 
 
     $scope.saveEntity = function() {
-      console.log($scope.transform());
+      console.log($scope.xml);
     };
 
     $scope.isActive = function (route) {
@@ -245,6 +251,9 @@
 
   feedModule.controller('FeedSummaryController', [ "$scope", "$filter", function($scope, $filter) {
 
+    if($scope.transform) {
+      $scope.transform();
+    }
 
     $scope.hasTags = function() {
       var filteredTags = $filter('filter')($scope.feed.tags, {key: '!!'});
@@ -389,4 +398,36 @@
   function frequencyToString(input) {
     return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
   }
+
+  function formatXml(xml) {
+    var formatted = '';
+    var reg = /(>)(<)(\/*)/g;
+    xml = xml.replace(reg, '$1\r\n$2$3');
+    var pad = 0;
+    jQuery.each(xml.split('\r\n'), function(index, node) {
+      var indent = 0;
+      if (node.match( /.+<\/\w[^>]*>$/ )) {
+        indent = 0;
+      } else if (node.match( /^<\/\w/ )) {
+        if (pad !== 0) {
+          pad -= 1;
+        }
+      } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+        indent = 1;
+      } else {
+        indent = 0;
+      }
+
+      var padding = '';
+      for (var i = 0; i < pad; i++) {
+        padding += '  ';
+      }
+
+      formatted += padding + node + '\r\n';
+      pad += indent;
+    });
+
+    return formatted;
+  }
+
 })();
