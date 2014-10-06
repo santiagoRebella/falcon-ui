@@ -47,6 +47,7 @@
         .transform('groups', 'feed.groups')
         .transform('availabilityFlag', 'feed.availabilityFlag')
         .transform('frequency', 'feed.frequency', frequencyToString)
+        .transform('timezone', 'feed.timezone')
         .transform('lateArrival.cutOff', 'feed.late-arrival', frequencyToString)
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
@@ -258,6 +259,7 @@
     this.customProperties = [new Entry()];
     this.storage = new Storage();
     this.clusters = [new Cluster('source', true)];
+    this.timezone = null;
   }
 
 
@@ -363,7 +365,7 @@
   }
 
   function frequencyToString(input) {
-    return input.unit ? input.unit + '(' + input.quantity + ')' : null;
+    return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
   }
 
 })();

@@ -181,9 +181,9 @@
 
       });
 
-      it('Should not transform late arrival properly when units are not defined', function () {
+      it('Should not transform late arrival properly when quantity is not defined', function () {
         scope.feed = {name: 'FeedName',
-          lateArrival: {active: true, cutOff: {quantity: 22, unit: null}}
+          lateArrival: {active: false, cutOff: {quantity: null, unit: 'hours'}}
         };
 
         var xml = scope.transform();
@@ -204,6 +204,21 @@
         expect(xml).toBe(
           "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
             "<availabilityFlag>Available</availabilityFlag>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should transform timezone', function () {
+        scope.feed = {name: 'FeedName',
+          timezone: 'GMT+1:00'
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<timezone>GMT+1:00</timezone>" +
           "</feed>"
         );
 
