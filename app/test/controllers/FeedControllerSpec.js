@@ -274,6 +274,56 @@
 
       });
 
+      it('Should transform locations properly if file system storage is active', function () {
+        scope.feed = {name: 'FeedName',
+          storage: {
+            fileSystem: {
+              active: true,
+              locations: [
+                {type: 'data', path: '/none1'},
+                {type: 'stats', path: '/none2'},
+                {type: 'meta', path: '/none3'}
+              ]
+            }
+          }
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<locations>" +
+              "<location type='data' path='/none1'></location>" +
+              "<location type='stats' path='/none2'></location>" +
+              "<location type='meta' path='/none3'></location>" +
+            "</locations>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should not transform locations properly if file system storage is not active', function () {
+        scope.feed = {name: 'FeedName',
+          storage: {
+            fileSystem: {
+              active: false,
+              locations: [
+                {type: 'data', path: '/none1'},
+                {type: 'stats', path: '/none2'},
+                {type: 'meta', path: '/none3'}
+              ]
+            }
+          }
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'/>"
+        );
+
+      });
+
     });
 
   });

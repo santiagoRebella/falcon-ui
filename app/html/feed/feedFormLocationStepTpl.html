@@ -37,6 +37,7 @@
       <div class="clearfix hidden-md"></div>
       <div class="col-sm-24">
         <input type="text" class="form-control"
+          ng-required="true"
           ng-model="location.path"
           ng-pattern="validations.osPath.pattern"
           ng-focus="location.focused = true"/>

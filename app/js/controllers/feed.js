@@ -46,6 +46,10 @@
           return value.quantity ? frequencyToString(value) : value;
         });
 
+      var locationTransform = transformerFactory
+        .transform('type', '_type')
+        .transform('path', '_path');
+
       var transform = transformerFactory
         .transform('name', 'feed._name')
         .transform('description', 'feed._description')
@@ -55,6 +59,11 @@
         .transform('frequency', 'feed.frequency', frequencyToString)
         .transform('timezone', 'feed.timezone')
         .transform('lateArrival.cutOff', 'feed.late-arrival', frequencyToString)
+        .transform('storage.fileSystem', 'feed.locations.location', function(fileSystem) {
+          return fileSystem.active ? fileSystem.locations.map(function(location) {
+            return locationTransform.apply(location, {});
+          }) : null;
+        })
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
         .transform('ACL.permission', 'feed.ACL._permission')
