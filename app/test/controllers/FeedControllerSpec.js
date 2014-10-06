@@ -337,9 +337,9 @@
         var xml = scope.transform();
 
         expect(xml).toBe(
-            "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
-              "<table uri='/none'/>" +
-            "</feed>"
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<table uri='/none'/>" +
+          "</feed>"
         );
 
       });
@@ -357,7 +357,40 @@
         var xml = scope.transform();
 
         expect(xml).toBe(
-            "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'/>"
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'/>"
+        );
+
+      });
+
+      it('Should transform clusters', function () {
+        scope.feed = {name: 'FeedName',
+          clusters: [
+            {
+              name: 'primaryCluster',
+              type: 'source',
+              validity: {start: {time: '2014-02-28', end: '00:00'}, end: {time: '2016-03-31', end: '00:00'}}
+            },
+            {
+              name: 'secondaryCluster',
+              type: 'target',
+              validity: {start: {time: '2015-02-28', end: '00:00'}, end: {time: '2017-03-31', end: '00:00'}}
+            }
+          ]
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<clusters>" +
+              "<cluster name='primaryCluster' type='source'>" +
+                //"<validity start='2014-02-28T00:00Z' end='2016-03-31T00:00Z'/>" +
+              "</cluster>" +
+              "<cluster name='secondaryCluster' type='target'>" +
+                //"<validity start='2015-02-28T00:00Z' end='2017-03-31T00:00Z'/>" +
+              "</cluster>" +
+            "</clusters>" +
+          "</feed>"
         );
 
       });
