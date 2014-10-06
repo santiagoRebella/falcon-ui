@@ -324,6 +324,44 @@
 
       });
 
+      it('Should transform catalog properly if catalog storage is active', function () {
+        scope.feed = {name: 'FeedName',
+          storage: {
+            catalog: {
+              active: true,
+              catalogTable: {uri: '/none'}
+            }
+          }
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+            "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+              "<table uri='/none'/>" +
+            "</feed>"
+        );
+
+      });
+
+      it('Should not transform catalog if catalog storage is not active', function () {
+        scope.feed = {name: 'FeedName',
+          storage: {
+            catalog: {
+              active: false,
+              catalogTable: {uri: '/none'}
+            }
+          }
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+            "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'/>"
+        );
+
+      });
+
     });
 
   });

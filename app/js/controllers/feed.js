@@ -64,6 +64,9 @@
             return locationTransform.apply(location, {});
           }) : null;
         })
+        .transform('storage.catalog', 'feed.table', function(catalog) {
+          return catalog.active ? {_uri : catalog.catalogTable.uri} : null;
+        })
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
         .transform('ACL.permission', 'feed.ACL._permission')

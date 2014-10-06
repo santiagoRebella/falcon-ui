@@ -133,46 +133,48 @@
         <option value="GMT+12:00">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
       </select>
     </div>
-  </div>
 
-  <div class="row dynamic-table-spacer">
 
-    <div class="col-sm-24 feedLocationNavBox">
-      <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
-      <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Storage type</h4>
+    <div class="row dynamic-table-spacer">
 
-      <div class="col-sm-14 feedLocationNav">
-        <div class="btn btn-default pull-right" ng-class="{active: feed.storage.catalog.active}">
-          Catalog Storage
+      <div class="col-sm-24 feedLocationNavBox">
+        <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
+        <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Storage type</h4>
+
+        <div class="col-sm-14 feedLocationNav">
+          <div class="btn btn-default pull-right" ng-class="{active: feed.storage.catalog.active}">
+            Catalog Storage
+          </div>
+          <div class="btn btn-default pull-right" ng-class="{active: feed.storage.fileSystem.active}">
+            File System
+          </div>
         </div>
-        <div class="btn btn-default pull-right" ng-class="{active: feed.storage.fileSystem.active}">
-          File System
-        </div>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-sm-19">
+        <label>Location</label>
+        <label class="light">(if not defined, will use default location)
+        </label>
+      </div>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-sm-24"
+        ng-show="feed.storage.fileSystem.active"
+        ng-repeat="location in cluster.storage.fileSystem.locations">
+        <label class="light">{{location.type}} path</label>
+        <input type="text" class="form-control"
+          ng-model="location.path" />
+      </div>
+
+      <div class="col-sm-24" ng-show="feed.storage.catalog.active">
+        <label class="light">Table uri</label>
+        <input type="text" class="form-control" ng-model="cluster.storage.catalog.catalogTable.uri"/>
       </div>
     </div>
 
-    <div class="clearfix hidden-md"></div>
-
-    <div class="col-sm-19">
-      <label>Location</label>
-      <label class="light">(if not defined, will use default location)
-      </label>
-    </div>
-
-    <div class="clearfix hidden-md"></div>
-
-    <div class="col-sm-24"
-      ng-show="feed.storage.fileSystem.active"
-      ng-repeat="location in feed.storage.fileSystem.locations">
-      <label class="light">{{location.type}} path</label>
-      <input type="text" class="form-control"
-        ng-model="location.path" ng-disabled="true"/>
-    </div>
-
-    <div class="col-sm-24" ng-show="feed.storage.catalog.active">
-      <input type="text" class="form-control" ng-model="cluster.catalog.catalogTable.uri"/>
-      <label class="light">Table uri</label>
-    </div>
   </div>
 
   <div class="row feedBottomButtons">
