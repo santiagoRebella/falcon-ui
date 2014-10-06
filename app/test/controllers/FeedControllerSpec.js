@@ -84,8 +84,6 @@
       expect(scope.isActive('main.forms.feed.location')).toBe(false);
     });
 
-
-
     it('Should capitalize properly', function() {
       expect(scope.capitalize('hello')).toBe('Hello');
     });
@@ -152,6 +150,65 @@
         );
 
       });
+
+      it('Should transform frequency properly', function () {
+        scope.feed = {name: 'FeedName',
+          frequency: {quantity: 4, unit: 'weeks'}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<frequency>weeks(4)</frequency>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should transform late arrival properly when defined', function () {
+        scope.feed = {name: 'FeedName',
+          lateArrival: {active: true, cutOff: {quantity: 22, unit: 'hours'}}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<late-arrival>hours(22)</late-arrival>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should not transform late arrival properly when units are not defined', function () {
+        scope.feed = {name: 'FeedName',
+          lateArrival: {active: true, cutOff: {quantity: 22, unit: null}}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'/>"
+        );
+
+      });
+
+      it('Should transform availability flag', function () {
+        scope.feed = {name: 'FeedName',
+          availabilityFlag: 'Available'
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<availabilityFlag>Available</availabilityFlag>" +
+          "</feed>"
+        );
+
+      });
+
     });
 
   });

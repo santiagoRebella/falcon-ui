@@ -43,8 +43,11 @@
       var transform = transformerFactory
         .transform('name', 'feed._name')
         .transform('description', 'feed._description')
+        .transform('tags', 'feed.tags', keyValuePairs)
         .transform('groups', 'feed.groups')
-        .transform('tags', 'feed.tags', arrayToString)
+        .transform('availabilityFlag', 'feed.availabilityFlag')
+        .transform('frequency', 'feed.frequency', frequencyToString)
+        .transform('lateArrival.cutOff', 'feed.late-arrival', frequencyToString)
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
         .transform('ACL.permission', 'feed.ACL._permission')
@@ -73,6 +76,7 @@
       holder[fieldName] = holder[fieldName] ? (holder[fieldName] + '-' + timeVariable) : timeVariable;
       holder.focused = false;
     };
+
     function defineValidations() {
       return {
         id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
@@ -249,6 +253,7 @@
     this.schema = new Schema();
     this.frequency = new Frequency();
     this.lateArrival = new LateArrival();
+    this.availabilityFlag = null;
     this.properties = new FeedProperties();
     this.customProperties = [new Entry()];
     this.storage = new Storage();
@@ -345,7 +350,7 @@
   }
 
 
-  function arrayToString(input) {
+  function keyValuePairs(input) {
     return input.filter(emptyKey).map(entryToString).join(',');
   }
 
@@ -355,6 +360,10 @@
 
   function entryToString(input) {
     return input.key + '=' + input.value;
+  }
+
+  function frequencyToString(input) {
+    return input.unit ? input.unit + '(' + input.quantity + ')' : null;
   }
 
 })();
