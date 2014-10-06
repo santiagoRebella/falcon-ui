@@ -73,7 +73,7 @@
         .transform('availabilityFlag', 'feed.availabilityFlag')
         .transform('frequency', 'feed.frequency', frequencyToString)
         .transform('timezone', 'feed.timezone')
-        .transform('lateArrival.cutOff', 'feed.late-arrival', frequencyToString)
+        .transform('lateArrival.cutOff', 'feed.late-arrival._cut-off', frequencyToString)
         .transform('clusters', 'feed.clusters.cluster', function(clusters) {
           return clusters.map(function(cluster) {
             return clusterTransform.apply(cluster, {});

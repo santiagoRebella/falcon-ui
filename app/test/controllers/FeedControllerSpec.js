@@ -175,7 +175,7 @@
 
         expect(xml).toBe(
           "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
-            "<late-arrival>hours(22)</late-arrival>" +
+            "<late-arrival cut-off='hours(22)'/>" +
           "</feed>"
         );
 
