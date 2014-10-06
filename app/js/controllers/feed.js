@@ -54,7 +54,9 @@
         .transform('name', '_name')
         .transform('type', '_type')
         .transform('validity.start', 'validity._start', timeAndDateToString)
-        .transform('validity.end', 'validity._end', timeAndDateToString);
+        .transform('validity.end', 'validity._end', timeAndDateToString)
+        .transform('retention', 'retention._limit', frequencyToString)
+        .transform('retention.action', 'retention._action');
 
       var transform = transformerFactory
         .transform('name', 'feed._name')

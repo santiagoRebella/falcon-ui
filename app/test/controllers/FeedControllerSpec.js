@@ -368,12 +368,14 @@
             {
               name: 'primaryCluster',
               type: 'source',
-              validity: {start: {date: '2014-02-28', time: '00:00'}, end: {date: '2016-03-31', time: '00:00'}}
+              validity: {start: {date: '2014-02-28', time: '00:00'}, end: {date: '2016-03-31', time: '00:00'}},
+              retention: {quantity: 2, unit: 'hours', action: 'delete'}
             },
             {
               name: 'secondaryCluster',
               type: 'target',
-              validity: {start: {date: '2015-02-28', time: '00:00'}, end: {date: '2017-03-31', time: '00:00'}}
+              validity: {start: {date: '2015-02-28', time: '00:00'}, end: {date: '2017-03-31', time: '00:00'}},
+              retention: {quantity: 5, unit: 'weeks', action: 'archive'}
             }
           ]
         };
@@ -385,9 +387,11 @@
             "<clusters>" +
               "<cluster name='primaryCluster' type='source'>" +
                 "<validity start='2014-02-28T00:00Z' end='2016-03-31T00:00Z'/>" +
+                "<retention limit='hours(2)' action='delete'/>" +
               "</cluster>" +
               "<cluster name='secondaryCluster' type='target'>" +
                 "<validity start='2015-02-28T00:00Z' end='2017-03-31T00:00Z'/>" +
+                "<retention limit='weeks(5)' action='archive'/>" +
               "</cluster>" +
             "</clusters>" +
           "</feed>"
