@@ -12,15 +12,15 @@
              ng-required="true"
              ng-pattern="validations.twoDigits.pattern"/>
           </span>
-          
-            <select
-              ng-model="feed.frequency.unit"
-              ng-required="true">
-              <option value="hours">hours</option>
-              <option value="days">days</option>
-              <option value="weeks">weeks</option>
-              <option value="months">months</option>
-            </select> 
+
+          <select
+            ng-model="feed.frequency.unit"
+            ng-required="true">
+            <option value="hours">hours</option>
+            <option value="days">days</option>
+            <option value="weeks">weeks</option>
+            <option value="months">months</option>
+          </select>
       </div>
       <div class="col-sm-8">
         <div>
@@ -29,14 +29,12 @@
         </div>
       
         <label class="light">Up to</label>
-        
   
-            <input type="text" class="form-control small light"
-              ng-model="feed.lateArrival.cutOff.quantity"
-              ng-disabled="!feed.lateArrival.active"
-              ng-pattern="validations.twoDigits.pattern"
-              ng-required="feed.lateArrival.active"/>
-      
+        <input type="text" class="form-control small light"
+          ng-model="feed.lateArrival.cutOff.quantity"
+          ng-disabled="!feed.lateArrival.active"
+          ng-pattern="validations.twoDigits.pattern"
+          ng-required="feed.lateArrival.active"/>
      
         <select
           ng-model="feed.lateArrival.cutOff.unit"
@@ -91,17 +89,17 @@
         <label>timeout</label>
       </div>
       <div class="col-sm-19 dynamic-table-spacer">
-          At
-          <input type="text" class="form-control small light"
-              ng-model="feed.properties.timeout.quantity"
-              ng-pattern="validations.twoDigits.pattern"/>
-          <select
-              ng-model="feed.properties.timeout.unit">
-              <option value="hours">hours</option>
-              <option value="days">days</option>
-              <option value="weeks">weeks</option>
-              <option value="months">months</option>
-          </select>     
+        At
+        <input type="text" class="form-control small light"
+          ng-model="feed.properties.timeout.quantity"
+          ng-pattern="validations.twoDigits.pattern"/>
+        <select
+          ng-model="feed.properties.timeout.unit">
+          <option value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
       </div>
       <div class="clearfix"></div>
 
@@ -110,8 +108,8 @@
       </div>
       <div class="col-sm-19 dynamic-table-spacer">
         <input type="text" class="form-control"
-               ng-model="feed.properties.parallel"
-               ng-patter="validations.alpha.pattern"/>
+           ng-model="feed.properties.parallel"
+           ng-patter="validations.alpha.pattern"/>
       </div>
 
       <div class="col-sm-5 dynamic-table-spacer">
@@ -119,31 +117,31 @@
       </div>
       <div class="col-sm-19 dynamic-table-spacer">
         <input type="text" class="form-control"
-               ng-model="feed.properties.maxMaps"
-               ng-patter="validations.alpha.pattern"/>
+          ng-model="feed.properties.maxMaps"
+          ng-patter="validations.alpha.pattern"/>
       </div>
       <div class="col-sm-5 dynamic-table-spacer">
         <label>mapBandwidthKB</label>
       </div>
       <div class="col-sm-19 dynamic-table-spacer">
         <input type="text" class="form-control"
-               ng-model="feed.properties.mapBandwidthKB"
-               ng-patter="validations.alpha.pattern"/>
+          ng-model="feed.properties.mapBandwidthKB"
+          ng-patter="validations.alpha.pattern"/>
       </div>
 
       <div ng-repeat="property in feed.customProperties">
         <div class="col-sm-5 dynamic-table-spacer">
           <input type="text" class="form-control"
-                 ng-model="property.key"
-                 ng-pattern="validations.alpha.pattern"
-                 ng-required="property.value"/>
+            ng-model="property.key"
+            ng-pattern="validations.alpha.pattern"
+            ng-required="property.value"/>
         </div>
 
         <div class="col-sm-17 dynamic-table-spacer">
           <input type="text" class="form-control"
-                 ng-model="property.value"
-                 ng-pattern="validations.alpha.pattern"
-                 ng-required="property.key"/>
+            ng-model="property.value"
+            ng-pattern="validations.alpha.pattern"
+            ng-required="property.key"/>
         </div>
         <div class="col-sm-2 top-buffer" >
           <div ng-if="!$last">
@@ -165,8 +163,8 @@
         Previous
       </div>
       <div class="btn btn-default col-sm-6 pull-right"
-           ng-disabled="feedForm.$invalid"
-           ui-sref="main.forms.feed.location">
+        ng-disabled="feedForm.$invalid"
+        ui-sref="main.forms.feed.location">
         Next
       </div>
       <u class="col-sm-3 pull-right" ui-sref="main">
