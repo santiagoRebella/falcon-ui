@@ -42,13 +42,14 @@
 
     self.apply = function(source, target) {
 
-      var targetHolder = find(target, self.targetFieldPath);
       var sourceHolder = find(source, self.sourceFieldPath);
 
-      if(self.mappingCallback) {
-        targetHolder.set(self.mappingCallback(sourceHolder.get()));
-      } else {
-        targetHolder.set(sourceHolder.get());
+      var sourceValue = sourceHolder.get();
+      sourceValue = sourceValue && self.mappingCallback ? self.mappingCallback(sourceValue) : sourceValue;
+
+      if (sourceValue) {
+        var targetHolder = find(target, self.targetFieldPath);
+        targetHolder.set(sourceValue);
       }
 
       return target;

@@ -28,7 +28,7 @@
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
       entityModelServiceMock = jasmine.createSpyObj('EntityModel', ['newFeedModel']);
-
+      var x2js = new X2JS();
 
       controller = $controller('FeedController', {
         $scope: scope,
@@ -39,7 +39,11 @@
         },
         Falcon: {},
         EntityModel: entityModelServiceMock,
-        X2jsService: {}
+        X2jsService: {
+          json2xml_str: function (jsonObj) {
+            return x2js.json2xml_str( jsonObj );
+          }
+        }
       });
     }));
 
@@ -51,63 +55,6 @@
       expect(scope.feed.name).toBe(null);
       expect(scope.feed.description).toBe(null);
       expect(scope.feed.groups).toBe(null);
-      expect(scope.feed.tags).toEqual([{key: null, value: null}]);
-      expect(scope.feed.ACL).toEqual({ owner: null, group: null, permission: '*'});
-      expect(scope.feed.schema.location).toBe(null);
-      expect(scope.feed.schema.provider).toBe(null);
-      expect(scope.feed.frequency).toEqual({quantity: null, unit: 'hours'});
-      expect(scope.feed.lateArrival).toEqual({active: false, cutOff: {quantity: null, unit: 'hours'}});
-      expect(scope.feed.availabilityFlag).toEqual(null);
-      expect(scope.feed.properties).toEqual({
-        queueName: null,
-        jobPriority: 'NORMAL',
-        timeout: {quantity: null, unit: 'hours'},
-        parallel: null,
-        maxMaps: null,
-        mapBandwidthKB: null
-      });
-      expect(scope.feed.customProperties).toEqual([{key: null, value: null}]);
-      expect(scope.feed.storage).toEqual({
-        fileSystem: {
-          active: true,
-          locations: [
-            {type: 'data', path: '/', focused: false},
-            {type: 'stats', path: '/', focused: false},
-            {type: 'meta', path: '/', focused: false}
-          ]
-        },
-        catalog: {
-          active: false,
-          catalogTable: {
-            uri: null,
-            focused: false
-          }
-        }
-      });
-      expect(scope.feed.clusters).toEqual([{
-        name: null,
-        type: 'source',
-        selected: true,
-        retention: {action: null, quantity: null, unit: 'hours'},
-        validity: {start: {date: null, time: null}, end: {date: null, time: null}, timezone: null},
-        storage: {
-          fileSystem: {
-            active: true,
-            locations: [
-              {type: 'data', path: '/', focused: false},
-              {type: 'stats', path: '/', focused: false},
-              {type: 'meta', path: '/', focused: false}
-            ]
-          },
-          catalog: {
-            active: false,
-            catalogTable: {
-              uri: null,
-              focused: false
-            }
-          }
-        }
-      }]);
     });
 
     it('Should have default validations definitions', function() {
@@ -127,7 +74,6 @@
         minlength: 0,
         required: false
       });
-
     });
 
     it('Should return true when the current state is the general view', function() {
@@ -139,20 +85,74 @@
     });
 
 
+
     it('Should capitalize properly', function() {
       expect(scope.capitalize('hello')).toBe('Hello');
     });
 
-    xit('Should get a new feedModel', function() {
-      scope.feed = {
-        name: 'FeedName',
-        description: 'Feed Description'
-      };
+    describe('transforming a form json into xml', function() {
 
-      expect(scope.transform()).toBe('?xml version="1.0" encoding="UTF-8"?>');
+      it('Should transform the basic properties', function () {
+        scope.feed = {
+          name: 'FeedName',
+          description: 'Feed Description',
+          groups: 'a,b,c'
+        };
 
+        var xml = scope.transform();
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName' description='Feed Description'>" +
+            "<groups>a,b,c</groups>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should transform tags properly', function () {
+        scope.feed = {name: 'FeedName',
+          tags: [{key: 'key1', value: 'value1'}, {key: 'key2', value: 'value2'}, {key: null, value: 'value3'}]
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<tags>key1=value1,key2=value2</tags>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should transform ACL properly', function () {
+        scope.feed = {name: 'FeedName',
+          ACL: {owner: 'ambari-qa', group: 'users', permission: '0755'}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<ACL owner='ambari-qa' group='users' permission='0755'/>" +
+          "</feed>"
+        );
+
+      });
+
+      it('Should transform schema properly', function () {
+        scope.feed = {name: 'FeedName',
+          schema: {location: '/location', provider: 'none'}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<schema location='/location' provider='none'/>" +
+          "</feed>"
+        );
+
+      });
     });
-
 
   });
 

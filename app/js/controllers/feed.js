@@ -39,13 +39,23 @@
 
 
     $scope.transform = function() {
+
       var transform = transformerFactory
         .transform('name', 'feed._name')
-        .transform('description', 'feed._description');
+        .transform('description', 'feed._description')
+        .transform('groups', 'feed.groups')
+        .transform('tags', 'feed.tags', arrayToString)
+        .transform('ACL.owner', 'feed.ACL._owner')
+        .transform('ACL.group', 'feed.ACL._group')
+        .transform('ACL.permission', 'feed.ACL._permission')
+        .transform('schema.location', 'feed.schema._location')
+        .transform('schema.provider', 'feed.schema._provider');
 
-      return transform.apply($scope.feed, new FeedModel());
+      var result = transform.apply($scope.feed, new FeedModel());
 
+      return X2jsService.json2xml_str(result);
     };
+
 
     $scope.saveEntity = function() {
       console.log($scope.transform());
@@ -63,7 +73,6 @@
       holder[fieldName] = holder[fieldName] ? (holder[fieldName] + '-' + timeVariable) : timeVariable;
       holder.focused = false;
     };
-
     function defineValidations() {
       return {
         id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
@@ -244,7 +253,6 @@
     this.customProperties = [new Entry()];
     this.storage = new Storage();
     this.clusters = [new Cluster('source', true)];
-
   }
 
 
@@ -279,8 +287,9 @@
   }
 
   function Entry() {
-    this.key = null;
-    this.value = null;
+    var self = this;
+    self.key = null;
+    self.value = null;
   }
 
   function Storage() {
@@ -334,4 +343,18 @@
   function FeedModel() {
     this.feed = {_xmlns: "uri:falcon:feed:0.1"};
   }
+
+
+  function arrayToString(input) {
+    return input.filter(emptyKey).map(entryToString).join(',');
+  }
+
+  function emptyKey (input) {
+    return input.key;
+  }
+
+  function entryToString(input) {
+    return input.key + '=' + input.value;
+  }
+
 })();

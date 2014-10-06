@@ -138,61 +138,8 @@
       }
     };
 
-    EntityModel.newFeedModel = function () {
-      var feed = EntityModel.feedModel.feed;
-      return angular.copy(feed);
-    };
-
-    EntityModel.newFeedModelFrom = function (source) {
-      var target = EntityModel.newFeedModel();
-
-      copyAttributes(source, target, ['name', 'description'], '_');
-      copyAttribute(source, target, 'groups','');
-      copyAttributes(source.ACL, target.ACL, ['owner', 'group', 'permission'], '_');
-      copyAttributes(source.schema, target.schema, ['location', 'provider'], '_');
-      copyAttribute({frequency: frequencyToString(source.frequency) }, target, 'frequency','');
-      copyAttribute({"cut-off": frequencyToString(source.lateArrival.cutOff) }, target['late-arrival'], 'cut-off','_');
-      copyAttribute({locations: {location: source.locations.map(locationMapping)}}, target, 'locations','');
-
-      return target;
-    };
-
-    EntityModel.newTagsStringFrom = function (source) {
-      return source.filter(emptyKeys).map(toKeyValuePair).join(', ');
-    };
-
     return EntityModel;
 
   }]);
-
-  function toKeyValuePair(input) {
-    return input.key + '=' + input.value;
-  }
-
-  function emptyKeys(input) {
-    return input.key;
-  }
-
-  function copyAttributes(source, target, fields, prefix) {
-    fields.forEach(function(field) {
-      copyAttribute(source, target, field, prefix);
-    });
-  }
-
-  function copyAttribute(source, target, field, prefix) {
-    addAttribute(target, field, prefix, source[field]);
-  }
-
-  function addAttribute(target, field, prefix, value) {
-    target[prefix + field] = value;
-  }
-
-  function frequencyToString(input) {
-    return input.unit + '(' + input.quantity + ')';
-  }
-
-  function locationMapping(input) {
-    return {_type : input.type, _path : input.path};
-  }
 
 })();

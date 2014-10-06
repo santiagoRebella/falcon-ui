@@ -41,6 +41,24 @@
         expect(target).toEqual({_name: 'someName'});
       });
 
+      it('Should not add the element if it does not exist', function() {
+        var transformation = factory.transform('name', '_name');
+        var  source = {}, target = {};
+
+        transformation.apply(source, target);
+
+        expect(target).toEqual({});
+      });
+
+      it('Should not add the element if it is null', function() {
+        var transformation = factory.transform('name', '_name');
+        var  source = {name: null}, target = {};
+
+        transformation.apply(source, target);
+
+        expect(target).toEqual({});
+      });
+
       it('Should create a new field transformation implying the target field', function() {
         var transformation = factory.transform('name');
         var  source = {name: 'someName'}, target = {};
