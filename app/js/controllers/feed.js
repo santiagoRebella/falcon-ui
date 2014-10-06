@@ -56,7 +56,14 @@
         .transform('validity.start', 'validity._start', timeAndDateToString)
         .transform('validity.end', 'validity._end', timeAndDateToString)
         .transform('retention', 'retention._limit', frequencyToString)
-        .transform('retention.action', 'retention._action');
+        .transform('retention.action', 'retention._action')
+        .transform('storage.fileSystem', 'locations.location', function(fileSystem) {
+          return $scope.feed.storage.fileSystem.active ? transformfileSystem(fileSystem) : null;
+        })
+
+        .transform('storage.catalog', 'table', function(catalog) {
+          return $scope.feed.storage.catalog.active ? transformCatalog(catalog) : null;
+        });
 
       var transform = transformerFactory
         .transform('name', 'feed._name')
@@ -73,12 +80,10 @@
           });
         })
         .transform('storage.fileSystem', 'feed.locations.location', function(fileSystem) {
-          return fileSystem.active ? fileSystem.locations.map(function(location) {
-            return locationTransform.apply(location, {});
-          }) : null;
+          return fileSystem.active ? transformfileSystem(fileSystem) : null;
         })
         .transform('storage.catalog', 'feed.table', function(catalog) {
-          return catalog.active ? {_uri : catalog.catalogTable.uri} : null;
+          return catalog.active ? transformCatalog(catalog) : null;
         })
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
@@ -90,6 +95,16 @@
             return propertyTransform.apply(property, {});
           });
         });
+
+      function transformfileSystem (fileSystem) {
+        return fileSystem.locations.map(function(location) {
+          return locationTransform.apply(location, {});
+        });
+      }
+
+      function transformCatalog(catalog) {
+        return {_uri : catalog.catalogTable.uri};
+      }
 
       if($scope.feed.properties) {
         $scope.feed.allproperties = $scope.feed.properties.concat($scope.feed.customProperties);

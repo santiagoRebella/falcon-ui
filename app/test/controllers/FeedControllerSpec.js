@@ -364,18 +364,52 @@
 
       it('Should transform clusters', function () {
         scope.feed = {name: 'FeedName',
+          storage: {
+            fileSystem: {active: true, locations: [
+              {type: 'data', path: '/masterpath'}
+            ]},
+            catalog: {active: true, catalogTable: {uri: '/masteruri'}}
+          },
           clusters: [
             {
               name: 'primaryCluster',
               type: 'source',
               validity: {start: {date: '2014-02-28', time: '00:00'}, end: {date: '2016-03-31', time: '00:00'}},
-              retention: {quantity: 2, unit: 'hours', action: 'delete'}
+              retention: {quantity: 2, unit: 'hours', action: 'delete'},
+              storage: {
+                fileSystem: {
+                  active: true,
+                  locations: [
+                    {type: 'data', path: '/none1'},
+                    {type: 'stats', path: '/none2'},
+                    {type: 'meta', path: '/none3'}
+                  ]
+                },
+                catalog: {
+                  active: false,
+                  catalogTable: {uri: '/primaryuri'}
+                }
+              }
             },
             {
               name: 'secondaryCluster',
               type: 'target',
               validity: {start: {date: '2015-02-28', time: '00:00'}, end: {date: '2017-03-31', time: '00:00'}},
-              retention: {quantity: 5, unit: 'weeks', action: 'archive'}
+              retention: {quantity: 5, unit: 'weeks', action: 'archive'},
+              storage: {
+                fileSystem: {
+                  active: true,
+                  locations: [
+                    {type: 'data', path: '/none4'},
+                    {type: 'stats', path: '/none5'},
+                    {type: 'meta', path: '/none6'}
+                  ]
+                },
+                catalog: {
+                  active: true,
+                  catalogTable: {uri: '/secondaryuri'}
+                }
+              }
             }
           ]
         };
@@ -388,12 +422,28 @@
               "<cluster name='primaryCluster' type='source'>" +
                 "<validity start='2014-02-28T00:00Z' end='2016-03-31T00:00Z'/>" +
                 "<retention limit='hours(2)' action='delete'/>" +
+                "<locations>" +
+                  "<location type='data' path='/none1'></location>" +
+                  "<location type='stats' path='/none2'></location>" +
+                  "<location type='meta' path='/none3'></location>" +
+                "</locations>" +
+                "<table uri='/primaryuri'/>" +
               "</cluster>" +
               "<cluster name='secondaryCluster' type='target'>" +
                 "<validity start='2015-02-28T00:00Z' end='2017-03-31T00:00Z'/>" +
                 "<retention limit='weeks(5)' action='archive'/>" +
+                "<locations>" +
+                  "<location type='data' path='/none4'></location>" +
+                  "<location type='stats' path='/none5'></location>" +
+                  "<location type='meta' path='/none6'></location>" +
+                "</locations>" +
+                "<table uri='/secondaryuri'/>" +
               "</cluster>" +
             "</clusters>" +
+            "<locations>" +
+              "<location type='data' path='/masterpath'></location>" +
+            "</locations>" +
+            "<table uri='/masteruri'/>" +
           "</feed>"
         );
 
