@@ -62,71 +62,38 @@
         <label class="light">Value</label>
       </div>
 
-      <div class="col-sm-5 dynamic-table-spacer">
-        <label>queueName</label>
-      </div>
-      <div class="col-sm-19 dynamic-table-spacer">
-        <input type="text" class="form-control"
-          ng-model="feed.properties.queueName"
-          ng-patter="validations.alpha.pattern"/>
-      </div>
-
-
-      <div class="col-sm-5 dynamic-table-spacer">
-        <label>jobPriority</label>
-      </div>
-      <div class="col-sm-19 dynamic-table-spacer">
-        <select ng-model="feed.properties.jobPriority" class="form-control padding0">
-          <option value="VERY_HIGH">Very high</option>
-          <option value="HIGH">High</option>
-          <option value="NORMAL">Normal</option>
-          <option value="LOW">Low</option>
-          <option value="VERY_LOW">Very Low</option>
-        </select>
-      </div>
-      <div class="clearfix"></div>
-      <div class="col-sm-5 dynamic-table-spacer">
-        <label>timeout</label>
-      </div>
-      <div class="col-sm-19 dynamic-table-spacer">
-        At
-        <input type="text" class="form-control small light"
-          ng-model="feed.properties.timeout.quantity"
-          ng-pattern="validations.twoDigits.pattern"/>
-        <select
-          ng-model="feed.properties.timeout.unit">
-          <option value="hours">hours</option>
-          <option value="days">days</option>
-          <option value="weeks">weeks</option>
-          <option value="months">months</option>
-        </select>
-      </div>
-      <div class="clearfix"></div>
-
-      <div class="col-sm-5 dynamic-table-spacer">
-        <label>parallel</label>
-      </div>
-      <div class="col-sm-19 dynamic-table-spacer">
-        <input type="text" class="form-control"
-           ng-model="feed.properties.parallel"
-           ng-patter="validations.alpha.pattern"/>
-      </div>
-
-      <div class="col-sm-5 dynamic-table-spacer">
-        <label>maxMaps</label>
-      </div>
-      <div class="col-sm-19 dynamic-table-spacer">
-        <input type="text" class="form-control"
-          ng-model="feed.properties.maxMaps"
-          ng-patter="validations.alpha.pattern"/>
-      </div>
-      <div class="col-sm-5 dynamic-table-spacer">
-        <label>mapBandwidthKB</label>
-      </div>
-      <div class="col-sm-19 dynamic-table-spacer">
-        <input type="text" class="form-control"
-          ng-model="feed.properties.mapBandwidthKB"
-          ng-patter="validations.alpha.pattern"/>
+      <div ng-repeat="property in feed.properties">
+        <div class="col-sm-5 dynamic-table-spacer">
+          <label>{{property.key}}</label>
+        </div>
+        <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key !== 'timeout' && property.key !== 'jobPriority'">
+          <input type="text" class="form-control"
+            ng-model="property.value"
+            ng-patter="validations.alpha.pattern"/>
+        </div>
+        <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'timeout'">
+          At
+          <input type="text" class="form-control small light"
+                 ng-model="property.value.quantity"
+                 ng-pattern="validations.twoDigits.pattern"/>
+          <select
+            ng-model="property.value.unit">
+            <option value="hours">hours</option>
+            <option value="days">days</option>
+            <option value="weeks">weeks</option>
+            <option value="months">months</option>
+          </select>
+        </div>
+        <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'jobPriority'">
+          <select ng-model="property.value" class="form-control padding0">
+            <option value="VERY_HIGH">Very high</option>
+            <option value="HIGH">High</option>
+            <option value="NORMAL">Normal</option>
+            <option value="LOW">Low</option>
+            <option value="VERY_LOW">Very Low</option>
+          </select>
+        </div>
+        <div class="clearfix hidden-md"></div>
       </div>
 
       <div ng-repeat="property in feed.customProperties">

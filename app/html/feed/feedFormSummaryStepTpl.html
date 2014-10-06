@@ -77,25 +77,12 @@
 
   <div class="clearfix hidden-md"></div>
 
+  <div class="col-sm-8" ng-repeat="property in feed.properties">
+    <label>{{property.key}}</label>:
+    <span ng-if="property.key !== 'timeout'">{{optional(property.value)}}</span>
+    <frequency ng-if="property.key === 'timeout'" value="property.value" prefix="at"/>
+  </div>
 
-  <div class="col-sm-8">
-    <label>queueName</label>: {{optional(feed.properties.queueName)}}
-  </div>
-  <div class="col-sm-8">
-    <label>jobPriority</label>: {{optional(feed.properties.jobPriority)}}
-  </div>
-  <div class="col-sm-8">
-    <label>timeout</label>: <frequency value="feed.properties.timeout" prefix="at"/>
-  </div>
-  <div class="col-sm-8">
-    <label>parallel</label>: {{optional(feed.properties.parallel)}}
-  </div>
-  <div class="col-sm-8">
-    <label>maxMaps</label>: {{optional(feed.properties.maxMaps)}}
-  </div>
-  <div class="col-sm-8">
-    <label>mapBandwidthKB</label>: {{optional(feed.properties.mapBandwidthKB)}}
-  </div>
   <div class="col-sm-8" ng-repeat="property in feed.customProperties | filter: {key: '!!'}">
     <label>{{property.key}}</label>: {{property.value}}
   </div>

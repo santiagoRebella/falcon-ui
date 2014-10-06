@@ -249,14 +249,14 @@
     this.name = null;
     this.description = null;
     this.groups = null;
-    this.tags = [new Entry()];
+    this.tags = [new Entry(null, null)];
     this.ACL = new ACL();
     this.schema = new Schema();
     this.frequency = new Frequency();
     this.lateArrival = new LateArrival();
     this.availabilityFlag = null;
-    this.properties = new FeedProperties();
-    this.customProperties = [new Entry()];
+    this.properties = feedProperties();
+    this.customProperties = [new Entry(null, null)];
     this.storage = new Storage();
     this.clusters = [new Cluster('source', true)];
     this.timezone = null;
@@ -274,13 +274,15 @@
     this.provider = null;
   }
 
-  function FeedProperties() {
-    this.queueName =  null;
-    this.jobPriority = 'NORMAL';
-    this.timeout =  new Frequency();
-    this.parallel =  null;
-    this.maxMaps =  null;
-    this.mapBandwidthKB = null;
+  function feedProperties() {
+    return [
+      new Entry('queueName', null),
+      new Entry('jobPriority', 'NORMAL'),
+      new Entry('timeout', new Frequency()),
+      new Entry('parallel', null),
+      new Entry('maxMaps', null),
+      new Entry('mapBandwidthKB', null)
+    ];
   }
 
   function LateArrival() {
@@ -293,10 +295,9 @@
     this.unit = 'hours';
   }
 
-  function Entry() {
-    var self = this;
-    self.key = null;
-    self.value = null;
+  function Entry(key, value) {
+    this.key = key;
+    this.value = value;
   }
 
   function Storage() {

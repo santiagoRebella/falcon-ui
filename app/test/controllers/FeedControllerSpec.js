@@ -224,6 +224,39 @@
 
       });
 
+      xit('Should transform queueName', function () {
+        scope.feed = {name: 'FeedName',
+          properties: {queueName: 'Queue'}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<properties>" +
+              "<property name='queueName' value='Queue'></property>" +
+            "</properties>" +
+          "</feed>"
+        );
+
+      });
+
+      xit('Should not transform queue name if not present', function () {
+        scope.feed = {name: 'FeedName',
+          properties: {queueName: null}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<properties>" +
+            "</properties>" +
+          "</feed>"
+        );
+
+      });
+
     });
 
   });
