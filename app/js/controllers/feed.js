@@ -89,6 +89,7 @@
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
         .transform('ACL.permission', 'feed.ACL._permission')
+        .transform('schema', 'feed.schema', emptyElement)
         .transform('schema.location', 'feed.schema._location')
         .transform('schema.provider', 'feed.schema._provider')
         .transform('allproperties', 'feed.properties.property', function(properties) {

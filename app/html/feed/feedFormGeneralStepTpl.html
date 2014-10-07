@@ -77,13 +77,15 @@
       <input type="text" class="form-control"
         ng-maxlength="200"
         ng-pattern="validations.osPath.pattern"
-        ng-model="feed.schema.location"/>
+        ng-model="feed.schema.location"
+        ng-required="true"/>
     </div>
     <div class="col-sm-12">
       <label class="light">Provider</label>
       <input type="text" class="form-control"
         ng-pattern="validations.alpha.pattern"
-        ng-model="feed.schema.provider"/>
+        ng-model="feed.schema.provider"
+        ng-required="true"/>
     </div>
   </div>
 

@@ -166,6 +166,21 @@
 
       });
 
+      it('Should add the schema element even though the properties are empty', function () {
+        scope.feed = {name: 'FeedName',
+          schema: {location: null, provider: null}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<schema/>" +
+          "</feed>"
+        );
+
+      });
+
       it('Should transform frequency properly', function () {
         scope.feed = {name: 'FeedName',
           frequency: {quantity: 4, unit: 'weeks'}
