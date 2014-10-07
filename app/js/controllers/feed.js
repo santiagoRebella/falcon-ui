@@ -27,8 +27,8 @@
    */
   var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer']);
 
-  feedModule.controller('FeedController', [ "$scope", "$state", "Falcon", "EntityModel", "X2jsService", "EntityTransformerFactory",
-    function($scope, $state, Falcon, EntityModel, X2jsService, transformerFactory) {
+  feedModule.controller('FeedController', [ "$scope", "$state", "$timeout", "Falcon", "EntityModel", "X2jsService", "EntityTransformerFactory",
+    function($scope, $state, $timeout, Falcon, EntityModel, X2jsService, transformerFactory) {
 
     $scope.init = function() {
       $scope.feed = new Feed();
