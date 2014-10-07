@@ -110,17 +110,20 @@
                  });  
         };
         $scope.editEntity = function (type, name) {         
-            Falcon.getEntityDefinition(type, name)
-                .success(function (data) {             
-                    EntityModel.clusterModel = X2jsService.xml_str2json(data);    
-                    $scope.editingMode = true;                     
-                    $state.go('main.forms.' + type + ".general");
-                 })
-                .error(function (err) { 
-                    var error = X2jsService.xml_str2json(err);            
-                    Falcon.success = false;                 
-                    Falcon.serverResponse = error.result;  
-                 });  
+          Falcon.getEntityDefinition(type, name)
+            .success(function (data) {
+              var entityModel = X2jsService.xml_str2json(data);
+              var modelName = (type + "Model");
+              EntityModel[modelName] = entityModel;
+              $scope[modelName] = angular.copy(entityModel);
+              $scope.editingMode = true;
+              $state.go('main.forms.' + type + ".general");
+            })
+            .error(function (err) {
+              var error = X2jsService.xml_str2json(err);
+              Falcon.success = false;
+              Falcon.serverResponse = error.result;
+            });
         };
         $scope.playEntity = function (type, name) {         
             console.log("play " + type + " - " + name);
