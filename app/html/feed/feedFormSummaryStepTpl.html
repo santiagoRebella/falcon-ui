@@ -114,7 +114,12 @@
 
   <div ng-repeat="cluster in feed.clusters" >
     <h4 class="col-sm-24" >{{capitalize(cluster.type)}} Cluster</h4>
-    <label>Name</label>: {{cluster.name}}
+
+    <div class="clearfix hidden-md"></div>
+
+    <div class="col-sm-12">
+      <label>Name</label>: {{cluster.name}}
+    </div>
     <div class="clearfix hidden-md"></div>
 
     <div class="col-sm-12">

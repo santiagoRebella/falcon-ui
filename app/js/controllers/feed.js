@@ -85,6 +85,7 @@
         .transform('storage.catalog', 'feed.table', function(catalog) {
           return catalog.active ? transformCatalog(catalog) : null;
         })
+        .transform('ACL', 'feed.ACL', emptyElement)
         .transform('ACL.owner', 'feed.ACL._owner')
         .transform('ACL.group', 'feed.ACL._group')
         .transform('ACL.permission', 'feed.ACL._permission')
@@ -466,6 +467,8 @@
   function timeAndDateToString(input) {
     return input.date + 'T'  + input.time + 'Z';
   }
+
+  function emptyElement() {return {}}
 
   function formatXml(xml) {
     var formatted = '';

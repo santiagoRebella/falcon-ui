@@ -136,6 +136,21 @@
 
       });
 
+      it('Should add an ACL element even though the properties are empty', function () {
+        scope.feed = {name: 'FeedName',
+          ACL: {owner: null, group: null, permission: null}
+        };
+
+        var xml = scope.transform();
+
+        expect(xml).toBe(
+          "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
+            "<ACL/>" +
+          "</feed>"
+        );
+
+      });
+
       it('Should transform schema properly', function () {
         scope.feed = {name: 'FeedName',
           schema: {location: '/location', provider: 'none'}
