@@ -33,6 +33,8 @@
     $scope.init = function() {
       $scope.feed = new Feed();
       $scope.validations = defineValidations();
+      $scope.startOpened = false;
+      $scope.endOpened = false;
     };
 
     $scope.init();
@@ -185,7 +187,31 @@
         required: required || false
       };
     }
+    //------------Datepickers-----------------//
+      $scope.today = function() {
+        $scope.startDate = new Date();
+        $scope.endDate = new Date();
+      };
+      $scope.today();
 
+      $scope.clear = function () {
+        $scope.startDate = null;
+      };    
+      $scope.toggleMin = function() {
+        $scope.minDate = $scope.minDate ? null : new Date();
+      };
+      $scope.toggleMin();  
+      $scope.open = function($event, opened) {          
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope[opened] = !$scope[opened];
+      };  
+      $scope.dateOptions = {
+        formatYear: 'shortDate',
+        startingDay: 1
+      };   
+      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+      $scope.format = $scope.formats[0];
   }]);
 
   feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
@@ -310,7 +336,8 @@
       $scope.archiveCluster = $scope.newCluster(false);
       $scope.archiveCluster.active = false;
       $scope.allClusters = [];
-
+      
+      
     }]);
 
 
