@@ -5,7 +5,7 @@
   /**
    * The $http response has more data than what we need, we are only interested
    * in the response body which is inside the response.data property so we unwrap it
-   * for all the requests that end with .do which are our Spring MVC controllers.
+   * for all the requests that end with /list which are api calls that return a collection.
    */
   angular.module('falcon.util.httpConfig', [])
     .config(function ($httpProvider) {
