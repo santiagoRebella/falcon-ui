@@ -92,4 +92,13 @@
         }
       };
     });
+    
+    app.directive('timeZoneSelect', function() {
+      return {
+        replace: true,
+        restrict: 'E',
+        templateUrl: 'html/timeZoneSelectDv.html'
+      };
+    });
+    
 })();
