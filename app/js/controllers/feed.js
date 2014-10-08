@@ -34,12 +34,18 @@
       "DatePickerFactory",
     function($scope, $state, $timeout, Falcon, EntityModel, X2jsService, transformerFactory, entityFactory, datePickerFactory) {
 
-    $scope.init = function() {
-      $scope.feed = entityFactory.newFeed();
-      $scope.validations = defineValidations();
-      $scope.startDatePicker = datePickerFactory.newDatePicker();
-      $scope.endDatePicker= datePickerFactory.newDatePicker();
-    };
+      $scope.loadOrCreateEntity = function() {
+        var feedModel = $scope.feedModel;
+        $scope.feedModel = null;
+        return feedModel ? entityFactory.deserialize(feedModel) : entityFactory.newFeed();
+      };
+
+      $scope.init = function() {
+        $scope.feed = $scope.loadOrCreateEntity();
+        $scope.validations = defineValidations();
+        $scope.startDatePicker = datePickerFactory.newDatePicker();
+        $scope.endDatePicker= datePickerFactory.newDatePicker();
+      };
 
     $scope.init();
 

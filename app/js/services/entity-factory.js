@@ -31,6 +31,10 @@
 
       transform: function(feed) {
         return transformFeed(feed, EntityTransformerFactory);
+      },
+
+      deserialize: function(feedModel) {
+
       }
 
     };
@@ -245,5 +249,7 @@
     return transform.apply(feed, new FeedModel());
 
   }
+
+
 
 })();

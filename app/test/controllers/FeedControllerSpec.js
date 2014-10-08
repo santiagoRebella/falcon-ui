@@ -22,12 +22,16 @@
 
   describe('FeedController', function () {
     var entityModelServiceMock;
+    var entityFactoryMock;
+    var controllerProvider
 
     beforeEach(module('app.controllers.feed'));
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
       entityModelServiceMock = jasmine.createSpyObj('EntityModel', ['newFeedModel']);
+      entityFactoryMock = jasmine.createSpyObj('EntityFactory', ['deserialize', 'newFeed']);
+      controllerProvider = $controller;
 
       controller = $controller('FeedController', {
         $scope: scope,
@@ -478,6 +482,65 @@
       });
 
     });
+
+    describe('loadOrCreateEntity()', function() {
+      it('Should deserialize the entity if the xml is found on the scope', function() {
+        controller = createController();
+        var createdFeed =  {};
+        var deserialzedFeed =  {};
+        var feedModel = {name: 'FeedName'}
+        entityFactoryMock.deserialize.andReturn(deserialzedFeed);
+        entityFactoryMock.newFeed.andReturn(createdFeed);
+        scope.feedModel = feedModel;
+
+        var feed = scope.loadOrCreateEntity();
+
+        expect(entityFactoryMock.deserialize).toHaveBeenCalledWith(feedModel);
+        expect(feed).toNotBe(createdFeed);
+        expect(feed).toBe(deserialzedFeed);
+      });
+
+      it('Should not deserialize the entity if the xml is not found on the scope', function() {
+        controller = createController();
+        var createdFeed =  {};
+        var deserialzedFeed =  {};
+        entityFactoryMock.deserialize.andReturn(deserialzedFeed);
+        entityFactoryMock.newFeed.andReturn(createdFeed);
+
+
+        var feed = scope.loadOrCreateEntity();
+
+        expect(entityFactoryMock.deserialize).not.toHaveBeenCalled();
+        expect(feed).toBe(createdFeed);
+        expect(feed).toNotBe(deserialzedFeed);
+      });
+
+      it('Should clear the feedModel from the scope', function() {
+        controller = createController();
+        entityFactoryMock.newFeed.andReturn({});
+        scope.feedModel = {};
+
+        scope.loadOrCreateEntity();
+
+        expect(scope.feedModel).toBe(null);
+      });
+
+
+    });
+
+    function createController() {
+      return controllerProvider('FeedController', {
+        $scope: scope,
+        $state: {
+          $current:{
+            name: 'main.forms.feed.general'
+          }
+        },
+        Falcon: {},
+        EntityModel: entityModelServiceMock,
+        EntityFactory: entityFactoryMock
+      });
+    }
 
   });
 
