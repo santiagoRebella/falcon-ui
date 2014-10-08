@@ -30,11 +30,12 @@ module.exports = function (grunt) {
       main: {
         files: {
           'dist/js/main.min.js': [
-            'app/js/app.js',
-            'app/js/controllers/*.js',
+            'app/js/controllers/feed/feed-module.js',
+            'app/js/controllers/**/*.js',
             'app/js/directives/*.js',
             'app/js/services/*.js',
-            'app/js/util/*.js'
+            'app/js/util/*.js',
+            'app/js/app.js'
           ]
         }
       }
@@ -51,7 +52,7 @@ module.exports = function (grunt) {
       target: {
         src: [
           'app/js/app.js',
-          'app/js/controllers/*.js',
+          'app/js/controllers/**/*.js',
           'app/js/directives/*.js',
           'app/js/services/*.js',
           'app/js/util/*.js'
@@ -122,7 +123,7 @@ module.exports = function (grunt) {
           livereload: true
         },
         files: ['app/js/**/*.js', 'app/test/**/*Spec.js'],
-        tasks: ['jshint', 'karma:unit:run']
+        tasks: ['jshint', 'karma:unit:run','uglify']
       }
     },
 
