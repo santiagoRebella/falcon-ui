@@ -86,7 +86,14 @@
       expect(scope.capitalize('hello')).toBe('Hello');
     });
 
-    it('Should load a feed from the scope if it is present int the scope', function() {
+    describe('cancel', function() {
+      it('Should clear the feed from the scope when cancelling', function() {
+        scope.feed = {};
+
+        scope.cancel();
+
+        expect(scope.feed).toBe(null);
+      });
 
     });
 

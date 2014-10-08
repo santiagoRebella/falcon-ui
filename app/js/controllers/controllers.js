@@ -117,8 +117,6 @@
               var modelName = (type + "Model");
               EntityModel[modelName] = entityModel;
               $scope[modelName] = angular.copy(entityModel);
-              console.log('edit called: ');
-              console.log($scope.feedModel);
               $scope.editingMode = true;
               $state.go('main.forms.' + type + ".general");
             })

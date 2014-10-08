@@ -20,7 +20,6 @@
 
   describe('EntityFactory', function () {
     var factory;
-    var entityTransformerFactoryMock = jasmine.createSpyObj('EntityTransformerFactoryMock', ['deserialize']);
 
     beforeEach(module('app.services.entity.factory'));
 
