@@ -45,6 +45,8 @@
         $scope.validations = defineValidations();
         $scope.startDatePicker = datePickerFactory.newDatePicker();
         $scope.endDatePicker= datePickerFactory.newDatePicker();
+        
+        
       };
 
     $scope.init();
@@ -127,7 +129,7 @@
         required: required || false
       };
     }
-
+   
   }]);
 
   feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
@@ -172,6 +174,42 @@
   feedModule.controller('FeedClustersController', ["$scope","clustersList", "EntityFactory",
 
     function($scope, clustersList, entityFactory) {
+      
+    //--------------Time picker-----------------------//
+    $scope.startTime = new Date();
+    $scope.endTime = new Date();
+    console.log($scope.startTime);
+    $scope.hstep = 1;
+    $scope.mstep = 15;
+    
+    $scope.options = {
+      hstep: [1, 2, 3],
+      mstep: [1, 5, 10, 15, 25, 30]
+    };
+    
+    $scope.ismeridian = true;
+    $scope.toggleMode = function() {
+      $scope.ismeridian = ! $scope.ismeridian;
+    };
+    
+    $scope.update = function() {
+      var d = new Date();
+      d.setHours( 14 );
+      d.setMinutes( 0 );
+      $scope.mytime = d;
+    };
+    
+    $scope.changed = function () {
+      console.log('Time changed to: ' + $scope.mytime);
+    };
+    
+    $scope.clear = function() {
+      $scope.mytime = null;
+    };
+    //--------------/Time picker-----------------------//
+
+
+
 
       unwrapClusters(clustersList);
 

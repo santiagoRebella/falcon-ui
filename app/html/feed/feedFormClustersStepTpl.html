@@ -80,9 +80,9 @@
       </p>
     </div>
     <div class="col-sm-6">
-      <input type="time" class="form-control"
-        ng-required="true"/>
+      <timepicker class="timePicker" ng-model="startTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
     </div>
+    {{startTime}}
     <div class="col-sm-6">
       <p class="input-group">
           <input type="text" class="form-control" datepicker-popup="{{endDatePicker.format}}"
@@ -95,8 +95,7 @@
       </p>
     </div>
     <div class="col-sm-6">
-      <input type="time" class="form-control"
-        ng-required="true"/>
+      <timepicker class="timePicker" ng-model="endTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
     </div>
 
     <div class="clearfix hidden-md"></div>
