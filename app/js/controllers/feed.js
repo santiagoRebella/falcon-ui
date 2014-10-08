@@ -178,14 +178,8 @@
     //--------------Time picker-----------------------//
     $scope.startTime = new Date();
     $scope.endTime = new Date();
-    console.log($scope.startTime);
     $scope.hstep = 1;
-    $scope.mstep = 15;
-    
-    $scope.options = {
-      hstep: [1, 2, 3],
-      mstep: [1, 5, 10, 15, 25, 30]
-    };
+    $scope.mstep = 1;
     
     $scope.ismeridian = true;
     $scope.toggleMode = function() {
@@ -200,7 +194,7 @@
     };
     
     $scope.changed = function () {
-      console.log('Time changed to: ' + $scope.mytime);
+      console.log('Both Times changed, leave it in the case we need to do something here');
     };
     
     $scope.clear = function() {
