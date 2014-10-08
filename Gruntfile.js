@@ -123,7 +123,7 @@ module.exports = function (grunt) {
           livereload: true
         },
         files: ['app/js/**/*.js', 'app/test/**/*Spec.js'],
-        tasks: ['jshint', 'karma:unit:run']
+        tasks: ['jshint', 'karma:unit:run','uglify']
       }
     },
 
