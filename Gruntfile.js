@@ -33,7 +33,8 @@ module.exports = function (grunt) {
             'app/js/app.js',
             'app/js/controllers/*.js',
             'app/js/directives/*.js',
-            'app/js/services/*.js'
+            'app/js/services/*.js',
+            'app/js/util/*.js'
           ]
         }
       }
@@ -52,7 +53,9 @@ module.exports = function (grunt) {
           'app/js/app.js',
           'app/js/controllers/*.js',
           'app/js/directives/*.js',
-          'app/js/services/*.js'        ]
+          'app/js/services/*.js',
+          'app/js/util/*.js'
+        ]
       }
     },
 

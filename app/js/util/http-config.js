@@ -1,6 +1,6 @@
-(function (angular) {
+(function () {
   'use strict';
-  const USER_ID = 'dashboard';
+  var USER_ID = 'dashboard';
 
   /**
    * The $http response has more data than what we need, we are only interested

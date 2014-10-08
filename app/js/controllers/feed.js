@@ -25,14 +25,20 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer', 'app.services.entity.factory']);
+  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer', 'app.services.entity.factory', 'falcon.util.datepicker']);
 
-  feedModule.controller('FeedController', [ "$scope", "$state", "$timeout", "Falcon", "EntityModel", "X2jsService", "EntityTransformerFactory", "EntityFactory",
-    function($scope, $state, $timeout, Falcon, EntityModel, X2jsService, transformerFactory, entityFactory) {
+  feedModule.controller('FeedController',
+    [ "$scope", "$state", "$timeout",
+      "Falcon", "EntityModel", "X2jsService",
+      "EntityTransformerFactory", "EntityFactory",
+      "DatePickerFactory",
+    function($scope, $state, $timeout, Falcon, EntityModel, X2jsService, transformerFactory, entityFactory, datePickerFactory) {
 
     $scope.init = function() {
       $scope.feed = entityFactory.newFeed();
       $scope.validations = defineValidations();
+      $scope.startDatePicker = datePickerFactory.newDatePicker();
+      $scope.endDatePicker= datePickerFactory.newDatePicker();
     };
 
     $scope.init();
@@ -92,21 +98,6 @@
       holder[fieldName] = holder[fieldName] ? (holder[fieldName] + '-' + timeVariable) : timeVariable;
       holder.focused = false;
     };
-
-    //------------Datepickers-----------------//
-    function DatePicker() {
-      var self = this;
-      self.opened = false;
-      self.format ='dd-MMMM-yyyy';
-      self.open = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-        self.opened = true;
-      }
-    };
-
-    $scope.startDatePicker = new DatePicker();
-    $scope.endDatePicker= new DatePicker();
 
     function defineValidations() {
       return {
