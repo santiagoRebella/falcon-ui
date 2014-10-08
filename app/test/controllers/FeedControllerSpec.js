@@ -88,6 +88,10 @@
       expect(scope.capitalize('hello')).toBe('Hello');
     });
 
+    it('Should load a feed from the scope if it is present int the scope', function() {
+
+    });
+
     describe('transforming a form json into xml', function() {
 
       it('Should transform the basic properties', function () {
