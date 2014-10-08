@@ -25,14 +25,16 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer', 'app.services.entity.factory', 'falcon.util.datepicker']);
+  var feedModule = angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer', 'app.services.entity.factory', 'falcon.util.datepicker', 'app.services.validation']);
 
   feedModule.controller('FeedController',
     [ "$scope", "$state", "$timeout",
       "Falcon", "EntityModel", "X2jsService",
       "EntityTransformerFactory", "EntityFactory",
-      "DatePickerFactory",
-    function($scope, $state, $timeout, Falcon, EntityModel, X2jsService, transformerFactory, entityFactory, datePickerFactory) {
+      "DatePickerFactory", "ValidationService",
+    function($scope, $state, $timeout, Falcon, EntityModel,
+      X2jsService, transformerFactory, entityFactory,
+      datePickerFactory, validationService) {
 
       $scope.loadOrCreateEntity = function() {
         var feedModel = $scope.feedModel;
@@ -42,11 +44,9 @@
 
       $scope.init = function() {
         $scope.feed = $scope.loadOrCreateEntity();
-        $scope.validations = defineValidations();
+        $scope.validations = validationService.define();
         $scope.startDatePicker = datePickerFactory.newDatePicker();
         $scope.endDatePicker= datePickerFactory.newDatePicker();
-        
-        
       };
 
     $scope.init();
@@ -107,29 +107,11 @@
       holder.focused = false;
     };
 
-    function defineValidations() {
-      return {
-        id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
-        freeText: validate(/^([\sa-zA-Z0-9]){1,40}$/),
-        alpha: validate(/^([a-zA-Z0-9]){1,20}$/),
-        commaSeparated: validate(/^[a-zA-Z0-9,]{1,80}$/),
-        unixId: validate(/^([a-z_][a-z0-9_\.]{0,30})$/),
-        unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
-        osPath: validate(/^[^\0]+$/),
-        twoDigits: validate(/^([0-9]){1,2}$/),
-        tableUri: validate(/^[^\0]+$/)
-      };
-    }
+    $scope.cancel = function() {
+      console.log('cancel called')
+      $scope.feed = null;
+    };
 
-    function validate(pattern, maxlength, minlength, required) {
-      return {
-        pattern: pattern,
-        maxlength: maxlength || 1000,
-        minlength: minlength || 0,
-        required: required || false
-      };
-    }
-   
   }]);
 
   feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
