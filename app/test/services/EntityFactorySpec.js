@@ -20,7 +20,6 @@
 
   describe('EntityFactory', function () {
     var factory;
-    var entityTransformerFactoryMock = jasmine.createSpyObj('EntityTransformerFactoryMock', ['deserialize']);
 
     beforeEach(module('app.services.entity.factory'));
 
@@ -49,10 +48,21 @@
     });
 
     describe('deserialize', function() {
-      it('Should clone the feedModel passed in', function() {
-        var feedModel = {_xmlns: "uri:falcon:feed:0.1"};
+      it('Should copy the general information', function() {
+
+        var feedModel = {
+          feed: {
+            _xmlns: "uri:falcon:feed:0.1",
+            _name: 'FeedName',
+            _description: 'Feed Description'
+          }
+        };
 
         var feed = factory.deserialize(feedModel);
+
+
+        expect(feed.name).toBe(feedModel.feed._name);
+        expect(feed.description).toBe(feedModel.feed._description);
 
       });
 

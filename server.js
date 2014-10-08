@@ -32,6 +32,21 @@
         res.json(jsonContent);
       });
     }
+
+    if (/get.xml$/.test(file)) {
+      var fs = require('fs');
+
+      fs.readFile(dir + '/' + file, 'utf8', function(err, data) {
+        if (!err) {
+          server.get('/api/' + dir.split(baseDirPath)[1], function (req, res) {
+            res.set('Content-Type', 'text/xml');
+            res.send(data);
+          });
+        } else {
+          console.log(err)
+        };
+      });
+    }
   }
 
 })();

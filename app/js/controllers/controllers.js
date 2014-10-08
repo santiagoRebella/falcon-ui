@@ -109,7 +109,8 @@
                     Falcon.serverResponse = error.result;  
                  });  
         };
-        $scope.editEntity = function (type, name) {         
+        $scope.editEntity = function (type, name) {
+
           Falcon.getEntityDefinition(type, name)
             .success(function (data) {
               var entityModel = X2jsService.xml_str2json(data);

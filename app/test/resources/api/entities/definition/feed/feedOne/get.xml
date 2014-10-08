@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">
+  <frequency>hours(2)</frequency>
+  <timezone>UTC</timezone>
+  <late-arrival cut-off="hours(5)"/>
+  <clusters>
+    <cluster name="otherCluster" type="source">
+      <validity start="2014-02-28T00:00Z" end="2014-02-28T00:00Z"/>
+      <retention limit="hours(5)" action="chown"/>
+      <locations>
+        <location type="data" path="/"/>
+        <location type="stats" path="/"/>
+        <location type="meta" path="/"/>
+      </locations>
+    </cluster>
+  </clusters>
+  <locations>
+    <location type="data" path="/"/>
+    <location type="stats" path="/"/>
+    <location type="meta" path="/"/>
+  </locations>
+  <ACL permission="*"/>
+  <schema location="Loc" provider="Prov"/>
+  <properties>
+    <property name="jobPriority" value="NORMAL"/>
+  </properties>
+</feed>
