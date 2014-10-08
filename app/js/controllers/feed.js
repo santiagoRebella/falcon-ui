@@ -116,11 +116,10 @@
 
       var result = transform.apply($scope.feed, new FeedModel());
 
-      var x2j = new X2JS();
-      var xmlStr = x2j.json2xml_str(result);
-      $scope.prettyXml = formatXml(xmlStr);
+      var xmlStr = X2jsService.json2xml_str(result);
+      $scope.prettyXml = X2jsService.prettifyXml(xmlStr);
       $scope.xml = xmlStr;
-      return  xmlStr;
+      return xmlStr;
     };
 
 
@@ -165,6 +164,32 @@
       holder.focused = false;
     };
 
+    //------------Datepickers-----------------//
+    $scope.today = function() {
+      $scope.startDate = new Date();
+      $scope.endDate = new Date();
+    };
+    $scope.today();
+
+    $scope.clear = function () {
+      $scope.startDate = null;
+    };
+    $scope.toggleMin = function() {
+      $scope.minDate = $scope.minDate ? null : new Date();
+    };
+    $scope.toggleMin();
+    $scope.open = function($event, opened) {
+      $event.preventDefault();
+      $event.stopPropagation();
+      $scope[opened] = !$scope[opened];
+    };
+    $scope.dateOptions = {
+      formatYear: 'shortDate',
+      startingDay: 1
+    };
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+    $scope.format = $scope.formats[0];
+
     function defineValidations() {
       return {
         id: validate(/^(([a-zA-Z]([\\-a-zA-Z0-9])*){1,39})$/, 39, 0, true),
@@ -187,31 +212,41 @@
         required: required || false
       };
     }
-    //------------Datepickers-----------------//
-      $scope.today = function() {
-        $scope.startDate = new Date();
-        $scope.endDate = new Date();
-      };
-      $scope.today();
 
-      $scope.clear = function () {
-        $scope.startDate = null;
-      };    
-      $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-      };
-      $scope.toggleMin();  
-      $scope.open = function($event, opened) {          
-        $event.preventDefault();
-        $event.stopPropagation();
-        $scope[opened] = !$scope[opened];
-      };  
-      $scope.dateOptions = {
-        formatYear: 'shortDate',
-        startingDay: 1
-      };   
-      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-      $scope.format = $scope.formats[0];
+    function FeedModel() {
+      this.feed = {_xmlns: "uri:falcon:feed:0.1"};
+    }
+
+    function keyValuePairs(input) {
+      return input.filter(emptyKey).map(entryToString).join(',');
+    }
+
+    function emptyKey (input) {
+      return input.key;
+    }
+
+    function emptyValue (input) {
+      return input && input.value;
+    }
+
+    function emptyFrequency (input) {
+      return input.value.unit ? input.value.quantity : input.value;
+    }
+
+    function entryToString(input) {
+      return input.key + '=' + input.value;
+    }
+
+    function frequencyToString(input) {
+      return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
+    }
+
+    function timeAndDateToString(input) {
+      return input.date + 'T'  + input.time + 'Z';
+    }
+
+    function emptyElement() {return {};}
+
   }]);
 
   feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
@@ -358,71 +393,5 @@
     };
 
   }]);
-
-  function FeedModel() {
-    this.feed = {_xmlns: "uri:falcon:feed:0.1"};
-  }
-
-
-  function keyValuePairs(input) {
-    return input.filter(emptyKey).map(entryToString).join(',');
-  }
-
-  function emptyKey (input) {
-    return input.key;
-  }
-
-  function emptyValue (input) {
-    return input && input.value;
-  }
-
-  function emptyFrequency (input) {
-    return input.value.unit ? input.value.quantity : input.value;
-  }
-
-  function entryToString(input) {
-    return input.key + '=' + input.value;
-  }
-
-  function frequencyToString(input) {
-    return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
-  }
-
-  function timeAndDateToString(input) {
-    return input.date + 'T'  + input.time + 'Z';
-  }
-
-  function emptyElement() {return {};}
-
-  function formatXml(xml) {
-    var formatted = '';
-    var reg = /(>)(<)(\/*)/g;
-    xml = xml.replace(reg, '$1\r\n$2$3');
-    var pad = 0;
-    jQuery.each(xml.split('\r\n'), function(index, node) {
-      var indent = 0;
-      if (node.match( /.+<\/\w[^>]*>$/ )) {
-        indent = 0;
-      } else if (node.match( /^<\/\w/ )) {
-        if (pad !== 0) {
-          pad -= 1;
-        }
-      } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
-        indent = 1;
-      } else {
-        indent = 0;
-      }
-
-      var padding = '';
-      for (var i = 0; i < pad; i++) {
-        padding += '  ';
-      }
-
-      formatted += padding + node + '\r\n';
-      pad += indent;
-    });
-
-    return formatted;
-  }
 
 })();

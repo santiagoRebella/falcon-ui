@@ -50,22 +50,7 @@
 	    return Falcon;
 	    
 	}]);
-	
-	app.factory('X2jsService', ["$http", function() {
-		
-		var x2js = new X2JS(), X2jsService = {};
 
-		X2jsService.xml_str2json = function (string) {
-			return x2js.xml_str2json( string );
-		};
-		X2jsService.json2xml_str = function (jsonObj) {
-			return x2js.json2xml_str( jsonObj );
-		};
-
-		
-	    return X2jsService;
-	    
-	}]);
 	
 	app.factory('FileApi', ["$http", "$q", "EntityModel", function($http, $q, EntityModel) {
 		

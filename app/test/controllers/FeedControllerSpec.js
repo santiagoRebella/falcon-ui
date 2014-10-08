@@ -28,7 +28,6 @@
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
       entityModelServiceMock = jasmine.createSpyObj('EntityModel', ['newFeedModel']);
-      var x2js = new X2JS();
 
       controller = $controller('FeedController', {
         $scope: scope,
@@ -38,12 +37,7 @@
           }
         },
         Falcon: {},
-        EntityModel: entityModelServiceMock,
-        X2jsService: {
-          json2xml_str: function (jsonObj) {
-            return x2js.json2xml_str( jsonObj );
-          }
-        }
+        EntityModel: entityModelServiceMock
       });
     }));
 
