@@ -35,17 +35,16 @@
 
     if (/get.xml$/.test(file)) {
       var fs = require('fs');
-      var xmlConent = null;
-      console.log('reading: ' + dir + '/' + file);
+
       fs.readFile(dir + '/' + file, 'utf8', function(err, data) {
-        if (err) throw err;
-        console.log('OK: ' + file);
-        console.log(data)
-        xmlConent = data;
-      });
-      server.get('/api/' + dir.split(baseDirPath)[1], function (req, res) {
-        res.set('Content-Type', 'text/xml');
-        res.send(xmlConent);
+        if (!err) {
+          server.get('/api/' + dir.split(baseDirPath)[1], function (req, res) {
+            res.set('Content-Type', 'text/xml');
+            res.send(data);
+          });
+        } else {
+          console.log(err)
+        };
       });
     }
   }
