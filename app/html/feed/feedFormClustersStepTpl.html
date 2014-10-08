@@ -70,14 +70,14 @@
     <div class="col-sm-6">
       
       <p class="input-group">
-          <input type="text" class="form-control" datepicker-popup="{{format}}" 
-            ng-model="startDate" is-open="startOpened" min-date="minDate" max-date="'2015-06-22'" 
-            datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <input type="text" class="form-control" datepicker-popup="{{startDatePicker.format}}"
+            ng-model="cluster.validity.start.date"
+            is-open="startDatePicker.opened"
+            ng-required="true" />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open($event, 'startOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="startDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
       </p>
-      {{startDate}}{{startOpened}}
     </div>
     <div class="col-sm-6">
       <input type="time" class="form-control"
@@ -85,14 +85,14 @@
     </div>
     <div class="col-sm-6">
       <p class="input-group">
-          <input type="text" class="form-control" datepicker-popup="{{format}}" 
-            ng-model="endDate" is-open="endOpened" min-date="minDate" max-date="'2015-06-22'" 
-            datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <input type="text" class="form-control" datepicker-popup="{{endDatePicker.format}}"
+            ng-model="cluster.validity.end.date"
+            is-open="endDatePicker.opened"
+            ng-required="true"/>
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open($event, 'endOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="endDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
       </p>
-      {{endDate}} {{endOpened}}
     </div>
     <div class="col-sm-6">
       <input type="time" class="form-control"

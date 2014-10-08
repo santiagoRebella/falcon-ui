@@ -33,8 +33,6 @@
     $scope.init = function() {
       $scope.feed = entityFactory.newFeed();
       $scope.validations = defineValidations();
-      $scope.startOpened = false;
-      $scope.endOpened = false;
     };
 
     $scope.init();
@@ -42,80 +40,11 @@
 
     $scope.transform = function() {
 
-      var propertyTransform = transformerFactory
-        .transform('key', '_name')
-        .transform('value', '_value', function(value) {
-          return value.quantity ? frequencyToString(value) : value;
-        });
-
-      var locationTransform = transformerFactory
-        .transform('type', '_type')
-        .transform('path', '_path');
-
-      var clusterTransform = transformerFactory
-        .transform('name', '_name')
-        .transform('type', '_type')
-        .transform('validity.start', 'validity._start', timeAndDateToString)
-        .transform('validity.end', 'validity._end', timeAndDateToString)
-        .transform('retention', 'retention._limit', frequencyToString)
-        .transform('retention.action', 'retention._action')
-        .transform('storage.fileSystem', 'locations.location', function(fileSystem) {
-          return $scope.feed.storage.fileSystem.active ? transformfileSystem(fileSystem) : null;
-        })
-
-        .transform('storage.catalog', 'table', function(catalog) {
-          return $scope.feed.storage.catalog.active ? transformCatalog(catalog) : null;
-        });
-
-      var transform = transformerFactory
-        .transform('name', 'feed._name')
-        .transform('description', 'feed._description')
-        .transform('tags', 'feed.tags', keyValuePairs)
-        .transform('groups', 'feed.groups')
-        .transform('availabilityFlag', 'feed.availabilityFlag')
-        .transform('frequency', 'feed.frequency', frequencyToString)
-        .transform('timezone', 'feed.timezone')
-        .transform('lateArrival.cutOff', 'feed.late-arrival._cut-off', frequencyToString)
-        .transform('clusters', 'feed.clusters.cluster', function(clusters) {
-          return clusters.map(function(cluster) {
-            return clusterTransform.apply(cluster, {});
-          });
-        })
-        .transform('storage.fileSystem', 'feed.locations.location', function(fileSystem) {
-          return fileSystem.active ? transformfileSystem(fileSystem) : null;
-        })
-        .transform('storage.catalog', 'feed.table', function(catalog) {
-          return catalog.active ? transformCatalog(catalog) : null;
-        })
-        .transform('ACL', 'feed.ACL', emptyElement)
-        .transform('ACL.owner', 'feed.ACL._owner')
-        .transform('ACL.group', 'feed.ACL._group')
-        .transform('ACL.permission', 'feed.ACL._permission')
-        .transform('schema', 'feed.schema', emptyElement)
-        .transform('schema.location', 'feed.schema._location')
-        .transform('schema.provider', 'feed.schema._provider')
-        .transform('allproperties', 'feed.properties.property', function(properties) {
-          return properties.filter(emptyValue).filter(emptyFrequency).map(function(property) {
-            return propertyTransform.apply(property, {});
-          });
-        });
-
-      function transformfileSystem (fileSystem) {
-        return fileSystem.locations.map(function(location) {
-          return locationTransform.apply(location, {});
-        });
-      }
-
-      function transformCatalog(catalog) {
-        return {_uri : catalog.catalogTable.uri};
-      }
-
       if($scope.feed.properties) {
         $scope.feed.allproperties = $scope.feed.properties.concat($scope.feed.customProperties);
       }
 
-      var result = transform.apply($scope.feed, new FeedModel());
-
+      var result = entityFactory.transform($scope.feed);
       var xmlStr = X2jsService.json2xml_str(result);
       $scope.prettyXml = X2jsService.prettifyXml(xmlStr);
       $scope.xml = xmlStr;
@@ -165,30 +94,19 @@
     };
 
     //------------Datepickers-----------------//
-    $scope.today = function() {
-      $scope.startDate = new Date();
-      $scope.endDate = new Date();
+    function DatePicker() {
+      var self = this;
+      self.opened = false;
+      self.format ='dd-MMMM-yyyy';
+      self.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        self.opened = true;
+      }
     };
-    $scope.today();
 
-    $scope.clear = function () {
-      $scope.startDate = null;
-    };
-    $scope.toggleMin = function() {
-      $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
-    $scope.open = function($event, opened) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope[opened] = !$scope[opened];
-    };
-    $scope.dateOptions = {
-      formatYear: 'shortDate',
-      startingDay: 1
-    };
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
+    $scope.startDatePicker = new DatePicker();
+    $scope.endDatePicker= new DatePicker();
 
     function defineValidations() {
       return {
@@ -212,40 +130,6 @@
         required: required || false
       };
     }
-
-    function FeedModel() {
-      this.feed = {_xmlns: "uri:falcon:feed:0.1"};
-    }
-
-    function keyValuePairs(input) {
-      return input.filter(emptyKey).map(entryToString).join(',');
-    }
-
-    function emptyKey (input) {
-      return input.key;
-    }
-
-    function emptyValue (input) {
-      return input && input.value;
-    }
-
-    function emptyFrequency (input) {
-      return input.value.unit ? input.value.quantity : input.value;
-    }
-
-    function entryToString(input) {
-      return input.key + '=' + input.value;
-    }
-
-    function frequencyToString(input) {
-      return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
-    }
-
-    function timeAndDateToString(input) {
-      return input.date + 'T'  + input.time + 'Z';
-    }
-
-    function emptyElement() {return {};}
 
   }]);
 
@@ -374,7 +258,6 @@
       
       
     }]);
-
 
 
   feedModule.controller('FeedSummaryController', [ "$scope", "$filter", function($scope, $filter) {
