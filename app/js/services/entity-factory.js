@@ -257,7 +257,7 @@
 
     var feed = new Feed();
 
-    return transform.apply(feedModel, feed);
+    return transform.apply(feedModel.feed, feed);
   }
 
 })();

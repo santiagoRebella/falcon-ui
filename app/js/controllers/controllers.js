@@ -109,13 +109,16 @@
                     Falcon.serverResponse = error.result;  
                  });  
         };
-        $scope.editEntity = function (type, name) {         
+        $scope.editEntity = function (type, name) {
+
           Falcon.getEntityDefinition(type, name)
             .success(function (data) {
               var entityModel = X2jsService.xml_str2json(data);
               var modelName = (type + "Model");
               EntityModel[modelName] = entityModel;
               $scope[modelName] = angular.copy(entityModel);
+              console.log('edit called: ');
+              console.log($scope.feedModel);
               $scope.editingMode = true;
               $state.go('main.forms.' + type + ".general");
             })
