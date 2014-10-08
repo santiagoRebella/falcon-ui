@@ -25,5 +25,24 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
+  var feedModule = angular.module('app.controllers.feed');
+
+  feedModule.controller('FeedSummaryController', [ "$scope", "$filter", function($scope, $filter) {
+
+    if($scope.transform) {
+      $scope.transform();
+    }
+
+    $scope.hasTags = function() {
+      var filteredTags = $filter('filter')($scope.feed.tags, {key: '!!'});
+      return filteredTags.length > 0;
+    };
+
+    $scope.optional = function(input, output) {
+      return input ? (output || input) : 'Not specified';
+    };
+
+  }]);
+
 
 })();

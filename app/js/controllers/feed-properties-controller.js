@@ -25,5 +25,18 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
+  var feedModule = angular.module('app.controllers.feed');
+
+  feedModule.controller('FeedPropertiesController', [ "$scope",function($scope) {
+    $scope.addCustomProperty = function () {
+      $scope.feed.customProperties.push({key: null, value: null});
+    };
+
+    $scope.removeCustomProperty = function(index) {
+      if(index >= 0 && $scope.feed.customProperties.length > 1) {
+        $scope.feed.customProperties.splice(index, 1);
+      }
+    };
+  }]);
 
 })();

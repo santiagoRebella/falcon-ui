@@ -25,5 +25,20 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
+  var feedModule = angular.module('app.controllers.feed');
+
+  feedModule.controller('FeedLocationController', [ "$scope",function($scope) {
+
+    $scope.toggleStorage = function() {
+      toggle($scope.feed.storage.fileSystem);
+      toggle($scope.feed.storage.catalog);
+    };
+
+    function toggle(storage) {
+      storage.active = !storage.active;
+    }
+
+  }]);
+
 
 })();

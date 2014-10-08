@@ -30,11 +30,12 @@ module.exports = function (grunt) {
       main: {
         files: {
           'dist/js/main.min.js': [
-            'app/js/app.js',
+            'app/js/controllers/feed-module.js',
             'app/js/controllers/*.js',
             'app/js/directives/*.js',
             'app/js/services/*.js',
-            'app/js/util/*.js'
+            'app/js/util/*.js',
+            'app/js/app.js'
           ]
         }
       }

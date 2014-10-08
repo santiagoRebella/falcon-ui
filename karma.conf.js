@@ -24,7 +24,7 @@ module.exports = function(config) {
       'app/js/lib/ui-bootstrap-tpls-0.11.0.min.js',
       'app/js/lib/uirouter.min.js',
       'app/js/lib/xml2json.min.js',
-
+      'app/js/controllers/feed-module.js',
       'app/js/controllers/**/*.js',
       'app/js/services/**/*.js',
       'app/js/directives/**/*.js',
