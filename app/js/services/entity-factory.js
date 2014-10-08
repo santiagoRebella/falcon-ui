@@ -34,7 +34,7 @@
       },
 
       deserialize: function(feedModel) {
-
+        return deserializeFeed(feedModel, EntityTransformerFactory);
       }
 
     };
@@ -250,6 +250,14 @@
 
   }
 
+  function deserializeFeed(feedModel, transformerFactory) {
+    var transform = transformerFactory
+      .transform('_name', 'name')
+      .transform('_description', 'description');
 
+    var feed = new Feed();
+
+    return transform.apply(feedModel, feed);
+  }
 
 })();
