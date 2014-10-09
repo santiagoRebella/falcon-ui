@@ -276,6 +276,8 @@
       .transform('properties.property', 'properties', parseProperties(isFalconProperty))
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
+      .transform('catalog-table', 'storage.catalog.catalogTable.active', parseBoolean)
+      .transform('catalog-table._uri', 'storage.catalog.catalogTable.uri')
       ;
 
     return transform.apply(angular.copy(feedModel.feed), feed);

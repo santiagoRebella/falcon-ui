@@ -318,5 +318,33 @@
 
     });
 
+    it('Should copy catalog uri', function() {
+      var feedModel = {
+        feed: {
+          "catalog-table": {
+            _uri : 'table:uri'
+          }
+        }
+      };
+
+      var feed = factory.deserialize(feedModel);
+
+      expect(feed.storage.catalog.catalogTable.active).toBe(true);
+      expect(feed.storage.catalog.catalogTable.uri).toBe('table:uri');
+    });
+
+    it('Should not copy catalog uri if not present', function() {
+      var feedModel = {
+        feed: {}
+      };
+
+      var feed = factory.deserialize(feedModel);
+
+      expect(feed.storage.catalog.active).toBe(false);
+      expect(feed.storage.catalog.catalogTable.uri).toBe(null);
+    });
+
+
+
   });
 })();
