@@ -25,6 +25,11 @@
   <ACL owner="ambari_qa" group="users" permission="0755"/>
   <schema location="Loc" provider="Prov"/>
   <properties>
+    <property name="queueName" value="QueueNameValue"/>
     <property name="jobPriority" value="NORMAL"/>
+    <property name="parallel" value="ParallelValue"/>
+    <property name="maxMaps" value="MaxMapsValue"/>
+    <property name="mapBandwidthKB" value="MapBandwidthKBValue"/>
+    <property name="Prop1" value="Value1"/>
   </properties>
 </feed>

@@ -195,6 +195,77 @@
         expect(feed.availabilityFlag).toBe(null);
       });
 
+      it('Should copy custom properties', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'Prop1', _value: 'Value1'},
+              {_name: 'Prop2', _value: 'Value2'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.customProperties.length).toBe(2);
+        expect(feed.customProperties[0].key).toBe('Prop1');
+        expect(feed.customProperties[0].value).toBe('Value1');
+        expect(feed.customProperties[1].key).toBe('Prop2');
+        expect(feed.customProperties[1].value).toBe('Value2');
+      });
+
+      it('Should not copy falcon properties into the custom properties', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'queueName', _value: 'QueueName'},
+              {_name: 'Prop1', _value: 'Value1'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.customProperties.length).toBe(1);
+        expect(feed.customProperties[0].key).toBe('Prop1');
+        expect(feed.customProperties[0].value).toBe('Value1');
+      });
+
+      it('Should copy queueName properties into properties', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'queueName', _value: 'QueueName'},
+              {_name: 'Prop1', _value: 'Value1'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.properties.length).toBe(1);
+        expect(feed.properties[0].key).toBe('queueName');
+        expect(feed.properties[0].value).toBe('QueueName');
+      });
+
+      it('Should copy timeout as a Frequency Object', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'queueName', _value: 'QueueName'},
+              {_name: 'timeout', _value: 'days(4)'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.properties.length).toBe(2);
+        expect(feed.properties[1].key).toBe('timeout');
+        expect(feed.properties[1].value.quantity).toBe('4');
+        expect(feed.properties[1].value.unit).toBe('days');
+      });
+
     });
 
   });

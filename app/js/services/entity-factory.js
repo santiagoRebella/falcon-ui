@@ -255,6 +255,8 @@
   }
 
   function deserializeFeed(feedModel, transformerFactory) {
+
+
     var transform = transformerFactory
       .transform('_name', 'name')
       .transform('_description', 'description')
@@ -268,7 +270,10 @@
       .transform('frequency','frequency', parseFrequency)
       .transform('late-arrival','lateArrival.active', parseBoolean)
       .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
-      .transform('availabilityFlag', 'availabilityFlag');
+      .transform('availabilityFlag', 'availabilityFlag')
+      .transform('properties.property', 'customProperties', parseProperties(isCustomProperty))
+      .transform('properties.property', 'properties', parseProperties(isFalconProperty));
+
 
     var feed = new Feed();
 
@@ -291,6 +296,36 @@
 
   function parseBoolean(input) {
     return input !== undefined && input !== null;
+  }
+
+  function parseProperty(property) {
+    var value = property._name !== 'timeout' ? property._value : parseFrequency(property._value);
+    return new Entry(property._name, value);
+  }
+
+
+  function parseProperties(filterFunction) {
+
+    return function(properties) {
+      return properties.filter(filterFunction).map(parseProperty);
+    };
+  }
+
+  var falconProperties = {
+    queueName: true,
+    jobPriority: true,
+    timeout: true,
+    parallel: true,
+    maxMaps: true,
+    mapBandwidthKB: true
+  };
+
+  function isCustomProperty(property) {
+    return !isFalconProperty(property);
+  }
+
+  function isFalconProperty(property) {
+    return falconProperties[property._name];
   }
 
 })();
