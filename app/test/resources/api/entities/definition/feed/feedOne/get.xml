@@ -18,9 +18,9 @@
     </cluster>
   </clusters>
   <locations>
-    <location type="data" path="/"/>
-    <location type="stats" path="/"/>
-    <location type="meta" path="/"/>
+    <location type="data" path="/data1"/>
+    <location type="stats" path="/stats1"/>
+    <location type="meta" path="/meta1"/>
   </locations>
   <ACL owner="ambari_qa" group="users" permission="0755"/>
   <schema location="Loc" provider="Prov"/>

@@ -303,7 +303,7 @@
         expect(locations[1].type).toBe('stats');
         expect(locations[1].path).toBe('/');
         expect(locations[2].type).toBe('meta');
-        expect(locations[1].path).toBe('/');
+        expect(locations[2].path).toBe('/');
       });
 
       it('Should set file system active flag as false if there are no locations are', function() {
