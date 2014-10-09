@@ -29,6 +29,10 @@
         return new Cluster(type, selected);
       },
 
+      newEntity: function(key, value) {
+        return new Entry(key, value);
+      },
+
       transform: function(feed) {
         return transformFeed(feed, EntityTransformerFactory);
       },
@@ -253,11 +257,27 @@
   function deserializeFeed(feedModel, transformerFactory) {
     var transform = transformerFactory
       .transform('_name', 'name')
-      .transform('_description', 'description');
+      .transform('_description', 'description')
+      .transform('tags', 'tags', parseKeyValuePairs)
+      .transform('groups','groups')
+      .transform('ACL._owner','ACL.owner')
+      .transform('ACL._group','ACL.group')
+      .transform('ACL._permission','ACL.permission')
+      .transform('schema._location','schema.location')
+      .transform('schema._provider','schema.provider');
 
     var feed = new Feed();
 
     return transform.apply(feedModel.feed, feed);
+  }
+
+  function parseKeyValue(keyValue) {
+    var parsedPair = keyValue.split('=');
+    return new Entry(parsedPair[0], parsedPair[1]);
+  }
+
+  function parseKeyValuePairs(tagsString) {
+    return tagsString.split(',').map(parseKeyValue);
   }
 
 })();

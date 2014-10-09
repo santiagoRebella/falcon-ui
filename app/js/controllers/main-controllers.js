@@ -7,6 +7,7 @@
 	                             function($scope, $timeout, Falcon, FileApi, EntityModel, $state, X2jsService, validationService) {
 
     $scope.validations = validationService.define();
+    $scope.models = {};
 		$scope.handleFile = function (evt) {
 			FileApi.loadFile(evt).then(function () {       
         Falcon.postSubmitEntity(FileApi.fileRaw, EntityModel.type).success(function (response) {
@@ -115,7 +116,7 @@
               var entityModel = X2jsService.xml_str2json(data);
               var modelName = (type + "Model");
               EntityModel[modelName] = entityModel;
-              $scope[modelName] = angular.copy(entityModel);
+              $scope.models[modelName] = angular.copy(entityModel);
               $scope.editingMode = true;
               $state.go('main.forms.' + type + ".general");
             })

@@ -29,6 +29,7 @@
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
+      scope.models = {};
       entityModelServiceMock = jasmine.createSpyObj('EntityModel', ['newFeedModel']);
       entityFactoryMock = jasmine.createSpyObj('EntityFactory', ['deserialize', 'newFeed']);
       controllerProvider = $controller;
@@ -479,7 +480,7 @@
         var feedModel = {name: 'FeedName'}
         entityFactoryMock.deserialize.andReturn(deserialzedFeed);
         entityFactoryMock.newFeed.andReturn(createdFeed);
-        scope.feedModel = feedModel;
+        scope.models.feedModel = feedModel;
 
         var feed = scope.loadOrCreateEntity();
 
@@ -506,11 +507,11 @@
       it('Should clear the feedModel from the scope', function() {
         controller = createController();
         entityFactoryMock.newFeed.andReturn({});
-        scope.feedModel = {};
+        scope.models.feedModel = {};
 
         scope.loadOrCreateEntity();
 
-        expect(scope.feedModel).toBe(null);
+        expect(scope.models.feedModel).toBe(null);
       });
 
 

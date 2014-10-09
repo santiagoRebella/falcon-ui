@@ -47,6 +47,16 @@
       });
     });
 
+    describe('newEntry', function() {
+      it('Should return a new cluster', function() {
+
+        var entry = factory.newEntity('SomeKey', 'SomeValue');
+
+        expect(entry.key).toBe('SomeKey');
+        expect(entry.value).toBe('SomeValue');
+      });
+    });
+
     describe('deserialize', function() {
       it('Should copy the general information', function() {
 
@@ -60,10 +70,68 @@
 
         var feed = factory.deserialize(feedModel);
 
-
         expect(feed.name).toBe(feedModel.feed._name);
         expect(feed.description).toBe(feedModel.feed._description);
+        expect(feed.xmlns).toBe(undefined);
+      });
 
+
+    });
+    describe('deserialize', function() {
+      it('Should copy tags', function() {
+
+        var feedModel = {
+          feed: {
+            tags: 'owner=USMarketing,classification=Secure'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.tags[0].key).toBe('owner');
+        expect(feed.tags[0].value).toBe('USMarketing');
+        expect(feed.tags[1].key).toBe('classification');
+        expect(feed.tags[1].value).toBe('Secure');
+      });
+
+      it('Should copy groups', function() {
+
+        var feedModel = {
+          feed: {
+            groups: 'churnAnalysisDataPipeline,Group2,Group3'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.groups).toBe(feedModel.feed.groups);
+      });
+
+      it('Should copy ACL', function() {
+        var feedModel = {
+          feed: {
+            ACL: {_owner: 'ambari-qa', _group: 'users', _permission: '0755' }
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.ACL.owner).toBe(feedModel.feed.ACL._owner);
+        expect(feed.ACL.group).toBe(feedModel.feed.ACL._group);
+        expect(feed.ACL.permission).toBe(feedModel.feed.ACL._permission);
+      });
+
+      it('Should copy Schema', function() {
+        var feedModel = {
+          feed: {
+            schema: {_location: '/location', _provider: 'provider'}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.schema.location).toBe(feedModel.feed.schema._location);
+        expect(feed.schema.provider).toBe(feedModel.feed.schema._provider);
       });
 
     });

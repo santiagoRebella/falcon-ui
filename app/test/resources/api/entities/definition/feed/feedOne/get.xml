@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">
+  <tags>owner=USMarketing,classification=Secure,externalSource=USProdEmailServers,externalTarget=BITools</tags>
+  <groups>churnAnalysisDataPipeline</groups>
   <frequency>hours(2)</frequency>
   <timezone>UTC</timezone>
   <late-arrival cut-off="hours(5)"/>
@@ -19,7 +21,7 @@
     <location type="stats" path="/"/>
     <location type="meta" path="/"/>
   </locations>
-  <ACL permission="*"/>
+  <ACL owner="ambari_qa" group="users" permission="0755"/>
   <schema location="Loc" provider="Prov"/>
   <properties>
     <property name="jobPriority" value="NORMAL"/>
