@@ -94,6 +94,19 @@
         expect(feed.tags[1].value).toBe('Secure');
       });
 
+      it('Should groups', function() {
+
+        var feedModel = {
+          feed: {
+            groups: 'churnAnalysisDataPipeline,Group2,Group3'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.groups).toBe(feedModel.feed.groups);
+      });
+
     });
 
   });

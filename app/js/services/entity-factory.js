@@ -259,15 +259,16 @@
       .transform('_name', 'name')
       .transform('_description', 'description')
       .transform('tags', 'tags', function(tagsString) {
-        return tagsString.split(',').map(parsekeyValue);
-       });
+        return tagsString.split(',').map(parseKeyValue);
+      })
+      .transform('groups','groups');
 
     var feed = new Feed();
 
     return transform.apply(feedModel.feed, feed);
   }
 
-  function parsekeyValue(keyValue) {
+  function parseKeyValue(keyValue) {
     var parsedPair = keyValue.split('=');
     return new Entry(parsedPair[0], parsedPair[1]);
   }
