@@ -147,6 +147,32 @@
         expect(feed.frequency.quantity).toBe('20');
       });
 
+      it('Should copy late arrival', function() {
+        var feedModel = {
+          feed: {
+            "late-arrival": {"_cut-off": 'days(10)'}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.lateArrival.active).toBe(true);
+        expect(feed.lateArrival.cutOff.unit).toBe('days');
+        expect(feed.lateArrival.cutOff.quantity).toBe('10');
+      });
+
+      it('Should not copy late arrival when is not present', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.lateArrival.active).toBe(false);
+        expect(feed.lateArrival.cutOff.unit).toBe('hours');
+        expect(feed.lateArrival.cutOff.quantity).toBe(null);
+      });
+
     });
 
   });

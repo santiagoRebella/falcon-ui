@@ -265,7 +265,9 @@
       .transform('ACL._permission','ACL.permission')
       .transform('schema._location','schema.location')
       .transform('schema._provider','schema.provider')
-      .transform('frequency','frequency', parseFrequency);
+      .transform('frequency','frequency', parseFrequency)
+      .transform('late-arrival','lateArrival.active', parseBoolean)
+      .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency);
 
     var feed = new Feed();
 
@@ -284,6 +286,10 @@
   function parseFrequency(frequencyString) {
     var parsedFrequency = frequencyString.split('(');
     return new Frequency(parsedFrequency[1].split(')')[0], parsedFrequency[0]);
+  }
+
+  function parseBoolean(input) {
+    return input !== undefined && input !== null;
   }
 
 })();
