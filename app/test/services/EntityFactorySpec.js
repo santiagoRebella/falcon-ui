@@ -321,7 +321,7 @@
     it('Should copy catalog uri', function() {
       var feedModel = {
         feed: {
-          "catalog-table": {
+          "table": {
             _uri : 'table:uri'
           }
         }
