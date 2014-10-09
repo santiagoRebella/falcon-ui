@@ -37,7 +37,8 @@
       unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
       osPath: validate(/^[^\0]+$/),
       twoDigits: validate(/^([0-9]){1,2}$/),
-      tableUri: validate(/^[^\0]+$/)
+      tableUri: validate(/^[^\0]+$/),
+      versionNumbers: validate(/^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/)
     };
   }
   function validate(pattern, maxlength, minlength, required) {

@@ -205,8 +205,8 @@
                 Falcon.success = false;                 
                 Falcon.serverResponse = error.result; 
                 
-            });      
-       }; 
+            });     
+       };
        
        $scope.updateCluster = function () {
            Falcon.postUpdateEntity($scope.jsonString, "cluster", $scope.clusterEntity.cluster._name).success(function (response) {
@@ -221,7 +221,7 @@
                 Falcon.success = false;                 
                 Falcon.serverResponse = error.result; 
                 $state.go('main'); 
-            });       
+            });     
        };
     }]);    
 
