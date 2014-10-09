@@ -266,6 +266,56 @@
         expect(feed.properties[1].value.unit).toBe('days');
       });
 
+      it('Should copy file system locations', function() {
+        var feedModel = {
+          feed: {
+            locations: {location: [
+              {_type: 'data', _path: '/none1'},
+              {_type: 'stats', _path: '/none2'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+        var locations = feed.storage.fileSystem.locations;
+
+        expect(feed.storage.fileSystem.active).toBe(true);
+        expect(locations.length).toBe(2);
+        expect(locations[0].type).toBe('data');
+        expect(locations[0].path).toBe('/none1');
+        expect(locations[1].type).toBe('stats');
+        expect(locations[1].path).toBe('/none2');
+      });
+
+      it('Should not copy file system locations if they are not defined and keep the defaults', function() {
+        var feedModel = {
+          feed: {
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+        var locations = feed.storage.fileSystem.locations;
+
+        expect(feed.storage.fileSystem.active).toBe(false);
+        expect(locations.length).toBe(3);
+        expect(locations[0].type).toBe('data');
+        expect(locations[0].path).toBe('/');
+        expect(locations[1].type).toBe('stats');
+        expect(locations[1].path).toBe('/');
+        expect(locations[2].type).toBe('meta');
+        expect(locations[1].path).toBe('/');
+      });
+
+      it('Should set file system active flag as false if there are no locations are', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.storage.fileSystem.active).toBe(false);
+      });
+
     });
 
   });

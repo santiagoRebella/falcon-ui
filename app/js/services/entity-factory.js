@@ -116,12 +116,12 @@
 
   function FileSystem() {
     this.active = true;
-    this.locations = [new Location('data'), new Location('stats'), new Location('meta')];
+    this.locations = [new Location('data','/'), new Location('stats','/'), new Location('meta','/')];
   }
 
-  function Location(type) {
+  function Location(type, path) {
     this.type = type;
-    this.path= '/';
+    this.path= path;
     this.focused = false;
   }
 
@@ -255,7 +255,8 @@
   }
 
   function deserializeFeed(feedModel, transformerFactory) {
-
+    var feed = new Feed();
+    feed.storage.fileSystem.active = false;
 
     var transform = transformerFactory
       .transform('_name', 'name')
@@ -272,12 +273,12 @@
       .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
       .transform('availabilityFlag', 'availabilityFlag')
       .transform('properties.property', 'customProperties', parseProperties(isCustomProperty))
-      .transform('properties.property', 'properties', parseProperties(isFalconProperty));
+      .transform('properties.property', 'properties', parseProperties(isFalconProperty))
+      .transform('locations', 'storage.fileSystem.active', parseBoolean)
+      .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
+      ;
 
-
-    var feed = new Feed();
-
-    return transform.apply(feedModel.feed, feed);
+    return transform.apply(angular.copy(feedModel.feed), feed);
   }
 
   function parseKeyValue(keyValue) {
@@ -305,10 +306,17 @@
 
 
   function parseProperties(filterFunction) {
-
     return function(properties) {
       return properties.filter(filterFunction).map(parseProperty);
     };
+  }
+
+  function parseLocations(locations) {
+    return locations.map(parseLocation);
+  }
+
+  function parseLocation(location) {
+    return new Location(location._type, location._path);
   }
 
   var falconProperties = {
