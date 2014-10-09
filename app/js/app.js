@@ -1,6 +1,6 @@
 (function () {
 
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout', 'app.controllers.feed', 'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout', 'app.controllers.feed', 'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker', 'app.services.validation']);
 
   app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 
