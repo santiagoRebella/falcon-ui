@@ -134,6 +134,19 @@
         expect(feed.schema.provider).toBe(feedModel.feed.schema._provider);
       });
 
+      it('Should copy frequency', function() {
+        var feedModel = {
+          feed: {
+            frequency: 'hours(20)'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.frequency.unit).toBe('hours');
+        expect(feed.frequency.quantity).toBe('20');
+      });
+
     });
 
   });

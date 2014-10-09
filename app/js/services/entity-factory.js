@@ -51,7 +51,7 @@
     this.tags = [new Entry(null, null)];
     this.ACL = new ACL();
     this.schema = new Schema();
-    this.frequency = new Frequency();
+    this.frequency = new Frequency(null, 'hours');
     this.lateArrival = new LateArrival();
     this.availabilityFlag = null;
     this.properties = feedProperties();
@@ -77,7 +77,7 @@
     return [
       new Entry('queueName', null),
       new Entry('jobPriority', 'NORMAL'),
-      new Entry('timeout', new Frequency()),
+      new Entry('timeout', new Frequency(null, 'hours')),
       new Entry('parallel', null),
       new Entry('maxMaps', null),
       new Entry('mapBandwidthKB', null)
@@ -86,12 +86,12 @@
 
   function LateArrival() {
     this.active = false;
-    this.cutOff = new Frequency();
+    this.cutOff = new Frequency(null, 'hours');
   }
 
-  function Frequency() {
-    this.quantity = null;
-    this.unit = 'hours';
+  function Frequency(quantity, unit) {
+    this.quantity = quantity;
+    this.unit = unit;
   }
 
   function Entry(key, value) {
@@ -129,7 +129,7 @@
     this.name = null;
     this.type = type;
     this.selected = selected;
-    this.retention = new Frequency();
+    this.retention = new Frequency(null, 'hours');
     this.retention.action = null;
     this.validity = new Validity();
     this.storage = new Storage();
@@ -264,7 +264,8 @@
       .transform('ACL._group','ACL.group')
       .transform('ACL._permission','ACL.permission')
       .transform('schema._location','schema.location')
-      .transform('schema._provider','schema.provider');
+      .transform('schema._provider','schema.provider')
+      .transform('frequency','frequency', parseFrequency);
 
     var feed = new Feed();
 
@@ -278,6 +279,11 @@
 
   function parseKeyValuePairs(tagsString) {
     return tagsString.split(',').map(parseKeyValue);
+  }
+
+  function parseFrequency(frequencyString) {
+    var parsedFrequency = frequencyString.split('(');
+    return new Frequency(parsedFrequency[1].split(')')[0], parsedFrequency[0]);
   }
 
 })();
