@@ -37,8 +37,8 @@
                datePickerFactory) {
 
         $scope.loadOrCreateEntity = function() {
-          var feedModel = $scope.feedModel;
-          $scope.feedModel = null;
+          var feedModel = $scope.models.feedModel;
+          $scope.models.feedModel = null;
           return feedModel ? entityFactory.deserialize(feedModel) : entityFactory.newFeed();
         };
 

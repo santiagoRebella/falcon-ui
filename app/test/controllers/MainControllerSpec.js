@@ -38,6 +38,7 @@
 
 
       scope = $rootScope.$new();
+      scope.models = {};
       falconServiceMock.getEntities.andReturn(successResponse({}));
 
       controller = $controller('mainCtrl', {
@@ -99,8 +100,8 @@
 
           scope.editEntity('feed', 'myFeed');
 
-          expect(scope.feedModel).toNotBe(feedModel);
-          expect(scope.feedModel).toEqual(feedModel);
+          expect(scope.models.feedModel).toNotBe(feedModel);
+          expect(scope.models.feedModel).toEqual(feedModel);
         });
       });
 
