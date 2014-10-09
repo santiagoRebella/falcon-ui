@@ -267,7 +267,8 @@
       .transform('schema._provider','schema.provider')
       .transform('frequency','frequency', parseFrequency)
       .transform('late-arrival','lateArrival.active', parseBoolean)
-      .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency);
+      .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
+      .transform('availabilityFlag', 'availabilityFlag');
 
     var feed = new Feed();
 

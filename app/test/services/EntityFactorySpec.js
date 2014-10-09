@@ -173,6 +173,28 @@
         expect(feed.lateArrival.cutOff.quantity).toBe(null);
       });
 
+      it('Should copy availabilityFlag', function() {
+        var feedModel = {
+          feed: {
+            availabilityFlag: 'Available'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.availabilityFlag).toBe(feedModel.feed.availabilityFlag);
+      });
+
+      it('Should not copy availabilityFlag if not present in the xml', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.availabilityFlag).toBe(null);
+      });
+
     });
 
   });

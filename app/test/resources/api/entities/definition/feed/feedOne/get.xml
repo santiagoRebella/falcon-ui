@@ -2,6 +2,7 @@
 <feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">
   <tags>owner=USMarketing,classification=Secure,externalSource=USProdEmailServers,externalTarget=BITools</tags>
   <groups>churnAnalysisDataPipeline</groups>
+  <availabilityFlag>Available</availabilityFlag>
   <frequency>days(2)</frequency>
   <timezone>UTC</timezone>
   <late-arrival cut-off="hours(5)"/>
