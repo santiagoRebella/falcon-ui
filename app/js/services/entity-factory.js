@@ -261,7 +261,10 @@
       .transform('tags', 'tags', function(tagsString) {
         return tagsString.split(',').map(parseKeyValue);
       })
-      .transform('groups','groups');
+      .transform('groups','groups')
+      .transform('ACL._owner','ACL.owner')
+      .transform('ACL._group','ACL.group')
+      .transform('ACL._permission','ACL.permission');
 
     var feed = new Feed();
 

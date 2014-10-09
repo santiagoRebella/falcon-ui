@@ -94,7 +94,7 @@
         expect(feed.tags[1].value).toBe('Secure');
       });
 
-      it('Should groups', function() {
+      it('Should copy groups', function() {
 
         var feedModel = {
           feed: {
@@ -105,6 +105,22 @@
         var feed = factory.deserialize(feedModel);
 
         expect(feed.groups).toBe(feedModel.feed.groups);
+      });
+
+      it('Should copy ACL', function() {
+
+        var feedModel = {
+          feed: {
+            ACL: {_owner: 'ambari-qa', _group: 'users', _permission: '0755' }
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.ACL.owner).toBe(feedModel.feed.ACL._owner);
+        expect(feed.ACL.group).toBe(feedModel.feed.ACL._group);
+        expect(feed.ACL.permission).toBe(feedModel.feed.ACL._permission);
+
       });
 
     });
