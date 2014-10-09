@@ -5,7 +5,7 @@
       ng-click="handleCluster(cluster, $index)"
       ng-class="{active: cluster.selected}">
       <div>
-        <span class="entypo"
+        <span class="entypo" 
           ng-class="{
             'circled-down': !cluster.selected || cluster.type === 'source' || archiveCluster.active,
             'circled-cross': cluster.selected && cluster.type !== 'source' && !archiveCluster.active
@@ -20,7 +20,7 @@
       <div><span class="entypo circled-plus"></span></div>
       <div><small>Add</small>  Cluster</div>
     </div>
-  </div>
+  </div>  
 
   <div ng-repeat="cluster in feed.clusters" ng-show="cluster.selected">
     <div class="row">
