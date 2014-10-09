@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         preserveComments: false,
         drop_console: false,
         sourceMap: true,
-        banner: '/**** Created by Santiago Rebella ***/'
+        banner: '/**** Apache Falcon UI ***/'
       },
       main: {
         files: {
@@ -105,9 +105,10 @@ module.exports = function (grunt) {
     watch: {
       less: {
         files: ['app/css/*.less', 'app/css/less/*.less'],
-        tasks: ['less', 'csslint'],
+        tasks: ['less'],
         options: {
-          nospawn: true
+          nospawn: true,
+          livereload: true
         }
       },
       resources: {
@@ -184,6 +185,8 @@ module.exports = function (grunt) {
   grunt.registerTask('server', ['express', 'w']);
   grunt.registerTask('default', ['server']);
   grunt.registerTask('data64', ['datauri']);
+  
+  grunt.registerTask('dev', ['server', 'test']);
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
