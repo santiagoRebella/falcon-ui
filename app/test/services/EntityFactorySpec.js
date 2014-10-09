@@ -108,7 +108,6 @@
       });
 
       it('Should copy ACL', function() {
-
         var feedModel = {
           feed: {
             ACL: {_owner: 'ambari-qa', _group: 'users', _permission: '0755' }
@@ -120,7 +119,19 @@
         expect(feed.ACL.owner).toBe(feedModel.feed.ACL._owner);
         expect(feed.ACL.group).toBe(feedModel.feed.ACL._group);
         expect(feed.ACL.permission).toBe(feedModel.feed.ACL._permission);
+      });
 
+      it('Should copy Schema', function() {
+        var feedModel = {
+          feed: {
+            schema: {_location: '/location', _provider: 'provider'}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.schema.location).toBe(feedModel.feed.schema._location);
+        expect(feed.schema.provider).toBe(feedModel.feed.schema._provider);
       });
 
     });

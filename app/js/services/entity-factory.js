@@ -258,13 +258,13 @@
     var transform = transformerFactory
       .transform('_name', 'name')
       .transform('_description', 'description')
-      .transform('tags', 'tags', function(tagsString) {
-        return tagsString.split(',').map(parseKeyValue);
-      })
+      .transform('tags', 'tags', parseKeyValuePairs)
       .transform('groups','groups')
       .transform('ACL._owner','ACL.owner')
       .transform('ACL._group','ACL.group')
-      .transform('ACL._permission','ACL.permission');
+      .transform('ACL._permission','ACL.permission')
+      .transform('schema._location','schema.location')
+      .transform('schema._provider','schema.provider');
 
     var feed = new Feed();
 
@@ -274,6 +274,10 @@
   function parseKeyValue(keyValue) {
     var parsedPair = keyValue.split('=');
     return new Entry(parsedPair[0], parsedPair[1]);
+  }
+
+  function parseKeyValuePairs(tagsString) {
+    return tagsString.split(',').map(parseKeyValue);
   }
 
 })();
