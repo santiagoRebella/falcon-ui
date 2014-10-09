@@ -31,10 +31,10 @@
     [ "$scope", "$state", "$timeout",
       "Falcon", "EntityModel", "X2jsService",
       "EntityTransformerFactory", "EntityFactory",
-      "DatePickerFactory", "ValidationService",
+      "DatePickerFactory",
       function($scope, $state, $timeout, Falcon, EntityModel,
                X2jsService, transformerFactory, entityFactory,
-               datePickerFactory, validationService) {
+               datePickerFactory) {
 
         $scope.loadOrCreateEntity = function() {
           var feedModel = $scope.feedModel;
@@ -44,7 +44,6 @@
 
         $scope.init = function() {
           $scope.feed = $scope.loadOrCreateEntity();
-          $scope.validations = validationService.define();
           $scope.startDatePicker = datePickerFactory.newDatePicker();
           $scope.endDatePicker= datePickerFactory.newDatePicker();
         };
@@ -108,7 +107,6 @@
         };
 
         $scope.cancel = function() {
-          console.log('cancel called');
           $scope.feed = null;
         };
 

@@ -25,7 +25,7 @@
    * @requires EntityModel the entity model to copy the feed entity from
    * @requires Falcon the falcon entity service
    */
-  angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer', 'app.services.entity.factory', 'falcon.util.datepicker', 'app.services.validation']);
+  angular.module('app.controllers.feed', ['app.services', 'app.services.entity.model', 'app.services.entity.transformer', 'app.services.entity.factory', 'falcon.util.datepicker']);
 
 
 })();
