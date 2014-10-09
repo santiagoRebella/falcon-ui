@@ -276,7 +276,7 @@
       .transform('properties.property', 'properties', parseProperties(isFalconProperty))
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
-      .transform('table', 'storage.catalog.catalogTable.active', parseBoolean)
+      .transform('table', 'storage.catalog.active', parseBoolean)
       .transform('table._uri', 'storage.catalog.catalogTable.uri')
       ;
 

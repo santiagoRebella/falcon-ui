@@ -329,7 +329,7 @@
 
       var feed = factory.deserialize(feedModel);
 
-      expect(feed.storage.catalog.catalogTable.active).toBe(true);
+      expect(feed.storage.catalog.active).toBe(true);
       expect(feed.storage.catalog.catalogTable.uri).toBe('table:uri');
     });
 
