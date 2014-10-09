@@ -29,6 +29,10 @@
         return new Cluster(type, selected);
       },
 
+      newEntity: function(key, value) {
+        return new Entry(key, value);
+      },
+
       transform: function(feed) {
         return transformFeed(feed, EntityTransformerFactory);
       },
@@ -253,11 +257,19 @@
   function deserializeFeed(feedModel, transformerFactory) {
     var transform = transformerFactory
       .transform('_name', 'name')
-      .transform('_description', 'description');
+      .transform('_description', 'description')
+      .transform('tags', 'tags', function(tagsString) {
+        return tagsString.split(',').map(parsekeyValue);
+       });
 
     var feed = new Feed();
 
     return transform.apply(feedModel.feed, feed);
+  }
+
+  function parsekeyValue(keyValue) {
+    var parsedPair = keyValue.split('=');
+    return new Entry(parsedPair[0], parsedPair[1]);
   }
 
 })();

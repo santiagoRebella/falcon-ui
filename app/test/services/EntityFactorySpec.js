@@ -47,6 +47,16 @@
       });
     });
 
+    describe('newEntry', function() {
+      it('Should return a new cluster', function() {
+
+        var entry = factory.newEntity('SomeKey', 'SomeValue');
+
+        expect(entry.key).toBe('SomeKey');
+        expect(entry.value).toBe('SomeValue');
+      });
+    });
+
     describe('deserialize', function() {
       it('Should copy the general information', function() {
 
@@ -60,10 +70,28 @@
 
         var feed = factory.deserialize(feedModel);
 
-
         expect(feed.name).toBe(feedModel.feed._name);
         expect(feed.description).toBe(feedModel.feed._description);
+        expect(feed.xmlns).toBe(undefined);
+      });
 
+
+    });
+    describe('deserialize', function() {
+      it('Should copy tags', function() {
+
+        var feedModel = {
+          feed: {
+            tags: 'owner=USMarketing,classification=Secure'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.tags[0].key).toBe('owner');
+        expect(feed.tags[0].value).toBe('USMarketing');
+        expect(feed.tags[1].key).toBe('classification');
+        expect(feed.tags[1].value).toBe('Secure');
       });
 
     });
