@@ -37,7 +37,7 @@
         <input type="text" class="form-control" ng-model="_interface._endpoint">
       </div>
       <div class="col-xs-4">
-        <input type="text" class="form-control" ng-pattern="/^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/" ng-model="_interface._version">
+        <input type="text" class="form-control" ng-pattern="validations.versionNumbers.pattern" ng-model="_interface._version">
       </div>
     </div>
     
