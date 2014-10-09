@@ -41,7 +41,7 @@
       scope.models = {};
       falconServiceMock.getEntities.andReturn(successResponse({}));
 
-      controller = $controller('mainCtrl', {
+      controller = $controller('DashboardCtrl', {
         $scope: scope,
         $timeout: {},
         Falcon: falconServiceMock,

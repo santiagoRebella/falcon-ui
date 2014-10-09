@@ -18,7 +18,7 @@
 (function () {
   'use strict';
 
-  describe('clusterFormCtrl', function () {
+  describe('ClusterFormCtrl', function () {
 
     var controller;
     var scope;
@@ -31,12 +31,12 @@
     };
 
 
-    beforeEach(module('app.controllers'));
+    beforeEach(module('app.controllers.cluster'));
 
     beforeEach(inject(function($q, $rootScope, $controller) {
       scope = $rootScope.$new();
 
-      controller = $controller('clusterFormCtrl', {
+      controller = $controller('ClusterFormCtrl', {
         $scope: scope,
         $timeout: {},
         Falcon: {},

@@ -1,6 +1,11 @@
 (function () {
 
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 'app.controllers.layout', 'app.controllers.feed', 'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker', 'app.services.validation']);
+  var app = angular.module('app', [
+                                    'ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 
+                                    'app.controllers.layout', 'app.controllers.cluster', 'app.controllers.feed', 
+                                    'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker', 
+                                    'app.services.validation'
+                                  ]); 
 
   app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
 
@@ -13,13 +18,13 @@
       })
       .state('main', {
         templateUrl: 'html/mainTpl.html',
-        controller: 'mainCtrl'
+        controller: 'DashboardCtrl'
       })
       .state('main.forms', {
         templateUrl: 'html/formsTpl.html'
-      })
+      }) 
       .state('main.forms.cluster', {
-        controller: 'clusterFormCtrl',
+        controller: 'ClusterFormCtrl',
         templateUrl: 'html/cluster/clusterFormTpl.html'
       })
       .state('main.forms.cluster.general', {
@@ -59,10 +64,6 @@
       .state('main.forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html',
         controller: 'FeedSummaryController'
-      })
-      .state('main.dashboard', {
-        templateUrl: 'html/dashboardTpl.html',
-        controller: 'dashboardCtrl'
       });
   }]);
 
