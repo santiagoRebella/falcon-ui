@@ -248,6 +248,26 @@
         expect(feed.properties[0].value).toBe('QueueName');
       });
 
+      xit('Should leave the default properties if no properties appear on the xml', function() {
+        var feedModel = {
+          feed: {
+            properties: {
+              property: [
+                {key: 'jobPriority', value: 'NORMAL'}
+              ]
+            }
+          }
+        };
+
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.properties.length).toBe(6);
+        //expect(feed.properties[0].key).toBe('queueName');
+        //expect(feed.properties[0].value).toBe(null);
+      });
+
+
       it('Should copy timeout as a Frequency Object', function() {
         var feedModel = {
           feed: {

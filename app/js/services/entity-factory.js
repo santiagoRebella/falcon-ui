@@ -84,6 +84,12 @@
     ];
   }
 
+  function feedCustomProperties() {
+    return [
+      new Entry('queueName', null),
+    ];
+  }
+
   function LateArrival() {
     this.active = false;
     this.cutOff = new Frequency(null, 'hours');
@@ -257,6 +263,8 @@
   function deserializeFeed(feedModel, transformerFactory) {
     var feed = new Feed();
     feed.storage.fileSystem.active = false;
+    var defaultCustomProperties = feed.storage.customProperties;
+    var defaultProperties = feed.storage.properties;
 
     var transform = transformerFactory
       .transform('_name', 'name')
@@ -272,8 +280,8 @@
       .transform('late-arrival','lateArrival.active', parseBoolean)
       .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
       .transform('availabilityFlag', 'availabilityFlag')
-      .transform('properties.property', 'customProperties', parseCustomProperties)
-      .transform('properties.property', 'properties', parseProperties)
+      .transform('properties.property', 'customProperties', parseProperties(isCustomProperty, feedProperties()))
+      .transform('properties.property', 'properties', parseProperties(isFalconProperty, feedCustomProperties()))
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
       .transform('table', 'storage.catalog.active', parseBoolean)
@@ -321,13 +329,17 @@
   }
 
 
-  function parseCustomProperties(properties) {
-    return filter(properties, isCustomProperty).map(parseProperty);
+  function parseProperties(filterCallback, defaults) {
+    return function(properties) {
+      var result = filter(properties, filterCallback).map(parseProperty);
+      return  result;
+    }
   }
 
-  function parseProperties(properties) {
-    return filter(properties, isFalconProperty).map(parseProperty);
+  function merge(base, values) {
+    //index by default, loop new values, for each value, lookup key in indexed defaults, if found, update, else append
   }
+
 
   function filter(array, callback) {
     var out = [];
@@ -351,6 +363,16 @@
 
   function parseLocation(location) {
     return new Location(location._type, location._path);
+  }
+
+  function indexBy(array, property) {
+    var map = [];
+
+    array.forEach(function(element) {
+      map[element[property]] = element;
+    });
+
+    return map;
   }
 
 

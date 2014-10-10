@@ -41,6 +41,7 @@
       versionNumbers: validate(/^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}$/)
     };
   }
+
   function validate(pattern, maxlength, minlength, required) {
     return {
       pattern: pattern,
@@ -49,6 +50,5 @@
       required: required || false
     };
   }
-
 
 })();
