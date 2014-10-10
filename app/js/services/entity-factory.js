@@ -19,7 +19,7 @@
   'use strict';
   var module = angular.module('app.services.entity.factory', ['app.services.entity.transformer']);
 
-  module.factory('EntityFactory', ['EntityTransformerFactory', function(EntityTransformerFactory) {
+  module.factory('EntityFactory', ['EntityTransformerFactory',  "$filter", function(EntityTransformerFactory,  $filter) {
     return {
       newFeed: function() {
         return new Feed();
@@ -272,16 +272,16 @@
       .transform('late-arrival','lateArrival.active', parseBoolean)
       .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
       .transform('availabilityFlag', 'availabilityFlag')
-      .transform('properties.property', 'customProperties', parseProperties(isCustomProperty))
-      .transform('properties.property', 'properties', parseProperties(isFalconProperty))
+      .transform('properties.property', 'customProperties', parseCustomProperties)
+      .transform('properties.property', 'properties', parseProperties)
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
       .transform('table', 'storage.catalog.active', parseBoolean)
-      .transform('table._uri', 'storage.catalog.catalogTable.uri')
-      ;
+      .transform('table._uri', 'storage.catalog.catalogTable.uri');
 
     return transform.apply(angular.copy(feedModel.feed), feed);
   }
+
 
   function parseKeyValue(keyValue) {
     var parsedPair = keyValue.split('=');
@@ -301,25 +301,6 @@
     return !!input;
   }
 
-  function parseProperty(property) {
-    var value = property._name !== 'timeout' ? property._value : parseFrequency(property._value);
-    return new Entry(property._name, value);
-  }
-
-
-  function parseProperties(filterFunction) {
-    return function(properties) {
-      return properties.filter(filterFunction).map(parseProperty);
-    };
-  }
-
-  function parseLocations(locations) {
-    return locations.map(parseLocation);
-  }
-
-  function parseLocation(location) {
-    return new Location(location._type, location._path);
-  }
 
   var falconProperties = {
     queueName: true,
@@ -330,12 +311,47 @@
     mapBandwidthKB: true
   };
 
+
   function isCustomProperty(property) {
-    return !isFalconProperty(property);
+    return !falconProperties[property._name];
   }
 
   function isFalconProperty(property) {
     return falconProperties[property._name];
   }
+
+
+  function parseCustomProperties(properties) {
+    return filter(properties, isCustomProperty).map(parseProperty);
+  }
+
+  function parseProperties(properties) {
+    return filter(properties, isFalconProperty).map(parseProperty);
+  }
+
+  function filter(array, callback) {
+    var out = [];
+    for(var i = 0, n = array.length; i < n; i++) {
+      if(callback(array[i])) {
+        out.push(array[i]);
+      }
+    }
+    return out;
+  }
+
+
+  function parseProperty(property) {
+    var value = property._name !== 'timeout' ? property._value : parseFrequency(property._value);
+    return new Entry(property._name, value);
+  }
+
+  function parseLocations(locations) {
+    return locations.map(parseLocation);
+  }
+
+  function parseLocation(location) {
+    return new Location(location._type, location._path);
+  }
+
 
 })();
