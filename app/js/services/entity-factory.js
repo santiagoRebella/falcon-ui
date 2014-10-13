@@ -19,7 +19,7 @@
   'use strict';
   var module = angular.module('app.services.entity.factory', ['app.services.entity.transformer']);
 
-  module.factory('EntityFactory', ['EntityTransformerFactory', function(EntityTransformerFactory) {
+  module.factory('EntityFactory', ['EntityTransformerFactory',  "$filter", function(EntityTransformerFactory,  $filter) {
     return {
       newFeed: function() {
         return new Feed();
@@ -51,7 +51,7 @@
     this.tags = [new Entry(null, null)];
     this.ACL = new ACL();
     this.schema = new Schema();
-    this.frequency = new Frequency();
+    this.frequency = new Frequency(null, 'hours');
     this.lateArrival = new LateArrival();
     this.availabilityFlag = null;
     this.properties = feedProperties();
@@ -77,7 +77,7 @@
     return [
       new Entry('queueName', null),
       new Entry('jobPriority', 'NORMAL'),
-      new Entry('timeout', new Frequency()),
+      new Entry('timeout', new Frequency(null, 'hours')),
       new Entry('parallel', null),
       new Entry('maxMaps', null),
       new Entry('mapBandwidthKB', null)
@@ -86,12 +86,12 @@
 
   function LateArrival() {
     this.active = false;
-    this.cutOff = new Frequency();
+    this.cutOff = new Frequency(null, 'hours');
   }
 
-  function Frequency() {
-    this.quantity = null;
-    this.unit = 'hours';
+  function Frequency(quantity, unit) {
+    this.quantity = quantity;
+    this.unit = unit;
   }
 
   function Entry(key, value) {
@@ -116,12 +116,12 @@
 
   function FileSystem() {
     this.active = true;
-    this.locations = [new Location('data'), new Location('stats'), new Location('meta')];
+    this.locations = [new Location('data','/'), new Location('stats','/'), new Location('meta','/')];
   }
 
-  function Location(type) {
+  function Location(type, path) {
     this.type = type;
-    this.path= '/';
+    this.path= path;
     this.focused = false;
   }
 
@@ -129,7 +129,7 @@
     this.name = null;
     this.type = type;
     this.selected = selected;
-    this.retention = new Frequency();
+    this.retention = new Frequency(null, 'hours');
     this.retention.action = null;
     this.validity = new Validity();
     this.storage = new Storage();
@@ -255,6 +255,9 @@
   }
 
   function deserializeFeed(feedModel, transformerFactory) {
+    var feed = new Feed();
+    feed.storage.fileSystem.active = false;
+
     var transform = transformerFactory
       .transform('_name', 'name')
       .transform('_description', 'description')
@@ -264,12 +267,21 @@
       .transform('ACL._group','ACL.group')
       .transform('ACL._permission','ACL.permission')
       .transform('schema._location','schema.location')
-      .transform('schema._provider','schema.provider');
+      .transform('schema._provider','schema.provider')
+      .transform('frequency','frequency', parseFrequency)
+      .transform('late-arrival','lateArrival.active', parseBoolean)
+      .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
+      .transform('availabilityFlag', 'availabilityFlag')
+      .transform('properties.property', 'customProperties', parseCustomProperties)
+      .transform('properties.property', 'properties', parseProperties)
+      .transform('locations', 'storage.fileSystem.active', parseBoolean)
+      .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
+      .transform('table', 'storage.catalog.active', parseBoolean)
+      .transform('table._uri', 'storage.catalog.catalogTable.uri');
 
-    var feed = new Feed();
-
-    return transform.apply(feedModel.feed, feed);
+    return transform.apply(angular.copy(feedModel.feed), feed);
   }
+
 
   function parseKeyValue(keyValue) {
     var parsedPair = keyValue.split('=');
@@ -279,5 +291,67 @@
   function parseKeyValuePairs(tagsString) {
     return tagsString.split(',').map(parseKeyValue);
   }
+
+  function parseFrequency(frequencyString) {
+    var parsedFrequency = frequencyString.split('(');
+    return new Frequency(parsedFrequency[1].split(')')[0], parsedFrequency[0]);
+  }
+
+  function parseBoolean(input) {
+    return !!input;
+  }
+
+
+  var falconProperties = {
+    queueName: true,
+    jobPriority: true,
+    timeout: true,
+    parallel: true,
+    maxMaps: true,
+    mapBandwidthKB: true
+  };
+
+
+  function isCustomProperty(property) {
+    return !falconProperties[property._name];
+  }
+
+  function isFalconProperty(property) {
+    return falconProperties[property._name];
+  }
+
+
+  function parseCustomProperties(properties) {
+    return filter(properties, isCustomProperty).map(parseProperty);
+  }
+
+  function parseProperties(properties) {
+    return filter(properties, isFalconProperty).map(parseProperty);
+  }
+
+  function filter(array, callback) {
+    var out = [];
+    for(var i = 0, n = array.length; i < n; i++) {
+      if(callback(array[i])) {
+        out.push(array[i]);
+      }
+    }
+    return out;
+  }
+
+
+  function parseProperty(property) {
+    var value = property._name !== 'timeout' ? property._value : parseFrequency(property._value);
+    return new Entry(property._name, value);
+  }
+
+  function parseLocations(locations) {
+    return locations.map(parseLocation);
+  }
+
+  function parseLocation(location) {
+    return new Location(location._type, location._path);
+  }
+
 
 })();

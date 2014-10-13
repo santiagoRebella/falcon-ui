@@ -134,7 +134,217 @@
         expect(feed.schema.provider).toBe(feedModel.feed.schema._provider);
       });
 
+      it('Should copy frequency', function() {
+        var feedModel = {
+          feed: {
+            frequency: 'hours(20)'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.frequency.unit).toBe('hours');
+        expect(feed.frequency.quantity).toBe('20');
+      });
+
+      it('Should copy late arrival', function() {
+        var feedModel = {
+          feed: {
+            "late-arrival": {"_cut-off": 'days(10)'}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.lateArrival.active).toBe(true);
+        expect(feed.lateArrival.cutOff.unit).toBe('days');
+        expect(feed.lateArrival.cutOff.quantity).toBe('10');
+      });
+
+      it('Should not copy late arrival when is not present', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.lateArrival.active).toBe(false);
+        expect(feed.lateArrival.cutOff.unit).toBe('hours');
+        expect(feed.lateArrival.cutOff.quantity).toBe(null);
+      });
+
+      it('Should copy availabilityFlag', function() {
+        var feedModel = {
+          feed: {
+            availabilityFlag: 'Available'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.availabilityFlag).toBe(feedModel.feed.availabilityFlag);
+      });
+
+      it('Should not copy availabilityFlag if not present in the xml', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.availabilityFlag).toBe(null);
+      });
+
+      it('Should copy custom properties', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'Prop1', _value: 'Value1'},
+              {_name: 'Prop2', _value: 'Value2'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.customProperties.length).toBe(2);
+        expect(feed.customProperties[0].key).toBe('Prop1');
+        expect(feed.customProperties[0].value).toBe('Value1');
+        expect(feed.customProperties[1].key).toBe('Prop2');
+        expect(feed.customProperties[1].value).toBe('Value2');
+      });
+
+      it('Should not copy falcon properties into the custom properties', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'queueName', _value: 'QueueName'},
+              {_name: 'Prop1', _value: 'Value1'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.customProperties.length).toBe(1);
+        expect(feed.customProperties[0].key).toBe('Prop1');
+        expect(feed.customProperties[0].value).toBe('Value1');
+      });
+
+      it('Should copy queueName properties into properties', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'queueName', _value: 'QueueName'},
+              {_name: 'Prop1', _value: 'Value1'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.properties.length).toBe(1);
+        expect(feed.properties[0].key).toBe('queueName');
+        expect(feed.properties[0].value).toBe('QueueName');
+      });
+
+      it('Should copy timeout as a Frequency Object', function() {
+        var feedModel = {
+          feed: {
+            properties: {property: [
+              {_name: 'queueName', _value: 'QueueName'},
+              {_name: 'timeout', _value: 'days(4)'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.properties.length).toBe(2);
+        expect(feed.properties[1].key).toBe('timeout');
+        expect(feed.properties[1].value.quantity).toBe('4');
+        expect(feed.properties[1].value.unit).toBe('days');
+      });
+
+      it('Should copy file system locations', function() {
+        var feedModel = {
+          feed: {
+            locations: {location: [
+              {_type: 'data', _path: '/none1'},
+              {_type: 'stats', _path: '/none2'}
+            ]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+        var locations = feed.storage.fileSystem.locations;
+
+        expect(feed.storage.fileSystem.active).toBe(true);
+        expect(locations.length).toBe(2);
+        expect(locations[0].type).toBe('data');
+        expect(locations[0].path).toBe('/none1');
+        expect(locations[1].type).toBe('stats');
+        expect(locations[1].path).toBe('/none2');
+      });
+
+      it('Should not copy file system locations if they are not defined and keep the defaults', function() {
+        var feedModel = {
+          feed: {
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+        var locations = feed.storage.fileSystem.locations;
+
+        expect(feed.storage.fileSystem.active).toBe(false);
+        expect(locations.length).toBe(3);
+        expect(locations[0].type).toBe('data');
+        expect(locations[0].path).toBe('/');
+        expect(locations[1].type).toBe('stats');
+        expect(locations[1].path).toBe('/');
+        expect(locations[2].type).toBe('meta');
+        expect(locations[2].path).toBe('/');
+      });
+
+      it('Should set file system active flag as false if there are no locations are', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.storage.fileSystem.active).toBe(false);
+      });
+
     });
+
+    it('Should copy catalog uri', function() {
+      var feedModel = {
+        feed: {
+          "table": {
+            _uri : 'table:uri'
+          }
+        }
+      };
+
+      var feed = factory.deserialize(feedModel);
+
+      expect(feed.storage.catalog.active).toBe(true);
+      expect(feed.storage.catalog.catalogTable.uri).toBe('table:uri');
+    });
+
+    it('Should not copy catalog uri if not present', function() {
+      var feedModel = {
+        feed: {}
+      };
+
+      var feed = factory.deserialize(feedModel);
+
+      expect(feed.storage.catalog.active).toBe(false);
+      expect(feed.storage.catalog.catalogTable.uri).toBe(null);
+    });
+
+
 
   });
 })();

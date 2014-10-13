@@ -2,7 +2,8 @@
 <feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">
   <tags>owner=USMarketing,classification=Secure,externalSource=USProdEmailServers,externalTarget=BITools</tags>
   <groups>churnAnalysisDataPipeline</groups>
-  <frequency>hours(2)</frequency>
+  <availabilityFlag>Available</availabilityFlag>
+  <frequency>days(2)</frequency>
   <timezone>UTC</timezone>
   <late-arrival cut-off="hours(5)"/>
   <clusters>
@@ -16,14 +17,15 @@
       </locations>
     </cluster>
   </clusters>
-  <locations>
-    <location type="data" path="/"/>
-    <location type="stats" path="/"/>
-    <location type="meta" path="/"/>
-  </locations>
+  <table uri="some"/>
   <ACL owner="ambari_qa" group="users" permission="0755"/>
   <schema location="Loc" provider="Prov"/>
   <properties>
+    <property name="queueName" value="QueueNameValue"/>
     <property name="jobPriority" value="NORMAL"/>
+    <property name="parallel" value="ParallelValue"/>
+    <property name="maxMaps" value="MaxMapsValue"/>
+    <property name="mapBandwidthKB" value="MapBandwidthKBValue"/>
+    <property name="Prop1" value="Value1"/>
   </properties>
 </feed>
