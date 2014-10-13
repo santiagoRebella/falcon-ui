@@ -19,7 +19,7 @@
   'use strict';
   var module = angular.module('app.services.entity.factory', ['app.services.entity.transformer']);
 
-  module.factory('EntityFactory', ['EntityTransformerFactory',  "$filter", function(EntityTransformerFactory,  $filter) {
+  module.factory('EntityFactory', ['EntityTransformerFactory',  function(EntityTransformerFactory) {
     return {
       newFeed: function() {
         return new Feed();
@@ -86,7 +86,7 @@
 
   function feedCustomProperties() {
     return [
-      new Entry('queueName', null),
+      new Entry(null, null)
     ];
   }
 
@@ -263,8 +263,6 @@
   function deserializeFeed(feedModel, transformerFactory) {
     var feed = new Feed();
     feed.storage.fileSystem.active = false;
-    var defaultCustomProperties = feed.storage.customProperties;
-    var defaultProperties = feed.storage.properties;
 
     var transform = transformerFactory
       .transform('_name', 'name')
@@ -280,8 +278,8 @@
       .transform('late-arrival','lateArrival.active', parseBoolean)
       .transform('late-arrival._cut-off','lateArrival.cutOff', parseFrequency)
       .transform('availabilityFlag', 'availabilityFlag')
-      .transform('properties.property', 'customProperties', parseProperties(isCustomProperty, feedProperties()))
-      .transform('properties.property', 'properties', parseProperties(isFalconProperty, feedCustomProperties()))
+      .transform('properties.property', 'customProperties', parseProperties(isCustomProperty, feedCustomProperties()))
+      .transform('properties.property', 'properties', parseProperties(isFalconProperty, feedProperties()))
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
       .transform('table', 'storage.catalog.active', parseBoolean)
@@ -332,12 +330,26 @@
   function parseProperties(filterCallback, defaults) {
     return function(properties) {
       var result = filter(properties, filterCallback).map(parseProperty);
-      return  result;
-    }
+      return merge(defaults, result);
+    };
   }
 
-  function merge(base, values) {
-    //index by default, loop new values, for each value, lookup key in indexed defaults, if found, update, else append
+
+  function merge(defaults, newValues) {
+    console.log(newValues);
+    var result = angular.copy(defaults);
+    var defaultMap = indexBy(result, 'key');
+
+    newValues.forEach(function(newValue) {
+      if(defaultMap[newValue.key]) {
+        defaultMap[newValue.key].value = newValue.value;
+      } else {
+        result.push(newValue);
+      }
+    });
+
+
+    return result;
   }
 
 
@@ -366,7 +378,7 @@
   }
 
   function indexBy(array, property) {
-    var map = [];
+    var map = {};
 
     array.forEach(function(element) {
       map[element[property]] = element;

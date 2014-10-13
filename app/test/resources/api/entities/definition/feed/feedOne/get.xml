@@ -21,6 +21,6 @@
   <ACL owner="ambari_qa" group="users" permission="0755"/>
   <schema location="Loc" provider="Prov"/>
   <properties>
-    <property name="jobPriority" value="NORMAL"/>
+    <property name="jobPriority" value="VERY_LOW"/>
   </properties>
 </feed>
