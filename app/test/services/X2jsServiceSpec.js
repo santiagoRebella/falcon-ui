@@ -35,5 +35,33 @@
       });
     });
 
+    describe('prettifyXml', function() {
+      it('Should prettify the xml', function() {
+        var uglyXml = '<markup><child></child></markup>';
+
+        expect(x2jsService.prettifyXml(uglyXml)).toNotBe(null);
+      });
+    });
+
+    describe('Arrays configuration', function() {
+      it('Should convert feed.properties.property as an array when only one element', function() {
+
+        var xml =
+          '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">' +
+            '<properties>' +
+              '<property name="jobPriority" value="VERY_LOW"/>' +
+            '</properties>' +
+          '</feed>';
+
+        var wrapper = x2jsService.xml_str2json(xml);
+
+        expect(wrapper.feed.properties.property).toEqual(
+          [{_name: 'jobPriority', _value: 'VERY_LOW'}]
+        );
+
+      });
+    });
+
   });
 })();

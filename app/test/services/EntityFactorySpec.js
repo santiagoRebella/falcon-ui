@@ -214,7 +214,7 @@
         expect(feed.customProperties[2].value).toBe('Value2');
       });
 
-      xit('Should not copy falcon properties into the custom properties', function() {
+      it('Should not copy falcon properties into the custom properties', function() {
         var feedModel = {
           feed: {
             properties: {property: [
@@ -226,9 +226,11 @@
 
         var feed = factory.deserialize(feedModel);
 
-        expect(feed.customProperties.length).toBe(1);
-        expect(feed.customProperties[0].key).toBe('Prop1');
-        expect(feed.customProperties[0].value).toBe('Value1');
+        expect(feed.customProperties.length).toBe(2);
+        expect(feed.customProperties[0].key).toBe(null);
+        expect(feed.customProperties[0].value).toBe(null);
+        expect(feed.customProperties[1].key).toBe('Prop1');
+        expect(feed.customProperties[1].value).toBe('Value1');
       });
 
       it('Should copy queueName properties into properties', function() {
@@ -253,7 +255,7 @@
           feed: {
             properties: {
               property: [
-                {_name: 'jobPriority', _value: 'NORMAL'}
+                {_name: 'jobPriority', _value: 'VERY_LOW'}
               ]
             }
           }

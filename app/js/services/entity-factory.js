@@ -336,7 +336,6 @@
 
 
   function merge(defaults, newValues) {
-    console.log(newValues);
     var result = angular.copy(defaults);
     var defaultMap = indexBy(result, 'key');
 
