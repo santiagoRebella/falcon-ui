@@ -20,7 +20,11 @@
   var servicesModule = angular.module('app.services');
 
   servicesModule.factory('X2jsService', function() {
-    var x2js = new X2JS({arrayAccessFormPaths: ['feed.properties.property']});
+    var x2js = new X2JS(
+      {arrayAccessFormPaths: [
+        'feed.properties.property',
+        'feed.locations.location'
+      ]});
 
     return {
       xml_str2json: function(string) {
