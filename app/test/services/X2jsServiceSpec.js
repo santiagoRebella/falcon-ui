@@ -99,6 +99,29 @@
         );
 
       });
+
+      it('Should convert feed.clusters.cluster.locations.location as an array when only one element', function() {
+
+        var xml =
+          '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">' +
+            '<clusters>' +
+              '<cluster name="ClusterName" type="source">' +
+                '<locations>' +
+                  '<location type="data" path="/path" />' +
+                '</locations>' +
+              '</cluster>' +
+            '</clusters>' +
+          '</feed>';
+
+        var wrapper = x2jsService.xml_str2json(xml);
+
+        expect(wrapper.feed.clusters.cluster[0].locations.location).toEqual(
+          [{_type: 'data', _path: '/path'}]
+        );
+
+      });
+
     });
 
   });

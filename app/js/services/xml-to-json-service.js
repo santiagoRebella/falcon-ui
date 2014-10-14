@@ -24,7 +24,8 @@
       {arrayAccessFormPaths: [
         'feed.properties.property',
         'feed.locations.location',
-        'feed.clusters.cluster'
+        'feed.clusters.cluster',
+        'feed.clusters.cluster.locations.location',
       ]});
 
     return {
