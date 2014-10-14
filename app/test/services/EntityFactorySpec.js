@@ -385,6 +385,29 @@
         expect(feed.clusters[0].type).toBe('target');
       });
 
+      it('Should copy clusters and select the first source cluster', function() {
+        var feedModel = {
+          feed: {
+            clusters: {
+              cluster: [
+                {_name: 'ClusterOne', _type: 'target'},
+                {_name: 'ClusterTwo', _type: 'source'},
+                {_name: 'ClusterThree', _type: 'target'},
+                {_name: 'ClusterFour', _type: 'source'}
+              ]
+            }
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.clusters[0].selected).toBe(false);
+        expect(feed.clusters[1].selected).toBe(true);
+        expect(feed.clusters[2].selected).toBe(false);
+        expect(feed.clusters[3].selected).toBe(false);
+
+      });
+
       it('Should copy validity', function() {
         var feedModel = {
           feed: {

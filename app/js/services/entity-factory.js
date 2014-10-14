@@ -311,14 +311,25 @@
 
   function parseClusters(transform) {
     return function(clusters) {
-      return clusters.map(parseCluster(transform));
+      var result = clusters.map(parseCluster(transform));
+      selectFirstSourceCluster(result);
+      return  result;
     };
   }
 
   function parseCluster(transform) {
     return function(input) {
-      return transform.apply(input, {});
+      return transform.apply(input, new Cluster('target', false));
     };
+  }
+
+  function selectFirstSourceCluster(clusters) {
+    for(var i = 0, n = clusters.length; i < n; i++) {
+      if(clusters[i].type == 'source') {
+        clusters[i].selected = true;
+        return;
+      }
+    }
   }
 
   function parseKeyValue(keyValue) {

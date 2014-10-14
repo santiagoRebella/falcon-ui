@@ -7,7 +7,7 @@
   <timezone>UTC</timezone>
   <late-arrival cut-off="hours(5)"/>
   <clusters>
-    <cluster name="otherCluster" type="source">
+    <cluster name="backupCluster" type="source">
       <validity start="2014-02-28T00:00Z" end="2014-02-28T00:00Z"/>
       <retention limit="hours(5)" action="chown"/>
       <locations>
