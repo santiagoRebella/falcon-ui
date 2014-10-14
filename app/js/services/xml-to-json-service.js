@@ -26,6 +26,7 @@
         'feed.locations.location',
         'feed.clusters.cluster',
         'feed.clusters.cluster.locations.location',
+        'cluster.properties.property'
       ]});
 
     return {

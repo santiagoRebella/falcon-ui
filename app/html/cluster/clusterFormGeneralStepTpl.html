@@ -41,6 +41,40 @@
       </div>
     </div>
     
+    <h4 class="col-xs-24"> Properties </h4>
+   
+    <div ng-repeat="property in clusterEntity.cluster.properties.property">
+        <div class="col-sm-5 dynamic-table-spacer">
+          <input type="text" class="form-control" ng-model="property._name" ng-pattern="validations.alpha.pattern" ng-required="property._name"/>
+        </div>
+        <div class="col-sm-17 dynamic-table-spacer">
+          <input type="text" class="form-control" ng-model="property._value" ng-pattern="validations.alpha.pattern" ng-required="property._value"/>
+        </div>
+        <div class="col-sm-2 top-buffer" >
+          <span class="entypo circled-minus dynamic-table-spacer" ng-click="removeProperty($index)"></span>
+        </div>
+        <div class="clearfix hidden-md"></div>
+    </div>
+    <div class="col-sm-5 dynamic-table-spacer">
+      <input type="text" class="form-control" ng-model="tempmodel._name" ng-pattern="validations.alpha.pattern" ng-required="property._name"/>
+    </div>
+    <div class="col-sm-17 dynamic-table-spacer">
+      <input type="text" class="form-control" ng-model="tempmodel._value" ng-pattern="validations.alpha.pattern" ng-required="property._value"/>
+    </div>
+    <div class="col-sm-2 top-buffer" >
+      <span class="entypo circled-plus dynamic-table-spacer" ng-click="addProperty(tempmodel._name, tempmodel._value)"></span>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <h4 class="col-xs-24"> Location </h4>
     
     <div class="col-xs-24" ng-repeat="location in clusterEntity.cluster.locations.location">
