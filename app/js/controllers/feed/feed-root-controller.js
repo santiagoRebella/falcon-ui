@@ -66,18 +66,9 @@
 
 
         $scope.saveEntity = function() {
-          Falcon.postSubmitEntity($scope.xml, "feed").success(function (response) {
-            Falcon.success = true;
-            Falcon.serverResponse = response;
-            $state.go('main');
-            $timeout(function() {
-              Falcon.serverResponse = { serverResponse: null, success: null };
-            }, 5000);
-          }).error(function (err) {
-            var error = X2jsService.xml_str2json(err);
-            Falcon.success = false;
-            Falcon.serverResponse = error.result;
-          });
+          Falcon.postSubmitEntity($scope.xml, "feed")
+            .success(successCallback(Falcon, $state, $timeout))
+            .error(errorCallback(Falcon, X2jsService));
         };
 
         $scope.isActive = function (route) {
@@ -111,5 +102,25 @@
         };
 
       }]);
+
+
+  function errorCallback(Falcon, X2jsService) {
+    return function(err) {
+      var error = X2jsService.xml_str2json(err);
+      Falcon.success = false;
+      Falcon.serverResponse = error.result;
+    };
+  }
+
+  function successCallback(Falcon, $state, $timeout) {
+    return function (response) {
+      Falcon.success = true;
+      Falcon.serverResponse = response;
+      $state.go('main');
+      $timeout(function() {
+        Falcon.serverResponse = { serverResponse: null, success: null };
+      }, 5000);
+    };
+  }
 
 })();
