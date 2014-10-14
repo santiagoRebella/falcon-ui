@@ -23,7 +23,8 @@
     var x2js = new X2JS(
       {arrayAccessFormPaths: [
         'feed.properties.property',
-        'feed.locations.location'
+        'feed.locations.location',
+        'feed.clusters.cluster'
       ]});
 
     return {

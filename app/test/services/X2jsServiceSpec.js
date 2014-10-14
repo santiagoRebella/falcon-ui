@@ -81,6 +81,24 @@
         );
 
       });
+
+      it('Should convert feed.clusters.cluster as an array when only one element', function() {
+
+        var xml =
+          '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+          '<feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">' +
+            '<clusters>' +
+              '<cluster name="ClusterName" type="source"/>' +
+            '</clusters>' +
+          '</feed>';
+
+        var wrapper = x2jsService.xml_str2json(xml);
+
+        expect(wrapper.feed.clusters.cluster).toEqual(
+          [{_name: 'ClusterName', _type: 'source'}]
+        );
+
+      });
     });
 
   });
