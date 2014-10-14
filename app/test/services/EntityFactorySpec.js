@@ -489,6 +489,41 @@
         expect(locations.length).toBe(3);
       });
 
+      it('Should copy catalog uri', function() {
+        var feedModel = {
+          feed: {
+            clusters: {cluster: [{_name: 'ClusterOne', _type: 'target',
+              "table": {
+                _uri : 'table:uri'
+              }
+            }]}
+          }
+        };
+
+
+        var feed = factory.deserialize(feedModel);
+        var catalogStorage = feed.clusters[0].storage.catalog;
+
+        expect(catalogStorage.active).toBe(true);
+        expect(catalogStorage.catalogTable.uri).toBe('table:uri');
+      });
+
+      it('Should set catalog storage as inactive when not present in the xml', function() {
+        var feedModel = {
+          feed: {
+            clusters: {cluster: [{_name: 'ClusterOne', _type: 'target'}]}
+          }
+        };
+
+
+        var feed = factory.deserialize(feedModel);
+        var catalogStorage = feed.clusters[0].storage.catalog;
+
+        expect(catalogStorage.active).toBe(false);
+        expect(catalogStorage.catalogTable.uri).toBe(null);
+      });
+
+
     });
 
   });

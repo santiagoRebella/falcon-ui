@@ -275,6 +275,8 @@
       .transform('retention._action', 'retention.action')
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
+      .transform('table', 'storage.catalog.active', parseBoolean)
+      .transform('table._uri', 'storage.catalog.catalogTable.uri')
       ;
 
     var transform = transformerFactory
