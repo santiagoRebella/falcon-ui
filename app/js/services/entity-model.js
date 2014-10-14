@@ -80,6 +80,9 @@
 
           ]
         },
+        properties: {
+          property: []
+        },
         _xmlns:"uri:falcon:cluster:0.1",
         _name:"",
         _description:"",

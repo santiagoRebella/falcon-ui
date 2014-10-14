@@ -50,7 +50,10 @@
    $scope.removeLocation = function (index) {
      $scope.clusterEntity.cluster.locations.location.splice(index, 1);
    };    
-   $scope.goSummaryStep = function () {         
+   $scope.goSummaryStep = function () {  
+     if($scope.clusterEntity.cluster.properties.property.length === 0) {
+       delete $scope.clusterEntity.cluster.properties;
+     }       
      //takes out the $$hashKey from object      
      $scope.jsonString = angular.toJson($scope.clusterEntity);
      //goes back to js to have x2js parse it correctly
@@ -90,6 +93,28 @@
         $state.go('main'); 
       });     
     };
+    
+    
+    
+    $scope.tempmodel = { _name: "", _value: ""};
+    
+    $scope.addProperty = function (k, v) {    
+      if(!$scope.clusterEntity.cluster.properties) { 
+        $scope.clusterEntity.cluster.properties = {}; 
+        $scope.clusterEntity.cluster.properties.property = []; 
+      }
+      $scope.clusterEntity.cluster.properties.property.push({ _name: k, _value: v});
+      $scope.tempmodel = { _name: "", _value: ""};
+    };
+
+    $scope.removeProperty = function(index) {
+      if(index >= 0 && $scope.clusterEntity.cluster.properties.property.length >= 1) {
+        $scope.clusterEntity.cluster.properties.property.splice(index, 1);
+      }
+    };
+    
+    
+    
   }]);    
 })();
 
