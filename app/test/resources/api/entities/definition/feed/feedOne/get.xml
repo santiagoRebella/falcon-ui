@@ -7,17 +7,30 @@
   <timezone>UTC</timezone>
   <late-arrival cut-off="hours(5)"/>
   <clusters>
-    <cluster name="backupCluster" type="source">
+    <cluster name="primaryCluster" type="source">
       <validity start="2014-02-28T00:00Z" end="2014-02-28T00:00Z"/>
       <retention limit="hours(5)" action="chown"/>
       <locations>
-        <location type="data" path="/"/>
-        <location type="stats" path="/"/>
-        <location type="meta" path="/"/>
+        <location type="data" path="/ov1"/>
+        <location type="stats" path="/ov2"/>
+        <location type="meta" path="/ov3"/>
+      </locations>
+    </cluster>
+    <cluster name="backupCluster" type="target">
+      <validity start="2014-02-28T00:00Z" end="2014-02-28T00:00Z"/>
+      <retention limit="hours(5)" action="chown"/>
+      <locations>
+        <location type="data" path="/ov4"/>
+        <location type="stats" path="/ov5"/>
+        <location type="meta" path="/ov6"/>
       </locations>
     </cluster>
   </clusters>
-  <table uri="some"/>
+  <locations>
+    <location type="data" path="/parent1"/>
+    <location type="stats" path="/parent2"/>
+    <location type="meta" path="/parent3"/>
+  </locations>
   <ACL owner="ambari_qa" group="users" permission="0755"/>
   <schema location="Loc" provider="Prov"/>
   <properties>
