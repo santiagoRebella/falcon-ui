@@ -271,6 +271,8 @@
       .transform('validity._start', 'validity.start.time', parseTime)
       .transform('validity._end', 'validity.end.date', parseDate)
       .transform('validity._end', 'validity.end.time', parseTime)
+      .transform('retention._limit', 'retention', parseFrequency)
+      .transform('retention._action', 'retention.action')
       ;
 
     var transform = transformerFactory
