@@ -273,6 +273,7 @@
       .transform('validity._end', 'validity.end.time', parseTime)
       .transform('retention._limit', 'retention', parseFrequency)
       .transform('retention._action', 'retention.action')
+      .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
       ;
 
@@ -320,7 +321,9 @@
 
   function parseCluster(transform) {
     return function(input) {
-      return transform.apply(input, new Cluster('target', false));
+      var cluster = new Cluster('target', false);
+      cluster.storage.fileSystem.active = false;
+      return  transform.apply(input, cluster);
     };
   }
 

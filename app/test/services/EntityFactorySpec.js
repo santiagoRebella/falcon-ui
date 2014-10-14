@@ -448,7 +448,7 @@
         expect(feed.clusters[0].retention.action).toBe('delete');
       });
 
-      it('Should copy locations', function() {
+      it('Should copy clusters locations', function() {
         var feedModel = {
           feed: {
             clusters: {cluster: [{_name: 'ClusterOne', _type: 'target',
@@ -473,6 +473,20 @@
         expect(locations[1].path).toBe('/path2');
         expect(locations[2].type).toBe('tmp');
         expect(locations[2].path).toBe('/path3');
+      });
+
+      it('filesystem should be inactive if there are no locations', function() {
+        var feedModel = {
+          feed: {
+            clusters: {cluster: [{_name: 'ClusterOne', _type: 'target'}]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+        var locations = feed.clusters[0].storage.fileSystem.locations;
+
+        expect(feed.clusters[0].storage.fileSystem.active).toBe(false);
+        expect(locations.length).toBe(3);
       });
 
     });
