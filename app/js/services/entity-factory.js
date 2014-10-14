@@ -267,7 +267,11 @@
     var clusterTransform = transformerFactory
       .transform('_name', 'name')
       .transform('_type', 'type')
-    ;
+      .transform('validity._start', 'validity.start.date', parseDate)
+      .transform('validity._start', 'validity.start.time', parseTime)
+      .transform('validity._end', 'validity.end.date', parseDate)
+      .transform('validity._end', 'validity.end.time', parseTime)
+      ;
 
     var transform = transformerFactory
       .transform('_name', 'name')
@@ -293,6 +297,14 @@
       ;
 
     return transform.apply(angular.copy(feedModel.feed), feed);
+  }
+
+  function parseDate(input) {
+    return input.split('T')[0];
+  }
+
+  function parseTime(input) {
+    return input.split('T')[1].split('Z')[0];
   }
 
   function parseClusters(transform) {

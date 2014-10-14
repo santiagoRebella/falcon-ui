@@ -385,6 +385,28 @@
         expect(feed.clusters[0].type).toBe('target');
       });
 
+      it('Should copy validity', function() {
+        var feedModel = {
+          feed: {
+            clusters: {cluster: [{_name: 'ClusterOne', _type: 'target',
+              validity: {
+                _start: '2014-02-28T01:20Z',
+                _end: '2016-03-31T04:30Z'
+              }
+            }]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.clusters[0].validity.start.date).toBe('2014-02-28');
+        expect(feed.clusters[0].validity.start.time).toBe('01:20');
+        expect(feed.clusters[0].validity.end.date).toBe('2016-03-31');
+        expect(feed.clusters[0].validity.end.time).toBe('04:30');
+
+
+      });
+
     });
 
   });
