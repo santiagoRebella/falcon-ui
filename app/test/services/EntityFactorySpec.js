@@ -340,35 +340,52 @@
         expect(feed.storage.fileSystem.active).toBe(false);
       });
 
-    });
-
-    it('Should copy catalog uri', function() {
-      var feedModel = {
-        feed: {
-          "table": {
-            _uri : 'table:uri'
+      it('Should copy catalog uri', function() {
+        var feedModel = {
+          feed: {
+            "table": {
+              _uri : 'table:uri'
+            }
           }
-        }
-      };
+        };
 
-      var feed = factory.deserialize(feedModel);
+        var feed = factory.deserialize(feedModel);
 
-      expect(feed.storage.catalog.active).toBe(true);
-      expect(feed.storage.catalog.catalogTable.uri).toBe('table:uri');
+        expect(feed.storage.catalog.active).toBe(true);
+        expect(feed.storage.catalog.catalogTable.uri).toBe('table:uri');
+      });
+
+      it('Should not copy catalog uri if not present', function() {
+        var feedModel = {
+          feed: {}
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.storage.catalog.active).toBe(false);
+        expect(feed.storage.catalog.catalogTable.uri).toBe(null);
+      });
+
+      it('Should copy cluster name and type', function() {
+        var feedModel = {
+          feed: {
+            clusters: {
+              cluster: [{
+                _name: 'ClusterOne',
+                _type: 'target'
+              }]
+            }
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.clusters.length).toBe(1);
+        expect(feed.clusters[0].name).toBe('ClusterOne');
+        expect(feed.clusters[0].type).toBe('target');
+      });
+
     });
-
-    it('Should not copy catalog uri if not present', function() {
-      var feedModel = {
-        feed: {}
-      };
-
-      var feed = factory.deserialize(feedModel);
-
-      expect(feed.storage.catalog.active).toBe(false);
-      expect(feed.storage.catalog.catalogTable.uri).toBe(null);
-    });
-
-
 
   });
 })();

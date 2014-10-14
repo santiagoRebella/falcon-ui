@@ -264,6 +264,11 @@
     var feed = new Feed();
     feed.storage.fileSystem.active = false;
 
+    var clusterTransform = transformerFactory
+      .transform('_name', 'name')
+      .transform('_type', 'type')
+    ;
+
     var transform = transformerFactory
       .transform('_name', 'name')
       .transform('_description', 'description')
@@ -283,11 +288,24 @@
       .transform('locations', 'storage.fileSystem.active', parseBoolean)
       .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
       .transform('table', 'storage.catalog.active', parseBoolean)
-      .transform('table._uri', 'storage.catalog.catalogTable.uri');
+      .transform('table._uri', 'storage.catalog.catalogTable.uri')
+      .transform('clusters.cluster', 'clusters', parseClusters(clusterTransform))
+      ;
 
     return transform.apply(angular.copy(feedModel.feed), feed);
   }
 
+  function parseClusters(transform) {
+    return function(clusters) {
+      return clusters.map(parseCluster(transform));
+    };
+  }
+
+  function parseCluster(transform) {
+    return function(input) {
+      return transform.apply(input, {});
+    };
+  }
 
   function parseKeyValue(keyValue) {
     var parsedPair = keyValue.split('=');
