@@ -273,6 +273,7 @@
       .transform('validity._end', 'validity.end.time', parseTime)
       .transform('retention._limit', 'retention', parseFrequency)
       .transform('retention._action', 'retention.action')
+      .transform('locations.location', 'storage.fileSystem.locations', parseLocations)
       ;
 
     var transform = transformerFactory

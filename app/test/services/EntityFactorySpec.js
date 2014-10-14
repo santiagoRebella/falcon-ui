@@ -452,19 +452,27 @@
         var feedModel = {
           feed: {
             clusters: {cluster: [{_name: 'ClusterOne', _type: 'target',
-              retention: {
-                _limit: 'weeks(4)',
-                _action: 'delete'
-              }
+              locations: {
+                location: [
+                  {_type: 'stats', _path: '/path1'},
+                  {_type: 'data', _path: '/path2'},
+                  {_type: 'tmp', _path: '/path3'}
+              ]}
             }]}
           }
         };
 
         var feed = factory.deserialize(feedModel);
+        var locations = feed.clusters[0].storage.fileSystem.locations;
 
-        expect(feed.clusters[0].retention.quantity).toBe('4');
-        expect(feed.clusters[0].retention.unit).toBe('weeks');
-        expect(feed.clusters[0].retention.action).toBe('delete');
+        expect(feed.clusters[0].storage.fileSystem.active).toBe(true);
+        expect(locations.length).toBe(3);
+        expect(locations[0].type).toBe('stats');
+        expect(locations[0].path).toBe('/path1');
+        expect(locations[1].type).toBe('data');
+        expect(locations[1].path).toBe('/path2');
+        expect(locations[2].type).toBe('tmp');
+        expect(locations[2].path).toBe('/path3');
       });
 
     });
