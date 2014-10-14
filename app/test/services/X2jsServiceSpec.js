@@ -71,7 +71,7 @@
           '<feed name="feedOne" description="feedOneDescription" xmlns="uri:falcon:feed:0.1">' +
             '<locations>' +
               '<location type="data" path="/path"/>' +
-            '</properties>' +
+            '</locations>' +
           '</feed>';
 
         var wrapper = x2jsService.xml_str2json(xml);
