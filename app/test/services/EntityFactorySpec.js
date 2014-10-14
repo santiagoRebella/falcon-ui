@@ -448,6 +448,25 @@
         expect(feed.clusters[0].retention.action).toBe('delete');
       });
 
+      it('Should copy locations', function() {
+        var feedModel = {
+          feed: {
+            clusters: {cluster: [{_name: 'ClusterOne', _type: 'target',
+              retention: {
+                _limit: 'weeks(4)',
+                _action: 'delete'
+              }
+            }]}
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.clusters[0].retention.quantity).toBe('4');
+        expect(feed.clusters[0].retention.unit).toBe('weeks');
+        expect(feed.clusters[0].retention.action).toBe('delete');
+      });
+
     });
 
   });

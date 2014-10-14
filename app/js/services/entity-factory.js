@@ -325,7 +325,7 @@
 
   function selectFirstSourceCluster(clusters) {
     for(var i = 0, n = clusters.length; i < n; i++) {
-      if(clusters[i].type == 'source') {
+      if(clusters[i].type === 'source') {
         clusters[i].selected = true;
         return;
       }
