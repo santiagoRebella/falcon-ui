@@ -398,7 +398,7 @@
             {
               name: 'primaryCluster',
               type: 'source',
-              validity: {start: {date: '2014-02-28', time: '00:00'}, end: {date: '2016-03-31', time: '00:00'}},
+              validity: {start: {date: newUtcDate(2014, 2, 28), time: newUtcTime(0,0)}, end: {date: newUtcDate(2016, 4, 1), time: newUtcTime(0,0)}},
               retention: {quantity: 2, unit: 'hours', action: 'delete'},
               storage: {
                 fileSystem: {
@@ -418,7 +418,7 @@
             {
               name: 'secondaryCluster',
               type: 'target',
-              validity: {start: {date: '2015-02-28', time: '00:00'}, end: {date: '2017-03-31', time: '00:00'}},
+              validity: {start: {date: newUtcDate(2015, 2, 28), time: newUtcTime(0,0)}, end: {date: newUtcDate(2017, 4, 1), time: newUtcTime(0,0)}},
               retention: {quantity: 5, unit: 'weeks', action: 'archive'},
               storage: {
                 fileSystem: {
@@ -444,7 +444,7 @@
           "<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>" +
             "<clusters>" +
               "<cluster name='primaryCluster' type='source'>" +
-                "<validity start='2014-02-28T00:00Z' end='2016-03-31T00:00Z'/>" +
+                "<validity start='2014-02-28T00:00Z' end='2016-04-01T00:00Z'/>" +
                 "<retention limit='hours(2)' action='delete'/>" +
                 "<locations>" +
                   "<location type='data' path='/none1'></location>" +
@@ -454,7 +454,7 @@
                 "<table uri='/primaryuri'/>" +
               "</cluster>" +
               "<cluster name='secondaryCluster' type='target'>" +
-                "<validity start='2015-02-28T00:00Z' end='2017-03-31T00:00Z'/>" +
+                "<validity start='2015-02-28T00:00Z' end='2017-04-01T00:00Z'/>" +
                 "<retention limit='weeks(5)' action='archive'/>" +
                 "<locations>" +
                   "<location type='data' path='/none4'></location>" +
@@ -558,17 +558,14 @@
       return fakePromise;
     }
 
-    function errorResponse(value) {
-      var fakePromise = {};
-      fakePromise.success = function() {
-        return fakePromise;
-      };
-      fakePromise.error = function(callback) {
-        callback(value);
-        return fakePromise;
-      };
-      return fakePromise;
+    function newUtcDate(year, month, day) {
+      return new Date(Date.UTC(year, month, day))
     }
+
+    function newUtcTime(hours, minutes) {
+      return new Date(Date.UTC(1900, 1, 1, hours, minutes, 0));
+    }
+
 
 
   });

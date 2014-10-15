@@ -79,7 +79,7 @@
       </p>
     </div>
     <div class="col-sm-6">
-      <timepicker class="timePicker" ng-model="startTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+      <timepicker class="timePicker" ng-model="cluster.validity.start.time" hour-step="1" minute-step="1" ></timepicker>
     </div>
     <div class="col-sm-6">
       <p class="input-group">
@@ -93,7 +93,7 @@
       </p>
     </div>
     <div class="col-sm-6">
-      <timepicker class="timePicker" ng-model="endTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+      <timepicker class="timePicker" ng-model="cluster.validity.end.time" hour-step="1" minute-step="1" ></timepicker>
     </div>
 
     <div class="clearfix hidden-md"></div>

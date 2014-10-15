@@ -149,8 +149,8 @@
   }
 
   function DateAndTime() {
-    this.date = new Date();
-    this.time = '00:00';
+    this.date = currentDate();
+    this.time = currentTime();
     this.opened = false;
   }
 
@@ -178,8 +178,22 @@
     return input.quantity ? input.unit + '(' + input.quantity + ')' : null;
   }
 
+  function pad(n) {
+    return String("00" + n).slice(-2);
+  }
+
   function timeAndDateToString(input) {
-    return input.date + 'T'  + input.time + 'Z';
+    var dateComponent =
+      input.date.getUTCFullYear() + '-' +
+      pad(input.date.getUTCMonth()) + '-' +
+      pad(input.date.getUTCDate());
+
+    var timeComponent =
+      pad(input.time.getUTCHours()) + ':' +
+      pad(input.time.getUTCMinutes());
+
+    console.log(dateComponent + 'T' + timeComponent + 'Z');
+    return dateComponent + 'T' + timeComponent + 'Z';
   }
 
   function emptyElement() {return {};}
@@ -434,6 +448,16 @@
 
     return map;
   }
+
+  function currentDate() {
+    var now = new Date();
+    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  }
+
+  function currentTime() {
+    return new Date(Date.UTC(1900, 1, 1, 0, 0, 0));
+  }
+
 
 
 })();

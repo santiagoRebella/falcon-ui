@@ -1,0 +1,28 @@
+<feed xmlns='uri:falcon:feed:0.1' name='FeedName'>
+  <clusters>
+    <cluster name='primaryCluster' type='source'>
+      <validity start='2014-02-28T00:00Z' end='2016-04-01T00:00Z'/>
+      <retention limit='hours(2)' action='delete'/>
+      <locations>
+        <location type='data' path='/none1'></location>
+        <location type='stats' path='/none2'></location>
+        <location type='meta' path='/none3'></location>
+      </locations>
+      <table uri='/primaryuri'/>
+    </cluster>
+    <cluster name='secondaryCluster' type='target'>
+      <validity start='2015-02-28T00:00Z' end='2017-04-01T00:00Z'/>
+      <retention limit='weeks(5)' action='archive'/>
+      <locations>
+        <location type='data' path='/none4'></location>
+        <location type='stats' path='/none5'></location>
+        <location type='meta' path='/none6'></location>
+      </locations>
+      <table uri='/secondaryuri'/>
+    </cluster>
+  </clusters>
+  <locations>
+    <location type='data' path='/masterpath'></location>
+  </locations>
+  <table uri='/masteruri'/>
+</feed>

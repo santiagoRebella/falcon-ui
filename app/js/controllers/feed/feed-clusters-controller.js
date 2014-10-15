@@ -31,36 +31,6 @@
 
     function($scope, clustersList, entityFactory) {
 
-      //--------------Time picker-----------------------//
-      $scope.startTime = new Date();
-      $scope.endTime = new Date();
-      $scope.hstep = 1;
-      $scope.mstep = 1;
-
-      $scope.ismeridian = true;
-      $scope.toggleMode = function() {
-        $scope.ismeridian = ! $scope.ismeridian;
-      };
-
-      $scope.update = function() {
-        var d = new Date();
-        d.setHours( 14 );
-        d.setMinutes( 0 );
-        $scope.mytime = d;
-      };
-
-      $scope.changed = function () {
-        console.log('Both Times changed, leave it in the case we need to do something here');
-      };
-
-      $scope.clear = function() {
-        $scope.mytime = null;
-      };
-      //--------------/Time picker-----------------------//
-
-
-
-
       unwrapClusters(clustersList);
 
       $scope.updateRetention = function() {
