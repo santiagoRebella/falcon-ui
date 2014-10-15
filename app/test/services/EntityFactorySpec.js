@@ -524,6 +524,19 @@
       });
 
 
+      it('Should copy timezone', function() {
+        var feedModel = {
+          feed: {
+            timezone: 'GMT+03:50'
+          }
+        };
+
+        var feed = factory.deserialize(feedModel);
+
+        expect(feed.timezone).toBe('GMT+03:50');
+      });
+
+
     });
 
     function newUtcDate(year, month, day) {

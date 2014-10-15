@@ -192,7 +192,6 @@
       pad(input.time.getUTCHours()) + ':' +
       pad(input.time.getUTCMinutes());
 
-    console.log(dateComponent + 'T' + timeComponent + 'Z');
     return dateComponent + 'T' + timeComponent + 'Z';
   }
 
@@ -314,6 +313,7 @@
       .transform('table', 'storage.catalog.active', parseBoolean)
       .transform('table._uri', 'storage.catalog.catalogTable.uri')
       .transform('clusters.cluster', 'clusters', parseClusters(clusterTransform))
+      .transform('timezone', 'timezone')
       ;
 
     return transform.apply(angular.copy(feedModel.feed), feed);
