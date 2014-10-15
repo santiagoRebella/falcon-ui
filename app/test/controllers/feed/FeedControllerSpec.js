@@ -524,12 +524,14 @@
       it('Should save the update the entity if in edit mode', function() {
         falconServiceMock.postUpdateEntity.andReturn(successResponse({}));
         scope.editingMode = true;
+        scope.feed = { name:  'FeedOne'};
+        scope.xml = '<feed/>'
 
         scope.saveEntity();
 
         expect(scope.editingMode).toBe(false);
         expect(falconServiceMock.postSubmitEntity).not.toHaveBeenCalled();
-        expect(falconServiceMock.postUpdateEntity).toHaveBeenCalled();
+        expect(falconServiceMock.postUpdateEntity).toHaveBeenCalledWith('<feed/>', 'feed', 'FeedOne');
       });
     });
 

@@ -67,7 +67,7 @@
 
         $scope.saveEntity = function() {
           if($scope.editingMode) {
-            Falcon.postUpdateEntity($scope.xml, "feed")
+            Falcon.postUpdateEntity($scope.xml, "feed", $scope.feed.name)
               .success(successCallback(Falcon, $state, $timeout))
               .error(errorCallback(Falcon, X2jsService));
           } else {

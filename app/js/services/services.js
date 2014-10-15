@@ -27,8 +27,7 @@
         Falcon.postSubmitEntity = function (xml, type) {   
            return $http.post(add_user('/api/entities/submit/' + type), xml, { headers: {'Content-Type': 'text/plain'} });  
         };
-        Falcon.postUpdateEntity = function (xml, type, name) { 
-            console.log(name);  
+        Falcon.postUpdateEntity = function (xml, type, name) {
            return $http.post(add_user('/api/entities/update/' + type + '/' + name), xml, { headers: {'Content-Type': 'text/plain'} });  
         };
         
