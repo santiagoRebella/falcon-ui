@@ -320,11 +320,13 @@
   }
 
   function parseDate(input) {
-    return input.split('T')[0];
+    var dateComponent = (input.split('T')[0]).split('-');
+    return newUtcDate(dateComponent[0], dateComponent[1], dateComponent[2]);
   }
 
   function parseTime(input) {
-    return input.split('T')[1].split('Z')[0];
+    var timeComponent = (input.split('T')[1].split('Z')[0]).split(':');
+    return newUtcTime(timeComponent[0], timeComponent[1]);
   }
 
   function parseClusters(transform) {
@@ -458,6 +460,13 @@
     return new Date(Date.UTC(1900, 1, 1, 0, 0, 0));
   }
 
+  function newUtcDate(year, month, day) {
+    return new Date(Date.UTC(year, month, day));
+  }
+
+  function newUtcTime(hours, minutes) {
+    return new Date(Date.UTC(1900, 1, 1, hours, minutes, 0));
+  }
 
 
 })();

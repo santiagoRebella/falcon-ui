@@ -422,10 +422,10 @@
 
         var feed = factory.deserialize(feedModel);
 
-        expect(feed.clusters[0].validity.start.date).toBe('2014-02-28');
-        expect(feed.clusters[0].validity.start.time).toBe('01:20');
-        expect(feed.clusters[0].validity.end.date).toBe('2016-03-31');
-        expect(feed.clusters[0].validity.end.time).toBe('04:30');
+        expect(feed.clusters[0].validity.start.date).toEqual(newUtcDate(2014, 2, 28));
+        expect(feed.clusters[0].validity.start.time).toEqual(newUtcTime(1, 20));
+        expect(feed.clusters[0].validity.end.date).toEqual(newUtcDate(2016, 3, 31));
+        expect(feed.clusters[0].validity.end.time).toEqual(newUtcTime(4, 30));
 
       });
 
@@ -525,6 +525,14 @@
 
 
     });
+
+    function newUtcDate(year, month, day) {
+      return new Date(Date.UTC(year, month, day))
+    }
+
+    function newUtcTime(hours, minutes) {
+      return new Date(Date.UTC(1900, 1, 1, hours, minutes, 0));
+    }
 
   });
 })();
