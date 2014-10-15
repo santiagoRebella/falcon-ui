@@ -66,9 +66,17 @@
 
 
         $scope.saveEntity = function() {
-          Falcon.postSubmitEntity($scope.xml, "feed")
-            .success(successCallback(Falcon, $state, $timeout))
-            .error(errorCallback(Falcon, X2jsService));
+          if($scope.editingMode) {
+            Falcon.postUpdateEntity($scope.xml, "feed")
+              .success(successCallback(Falcon, $state, $timeout))
+              .error(errorCallback(Falcon, X2jsService));
+          } else {
+            Falcon.postSubmitEntity($scope.xml, "feed")
+              .success(successCallback(Falcon, $state, $timeout))
+              .error(errorCallback(Falcon, X2jsService));
+
+          }
+          $scope.editingMode = false;
         };
 
         $scope.isActive = function (route) {

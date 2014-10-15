@@ -23,7 +23,8 @@
   describe('FeedController', function () {
     var entityModelServiceMock;
     var entityFactoryMock;
-    var controllerProvider
+    var controllerProvider;
+    var falconServiceMock;
 
     beforeEach(module('app.controllers.feed'));
 
@@ -32,6 +33,7 @@
       scope.models = {};
       entityModelServiceMock = jasmine.createSpyObj('EntityModel', ['newFeedModel']);
       entityFactoryMock = jasmine.createSpyObj('EntityFactory', ['deserialize', 'newFeed']);
+      falconServiceMock = jasmine.createSpyObj('Falcon', ['postUpdateEntity', 'postSubmitEntity']);
       controllerProvider = $controller;
 
       controller = $controller('FeedController', {
@@ -39,9 +41,10 @@
         $state: {
           $current:{
             name: 'main.forms.feed.general'
-          }
+          },
+          go: angular.noop
         },
-        Falcon: {},
+        Falcon: falconServiceMock,
         EntityModel: entityModelServiceMock
       });
     }));
@@ -517,19 +520,56 @@
 
     });
 
+    describe('saveEntity', function() {
+      it('Should save the update the entity if in edit mode', function() {
+        falconServiceMock.postUpdateEntity.andReturn(successResponse({}));
+        scope.editingMode = true;
+
+        scope.saveEntity();
+
+        expect(scope.editingMode).toBe(false);
+        expect(falconServiceMock.postSubmitEntity).not.toHaveBeenCalled();
+        expect(falconServiceMock.postUpdateEntity).toHaveBeenCalled();
+      });
+    });
+
     function createController() {
       return controllerProvider('FeedController', {
         $scope: scope,
         $state: {
           $current:{
             name: 'main.forms.feed.general'
-          }
+          },
+          go: angular.noop
         },
         Falcon: {},
         EntityModel: entityModelServiceMock,
         EntityFactory: entityFactoryMock
       });
     }
+
+    function successResponse(value) {
+      var fakePromise = {};
+      fakePromise.success = function(callback) {
+        callback(value);
+        return fakePromise;
+      };
+      fakePromise.error = angular.noop;
+      return fakePromise;
+    }
+
+    function errorResponse(value) {
+      var fakePromise = {};
+      fakePromise.success = function() {
+        return fakePromise;
+      };
+      fakePromise.error = function(callback) {
+        callback(value);
+        return fakePromise;
+      };
+      return fakePromise;
+    }
+
 
   });
 
