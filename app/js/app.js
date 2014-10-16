@@ -1,10 +1,10 @@
 (function () {
 
   var app = angular.module('app', [
-                                    'ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services', 
+                                    'ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services',
                                     'app.controllers.layout', 'app.controllers.cluster', 'app.controllers.feed', 
                                     'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker', 
-                                    'app.services.validation'
+                                    'app.services.validation', 'app.directives.entity'
                                   ]); 
 
   app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
