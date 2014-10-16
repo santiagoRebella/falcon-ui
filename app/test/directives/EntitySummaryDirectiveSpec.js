@@ -40,8 +40,7 @@
         ]
       }};
 
-      var element = compile(html)(scope);
-      element = newElement('<entity-summary />', scope);
+      var element = compile('<entity-summary />')(scope);
     });
 
     function newElement(html) {

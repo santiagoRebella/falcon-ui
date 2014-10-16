@@ -17,11 +17,10 @@
  * limitations under the License.
  */
 -->
-<div class="row">
+<div class="row" ng-init="states=[{name: 'Submitted', count: 1}, {name: 'Running', count: 7}, {name: 'Paused', count: 2}, {name: 'Stopped', count: 1}]">
 
-
-  <div ng-repeat="state in [{name: 'Running', count: 7}, {name: 'Paused', count: 2}, {name: 'Stopped', count: 1}]">
-    <div class="col-xs-8">
+  <div ng-repeat="state in states">
+    <div class="col-xs-{{24/states.length}}">
       <div class="row">
         <div class="col-xs-24">
           <label style="font-size: 8px">{{state.count}}</label>
