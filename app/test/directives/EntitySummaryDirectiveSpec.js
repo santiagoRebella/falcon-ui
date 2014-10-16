@@ -40,7 +40,8 @@
         ]
       }};
 
-      //element = newElement('<entity-summary list="feeds" status="_status"/>', scope);
+      var element = compile(html)(scope);
+      element = newElement('<entity-summary />', scope);
     });
 
     function newElement(html) {
