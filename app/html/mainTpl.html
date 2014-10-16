@@ -18,39 +18,4 @@
         <entities-list input="lists.processList" caption="Processes" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
         
     </div>         
-</div> 
-
-<div class="col-sm-24"> 
-    <div class="buttonsWrapper">
-        <div class="buttonsMain"> 
-            
-            <div class="btn btn-default btn-file" ng-click="">
-                <span class="entypo up"></span> 
-                <input type="file" id="files" name="files[]" multiple fileinput-change="handleFile" ng-model="fileJson">
-            </div> 
-            
-            
-            <div class="plusButton" ng-class="{hidden: plusButton.clicked===true}">
-                <div class="btn btn-default" ng-click="plusButton.clicked=true"> 
-                    <span class="entypo circled-plus"></span> 
-                </div> 
-            </div>
-            <div class="btn btn-default hideGroupButton" ng-class="{shown: plusButton.clicked===true}"> 
-                <div ui-sref="main.forms.cluster.general" ng-click="resetCluster()">
-                    <span class="entypo archive"></span> Cluster
-                </div>
-                <div ui-sref="main.forms.feed.general">
-                    <span class="entypo download"></span> Feed
-                </div>
-                <div ui-sref="main.forms.process">
-                    <span class="entypo cycle"></span> Process
-                </div>     
-            </div>      
-            
-        </div>  
-    </div>   
-</div>             
-
-<div class="col-sm-24" ui-view>
-    
-</div>
+</div>            

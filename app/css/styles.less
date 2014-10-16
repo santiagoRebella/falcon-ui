@@ -74,23 +74,7 @@
   }
 }
 //-----------------------------------------//
-//----------------landing---------------------//
-.wrappingHomeBox {
-  text-align: center;
-  padding: 10px 0; 
-  h2 { font-weight: 0.7;}
-  h4 { color: @gray-light2; margin-top: 35px; }
-  
-  .createHomeSection {
-    border-bottom: 1px solid @gray-light2;
-    padding-bottom: 25px;
-    div {
-      display: inline-block;
-      margin: 5px 10px;
-      cursor: pointer;
-    }
-  }
-}
+//----------------FILE UPLOAD---------------------//
 .btn-file {
     cursor: pointer;
     position: relative;
@@ -112,26 +96,16 @@
     cursor: inherit;
     display: block;
 }
-
-
-
-
 //-----------------cluster/feed/processes list ---//
 .dashboardBox {
-    hr {
-      //width: 105%;
-      position: absolute;
-      height: 3px;
-      background-color: @gray-light2;
-      margin-right: -10px;
-      top: 13px;
-      left:0;
-      right:0;
-    }
+
  
 }
 .listTable { 
-  
+  border-collapse: separate;
+
+  border-radius: 4px;
+  border: 1px solid @gray;
   h5 {
     text-align:left;
     font-weight: bold;
@@ -143,9 +117,26 @@
     //border-bottom:1px solid @gray;
   }
   thead {
+    padding: 5px;
     text-align:left;
+    background-color: @gray-dark;
+    color: white;   
+
   }
-  
+  label {
+    font-weight: normal;
+    font-size: 10px;
+  }
+  .checkboxCell {
+    
+  }
+  input[type="radio"] {
+    margin: -1px 0 0 -18px;
+    font-size: 10px;
+  }
+  input[type="text"] {
+    color: black;
+  }
   .entypo {
     font-size: 20px;
     margin: 8px 0 0 0; 

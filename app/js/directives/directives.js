@@ -23,55 +23,54 @@
 	});
 	
 	
-    app.directive('entitiesList', function() {
-        return {
-            scope: {
-                input: "=",
-                play: "=",  
-                pause: "=",
-                stop:"=",
-                clone: "=",
-                remove: "=",
-                edit: "=",
-                caption: "@"
-            },
-            restrict: "EA",
-            templateUrl: 'html/directives/entitiesListDv.html',
-            link: function (scope) {
-                scope.info = {};
-                
-                scope.$watch('input', function() {
-                    if(scope.input.length < 1) {
-                        scope.info.empty = true;
-                    }
-                    else {
-                        scope.info.empty = false;
-                        
-                    }
-                }, true);
-                
-                if(scope.caption === "Clusters") {
-                   scope.action = ""; 
-                }
-                else {
-                   scope.action = 'stopped'; 
-                }
-                scope.scopePlay = function (type, name) {
-                    scope.action = 'running'; 
-                    scope.play(type, name);
-                };
-                scope.scopeStop = function (type, name) {
-                    scope.action = 'stopped'; 
-                    scope.stop(type, name);
-                };
-                scope.scopePause = function (type, name) {
-                    scope.action = 'paused';
-                    scope.pause(type, name);
-                };
- 
-            }
+  app.directive('entitiesList', function() {
+    return {
+      scope: {
+        input: "=",
+        play: "=",  
+        pause: "=",
+        stop:"=",
+        clone: "=",
+        remove: "=",
+        edit: "=",
+        caption: "@"
+      },
+      restrict: "EA",
+      templateUrl: 'html/directives/entitiesListDv.html',
+      link: function (scope) {
+        scope.info = {};
+        
+        scope.$watch('input', function() {
+          if(scope.input.length < 1) {
+            scope.info.empty = true;
+          }
+          else {
+            scope.info.empty = false;          
+          }
+        }, true);
+        
+        if(scope.caption === "Clusters") {
+          scope.action = ""; 
+        }
+        else {
+          scope.action = 'stopped'; 
+        }
+        scope.scopePlay = function (type, name) {
+          scope.action = 'running'; 
+          scope.play(type, name);
         };
-    });
+        scope.scopeStop = function (type, name) {
+          scope.action = 'stopped'; 
+          scope.stop(type, name);
+        };
+        scope.scopePause = function (type, name) {
+          scope.action = 'paused';
+          scope.pause(type, name);
+        };
+   
+      }
+    };
+  });
 
     app.directive('frequency', function() {
       return {

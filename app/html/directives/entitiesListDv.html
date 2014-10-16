@@ -1,50 +1,68 @@
 
 <table class="listTable">
-    <caption>
-        <h5> {{ caption }} </h5>
-    </caption>
-    <hr />
     <thead>       
-        <tr ng-show="info.empty"><td> There are no {{ caption }} </td></tr>          
+      <tr ng-if="info.empty">
+        <th> There are no {{ caption }} </td>
+      </tr>  
+      <tr ng-if="!info.empty">
+        <td> 
+          <div class="radio-inline">
+            <label>
+              <input type="radio" name="searchOptions" id="optionsRadios1" value="nameSearch" checked>
+                Name
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" name="searchOptions" id="optionsRadios2" value="tagsSearch">
+                Tags
+            </label>
+          </div>      
+        </td>
+      </tr>   
+      <tr ng-if="!info.empty">
+        <td> <input type="text" /> </td>   
+      </tr>   
     </thead>
     <tbody>
-        <tr ng-repeat="item in input">
-            <td class="nameCell">
-                {{ item.name }}
-                <small>{{ action | uppercase }}</small>
-            </td>
+      <tr>
+        <td class="buttonCell" >
+          <div class="btn btn-default btn-xs" ng-click="scopePlay(item.type, item.name)" ng-if="action === 'stopped' || action === 'paused'">
+              <span class="entypo play"></span> 
+          </div>
+          <div class="btn btn-default btn-xs" ng-click="scopePause(item.type, item.name)" ng-if="action === 'running'">
+              <span class="entypo paus"></span> 
+          </div>
+    
+
+          <div class="btn btn-default btn-xs" ng-click="scopeStop(item.type, item.name)" ng-if="action === 'running' || action === 'paused'">
+              <span class="entypo stop"></span> 
+          </div>
+           
+
+          <div class="btn btn-default btn-xs" ng-click="edit(item.type, item.name)" ng-if="action === 'stopped' && caption !== 'Clusters'">  
+              <span class="entypo cog"></span> 
+          </div>
+        
+
+          <div class="btn btn-default btn-xs" ng-click="clone(item.type, item.name)">  
+              <span class="entypo docs"></span> 
+          </div>
             
-            <td class="buttonCell" ng-show="action === 'stopped' || action === 'paused'">
-                <div class="btn btn-default btn-xs" ng-click="scopePlay(item.type, item.name)">
-                    <span class="entypo play"></span> 
-                </div>
-            </td>
-            <td class="buttonCell" ng-show="action === 'running'">
-                <div class="btn btn-default btn-xs" ng-click="scopePause(item.type, item.name)">
-                    <span class="entypo paus"></span> 
-                </div>
-            </td> 
-            <td class="buttonCell" ng-show="action === 'running' || action === 'paused'">
-                <div class="btn btn-default btn-xs" ng-click="scopeStop(item.type, item.name)">
-                    <span class="entypo stop"></span> 
-                </div>
-            </td>            
-            <td class="buttonCell" ng-show="action === 'stopped' && caption !== 'Clusters'">
-                <div class="btn btn-default btn-xs" ng-click="edit(item.type, item.name)">  
-                    <span class="entypo cog"></span> 
-                </div>
-            </td>           
-            <td class="buttonCell">
-                <div class="btn btn-default btn-xs" ng-click="clone(item.type, item.name)">  
-                    <span class="entypo docs"></span> 
-                </div>
-            </td>           
-            <td class="buttonCell" ng-show="action === 'stopped' || action === ''">
-                <div class="btn btn-default btn-xs" ng-click="remove(item.type, item.name)">
-                    <span class="entypo trash"></span> 
-                </div>
-            </td>
-   
-        </tr>
+
+          <div class="btn btn-default btn-xs" ng-click="remove(item.type, item.name)" ng-if="action === 'stopped' || action === ''">
+              <span class="entypo trash"></span> 
+          </div>
+        </td> 
+      </tr>
+      <tr ng-repeat="item in input">
+        <td style="checkboxCell">
+            <input type="checkbox" />
+        </td>
+        <td class="nameCell">
+            {{ item.name }}
+            <small>{{ action | uppercase }}</small>
+        </td>
+      </tr>
     </tbody>
 </table>

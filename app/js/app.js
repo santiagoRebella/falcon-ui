@@ -12,44 +12,41 @@
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
-      .state('landing', {
-        url: '/',
-        templateUrl: 'html/landingTpl.html'
-      })
       .state('main', {
+        url: '/',
         templateUrl: 'html/mainTpl.html',
         controller: 'DashboardCtrl'
       })
-      .state('main.forms', {
+      .state('forms', {
         templateUrl: 'html/formsTpl.html'
       }) 
-      .state('main.forms.cluster', {
+      .state('forms.cluster', {
         controller: 'ClusterFormCtrl',
         templateUrl: 'html/cluster/clusterFormTpl.html'
       })
-      .state('main.forms.cluster.general', {
+      .state('forms.cluster.general', {
         templateUrl: 'html/cluster/clusterFormGeneralStepTpl.html'
       })
-      .state('main.forms.cluster.summary', {
+      .state('forms.cluster.summary', {
         templateUrl: 'html/cluster/clusterFormSummaryStepTpl.html'
       })
-      .state('main.forms.feed', {
+      .state('forms.feed', {
         templateUrl: 'html/feed/feedFormTpl.html',
         controller: 'FeedController'
       })
-      .state('main.forms.feed.general', {
+      .state('forms.feed.general', {
         templateUrl: 'html/feed/feedFormGeneralStepTpl.html',
         controller: 'FeedGeneralInformationController'
       })
-      .state('main.forms.feed.properties', {
+      .state('forms.feed.properties', {
         templateUrl: 'html/feed/feedFormPropertiesStepTpl.html',
         controller: 'FeedPropertiesController'
       })
-      .state('main.forms.feed.location', {
+      .state('forms.feed.location', {
         templateUrl: 'html/feed/feedFormLocationStepTpl.html',
         controller: 'FeedLocationController'
       })
-      .state('main.forms.feed.clusters', {
+      .state('forms.feed.clusters', {
         templateUrl: 'html/feed/feedFormClustersStepTpl.html',
         controller: 'FeedClustersController',
         resolve: {
