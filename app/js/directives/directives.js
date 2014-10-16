@@ -6,21 +6,20 @@
 		return {
 			replace:false,
 			restrict: 'A',
-			templateUrl: 'html/navTpl.html',
+			templateUrl: 'html/directives/navDv.html',
 			controller: 'HeaderController'
 		};
 	});
 	
 	//Angular is not supporting file inputs on change binding that is why this directive
 	app.directive('fileinputChange', function() {
-	    return {
+    return {
 			restrict: "A",
 			link: function (scope, element, attrs) {
-	            var onChangeFunc = element.scope()[attrs.fileinputChange];
-				element.bind('change', onChangeFunc);
-				
+	      var onChangeFunc = element.scope()[attrs.fileinputChange];
+				element.bind('change', onChangeFunc);				
 			}
-	    };
+    };
 	});
 	
 	
@@ -37,7 +36,7 @@
                 caption: "@"
             },
             restrict: "EA",
-            templateUrl: 'html/entitiesListDv.html',
+            templateUrl: 'html/directives/entitiesListDv.html',
             link: function (scope) {
                 scope.info = {};
                 
@@ -97,7 +96,7 @@
       return {
         replace: true,
         restrict: 'E',
-        templateUrl: 'html/timeZoneSelectDv.html'
+        templateUrl: 'html/directives/timeZoneSelectDv.html'
       };
     });
     

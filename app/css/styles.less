@@ -37,16 +37,41 @@
 //---------navHeader----------------------//
 .navbar {
   background-color: @headerNavBG;
-  border-bottom: 1px solid black;
-  margin-bottom:0;
-}   
-.navbar-right{ margin:5px; }
-.navbar-header{ 
-  margin: 0 5px; 
-  line-height: 50px;
-  font-size: 20px;
+  margin:0;
   color: white;
+  padding: 5px 0;
+  border-width:0;
+  border-radius:0;
+}   
+.navbar-header{ 
+  margin:5px 15px 5px 5px;
+  font-size: 30px; 
   cursor:pointer;
+  font-weight: bolder;
+  >img {
+    height: 40px;
+  }
+}
+.createNavWrapper, .uploadNavWrapper {
+  float: left;
+  margin: 0 10px;
+  >h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin:2px 0;
+  }
+  >div {
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 3px;
+    display: inline-block;
+    cursor:pointer;
+  }
+  .disabled {
+    color: lighten(@headerNavBG, 10%);
+    border-color: lighten(@headerNavBG, 10%);
+    cursor:default;
+  }
 }
 //-----------------------------------------//
 //----------------landing---------------------//
