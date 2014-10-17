@@ -36,7 +36,7 @@
           <div class="btn btn-default btn-xs" ng-click="scopeStop(item.type, item.name)" ng-if="action === 'running' || action === 'paused'">
               <span class="entypo stop"></span> 
           </div>
-          <div class="btn btn-default btn-xs" ng-click="scopeEdit()" ng-if="action === 'stopped' && caption !== 'Clusters'">  
+          <div class="btn btn-default btn-xs" ng-click="scopeEdit()" ng-if="action === 'stopped' && caption !== 'Clusters' && selectedRows.length === 1">  
               <span class="entypo cog"></span> 
           </div>
           <div class="btn btn-default btn-xs" ng-click="scopeClone()" ng-if="selectedRows.length === 1">  

@@ -66,7 +66,7 @@
         };
         
         scope.scopeEdit = function () {
-          scope.edit(scope.selectedRows[i].type, scope.selectedRows[i].name);        
+          scope.edit(scope.selectedRows[0].type, scope.selectedRows[0].name);       
         };
         scope.scopeClone = function () {
           scope.clone(scope.selectedRows[0].type, scope.selectedRows[0].name);        
