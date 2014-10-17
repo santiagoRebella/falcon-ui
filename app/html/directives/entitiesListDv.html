@@ -5,7 +5,7 @@
         <th> There are no {{ caption }} </td>
       </tr>  
       <tr ng-if="!info.empty">
-        <td> 
+        <th colspan="3"> 
           <div class="radio-inline">
             <label>
               <input type="radio" name="searchOptions" id="optionsRadios1" value="nameSearch" checked>
@@ -18,51 +18,47 @@
                 Tags
             </label>
           </div>      
-        </td>
+        </th>
       </tr>   
       <tr ng-if="!info.empty">
-        <td> <input type="text" /> </td>   
+        <td colspan="3"> <input type="text" class="form-control"/> </td>   
       </tr>   
     </thead>
     <tbody>
-      <tr>
-        <td class="buttonCell" >
+      <tr ng-if="!info.empty">
+        <td class="buttonCell" colspan="3">
           <div class="btn btn-default btn-xs" ng-click="scopePlay(item.type, item.name)" ng-if="action === 'stopped' || action === 'paused'">
               <span class="entypo play"></span> 
           </div>
           <div class="btn btn-default btn-xs" ng-click="scopePause(item.type, item.name)" ng-if="action === 'running'">
               <span class="entypo paus"></span> 
           </div>
-    
-
           <div class="btn btn-default btn-xs" ng-click="scopeStop(item.type, item.name)" ng-if="action === 'running' || action === 'paused'">
               <span class="entypo stop"></span> 
           </div>
-           
-
-          <div class="btn btn-default btn-xs" ng-click="edit(item.type, item.name)" ng-if="action === 'stopped' && caption !== 'Clusters'">  
+          <div class="btn btn-default btn-xs" ng-click="scopeEdit()" ng-if="action === 'stopped' && caption !== 'Clusters'">  
               <span class="entypo cog"></span> 
           </div>
-        
-
-          <div class="btn btn-default btn-xs" ng-click="clone(item.type, item.name)">  
+          <div class="btn btn-default btn-xs" ng-click="scopeClone()" ng-if="selectedRows.length === 1">  
               <span class="entypo docs"></span> 
           </div>
-            
-
-          <div class="btn btn-default btn-xs" ng-click="remove(item.type, item.name)" ng-if="action === 'stopped' || action === ''">
+          <div class="btn btn-default btn-xs" ng-click="scopeRemove()" ng-if="action === 'stopped' || action === ''">
               <span class="entypo trash"></span> 
           </div>
         </td> 
       </tr>
       <tr ng-repeat="item in input">
-        <td style="checkboxCell">
-            <input type="checkbox" />
+        <td class="checkboxCell">
+            <input type="checkbox" checklist-model="selectedRows" checklist-value="{name:item.name, type:item.type}"/>
         </td>
         <td class="nameCell">
             {{ item.name }}
             <small>{{ action | uppercase }}</small>
         </td>
+        <td class="dateCell">
+            10/10/2014
+        </td>
       </tr>
     </tbody>
+
 </table>

@@ -55,6 +55,23 @@
         else {
           scope.action = 'stopped'; 
         }
+        
+        scope.selectedRows = [];
+        
+        scope.scopeRemove = function () {
+          var i;
+          for(i = 0; i < scope.selectedRows.length; i++) {
+            scope.remove(scope.selectedRows[i].type, scope.selectedRows[i].name);
+          }
+        };
+        
+        scope.scopeEdit = function () {
+          scope.edit(scope.selectedRows[i].type, scope.selectedRows[i].name);        
+        };
+        scope.scopeClone = function () {
+          scope.clone(scope.selectedRows[0].type, scope.selectedRows[0].name);        
+        };
+        
         scope.scopePlay = function (type, name) {
           scope.action = 'running'; 
           scope.play(type, name);

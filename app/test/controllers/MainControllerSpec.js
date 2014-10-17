@@ -90,7 +90,7 @@
 
           scope.editEntity('feed', 'myFeed');
 
-          expect(stateMock.go).toHaveBeenCalledWith('main.forms.feed.general');
+          expect(stateMock.go).toHaveBeenCalledWith('forms.feed.general');
         });
 
         it('Should set a copy of the model into the scope', function () {

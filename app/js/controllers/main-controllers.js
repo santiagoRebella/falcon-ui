@@ -101,7 +101,7 @@
                 .success(function (data) {             
                     EntityModel[type + "Model"] = X2jsService.xml_str2json(data);            
                     console.log(JSON.stringify(EntityModel[type + "Model"]));          
-                    $state.go('main.forms.' + type + ".general");
+                    $state.go('forms.' + type + ".general");
                  })
                 .error(function (err) { 
                     var error = X2jsService.xml_str2json(err);            
@@ -118,7 +118,7 @@
               EntityModel[modelName] = entityModel;
               $scope.models[modelName] = angular.copy(entityModel);
               $scope.editingMode = true;
-              $state.go('main.forms.' + type + ".general");
+              $state.go('forms.' + type + ".general");
             })
             .error(function (err) {
               var error = X2jsService.xml_str2json(err);

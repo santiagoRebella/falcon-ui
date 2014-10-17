@@ -4,7 +4,7 @@
                                     'ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services',
                                     'app.controllers.layout', 'app.controllers.cluster', 'app.controllers.feed', 
                                     'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker', 
-                                    'app.services.validation', 'app.directives.entity'
+                                    'app.services.validation', 'app.directives.entity', 'checklist-model'
                                   ]); 
 
   app.config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
@@ -58,7 +58,7 @@
           }]
         }
       })
-      .state('main.forms.feed.summary', {
+      .state('forms.feed.summary', {
         templateUrl: 'html/feed/feedFormSummaryStepTpl.html',
         controller: 'FeedSummaryController'
       });
