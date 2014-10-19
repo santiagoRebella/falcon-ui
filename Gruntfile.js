@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
       dependencies: {
         cwd: 'app/',
-        src: ['js/lib/*.js', 'css/fonts/*'],
+        src: ['js/lib/*.js', 'css/fonts/*', 'css/img/*'],
         dest: 'dist/',
         expand: true
       }

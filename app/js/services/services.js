@@ -36,7 +36,7 @@
            return $http.delete(add_user('api/entities/delete/' + type + '/' + name));  
         };
         Falcon.getEntities = function (type) {   
-            return $http.get(add_user('/api/entities/list/' + type +'?fields=:fields'));  
+            return $http.get(add_user('/api/entities/list/' + type +'?fields=status,tags'));  
         };
         
         Falcon.getEntityDefinition = function (type, name) {   

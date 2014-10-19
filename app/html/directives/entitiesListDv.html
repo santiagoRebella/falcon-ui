@@ -2,10 +2,10 @@
 <table class="listTable">
     <thead>       
       <tr ng-if="info.empty">
-        <th> There are no {{ caption }} </td>
+        <th> There are no {{ type }}s </td>
       </tr>  
       <tr ng-if="!info.empty">
-        <th colspan="3"> 
+        <th colspan="4"> 
           <div class="radio-inline">
             <label>
               <input type="radio" name="searchOptions" id="optionsRadios1" value="nameSearch" checked>
@@ -26,7 +26,7 @@
     </thead>
     <tbody>
       <tr ng-if="!info.empty">
-        <td class="buttonCell" colspan="3">
+        <td class="buttonCell" colspan="4">
           <div class="btn btn-default btn-xs" ng-click="scopePlay(item.type, item.name)" ng-if="action === 'stopped' || action === 'paused'">
               <span class="entypo play"></span> 
           </div>
@@ -47,13 +47,15 @@
           </div>
         </td> 
       </tr>
-      <tr ng-repeat="item in input">
+      <tr ng-repeat="item in input" class="entityRow">
         <td class="checkboxCell">
             <input type="checkbox" checklist-model="selectedRows" checklist-value="{name:item.name, type:item.type}"/>
         </td>
         <td class="nameCell">
             {{ item.name }}
-            <small>{{ action | uppercase }}</small>
+        </td>
+        <td class="stateCell" ng-if="type !== 'cluster'">
+            {{ item.status }}
         </td>
         <td class="dateCell">
             10/10/2014

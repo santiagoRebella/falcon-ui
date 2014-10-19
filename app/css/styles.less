@@ -120,14 +120,25 @@
     text-align:left;
     background-color: @gray-dark;
     color: white;   
-
   }
+  .entityRow {
+    td {
+      text-align: center;
+      border-bottom: 1px solid @gray-light; 
+    }
+    &:last-child {
+       td {
+        border-bottom: none;   
+      }
+    }
+  }
+  
   label {
     font-weight: normal;
     font-size: 10px;
   }
   .checkboxCell {
-    width: 10px;
+    width: 20px;
   }
   input[type="radio"] {
     margin: -1px 0 0 -18px;

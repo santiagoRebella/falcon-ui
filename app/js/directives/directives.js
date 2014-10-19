@@ -33,7 +33,7 @@
         clone: "=",
         remove: "=",
         edit: "=",
-        caption: "@"
+        type: "@"
       },
       restrict: "EA",
       templateUrl: 'html/directives/entitiesListDv.html',
@@ -49,7 +49,7 @@
           }
         }, true);
         
-        if(scope.caption === "Clusters") {
+        if(scope.type === "cluster") {
           scope.action = ""; 
         }
         else {
