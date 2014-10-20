@@ -57,7 +57,6 @@
       expect(scope.feed.storage.fileSystem.active).toBe(false);
     });
 
-
   });
 
 })();

@@ -146,7 +146,4 @@
     return fakePromise;
   }
 
-
-
-
 })();

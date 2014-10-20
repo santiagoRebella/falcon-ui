@@ -44,11 +44,12 @@
       expect(element.text()).toBe('Not specified');
     });
 
-
     function newElement(html) {
       var element = compile(html)(scope);
       scope.$digest();
       return element;
     }
+
   });
+
 })();

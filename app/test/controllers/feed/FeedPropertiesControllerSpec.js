@@ -76,7 +76,6 @@
       expect(scope.feed.customProperties).toEqual([{key: 'key0', value: 'value0'}, {key: 'key1', value: 'value1'}]);
     });
 
-
   });
 
 })();
