@@ -21,11 +21,11 @@
   <div>
     <div class="col-xs-6" ng-init="status = groups.totals['SUBMITTED']">
       <div class="row metric-cell">
-        <div class="col-xs-24">
-          <small>{{groups.totals['SUBMITTED'].value}}</small>
+        <div class="col-xs-24 center-block">
+          <small class="center-block status-count">{{groups.totals['SUBMITTED'].value}}</small>
         </div>
         <div class="col-xs-24">
-          <small>{{groups.totals['SUBMITTED'].key}}</small>
+          <small class="center-block status-label">{{groups.totals['SUBMITTED'].key}}</small>
         </div>
       </div>
     </div>
@@ -35,10 +35,10 @@
     <div ng-class="{'metric-cell': !$last}" class="col-xs-6" >
       <div class="row status-{{status.key | lowercase}}">
         <div class="col-xs-24">
-          <small>{{status.value}}</small>
+          <small class="center-block status-count">{{status.value}}</small>
         </div>
         <div class="col-xs-24">
-          <small>{{status.key}}</small>
+          <small class="center-block status-label">{{status.key}}</small>
         </div>
       </div>
     </div>
