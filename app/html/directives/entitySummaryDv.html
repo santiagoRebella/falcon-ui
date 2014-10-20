@@ -17,16 +17,30 @@
  * limitations under the License.
  */
 -->
-<div class="row" ng-init="states=[{name: 'Submitted', count: 1}, {name: 'Running', count: 7}, {name: 'Paused', count: 2}, {name: 'Stopped', count: 1}]">
+<div class="row metrics">
 
-  <div ng-repeat="state in states">
-    <div class="col-xs-{{24/states.length}}">
-      <div class="row">
+  
+  <div>
+    <div class="col-xs-6" ng-init="status = groups.totals['SUBMITTED']">
+      <div class="row metric-cell">
         <div class="col-xs-24">
-          <div style="font-size: 8px">{{state.count}}</div>
+          <small>{{groups.totals['SUBMITTED'].value}}</small>
         </div>
         <div class="col-xs-24">
-          <div style="font-size: 8px">{{state.name}}</div>
+          <small>{{groups.totals['SUBMITTED'].key}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div ng-repeat="status in groups.partials.metrics">
+    <div class="col-xs-6 metric-cell">
+      <div class="row status-{{status.key | lowercase}}">
+        <div class="col-xs-24">
+          <small>{{status.value}}</small>
+        </div>
+        <div class="col-xs-24">
+          <small>{{status.key}}</small>
         </div>
       </div>
     </div>

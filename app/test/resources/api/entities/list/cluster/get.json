@@ -1,1 +1,1 @@
-{"entity":[{"type":"cluster","name":"backupCluster"},{"type":"cluster","name":"primaryCluster"}]}
+{"entity":[{"type":"cluster","name":"backupCluster","status":"SUBMITTED"},{"type":"cluster","name":"primaryCluster","status":"SUBMITTED"}]}

@@ -20,33 +20,64 @@
 
   describe('Entity Summary Directive', function () {
 
-    var element, scope, compile;
+    var scope, compile, controller;
 
     beforeEach(module('app.directives.entity'));
 
 
-    beforeEach(inject(function($rootScope, $compile) {
+    beforeEach(inject(function($rootScope, $compile, $controller) {
       scope = $rootScope.$new();
       compile = $compile;
+      controller = $controller('EntitySummaryCtrl', {
+        $scope: scope
+      });
     }));
 
-    it('Should render stuff', function() {
-      scope.feeds = {entities: {
-        entity: [
-          {_name: 'FeedOne', _status: 'SUBMITTED'},
-          {_name: 'FeedTwo', _status: 'RUNNING'},
-          {_name: 'FeedThree', _status: 'RUNNING'},
-          {_name: 'FeedFour', _status: 'STOPPED'}
-        ]
-      }};
+    describe('EntitySummaryCtrl', function() {
+      it('Should be initialized with empty groups', function() {
+        scope.init();
 
-      var element = compile('<entity-summary />')(scope);
+        expect(scope.groups).toEqual([]);
+      });
+
+
+      it('Should create the expected metric groups', function() {
+        scope.groups = [];
+        scope.satusfield = '_status';
+        scope.entities = [
+            {_name: 'FeedOne', _status: 'STOPPED'},
+            {_name: 'FeedTwo', _status: 'RUNNING'},
+            {_name: 'FeedThree', _status: 'RUNNING'},
+            {_name: 'FeedFour', _status: 'STOPPED'},
+            {_name: 'FeedFour', _status: 'OTHER'}
+          ];
+        scope.statuses = ['RUNNING', 'PAUSED', 'STOPPED']
+
+        scope.group();
+
+        expect(scope.groups.totals).toEqual(
+          {
+            name: 'totals',
+            metrics: [{ key: 'SUBMITTED', value: 5}],
+            SUBMITTED: {key: 'SUBMITTED', value: 5}
+          }
+        );
+
+        expect(scope.groups.partials).toEqual(
+        {
+          name: 'partials',
+          metrics: [
+            { key: 'RUNNING', value: 2},
+            { key: 'PAUSED', value: 0},
+            { key: 'STOPPED', value: 2}
+          ]
+        }
+        );
+
+      });
+
+
     });
 
-    function newElement(html) {
-      var element = compile(html)(scope);
-      scope.$digest();
-      return element;
-    }
   });
 })();

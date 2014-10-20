@@ -1,1 +1,1 @@
-{"entity":[{"type":"feed","name":"feedOne"},{"type":"feed","name":"feedTwo"},{"type":"feed","name":"feedThree"}]}
+{"entity":[{"type":"feed","name":"feedOne","status":"SUBMITTED"},{"type":"feed","name":"feedTwo","status":"RUNNING"},{"type":"feed","name":"feedThree","status":"SUBMITTED"}]}
