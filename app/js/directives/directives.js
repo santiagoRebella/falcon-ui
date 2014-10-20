@@ -27,13 +27,15 @@
     return {
       scope: {
         input: "=",
-        play: "=",  
-        pause: "=",
+        schedule: "=",  
+        suspend: "=",
         stop:"=",
         clone: "=",
         remove: "=",
         edit: "=",
-        type: "@"
+        type: "@",
+        entityDetails:"=",
+        resume:"="
       },
       restrict: "EA",
       templateUrl: 'html/directives/entitiesListDv.html',
@@ -48,16 +50,9 @@
             scope.info.empty = false;          
           }
         }, true);
-        
-        if(scope.type === "cluster") {
-          scope.action = ""; 
-        }
-        else {
-          scope.action = 'stopped'; 
-        }
-        
+
         scope.selectedRows = [];
-        
+        scope.simpleFilter = {};
         scope.scopeRemove = function () {
           var i;
           for(i = 0; i < scope.selectedRows.length; i++) {
@@ -71,18 +66,34 @@
         scope.scopeClone = function () {
           scope.clone(scope.selectedRows[0].type, scope.selectedRows[0].name);        
         };
+        scope.goEntityDetails = function(name, type) {
+          scope.entityDetails(name, type);
+        };
         
-        scope.scopePlay = function (type, name) {
-          scope.action = 'running'; 
-          scope.play(type, name);
+        
+        scope.scopeSchedule = function () {
+          var i;
+          for(i = 0; i < scope.selectedRows.length; i++) {
+            scope.schedule(scope.selectedRows[i].type, scope.selectedRows[i].name);
+          }
         };
-        scope.scopeStop = function (type, name) {
-          scope.action = 'stopped'; 
-          scope.stop(type, name);
+        scope.scopeStop = function () {
+          var i;
+          for(i = 0; i < scope.selectedRows.length; i++) {
+            scope.stop(scope.selectedRows[i].type, scope.selectedRows[i].name);
+          }
         };
-        scope.scopePause = function (type, name) {
-          scope.action = 'paused';
-          scope.pause(type, name);
+        scope.scopeSuspend = function () {
+          var i;
+          for(i = 0; i < scope.selectedRows.length; i++) {
+            scope.suspend(scope.selectedRows[i].type, scope.selectedRows[i].name);
+          }
+        };
+        scope.scopeResume = function () {
+          var i;
+          for(i = 0; i < scope.selectedRows.length; i++) {
+            scope.resume(scope.selectedRows[i].type, scope.selectedRows[i].name);
+          }
         };
    
       }

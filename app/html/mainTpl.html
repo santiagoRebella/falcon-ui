@@ -5,17 +5,16 @@
 </div>
 
 <div class="col-sm-24 dashboardBox">   
+  <div class="row">
    
     <div class="col-sm-8">
-        <entities-list input="lists.clusterList" type="cluster" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
-  
+        <entities-list input="lists.clusterList" type="cluster" entity-details="entityDetails" clone="cloneEntity" remove="deleteEntity" edit="editEntity" schedule="scheduleEntity" suspend="suspendEntity" stop="stopEntity" resume="resumeEntity"></entities-list>
     </div>  
     <div class="col-sm-8">
-        <entities-list input="lists.feedList" type="feed" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
-        
+        <entities-list input="lists.feedList" type="feed" entity-details="entityDetails" clone="cloneEntity" remove="deleteEntity" edit="editEntity" schedule="scheduleEntity" suspend="suspendEntity" stop="stopEntity" resume="resumeEntity"></entities-list>       
     </div>  
     <div class="col-sm-8">
-        <entities-list input="lists.processList" type="process" clone="cloneEntity" remove="deleteEntity" edit="editEntity" play="playEntity" pause="pauseEntity" stop="stopEntity"></entities-list>
-        
-    </div>         
+        <entities-list input="lists.processList" entity-details="entityDetails" type="process" clone="cloneEntity" remove="deleteEntity" edit="editEntity" schedule="scheduleEntity" suspend="suspendEntity" stop="stopEntity" resume="resumeEntity"></entities-list>        
+    </div> 
+  </div>        
 </div>            

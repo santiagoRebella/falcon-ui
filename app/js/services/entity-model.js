@@ -24,6 +24,7 @@
     var EntityModel = {};
 
     EntityModel.json = null;
+    EntityModel.detailsPageModel = null;
 
     EntityModel.identifyType = function(json) {
       if(json.feed) { EntityModel.type = "feed"; }
