@@ -1,141 +1,158 @@
+<!--
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
 <form name="feedForm">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="light freqTitle">Frequency</div>
 
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="light freqTitle">Frequency</div>
-        
-        <label class="light">Every</label>
-      
-          <span class="composedField">
-            <input type="text" class="form-control small light"
-             ng-model="feed.frequency.quantity"
-             ng-required="true"
-             ng-pattern="validations.twoDigits.pattern"/>
-          </span>
+      <label class="light">Every</label>
 
-          <select
-            ng-model="feed.frequency.unit"
-            ng-required="true">
-            <option value="hours">hours</option>
-            <option value="days">days</option>
-            <option value="weeks">weeks</option>
-            <option value="months">months</option>
-          </select>
-      </div>
-      <div class="col-sm-8">
-        <div>
-          <input type="checkbox" ng-model="feed.lateArrival.active">
-          <label class="light">Late Arrival</label>
-        </div>
-      
-        <label class="light">Up to</label>
-  
-        <input type="text" class="form-control small light"
-          ng-model="feed.lateArrival.cutOff.quantity"
-          ng-disabled="!feed.lateArrival.active"
-          ng-pattern="validations.twoDigits.pattern"
-          ng-required="feed.lateArrival.active"/>
-     
+        <span class="composedField">
+          <input type="text" class="form-control small light"
+           ng-model="feed.frequency.quantity"
+           ng-required="true"
+           ng-pattern="validations.twoDigits.pattern"/>
+        </span>
+
         <select
-          ng-model="feed.lateArrival.cutOff.unit"
-          ng-required="feed.lateArrival.active">
+          ng-model="feed.frequency.unit"
+          ng-required="true">
           <option value="hours">hours</option>
           <option value="days">days</option>
           <option value="weeks">weeks</option>
           <option value="months">months</option>
         </select>
-     
-      </div>
-      <div class="col-sm-8">
-        <label class="light">Availability Flag</label>
-        <input type="text" class="availFlagInput form-control"
-          ng-model="feed.availabilityFlag"
-          ng-pattern="validations.alpha.pattern">
+    </div>
+    <div class="col-sm-8">
+      <div>
+        <input type="checkbox" ng-model="feed.lateArrival.active">
+        <label class="light">Late Arrival</label>
       </div>
 
+      <label class="light">Up to</label>
 
-      <h4 class="col-sm-24">Properties</h4>
-      <div class="col-sm-5">
-        <label class="light">Name</label>
+      <input type="text" class="form-control small light"
+        ng-model="feed.lateArrival.cutOff.quantity"
+        ng-disabled="!feed.lateArrival.active"
+        ng-pattern="validations.twoDigits.pattern"
+        ng-required="feed.lateArrival.active"/>
+
+      <select
+        ng-model="feed.lateArrival.cutOff.unit"
+        ng-required="feed.lateArrival.active">
+        <option value="hours">hours</option>
+        <option value="days">days</option>
+        <option value="weeks">weeks</option>
+        <option value="months">months</option>
+      </select>
+
+    </div>
+    <div class="col-sm-8">
+      <label class="light">Availability Flag</label>
+      <input type="text" class="availFlagInput form-control"
+        ng-model="feed.availabilityFlag"
+        ng-pattern="validations.alpha.pattern">
+    </div>
+
+
+    <h4 class="col-sm-24">Properties</h4>
+    <div class="col-sm-5">
+      <label class="light">Name</label>
+    </div>
+    <div class="col-sm-19">
+      <label class="light">Value</label>
+    </div>
+
+    <div ng-repeat="property in feed.properties">
+      <div class="col-sm-5 dynamic-table-spacer">
+        <label>{{property.key}}</label>
       </div>
-      <div class="col-sm-19">
-        <label class="light">Value</label>
+      <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key !== 'timeout' && property.key !== 'jobPriority'">
+        <input type="text" class="form-control"
+          ng-model="property.value"
+          ng-patter="validations.alpha.pattern"/>
       </div>
-
-      <div ng-repeat="property in feed.properties">
-        <div class="col-sm-5 dynamic-table-spacer">
-          <label>{{property.key}}</label>
-        </div>
-        <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key !== 'timeout' && property.key !== 'jobPriority'">
-          <input type="text" class="form-control"
-            ng-model="property.value"
-            ng-patter="validations.alpha.pattern"/>
-        </div>
-        <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'timeout'">
-          At
-          <input type="text" class="form-control small light"
-                 ng-model="property.value.quantity"
-                 ng-pattern="validations.twoDigits.pattern"/>
-          <select
-            ng-model="property.value.unit">
-            <option value="hours">hours</option>
-            <option value="days">days</option>
-            <option value="weeks">weeks</option>
-            <option value="months">months</option>
-          </select>
-        </div>
-        <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'jobPriority'">
-          <select ng-model="property.value" class="form-control padding0">
-            <option value="VERY_HIGH">Very high</option>
-            <option value="HIGH">High</option>
-            <option value="NORMAL">Normal</option>
-            <option value="LOW">Low</option>
-            <option value="VERY_LOW">Very Low</option>
-          </select>
-        </div>
-        <div class="clearfix hidden-md"></div>
+      <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'timeout'">
+        At
+        <input type="text" class="form-control small light"
+               ng-model="property.value.quantity"
+               ng-pattern="validations.twoDigits.pattern"/>
+        <select
+          ng-model="property.value.unit">
+          <option value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
       </div>
-
-      <div ng-repeat="property in feed.customProperties">
-        <div class="col-sm-5 dynamic-table-spacer">
-          <input type="text" class="form-control"
-            ng-model="property.key"
-            ng-pattern="validations.alpha.pattern"
-            ng-required="property.value"/>
-        </div>
-
-        <div class="col-sm-17 dynamic-table-spacer">
-          <input type="text" class="form-control"
-            ng-model="property.value"
-            ng-pattern="validations.alpha.pattern"
-            ng-required="property.key"/>
-        </div>
-        <div class="col-sm-2 top-buffer" >
-          <div ng-if="!$last">
-            <span class="entypo circled-minus dynamic-table-spacer" ng-click="removeCustomProperty($index)"></span>
-          </div>
-          <div ng-if="$last">
-            <span class="entypo circled-plus dynamic-table-spacer" ng-click="addCustomProperty()"></span>
-          </div>
-        </div>
-        <div class="clearfix hidden-md"></div>
+      <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'jobPriority'">
+        <select ng-model="property.value" class="form-control padding0">
+          <option value="VERY_HIGH">Very high</option>
+          <option value="HIGH">High</option>
+          <option value="NORMAL">Normal</option>
+          <option value="LOW">Low</option>
+          <option value="VERY_LOW">Very Low</option>
+        </select>
       </div>
-
       <div class="clearfix hidden-md"></div>
+    </div>
 
-      
-    </div>
-    <div class="feedBottomButtons row">
-      <div class="btn btn-default col-sm-6" ui-sref="main.forms.feed.general">
-        Previous
+    <div ng-repeat="property in feed.customProperties">
+      <div class="col-sm-5 dynamic-table-spacer">
+        <input type="text" class="form-control"
+          ng-model="property.key"
+          ng-pattern="validations.alpha.pattern"
+          ng-required="property.value"/>
       </div>
-      <div class="btn btn-default col-sm-6 pull-right"
-        ng-disabled="feedForm.$invalid"
-        ui-sref="main.forms.feed.location">
-        Next
+
+      <div class="col-sm-17 dynamic-table-spacer">
+        <input type="text" class="form-control"
+          ng-model="property.value"
+          ng-pattern="validations.alpha.pattern"
+          ng-required="property.key"/>
       </div>
-      <u class="col-sm-3 pull-right" ui-sref="main">
-        Cancel
-      </u>
+      <div class="col-sm-2 top-buffer" >
+        <div ng-if="!$last">
+          <span class="entypo circled-minus dynamic-table-spacer" ng-click="removeCustomProperty($index)"></span>
+        </div>
+        <div ng-if="$last">
+          <span class="entypo circled-plus dynamic-table-spacer" ng-click="addCustomProperty()"></span>
+        </div>
+      </div>
+      <div class="clearfix hidden-md"></div>
     </div>
+
+    <div class="clearfix hidden-md"></div>
+
+  </div>
+  <div class="feedBottomButtons row">
+    <div class="btn btn-default col-sm-6" ui-sref="main.forms.feed.general">
+      Previous
+    </div>
+    <div class="btn btn-default col-sm-6 pull-right"
+      ng-disabled="feedForm.$invalid"
+      ui-sref="forms.feed.location">
+      Next
+    </div>
+    <u class="col-sm-3 pull-right" ui-sref="main">
+      Cancel
+    </u>
+  </div>
 </form>
