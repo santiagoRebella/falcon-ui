@@ -32,7 +32,7 @@
   </div>
 
   <div ng-repeat="status in groups.partials.metrics">
-    <div class="col-xs-6 metric-cell">
+    <div ng-class="{'metric-cell': !$last}" class="col-xs-6" >
       <div class="row status-{{status.key | lowercase}}">
         <div class="col-xs-24">
           <small>{{status.value}}</small>
