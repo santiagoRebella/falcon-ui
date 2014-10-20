@@ -8,7 +8,7 @@
     		    serverResponse: null,
     		    success: null    
     		},
-			USER_ID = 'dashboard';
+			USER_ID = 'ambari-qa';
 
 	    function add_user(url) {
 			var paramSeparator = (url.indexOf('?') !== -1) ? '&' : '?';
@@ -31,6 +31,15 @@
            return $http.post(add_user('/api/entities/update/' + type + '/' + name), xml, { headers: {'Content-Type': 'text/plain'} });  
         };
         
+        Falcon.postScheduleEntity = function (type, name) {
+          return $http.post(add_user('/api/entities/schedule/' + type + '/' + name));  
+        };
+        Falcon.postSuspendEntity = function (type, name) {
+          return $http.post(add_user('/api/entities/suspend/' + type + '/' + name));  
+        };
+        Falcon.postResumeEntity = function (type, name) {
+          return $http.post(add_user('/api/entities/resume/' + type + '/' + name));  
+        };
         
         Falcon.deleteEntity = function (type, name) {   
            return $http.delete(add_user('api/entities/delete/' + type + '/' + name));  

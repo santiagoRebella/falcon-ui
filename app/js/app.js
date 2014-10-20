@@ -3,6 +3,7 @@
   var app = angular.module('app', [
                                     'ui.bootstrap', 'ui.router', 'app.controllers', 'app.directives', 'app.services',
                                     'app.controllers.layout', 'app.controllers.cluster', 'app.controllers.feed', 
+                                    'app.controllers.entityDetails',
                                     'app.services.entity', 'app.services.entity.model', 'falcon.util.datepicker', 
                                     'app.services.validation', 'app.directives.entity', 'checklist-model'
                                   ]); 
@@ -17,6 +18,10 @@
         templateUrl: 'html/mainTpl.html',
         controller: 'DashboardCtrl'
       })
+      .state('entityDetails', {
+        templateUrl: 'html/entityDetailsTpl.html',
+        controller: 'EntityDetailsCtrl'
+      }) 
       .state('forms', {
         templateUrl: 'html/formsTpl.html'
       }) 

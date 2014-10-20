@@ -126,14 +126,71 @@
               Falcon.serverResponse = error.result;
             });
         };
-        $scope.playEntity = function (type, name) {         
+        //-----------------------------------------//
+        $scope.entityDetails = function (name, type) {
+          Falcon.getEntityDefinition(type, name)
+            .success(function (data) {
+              var entityModel = X2jsService.xml_str2json(data);
+              EntityModel.detailsPageModel = entityModel;
+              $state.go("entityDetails");
+            })
+            .error(function (err) {
+              var error = X2jsService.xml_str2json(err);
+              Falcon.success = false;
+              Falcon.serverResponse = error.result;
+            });
+        };
+        //----------------------------------------//
+        $scope.resumeEntity = function (type, name) {         
             console.log("play " + type + " - " + name);
+            Falcon.postResumeEntity(type, name).success(function (data) {
+              console.log(data);
+              refreshLists(); 
+            })
+            .error(function (err) {
+              var error = X2jsService.xml_str2json(err);
+              Falcon.success = false;
+              Falcon.serverResponse = error.result;
+            });
         };
+        $scope.scheduleEntity = function (type, name) {         
+            console.log("play " + type + " - " + name);
+            Falcon.postScheduleEntity(type, name).success(function (data) {
+              console.log(data);
+              refreshLists(); 
+            })
+            .error(function (err) {
+              var error = X2jsService.xml_str2json(err);
+              Falcon.success = false;
+              Falcon.serverResponse = error.result;
+            });
+        };       
+        
+        
         $scope.stopEntity = function (type, name) {         
-            console.log("stop " + type + " - " + name);
+          console.log("stop " + type + " - " + name);
+          Falcon.postSuspendEntity(type, name).success(function (data) {
+            console.log(data);
+            refreshLists(); 
+          })
+          .error(function (err) {
+            var error = X2jsService.xml_str2json(err);
+            Falcon.success = false;
+            Falcon.serverResponse = error.result;
+          });
         };
-        $scope.pauseEntity = function (type, name) {         
-            console.log("pause " + type + " - " + name);
+        $scope.suspendEntity = function (type, name) {         
+          console.log("pause " + type + " - " + name);
+          Falcon.postSuspendEntity(type, name)
+            .success(function (data) {
+              console.log(data);
+              refreshLists(); 
+            })
+            .error(function (err) {
+              var error = X2jsService.xml_str2json(err);
+              Falcon.success = false;
+              Falcon.serverResponse = error.result;
+            });
         };
         $scope.relationsEntity = function (type, name) {         
             console.log("relations " + type + " - " + name);
