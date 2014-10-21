@@ -199,6 +199,12 @@
   .buttonCell {
     //opacity:0;
   }
+  .nameCell {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
 }
 
@@ -263,7 +269,44 @@
 
   }
 }
-
+//------------entity details----------------//
+.detailsHeaders {
+  h3 { display: inline-block;}
+  small{
+    color: @gray-light;
+    display: block;
+    margin-bottom: -2px;
+  }
+  .btn {
+    margin-top: -2px;
+    background-color: @gray;
+    color: white;
+  }
+  
+}
+.detailsBox {
+  border-radius: 5px;
+  border: 1px solid @gray-light2;
+  margin: 5px;
+  padding: 15px 5px;
+  font-size: 12px;
+  h4 {
+    font-weight: bold;
+    margin:5px 0;
+  }
+  h5 {
+    font-weight: bold;
+  }
+  table {
+    width: 100%;
+    border-spacing: 5px;
+    border-collapse: separate;
+  }
+  .tableHeader {
+    width: 70px;
+    font-weight: bold;
+  }
+}
 //------------forms ----------------//
 .formPage {
   border-top: 5px solid @gray-light2;

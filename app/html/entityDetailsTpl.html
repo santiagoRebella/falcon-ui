@@ -17,4 +17,54 @@
  * limitations under the License.
  */
 -->
-EntityDetails
+<div class="col-sm-24 detailsHeaders"> 
+  <h3>
+    <small>{{type}}s</small>
+    {{ viewDock._name }}
+  </h3>
+  <div class="btn btn-xs btn-default" ng-click="cloneEntity(type, viewDock._name); ">Edit</div>
+</div>
+<div class="col-sm-12">
+  <div class="row detailsBox">
+    <h4 class="col-sm-24">General</h4>
+    <div class="col-sm-12">
+      <h5>Name</h5>
+      {{ viewDock._name }}
+    </div>
+    <div class="col-sm-12">
+      <h5>Colo</h5>
+      {{ viewDock._colo }}
+    </div>
+    <div class="col-sm-24">
+      <h5>Description</h5>
+      {{ viewDock._description }}
+    </div>
+    <div class="col-sm-24">
+      <h5>Groups</h5>
+      something
+    </div>
+    <div class="col-sm-24">
+      <h4>Interfaces</h5>
+      <table>
+        <tr ng-repeat="inter in viewDock.interfaces.interface">
+          <td class="tableHeader">{{ inter._type}}</td>
+          <td>{{ inter._endpoint}}</td>
+          <td>{{ inter._version}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-sm-24">
+      <h4>Location</h5>
+      <table>
+        <tr ng-repeat="loc in viewDock.locations.location">
+          <td class="tableHeader">{{ loc._name}}</td>
+          <td>{{ loc._path}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+</div>
+<div class="col-sm-11 detailsBox">
+  
+</div>

@@ -20,9 +20,24 @@
 
   var entityDetails = angular.module('app.controllers.entityDetails', ['app.services']);
 
-  entityDetails.controller('EntityDetailsCtrl', ["$scope", "EntityModel", function($scope, EntityModel) {
+  entityDetails.controller('EntityDetailsCtrl', ["$scope", "$state", "EntityModel", function($scope, $state, EntityModel) {
     $scope.entityDetailsModel = EntityModel.detailsPageModel;
-    console.log($scope.entityDetailsModel);
+    $scope.type = (function () {
+      if($scope.entityDetailsModel.cluster !== undefined) {
+        return "cluster";
+      }
+      if($scope.entityDetailsModel.feed !== undefined) {
+        return "feed";
+      }
+      if($scope.entityDetailsModel.process !== undefined) {
+        return "process";
+      }
+    })();
+    $scope.viewDock = $scope.entityDetailsModel[$scope.type];
+    $scope.cloneEntity = function (type, name) {
+      EntityModel[type + "Model"] = $scope.entityDetailsModel;
+      $state.go('forms.' + type + ".general");
+    };
      
   }]);
 
