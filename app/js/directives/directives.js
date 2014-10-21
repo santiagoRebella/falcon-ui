@@ -139,8 +139,11 @@
     
     app.directive('timeZoneSelect', function() {
       return {
-        replace: true,
         restrict: 'E',
+        replace: false,
+        scope: {
+          ngModel: '='
+        },
         templateUrl: 'html/directives/timeZoneSelectDv.html'
       };
     });
