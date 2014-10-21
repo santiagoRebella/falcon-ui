@@ -50,13 +50,15 @@
     }));
 
 
+    describe('init', function() {
+      it('Should be initialized properly', function() {
 
-    it('Should be initialized properly', function() {
-      scope.init();
+        scope.init();
 
-      expect(scope.feed.name).toBe(null);
-      expect(scope.feed.description).toBe(null);
-      expect(scope.feed.groups).toBe(null);
+        expect(scope.feed.name).toBe(null);
+        expect(scope.feed.description).toBe(null);
+        expect(scope.feed.groups).toBe(null);
+      });
     });
 
     it('Should return true when the current state is the general view', function() {
@@ -533,6 +535,20 @@
         expect(falconServiceMock.postSubmitEntity).not.toHaveBeenCalled();
         expect(falconServiceMock.postUpdateEntity).toHaveBeenCalledWith('<feed/>', 'feed', 'FeedOne');
       });
+
+      it('Should save the update the entity if in cloning mode', function() {
+        falconServiceMock.postSubmitEntity.andReturn(successResponse({}));
+        scope.cloningMode = true;
+        scope.feed = { name:  'FeedOne'};
+        scope.xml = '<feed/>'
+
+        scope.saveEntity();
+
+        expect(scope.cloningMode).toBe(false);
+        expect(falconServiceMock.postSubmitEntity).toHaveBeenCalledWith('<feed/>', 'feed');
+        expect(falconServiceMock.postUpdateEntity).not.toHaveBeenCalled();
+      });
+
     });
 
     function createController() {

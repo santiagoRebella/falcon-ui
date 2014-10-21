@@ -77,6 +77,7 @@
 
           }
           $scope.editingMode = false;
+          $scope.cloningMode = false;
         };
 
         $scope.isActive = function (route) {

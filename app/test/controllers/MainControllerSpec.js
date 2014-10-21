@@ -121,6 +121,57 @@
       });
     });
 
+    describe('clone entity', function() {
+      it('Should invoke the Falcon.getEntityDefinition', function() {
+        falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
+
+        scope.cloneEntity('feed', 'myFeed');
+
+        expect(falconServiceMock.getEntityDefinition).toHaveBeenCalled();
+      });
+
+      describe('call to the api was successful', function() {
+        it('Should set the retrieved entity from the server into EntityModel', function () {
+          var myFeed = {};
+          falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
+          x2jsServiceMock.xml_str2json.andReturn(myFeed);
+
+          scope.cloneEntity('feed', 'myFeed');
+
+          expect(entityModel.feedModel).toBe(myFeed);
+        });
+
+        it('Should set clone mode to true', function () {
+          falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
+          scope.cloningMode = false;
+
+          scope.cloneEntity('feed', 'myFeed');
+
+          expect(scope.cloningMode).toBe(true);
+        });
+
+        it('Should navigate to the appropriate landing page for the entity type', function () {
+          falconServiceMock.getEntityDefinition.andReturn(successResponse());
+          scope.cloningMode = false;
+
+          scope.cloneEntity('feed', 'myFeed');
+
+          expect(stateMock.go).toHaveBeenCalledWith('forms.feed.general');
+        });
+
+        it('Should set a copy of the model into the scope', function () {
+          var feedModel = {name: 'MyFeed'};
+          falconServiceMock.getEntityDefinition.andReturn(successResponse());
+          x2jsServiceMock.xml_str2json.andReturn(feedModel);
+
+          scope.cloneEntity('feed', 'myFeed');
+
+          expect(scope.models.feedModel).toNotBe(feedModel);
+          expect(scope.models.feedModel).toEqual(feedModel);
+        });
+      });
+    });
+
 
   });
 

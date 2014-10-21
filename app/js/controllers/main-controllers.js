@@ -148,8 +148,11 @@
       $scope.cloneEntity = function (type, name) {
         Falcon.getEntityDefinition(type, name)
           .success(function (data) {
-            EntityModel[type + "Model"] = X2jsService.xml_str2json(data);
-            console.log(JSON.stringify(EntityModel[type + "Model"]));
+            var modelName = type + "Model";
+            var entityModel = X2jsService.xml_str2json(data);
+            EntityModel[modelName] = entityModel;
+            $scope.models[modelName] = angular.copy(entityModel);
+            $scope.cloningMode = true;
             $state.go('forms.' + type + ".general");
           })
           .error(function (err) {
@@ -163,7 +166,7 @@
         Falcon.getEntityDefinition(type, name)
           .success(function (data) {
             var entityModel = X2jsService.xml_str2json(data);
-            var modelName = (type + "Model");
+            var modelName = type + "Model";
             EntityModel[modelName] = entityModel;
             $scope.models[modelName] = angular.copy(entityModel);
             $scope.editingMode = true;
