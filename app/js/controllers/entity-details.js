@@ -34,7 +34,7 @@
       }
     })();
     $scope.viewDock = $scope.entityDetailsModel[$scope.type];
-    $scope.cloneEntity = function (type, name) {
+    $scope.cloneEntity = function (type) {
       EntityModel[type + "Model"] = $scope.entityDetailsModel;
       $state.go('forms.' + type + ".general");
     };
