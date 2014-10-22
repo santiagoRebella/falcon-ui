@@ -17,35 +17,49 @@
  * limitations under the License.
  */
 -->
-<div class="col-md-12 col-md-offset-6 feedForm">
-  <div class="formTitle">
-    Editing
-    <div class="entypo download"></div>
-    {{feed.name}}
-    <div class="entypo save" ng-click="saveEntity()"></div>
-    <div class="entypo trash" ui-sref="main"></div>
-  </div>
+<div class="col-sm-24">
+  <div class="col-sm-22 col-sm-offset-2">
+    <div class="row">
+      <h3 class="col-sm-24">
+        New Feed
+      </h3>
+      <div class="col-sm-15 detailsBox">
 
-  <div class="feedProgressBox" ng-class="{
-    general:isActive('forms.feed.general'),
-    properties:isActive('forms.feed.properties'),
-    location:isActive('forms.feed.location'),
-    clusters:isActive('forms.feed.clusters'),
-    summary:isActive('forms.feed.summary')
-    }">
-    <span class="col-xs-5">General</span>
-    <span class="col-xs-5">Properties</span>
-    <span class="col-xs-5">Location</span>
-    <span class="col-xs-5">Clusters</span>
-    <span class="col-xs-4">Summary</span>
+        <div class="feedProgressBox" ng-class="{
+          general:isActive('forms.feed.general'),
+          properties:isActive('forms.feed.properties'),
+          location:isActive('forms.feed.location'),
+          clusters:isActive('forms.feed.clusters'),
+          summary:isActive('forms.feed.summary')
+          }">
+          <span class="col-xs-5">General</span>
+          <span class="col-xs-5">Properties</span>
+          <span class="col-xs-5">Location</span>
+          <span class="col-xs-5">Clusters</span>
+          <span class="col-xs-4">Summary</span>
 
-    <div class="clearfix"></div>
-    <div class="progressBar col-md-24">
-      <div>
-        <div></div>
+          <div class="clearfix"></div>
+          <div class="progressBar col-md-24">
+            <div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <div ui-view></div>
       </div>
+
+      <div class="col-sm-8 detailsBox col-sm-offset-1">
+        <div class="row">
+          <h5 class="col-sm-24">
+            XML Preview
+          </h5>
+          <div class="col-sm-24">
+            {{prettyXml}}
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
-
-  <div ui-view></div>
 </div>
