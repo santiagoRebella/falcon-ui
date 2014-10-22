@@ -110,6 +110,16 @@
           $scope.feed = null;
         };
 
+
+
+        var xmlPreviewCallback = function() {
+          $scope.transform();
+          $timeout(xmlPreviewCallback, 1000);
+        }
+
+        $timeout(xmlPreviewCallback, 1000);
+
+
       }]);
 
 

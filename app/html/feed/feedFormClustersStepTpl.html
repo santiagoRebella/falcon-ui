@@ -18,35 +18,15 @@
  */
 -->
 <form name="feedForm">
-  <div class="row">
-    <div class="sourceReplicationButton"
-      ng-repeat="cluster in feed.clusters"
-      ng-click="handleCluster(cluster, $index)"
-      ng-class="{active: cluster.selected}">
-      <div>
-        <span class="entypo" 
-          ng-class="{
-            'circled-down': !cluster.selected || cluster.type === 'source' || archiveCluster.active,
-            'circled-cross': cluster.selected && cluster.type !== 'source' && !archiveCluster.active
-            }">
-        </span>
-      </div>
-      <div><small>{{capitalize(cluster.type === 'target' ? (archiveCluster.active ? 'archive': 'replication') : cluster.type)}}</small> Cluster</div>
-    </div>
-    <div class="sourceReplicationButton pull-right"
-      ng-click="addCluster()"
-      ng-show="!archiveCluster.active">
-      <div><span class="entypo circled-plus"></span></div>
-      <div><small>Add</small>  Cluster</div>
-    </div>
-  </div>  
 
-  <div ng-repeat="cluster in feed.clusters" ng-show="cluster.selected">
+
+  <div class="clearfix hidden-md"></div>
+  <div class="detailsBox" ng-repeat="cluster in feed.clusters">
     <div class="row">
       <h4 class="col-sm-24">{{capitalize(cluster.type)}} Cluster </h4>
     </div>
 
-    <select ng-model="cluster.name" ng-required="true">
+    <select ng-model="cluster.name" ng-required="true" class="col-sm-24">
       <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
     </select>
 
@@ -157,6 +137,13 @@
       </div>
     </div>
 
+  </div>
+
+  <div class="sourceReplicationButton col-sm-24"
+       ng-click="addCluster()"
+       ng-show="!archiveCluster.active">
+    <div><span class="entypo circled-plus"></span></div>
+    <div><small>Add</small>  Cluster</div>
   </div>
 
   <div class="row feedBottomButtons">
