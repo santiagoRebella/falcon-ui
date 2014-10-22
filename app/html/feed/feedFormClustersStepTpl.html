@@ -30,71 +30,6 @@
       <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
     </select>
 
-    <h4 class="col-sm-24"> Retention </h4>
-
-    <div class="col-sm-24 composedField">
-      <select ng-model="cluster.retention.action"
-        ng-required="true"
-        ng-change="updateRetention()">
-        <option selected value="chown">Chown</option>
-        <option value="delete">Delete</option>
-        <option value="chmod">Chmod</option>
-        <option ng-show="cluster.type === 'source'" show value="archive">Archive</option>
-      </select>
-      in
-      <input type="text" class="small"
-        ng-required="true" ng-model="cluster.retention.quantity"
-        ng-pattern="validations.twoDigits.pattern">
-
-      <select ng-model="cluster.retention.unit"
-        ng-required="true">
-        <option selected value="hours">hours</option>
-        <option value="days">days</option>
-        <option value="weeks">weeks</option>
-        <option value="months">months</option>
-      </select>
-    </div>
-
-    <h4 class="col-sm-24"> Validity </h4>
-
-    <div class="clearfix hidden-md"></div>
-
-    <div class="col-sm-12">
-      <label class="light">Start</label>
-    </div>
-    <div class="col-sm-12">
-      <label class="light">End</label>
-    </div>
-
-    <div class="col-sm-6">
-      <p class="input-group">
-        <input type="text" class="form-control" datepicker-popup="{{startDatePicker.format}}"
-          ng-model="cluster.validity.start.date"
-          is-open="startDatePicker.opened"
-          ng-required="true" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="startDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <timepicker class="timePicker" ng-model="cluster.validity.start.time" hour-step="1" minute-step="1" ></timepicker>
-    </div>
-    <div class="col-sm-6">
-      <p class="input-group">
-        <input type="text" class="form-control" datepicker-popup="{{endDatePicker.format}}"
-          ng-model="cluster.validity.end.date"
-          is-open="endDatePicker.opened"
-          ng-required="true"/>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="endDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <timepicker class="timePicker" ng-model="cluster.validity.end.time" hour-step="1" minute-step="1" ></timepicker>
-    </div>
-
     <div class="clearfix hidden-md"></div>
 
     <div class="row dynamic-table-spacer">
@@ -135,7 +70,67 @@
         <label class="light">Table uri</label>
         <input type="text" class="form-control" ng-model="cluster.storage.catalog.catalogTable.uri"/>
       </div>
+
+      <h4 class="col-sm-24"> Validity </h4>
+
+      <div class="clearfix hidden-md"></div>
+
+      <div class="col-sm-12">
+        <label class="light">Start</label>
+      </div>
+      <div class="col-sm-12">
+        <label class="light">End</label>
+      </div>
+
+      <div class="col-sm-6">
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{startDatePicker.format}}"
+                 ng-model="cluster.validity.start.date"
+                 is-open="startDatePicker.opened"
+                 ng-required="true" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="startDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <timepicker class="timePicker" ng-model="cluster.validity.start.time" hour-step="1" minute-step="1" ></timepicker>
+      </div>
+      <div class="col-sm-6">
+        <p class="input-group">
+          <input type="text" class="form-control" datepicker-popup="{{endDatePicker.format}}"
+                 ng-model="cluster.validity.end.date"
+                 is-open="endDatePicker.opened"
+                 ng-required="true"/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="endDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <timepicker class="timePicker" ng-model="cluster.validity.end.time" hour-step="1" minute-step="1" ></timepicker>
+      </div>
+
+
+      <h4 class="col-sm-24"> Retention </h4>
+
+      <div class="col-sm-24 composedField">
+        <input type="text" class="small"
+               ng-required="true" ng-model="cluster.retention.quantity"
+               ng-pattern="validations.twoDigits.pattern">
+
+        <select ng-model="cluster.retention.unit"
+                ng-required="true">
+          <option selected value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
+      </div>
+
     </div>
+
+
 
   </div>
 
