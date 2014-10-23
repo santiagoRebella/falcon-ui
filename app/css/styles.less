@@ -34,7 +34,6 @@
 @shadow-valid: rgba(0, 255, 0, .6);
 @shadow-invalid: rgba(255, 0, 0, .6);
 .ng-valid {
-
   &:focus {
     .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @{shadow-valid}");
     border-color: green;
@@ -156,6 +155,13 @@
   tbody {
     padding: 5px;
     display: block;
+  }
+  .filtersBox {
+    font-weight: normal;
+    font-size: 10px;
+    width: 48%;
+    float:left;
+    margin: 3px 1%;
   }
   .buttonsRow {
     height: 25px;
@@ -307,6 +313,9 @@
   .tableHeader {
     width: 70px;
     font-weight: bold;
+  }
+  textarea {
+    width: 100%;
   }
 }
 //------------forms ----------------//
