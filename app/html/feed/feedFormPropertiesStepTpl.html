@@ -19,19 +19,19 @@
 -->
 <form name="feedForm">
   <div class="row">
+    <h4 class="col-sm-24">Timing</h4>
+
     <div class="col-sm-8">
-      <div class="light freqTitle">Frequency</div>
-
-      <label class="light">Every</label>
-
-        <span class="composedField">
-          <input type="text" class="form-control small light"
-           ng-model="feed.frequency.quantity"
-           ng-required="true"
-           ng-pattern="validations.twoDigits.pattern"/>
-        </span>
+      <div class="row">
+        <div class="col-sm-24 light">Frequency</div>
+        <label class="col-sm-4 light">Every</label>
+        <input type="text" class="small light col-sm-3"
+               ng-model="feed.frequency.quantity"
+               ng-required="true"
+               ng-pattern="validations.twoDigits.pattern"/>
 
         <select
+          class="col-sm-8 col-sm-offset-1"
           ng-model="feed.frequency.unit"
           ng-required="true">
           <option value="hours">hours</option>
@@ -39,34 +39,39 @@
           <option value="weeks">weeks</option>
           <option value="months">months</option>
         </select>
-    </div>
-    <div class="col-sm-8">
-      <div>
-        <input type="checkbox" ng-model="feed.lateArrival.active">
-        <label class="light">Late Arrival</label>
       </div>
+    </div>
 
-      <label class="light">Up to</label>
 
-      <input type="text" class="form-control small light"
-        ng-model="feed.lateArrival.cutOff.quantity"
-        ng-disabled="!feed.lateArrival.active"
-        ng-pattern="validations.twoDigits.pattern"
-        ng-required="feed.lateArrival.active"/>
+    <div class="col-sm-8">
+      <div class="row">
+        <input type="checkbox" ng-model="feed.lateArrival.active" class="col-sm-1">
+        <div class="light col-sm-23">Late Arrival</div>
+      </div>
+      <div class="row">
+        <label class="col-sm-4 light">Up to</label>
 
-      <select
-        ng-model="feed.lateArrival.cutOff.unit"
-        ng-required="feed.lateArrival.active">
-        <option value="hours">hours</option>
-        <option value="days">days</option>
-        <option value="weeks">weeks</option>
-        <option value="months">months</option>
-      </select>
+        <input type="text" class="small light col-sm-3"
+          ng-model="feed.lateArrival.cutOff.quantity"
+          ng-disabled="!feed.lateArrival.active"
+          ng-pattern="validations.twoDigits.pattern"
+          ng-required="feed.lateArrival.active"/>
 
+        <select
+          class="col-sm-8 col-sm-offset-1"
+          ng-model="feed.lateArrival.cutOff.unit"
+          ng-required="feed.lateArrival.active">
+          <option value="hours">hours</option>
+          <option value="days">days</option>
+          <option value="weeks">weeks</option>
+          <option value="months">months</option>
+        </select>
+      </div>
     </div>
     <div class="col-sm-8">
-      <label class="light">Availability Flag</label>
-      <input type="text" class="availFlagInput form-control"
+
+      <div class="light">Availability Flag</div>
+      <input type="text" class="small light col-sm-9"
         ng-model="feed.availabilityFlag"
         ng-pattern="validations.alpha.pattern">
     </div>
@@ -152,7 +157,7 @@
     <div class="clearfix hidden-md"></div>
 
   </div>
-  <div class="feedBottomButtons row">
+  <div class="feedBottomButtons row col-sm-24">
     <div class="btn btn-default col-sm-6" ui-sref="forms.feed.general">
       Previous
     </div>

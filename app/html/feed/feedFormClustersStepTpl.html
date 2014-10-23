@@ -23,119 +23,126 @@
   <div class="clearfix hidden-md"></div>
   <div class="detailsBox" ng-repeat="cluster in feed.clusters">
     <div class="row">
-      <h4 class="col-sm-24">{{capitalize(cluster.type)}} Cluster </h4>
-    </div>
-
-    <select ng-model="cluster.name" ng-required="true" class="col-sm-24">
-      <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
-    </select>
-
-    <h4 class="col-sm-24"> Retention </h4>
-
-    <div class="col-sm-24 composedField">
-      <select ng-model="cluster.retention.action"
-        ng-required="true"
-        ng-change="updateRetention()">
-        <option selected value="chown">Chown</option>
-        <option value="delete">Delete</option>
-        <option value="chmod">Chmod</option>
-        <option ng-show="cluster.type === 'source'" show value="archive">Archive</option>
-      </select>
-      in
-      <input type="text" class="small"
-        ng-required="true" ng-model="cluster.retention.quantity"
-        ng-pattern="validations.twoDigits.pattern">
-
-      <select ng-model="cluster.retention.unit"
-        ng-required="true">
-        <option selected value="hours">hours</option>
-        <option value="days">days</option>
-        <option value="weeks">weeks</option>
-        <option value="months">months</option>
-      </select>
-    </div>
-
-    <h4 class="col-sm-24"> Validity </h4>
-
-    <div class="clearfix hidden-md"></div>
-
-    <div class="col-sm-12">
-      <label class="light">Start</label>
-    </div>
-    <div class="col-sm-12">
-      <label class="light">End</label>
-    </div>
-
-    <div class="col-sm-6">
-      <p class="input-group">
-        <input type="text" class="form-control" datepicker-popup="{{startDatePicker.format}}"
-          ng-model="cluster.validity.start.date"
-          is-open="startDatePicker.opened"
-          ng-required="true" />
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="startDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <timepicker class="timePicker" ng-model="cluster.validity.start.time" hour-step="1" minute-step="1" ></timepicker>
-    </div>
-    <div class="col-sm-6">
-      <p class="input-group">
-        <input type="text" class="form-control" datepicker-popup="{{endDatePicker.format}}"
-          ng-model="cluster.validity.end.date"
-          is-open="endDatePicker.opened"
-          ng-required="true"/>
-        <span class="input-group-btn">
-          <button type="button" class="btn btn-default" ng-click="endDatePicker.open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-        </span>
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <timepicker class="timePicker" ng-model="cluster.validity.end.time" hour-step="1" minute-step="1" ></timepicker>
-    </div>
-
-    <div class="clearfix hidden-md"></div>
-
-    <div class="row dynamic-table-spacer">
-
-      <div class="col-sm-24 feedLocationNavBox nopointer">
-        <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
-        <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Storage type</h4>
-
-        <div class="col-sm-14 feedLocationNav">
-          <div class="btn btn-default pull-right" ng-class="{active: feed.storage.catalog.active}">
-            Catalog Storage
-          </div>
-          <div class="btn btn-default pull-right" ng-class="{active: feed.storage.fileSystem.active}">
-            File System
-          </div>
+      <div class="col-sm-offset-1 col-sm-22">
+        <div class="row">
+          <h4 class="col-sm-24">{{capitalize(cluster.type)}} Cluster </h4>
         </div>
-      </div>
 
-      <div class="clearfix hidden-md"></div>
+        <select ng-model="cluster.name" ng-required="true" class="col-sm-24">
+          <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
+        </select>
 
-      <div class="col-sm-19">
-        <label>Location</label>
-        <label class="light">(if not defined, will use default location)
-        </label>
-      </div>
+        <div class="clearfix hidden-md"></div>
 
-      <div class="clearfix hidden-md"></div>
+        <div class="row dynamic-table-spacer">
 
-      <div class="col-sm-24"
-        ng-show="feed.storage.fileSystem.active"
-        ng-repeat="location in cluster.storage.fileSystem.locations">
-        <label class="light">{{location.type}} path</label>
-        <input type="text" class="form-control"
-          ng-model="location.path" />
-      </div>
+          <div class="col-sm-24 feedLocationNavBox nopointer">
+            <h4 class="col-sm-10" ng-show="!feed.storage.fileSystem.active">Default Storage type</h4>
+            <h4 class="col-sm-10" ng-show="feed.storage.fileSystem.active">Storage type</h4>
 
-      <div class="col-sm-24" ng-show="feed.storage.catalog.active">
-        <label class="light">Table uri</label>
-        <input type="text" class="form-control" ng-model="cluster.storage.catalog.catalogTable.uri"/>
+            <div class="col-sm-14 feedLocationNav">
+              <div class="btn btn-default pull-right" ng-class="{active: feed.storage.catalog.active}">
+                Catalog Storage
+              </div>
+              <div class="btn btn-default pull-right" ng-class="{active: feed.storage.fileSystem.active}">
+                File System
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix hidden-md"></div>
+
+          <div class="col-sm-19">
+            <label>Location</label>
+            <label class="light">(if not defined, will use default location)
+            </label>
+          </div>
+
+          <div class="clearfix hidden-md"></div>
+
+          <div class="col-sm-24"
+               ng-show="feed.storage.fileSystem.active"
+               ng-repeat="location in cluster.storage.fileSystem.locations">
+            <label class="light">{{location.type}} path</label>
+            <input type="text" class="form-control"
+                   ng-model="location.path" />
+          </div>
+
+          <div class="col-sm-24" ng-show="feed.storage.catalog.active">
+            <label class="light">Table uri</label>
+            <input type="text" class="form-control" ng-model="cluster.storage.catalog.catalogTable.uri"/>
+          </div>
+
+          <h4 class="col-sm-24"> Validity </h4>
+
+          <div class="clearfix hidden-md"></div>
+
+          <div class="col-sm-12">
+            <div class="row">
+              <label class="light col-sm-24">Start</label>
+              <div class="col-sm-12">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon btn btn-default" ng-click="startDatePicker.open($event)"></span>
+                  <input type="text" class="form-control" placeholder="Start Date"
+                    datepicker-popup="{{startDatePicker.format}}"
+                    ng-model="cluster.validity.start.date"
+                    is-open="startDatePicker.opened"
+                    ng-required="true">
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="col-sm-12">
+            <div class="row">
+              <label class="light col-sm-24">End</label>
+              <div class="col-sm-12">
+                <div class="input-group input-group-sm">
+                  <span class="input-group-addon btn btn-default" ng-click="endDatePicker.open($event)"></span>
+                  <input type="text" class="form-control" placeholder="End Date"
+                         datepicker-popup="{{endDatePicker.format}}"
+                         ng-model="cluster.validity.end.date"
+                         is-open="endDatePicker.opened"
+                         ng-required="true">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <!--div class="col-sm-6">
+            <timepicker class="timePicker" ng-model="cluster.validity.start.time" hour-step="1" minute-step="1" ></timepicker>
+          </div>
+
+          <div class="col-sm-6">
+            <timepicker class="timePicker" ng-model="cluster.validity.end.time" hour-step="1" minute-step="1" ></timepicker>
+          </div-->
+
+
+          <h4 class="col-sm-24"> Retention </h4>
+
+          <div class="col-sm-24 composedField">
+            <input type="text" class="small"
+                   ng-required="true" ng-model="cluster.retention.quantity"
+                   ng-pattern="validations.twoDigits.pattern">
+
+            <select ng-model="cluster.retention.unit"
+                    ng-required="true">
+              <option selected value="hours">hours</option>
+              <option value="days">days</option>
+              <option value="weeks">weeks</option>
+              <option value="months">months</option>
+            </select>
+          </div>
+
+        </div>
+
       </div>
     </div>
+
 
   </div>
 

@@ -136,7 +136,7 @@
     this.type = type;
     this.selected = selected;
     this.retention = new Frequency(null, 'hours');
-    this.retention.action = null;
+    this.retention.action = 'delete';
     this.validity = new Validity();
     this.storage = new Storage();
   }
