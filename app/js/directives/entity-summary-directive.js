@@ -24,85 +24,42 @@
     return {
       restrict: "E",
       controller: 'EntitySummaryCtrl',
-      link: function(scope) {
-        scope.init();
-        scope.group();
+      link: function (scope) {
+        scope.calculateAmount();
+        scope.$watch('entities', function() {
+          scope.calculateAmount();
+        }, true);
       },
       scope: {
         entities: '=',
-        statuses: '=',
-        satusfield: '@'
+        type:'@'
       },
       templateUrl: 'html/directives/entitySummaryDv.html'
     };
   });
 
-
-  app.controller('EntitySummaryCtrl', ['$scope', function($scope) {
-
-    $scope.init = function() {
-      $scope.groups = [];
+  app.controller('EntitySummaryCtrl', ['$scope', function($scope) {   
+  
+    $scope.calculateAmount = function () {
+      
+      $scope.statusCount = {
+        SUBMITTED: 0,
+        RUNNING:0,
+        SUSPENDED:0,
+        UNKNOWN:0,
+        TOTAL_AMOUNT: $scope.entities.length
+      };
+      
+      if($scope.entities.length > 0) {
+        $scope.entities.forEach(function(entity) {
+          $scope.statusCount[entity.status] = $scope.statusCount[entity.status]+1;
+        });
+      }
+      else {
+        //empty data - maybe do something here
+      }
     };
-
-    $scope.group = function() {
-      $scope.groups = {totals: buildTotals(), partials: buildPartials()};
-    };
-
-    function buildTotals() {
-      var submitted = new Metric('SUBMITTED', $scope.entities.length);
-      var totals = new MetricsGroup('totals', [ submitted]);
-      totals.SUBMITTED = submitted;
-      return  totals;
-    }
-
-    function buildPartials() {
-      var counts = partialCounts($scope.entities, $scope.satusfield, $scope.statuses);
-      return new MetricsGroup('partials', counts);
-    }
-
-    function partialCounts(entities, field, statuses) {
-      return countBy(entities, field, statuses);
-    }
-
-
-    function countBy(entities, field, statuses) {
-
-      var statusCountsMap = {};
-      var metrics = [];
-
-      entities.forEach(function(entity) {
-        var entityFieldValue = entity[field];
-
-        if(statusCountsMap[entityFieldValue]) {
-          statusCountsMap[entityFieldValue] = statusCountsMap[entityFieldValue] + 1;
-        } else {
-          statusCountsMap[entityFieldValue] = 1;
-        }
-      });
-
-      angular.forEach(statuses, function(status) {
-        var statusCount = statusCountsMap[status];
-        if(statusCount) {
-          metrics.push(new Metric(status, statusCount));
-        } else {
-          metrics.push(new Metric(status, 0));
-        }
-      });
-
-      return metrics;
-    }
 
   }]);
-
-  function MetricsGroup(name, metrics) {
-    this.name = name;
-    this.metrics = metrics;
-  }
-
-  function Metric(key, value) {
-    this.key = key;
-    this.value = value;
-  }
-
 
 })();

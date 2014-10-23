@@ -18,29 +18,25 @@
  */
 -->
 <div class="row metrics">
-  <div>
-    <div class="col-xs-6" ng-init="status = groups.totals['SUBMITTED']">
-      <div class="row metric-cell">
-        <div class="col-xs-24 center-block">
-          <small class="center-block status-count">{{groups.totals['SUBMITTED'].value}}</small>
-        </div>
-        <div class="col-xs-24">
-          <small class="center-block status-label">{{groups.totals['SUBMITTED'].key}}</small>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div ng-repeat="status in groups.partials.metrics">
-    <div ng-class="{'metric-cell': !$last}" class="col-xs-6" >
-      <div class="row status-{{status.key | lowercase}}">
-        <div class="col-xs-24">
-          <small class="center-block status-count">{{status.value}}</small>
-        </div>
-        <div class="col-xs-24">
-          <small class="center-block status-label">{{status.key}}</small>
-        </div>
-      </div>
-    </div>
+  <div class="col-xs-6 metric-cell">     
+    <h3>{{statusCount.TOTAL_AMOUNT}}</h3>   
+    <h5>Submitted</h5>      
   </div>
+  
+  <div class="col-xs-6 status-running metric-cell" ng-if="type !== 'cluster'">     
+    <h3>{{statusCount.RUNNING}}</h3>   
+    <h5>Running</h5>      
+  </div>
+  
+  <div class="col-xs-6 status-paused metric-cell" ng-if="type !== 'cluster'">     
+    <h3>{{statusCount.SUSPENDED}}</h3>   
+    <h5>Suspended</h5>      
+  </div>
+  
+  <div class="col-xs-6 status-stopped metric-cell" ng-if="type !== 'cluster'">     
+    <h3>{{statusCount.UNKNOWN}}</h3>   
+    <h5>Unknown</h5>      
+  </div> 
+    
 </div>
