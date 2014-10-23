@@ -48,13 +48,13 @@
             <input type="text" class="form-control" ng-model="tag.key"
               ng-pattern="validations.alpha.pattern" ng-required="tag.value"/>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-11">
             <input type="text" class="form-control"
               ng-model="tag.value" ng-pattern="validations.alpha.pattern" ng-required="tag.key"/>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <div class="btn btn-default btn-xs" ng-click="removeTag($index)">
-              - remove
+              - delete
             </div>
           </div>
         </div>
