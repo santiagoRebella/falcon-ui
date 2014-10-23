@@ -22,42 +22,40 @@
     <tr ng-if="info.empty">
       <th> There are no {{ type }}s </td>
     </tr>
-    <tr ng-if="!info.empty">
-      <th colspan="4">
-        
+    <tr ng-if="!info.empty" colspan="4">
+      <th>
+        <div class="filtersBox">Filter by Name <input type="text" class="form-control" ng-model="simpleFilter.name"/></div> 
+        <div ng-if="type !== 'cluster'" class="filtersBox">Filter by Status <input type="text" class="form-control" ng-model="simpleFilter.status"/></div> 
       </th>
-    </tr>
-    <tr ng-if="!info.empty">
-      <td colspan="4"> <input type="text" class="form-control" ng-model="simpleFilter.name"/> </td>
     </tr>
   </thead>
   <tbody>
     <tr ng-if="!info.empty" class="buttonsRow">
       <td class="buttonCell" colspan="4">
-        <div class="btn btn-default btn-xs" ng-click="scopeSchedule()" ng-if="type !== 'cluster'">
+        <div class="btn btn-default btn-xs" ng-click="scopeSchedule()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1" ng-if="type !== 'cluster'">
             <span class="entypo play"></span> Schedule
         </div>
-        <div class="btn btn-default btn-xs" ng-click="scopeResume()" ng-if="type !== 'cluster'">
+        <div class="btn btn-default btn-xs" ng-click="scopeResume()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1" ng-if="type !== 'cluster'">
             <span class="entypo play"></span> Resume
         </div>
-        <div class="btn btn-default btn-xs" ng-click="scopeSuspend()" ng-if="type !== 'cluster'">
+        <div class="btn btn-default btn-xs" ng-click="scopeSuspend()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1" ng-if="type !== 'cluster'">
             <span class="entypo paus"></span> Suspend
         </div>
-        <div class="btn btn-default btn-xs" ng-click="scopeStop()" ng-if="type !== 'cluster'">
+        <div class="btn btn-default btn-xs" ng-click="scopeStop()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1" ng-if="type !== 'cluster'">
             <span class="entypo stop"></span> Stop
         </div>
-        <div class="btn btn-default btn-xs" ng-click="scopeEdit()" ng-if="type !== 'cluster' && selectedRows.length === 1">
+        <div class="btn btn-default btn-xs" ng-click="scopeEdit()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1" ng-if="type !== 'cluster'">
             <span class="entypo cog"></span> Edit
         </div>
-        <div class="btn btn-default btn-xs" ng-click="scopeClone()" ng-if="selectedRows.length === 1">
+        <div class="btn btn-default btn-xs" ng-click="scopeClone()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1">
             <span class="entypo docs"></span> Copy
         </div>
-        <div class="btn btn-default btn-xs" ng-click="scopeRemove()" ng-if="selectedRows.length > 0">
+        <div class="btn btn-default btn-xs" ng-click="scopeRemove()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1">
             <span class="entypo trash"></span> Delete
         </div>
       </td>
     </tr>
-    <tr ng-repeat="item in input | filter:{'name':simpleFilter.name}" class="entityRow">
+    <tr ng-repeat="item in input | filter:{'name':simpleFilter.name} | filter:{'status':simpleFilter.status}" class="entityRow">
       <td class="checkboxCell">
           <input type="checkbox" checklist-model="selectedRows" checklist-value="{name:item.name, type:item.type}"/>
       </td>

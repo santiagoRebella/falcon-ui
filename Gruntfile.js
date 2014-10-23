@@ -14,6 +14,13 @@ module.exports = function (grunt) {
         src: ['js/lib/*.js', 'css/fonts/*', 'css/img/*'],
         dest: 'dist/',
         expand: true
+      },
+      
+      falcon : {
+        cwd: 'app/',
+        src: ['falcon/**'],
+        dest: 'dist/',
+        expand: true
       }
     },
 

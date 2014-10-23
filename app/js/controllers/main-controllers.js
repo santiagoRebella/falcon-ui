@@ -47,8 +47,8 @@
 
     }]);
 
-  app.controller('DashboardCtrl', [ "$scope", "Falcon", "EntityModel", "FileApi", "$state", "X2jsService",
-    function ($scope, Falcon, EntityModel, FileApi, $state, X2jsService) {
+  app.controller('DashboardCtrl', [ "$scope", "Falcon", "EntityModel", "FileApi", "$state", "X2jsService", "$window",
+    function ($scope, Falcon, EntityModel, FileApi, $state, X2jsService, $window) {
       $scope.serverResponse = Falcon.serverResponse;
       $scope.$watch(function () {
         return Falcon.serverResponse;
@@ -180,7 +180,9 @@
       };
       //-----------------------------------------//
       $scope.entityDetails = function (name, type) {
-        Falcon.getEntityDefinition(type, name)
+        //window.location.href = 'http://yourExternalSite.com/404.html';'
+        $window.location.href = "falcon/entity.html?type=" + type + "&id=" + name;
+        /*Falcon.getEntityDefinition(type, name)
           .success(function (data) {
             var entityModel = X2jsService.xml_str2json(data);
             EntityModel.detailsPageModel = entityModel;
@@ -191,6 +193,7 @@
             Falcon.success = false;
             Falcon.serverResponse = error.result;
           });
+          */
       };
       //----------------------------------------//
       $scope.resumeEntity = function (type, name) {
