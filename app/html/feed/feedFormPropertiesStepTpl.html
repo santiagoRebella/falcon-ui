@@ -144,16 +144,20 @@
           ng-pattern="validations.alpha.pattern"
           ng-required="property.key"/>
       </div>
-      <div class="col-sm-2 top-buffer" >
-        <div ng-if="!$last">
-          <span class="entypo circled-minus dynamic-table-spacer" ng-click="removeCustomProperty($index)"></span>
-        </div>
-        <div ng-if="$last">
-          <span class="entypo circled-plus dynamic-table-spacer" ng-click="addCustomProperty()"></span>
+      <div class="col-sm-2 top-buffer">
+        <div>
+          <div class="btn btn-default btn-xs" ng-click="removeCustomProperty($index)">
+            - delete
+          </div>
         </div>
       </div>
-      <div class="clearfix hidden-md"></div>
     </div>
+    <div class="col-sm-24 dynamic-table-spacer">
+      <div class="btn btn-default btn-xs" ng-click="addCustomProperty()">
+        + add
+      </div>
+    </div>
+
 
     <div class="clearfix hidden-md"></div>
 
