@@ -19,19 +19,19 @@
 -->
 <form name="feedForm">
   <div class="row">
-    <h4 class="col-sm-24">Timing</h4>
+    <h5 class="col-sm-24">Timing</h5>
 
     <div class="col-sm-8">
-      <div class="row">
+      <div class="row form-inline">
         <div class="col-sm-24 light">Frequency</div>
-        <label class="col-sm-4 light">Every</label>
-        <input type="text" class="small light col-sm-3"
+        <label class="col-sm-4 light dynamic-table-spacer">Every</label>
+        <input type="text" class="light col-sm-3 dynamic-table-spacer"
                ng-model="feed.frequency.quantity"
                ng-required="true"
                ng-pattern="validations.twoDigits.pattern"/>
 
         <select
-          class="col-sm-8 col-sm-offset-1"
+          class="col-sm-8 col-sm-offset-1 dynamic-table-spacer"
           ng-model="feed.frequency.unit"
           ng-required="true">
           <option value="hours">hours</option>
@@ -42,23 +42,22 @@
       </div>
     </div>
 
-
     <div class="col-sm-8">
       <div class="row">
         <input type="checkbox" ng-model="feed.lateArrival.active" class="col-sm-1">
         <div class="light col-sm-23">Late Arrival</div>
       </div>
       <div class="row">
-        <label class="col-sm-4 light">Up to</label>
+        <label class="col-sm-4 light dynamic-table-spacer">Up to</label>
 
-        <input type="text" class="small light col-sm-3"
+        <input type="text" class="small light col-sm-3 dynamic-table-spacer"
           ng-model="feed.lateArrival.cutOff.quantity"
           ng-disabled="!feed.lateArrival.active"
           ng-pattern="validations.twoDigits.pattern"
           ng-required="feed.lateArrival.active"/>
 
         <select
-          class="col-sm-8 col-sm-offset-1"
+          class="col-sm-8 col-sm-offset-1 dynamic-table-spacer"
           ng-model="feed.lateArrival.cutOff.unit"
           ng-required="feed.lateArrival.active">
           <option value="hours">hours</option>
@@ -68,26 +67,27 @@
         </select>
       </div>
     </div>
+
     <div class="col-sm-8">
 
       <div class="light">Availability Flag</div>
-      <input type="text" class="small light col-sm-9"
+      <input type="text" class="small light col-sm-9 dynamic-table-spacer"
         ng-model="feed.availabilityFlag"
         ng-pattern="validations.alpha.pattern">
     </div>
 
+    <div class="clearfix hidden-md">&nbsp</div>
 
-    <div class="clearfix hidden-md"></div>
-
-    <div class="col-sm-24 dynamic-table-spacer">
+    <div class="col-sm-24">
       <div class="light freqTitle">Timezone</div>
     </div>
-
-    <div class="clearfix hidden-md"></div>
 
     <time-zone-select ng-model="feed.timezone"></time-zone-select>
 
     <h4 class="col-sm-24">Properties</h4>
+
+    <div class="clearfix hidden-md">&nbsp</div>
+
     <div class="col-sm-5">
       <label class="light">Name</label>
     </div>
@@ -119,6 +119,7 @@
       </div>
       <div class="col-sm-19 dynamic-table-spacer" ng-if="property.key === 'jobPriority'">
         <select ng-model="property.value" class="form-control padding0">
+          <option value=""></option>
           <option value="VERY_HIGH">Very high</option>
           <option value="HIGH">High</option>
           <option value="NORMAL">Normal</option>
