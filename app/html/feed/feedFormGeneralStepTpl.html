@@ -35,34 +35,38 @@
         ng-pattern="validations.freeText.pattern"/>
     </div>
 
-    <div class="col-xs-24">
+    <div class="clearfix hidden-md">&nbsp</div>
+
+    <div class="col-sm-24">
       <label class="light">Tags</label>
     </div>
-    <div class="col-sm-24">
-      <div ng-repeat="tag in feed.tags" class="row">
-        <div class="col-xs-11 dynamic-table-spacer">
-          <input type="text" class="form-control"
-            ng-model="tag.key"
-            ng-pattern="validations.alpha.pattern"
-            ng-required="tag.value"/>
-        </div>
 
-        <div class="col-xs-11 col-sm-12 dynamic-table-spacer">
-          <input type="text" class="form-control"
-            ng-model="tag.value"
-            ng-pattern="validations.alpha.pattern"
-            ng-required="tag.key"/>
-        </div>
-        <div class="top-buffer col-xs-2 col-sm-1" >
-          <div ng-if="!$last">
-            <span class="entypo circled-minus dynamic-table-spacer" ng-click="removeTag($index)"></span>
+    <div class="col-sm-24">
+      <div ng-repeat="tag in feed.tags">
+        <div class="row dynamic-table-spacer">
+          <div class="col-sm-10">
+            <input type="text" class="form-control" ng-model="tag.key"
+              ng-pattern="validations.alpha.pattern" ng-required="tag.value"/>
           </div>
-          <div ng-if="$last">
-            <span class="entypo circled-plus dynamic-table-spacer" ng-click="addTag()"></span>
+          <div class="col-sm-10">
+            <input type="text" class="form-control"
+              ng-model="tag.value" ng-pattern="validations.alpha.pattern" ng-required="tag.key"/>
+          </div>
+          <div class="col-sm-4">
+            <div class="btn btn-default btn-xs" ng-click="removeTag($index)">
+              - remove
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-sm-24 dynamic-table-spacer">
+      <div class="btn btn-default btn-xs" ng-click="addTag()">
+        + add
+      </div>
+    </div>
+    <div class="clearfix hidden-md">&nbsp</div>
+
     <div class="col-sm-24">
       <label class="light">Groups (comma separated)</label>
       <input type="text" class="form-control"
