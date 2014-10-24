@@ -17,27 +17,57 @@
  * limitations under the License.
  */
 -->
-<div class="col-sm-12 col-sm-offset-6 clusterForm">
-  <div class="formTitle">
-    Editing
-    <div class="entypo archive"></div>
-    {{ clusterEntity.cluster._name }}
-    <div class="entypo save" ng-disabled="clusterForm.$invalid" ng-click="goSummaryStep();saveCluster();"
-         ui-sref="main"></div>
-    <div class="entypo trash" ui-sref="main"></div>
-  </div>
+<div class="col-sm-24 feedForm">
+  <div class="col-sm-22 col-sm-offset-2">
+    <div class="row">
+      <h3 class="col-sm-24">
+        New Cluster
+      </h3>
+      <div class="col-sm-15 detailsBox">
 
-  <div class="clusterProgressBox" ng-class="{summary:secondStep===true}">
-    <span class="col-xs-8 col-xs-offset-4">General</span>
-    <span class="col-xs-8">Summary</span>
+        <div class="clusterProgressBox" ng-class="{summary:secondStep===true}">
+          <span class="col-xs-8 col-xs-offset-4">General</span>
+          <span class="col-xs-8">Summary</span>
 
-    <div class="clearfix"></div>
-    <div class="progressBar col-xs-24">
-      <div>
-        <div></div>
+          <div class="clearfix"></div>
+          <div class="progressBar col-md-24">
+            <div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-22">
+              <div  ui-view></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-8 detailsBox col-sm-offset-1">
+        <div class="row">
+
+          <div class="col-sm-20">
+            <h5>XML Preview</h5>
+          </div>
+          <div class="col-sm-4 pull-right">
+            <div class="btn btn-default btn-xs">
+              Edit XML
+            </div>
+          </div>
+
+          <div class="col-sm-24">
+            <div class="row">
+              <div class="col-sm-22 col-sm-offset-1">
+                <textarea ng-model="prettyXml" rows="35" class="form-control" ng-disabled="true">
+                </textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div ui-view></div>
-
 </div>
