@@ -92,9 +92,7 @@
         Falcon.serverResponse = error.result; 
         $state.go('main'); 
       });     
-    };
-    
-    
+    };  
     
     $scope.tempmodel = { _name: "", _value: ""};
     
