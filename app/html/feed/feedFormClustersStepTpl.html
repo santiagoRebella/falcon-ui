@@ -21,12 +21,13 @@
 
 
   <div class="clearfix hidden-md"></div>
-  <div class="detailsBox" ng-repeat="cluster in feed.clusters">
+  <div ng-repeat="cluster in feed.clusters">
     <div class="row">
+      <h4 class="col-sm-24">{{capitalize(cluster.type)}} Cluster </h4>
+    </div>
+
+    <div class="row detailsBox">
       <div class="col-sm-offset-1 col-sm-22">
-        <div class="row">
-          <h4 class="col-sm-24">{{capitalize(cluster.type)}} Cluster </h4>
-        </div>
 
         <select ng-model="cluster.name" ng-required="true" class="col-sm-24">
           <option ng-repeat="clusterItem in clusterList">{{clusterItem.name}}</option>
@@ -142,8 +143,6 @@
 
       </div>
     </div>
-
-
   </div>
 
   <div class="sourceReplicationButton col-sm-24"

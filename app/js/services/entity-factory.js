@@ -76,7 +76,7 @@
   function feedProperties() {
     return [
       new Entry('queueName', null),
-      new Entry('jobPriority', 'NORMAL'),
+      new Entry('jobPriority', null),
       new Entry('timeout', new Frequency(null, 'hours')),
       new Entry('parallel', null),
       new Entry('maxMaps', null),
