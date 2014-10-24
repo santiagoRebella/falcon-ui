@@ -112,7 +112,21 @@
         $scope.clusterEntity.cluster.properties.property.splice(index, 1);
       }
     };
-    
+
+   $scope.transform = function() {
+     var xmlStr = X2jsService.json2xml_str($scope.clusterEntity);
+     $scope.prettyXml = X2jsService.prettifyXml(xmlStr);
+     $scope.xml = xmlStr;
+     return xmlStr;
+   };
+
+   var xmlPreviewCallback = function() {
+     $scope.transform();
+     $timeout(xmlPreviewCallback, 1000);
+   };
+
+   $timeout(xmlPreviewCallback, 1000);
+
     
     
   }]);    

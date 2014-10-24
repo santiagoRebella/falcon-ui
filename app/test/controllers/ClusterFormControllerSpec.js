@@ -38,11 +38,9 @@
 
       controller = $controller('ClusterFormCtrl', {
         $scope: scope,
-        $timeout: {},
         Falcon: {},
         EntityModel: EntityModel,
-        $state: {},
-        X2jsService: {}
+        $state: {}
       });
 
 
