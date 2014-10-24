@@ -119,11 +119,6 @@
         var xmlPreviewCallback = function() {
           if($scope.editXmlDisabled) {
             $scope.transform();
-          } else {
-            $scope.prettyXml
-            var feedModel = $scope.models.feedModel;
-            $scope.models.feedModel = null;
-            return feedModel ? entityFactory.deserialize(feedModel) : entityFactory.newFeed();
           }
           $timeout(xmlPreviewCallback, 1000);
         };
