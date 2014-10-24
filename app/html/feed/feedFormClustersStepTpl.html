@@ -139,6 +139,12 @@
             </select>
           </div>
 
+          <div class="row"  ng-if="cluster.type !== 'source'">
+            <div class="btn btn-default pull-right" ng-click="removeCluster($index)">
+              - delete
+            </div>
+          </div>
+
         </div>
 
       </div>
