@@ -119,6 +119,9 @@
         var xmlPreviewCallback = function() {
           if($scope.editXmlDisabled) {
             $scope.transform();
+          } else {
+            var entityModel = X2jsService.xml_str2json($scope.prettyXml);
+            $scope.feed = entityFactory.deserialize(entityModel);
           }
           $timeout(xmlPreviewCallback, 1000);
         };
