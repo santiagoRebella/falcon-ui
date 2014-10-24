@@ -63,7 +63,7 @@
           {{ item.name }}
       </td>
       <td class="stateCell">
-          <span ng-if="type !== 'cluster'">{{ item.status }}</span>
+          <span ng-if="type !== 'cluster'" ng-class="{'text-success': item.status === 'RUNNING', 'text-warning': item.status === 'SUSPENDED', 'text-danger': item.status === 'UNKNOWN'}">{{ item.status }}</span>
       </td>
       <td class="dateCell">
           10/10/2014

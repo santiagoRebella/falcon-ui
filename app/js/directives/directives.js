@@ -87,7 +87,7 @@
         scope.goEntityDetails = function(name, type) {
           scope.entityDetails(name, type);
         };
-        
+            
         
         scope.scopeSchedule = function () {
           var i;
