@@ -48,7 +48,9 @@
         <div>
           <div class="row">
             <div class="col-sm-offset-1 col-sm-22">
-              <div  ui-view></div>
+              <fieldset ng-disabled="!editXmlDisabled">
+                <div ui-view></div>
+              </fieldset>
             </div>
           </div>
         </div>
@@ -61,7 +63,7 @@
             <h5>XML Preview</h5>
           </div>
           <div class="col-sm-4 pull-right">
-            <div class="btn btn-default btn-xs">
+            <div class="btn btn-default btn-xs" ng-click="toggleEditXml()">
               Edit XML
             </div>
           </div>
@@ -69,7 +71,7 @@
           <div class="col-sm-24">
             <div class="row">
               <div class="col-sm-22 col-sm-offset-1">
-                <textarea ng-model="prettyXml" rows="35" class="form-control" ng-disabled="true">
+                <textarea ng-model="prettyXml" rows="35" class="form-control" ng-disabled="editXmlDisabled">
                 </textarea>
               </div>
             </div>

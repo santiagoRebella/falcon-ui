@@ -46,6 +46,11 @@
           $scope.feed = $scope.loadOrCreateEntity();
           $scope.startDatePicker = datePickerFactory.newDatePicker();
           $scope.endDatePicker= datePickerFactory.newDatePicker();
+          $scope.editXmlDisabled = true;
+        };
+
+        $scope.toggleEditXml = function() {
+          $scope.editXmlDisabled = !$scope.editXmlDisabled;
         };
 
         $scope.init();
@@ -56,7 +61,6 @@
           if($scope.feed.properties) {
             $scope.feed.allproperties = $scope.feed.properties.concat($scope.feed.customProperties);
           }
-
           var result = entityFactory.transform($scope.feed);
           var xmlStr = X2jsService.json2xml_str(result);
           $scope.prettyXml = X2jsService.prettifyXml(xmlStr);
@@ -113,7 +117,14 @@
 
 
         var xmlPreviewCallback = function() {
-          $scope.transform();
+          if($scope.editXmlDisabled) {
+            $scope.transform();
+          } else {
+            $scope.prettyXml
+            var feedModel = $scope.models.feedModel;
+            $scope.models.feedModel = null;
+            return feedModel ? entityFactory.deserialize(feedModel) : entityFactory.newFeed();
+          }
           $timeout(xmlPreviewCallback, 1000);
         };
 
