@@ -114,7 +114,7 @@
     };
 
    $scope.transform = function() {
-     var xmlStr = X2jsService.json2xml_str($scope.clusterEntity);
+     var xmlStr = X2jsService.json2xml_str(angular.copy($scope.clusterEntity));
      $scope.prettyXml = X2jsService.prettifyXml(xmlStr);
      $scope.xml = xmlStr;
      return xmlStr;
