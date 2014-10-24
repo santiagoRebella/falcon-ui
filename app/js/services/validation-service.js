@@ -33,7 +33,7 @@
       freeText: validate(/^([\sa-zA-Z0-9]){1,40}$/),
       alpha: validate(/^([a-zA-Z0-9]){1,20}$/),
       commaSeparated: validate(/^[a-zA-Z0-9,]{1,80}$/),
-      unixId: validate(/^([a-z_][a-z0-9_\.]{0,30})$/),
+      unixId: validate(/^([a-z_][a-z0-9-_\.]{0,30})$/),
       unixPermissions: validate(/^((([0-7]){1,4})|(\*))$/),
       osPath: validate(/^[^\0]+$/),
       twoDigits: validate(/^([0-9]){1,2}$/),

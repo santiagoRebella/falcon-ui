@@ -51,9 +51,9 @@
      $scope.clusterEntity.cluster.locations.location.splice(index, 1);
    };    
    $scope.goSummaryStep = function () {  
-     if($scope.clusterEntity.cluster.properties.property.length === 0) {
-       delete $scope.clusterEntity.cluster.properties;
-     }       
+   //  if($scope.clusterEntity.cluster.properties.property.length === 0) {
+    //   delete $scope.clusterEntity.cluster.properties;
+  //   }       
      //takes out the $$hashKey from object      
      $scope.jsonString = angular.toJson($scope.clusterEntity);
      //goes back to js to have x2js parse it correctly
