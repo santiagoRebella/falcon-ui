@@ -115,13 +115,18 @@
         };
 
 
-
         var xmlPreviewCallback = function() {
           if($scope.editXmlDisabled) {
-            $scope.transform();
+            try {
+              $scope.transform();
+            } catch (e) {
+            }
           } else {
             var entityModel = X2jsService.xml_str2json($scope.prettyXml);
-            $scope.feed = entityFactory.deserialize(entityModel);
+            try {
+              $scope.feed = entityFactory.deserialize(entityModel);
+            } catch (e) {
+            }
           }
           $timeout(xmlPreviewCallback, 1000);
         };
