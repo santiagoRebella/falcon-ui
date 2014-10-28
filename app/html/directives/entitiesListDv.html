@@ -53,6 +53,9 @@
         <div class="btn btn-default btn-xs" ng-click="scopeRemove()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1">
             <span class="entypo trash"></span> Delete
         </div>
+        <div class="btn btn-default btn-xs" ng-click="download()" ng-disabled="selectedRows.length === 0 || selectedRows.length > 1">
+            <span class="entypo down"></span> Download XML
+        </div>
       </td>
     </tr>
     <tr ng-repeat="item in input | filter:{'name':simpleFilter.name} | filter:{'status':simpleFilter.status}" class="entityRow">

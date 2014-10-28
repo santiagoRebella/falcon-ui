@@ -18,7 +18,7 @@
 (function () {
   'use strict';
 
-	var app = angular.module('app.directives', []);
+	var app = angular.module('app.directives', ['app.services']);
 	
 	app.directive('navHeader', function () {
 		return {
@@ -39,6 +39,19 @@
 			}
     };
 	});
+
+  app.controller('EntitiesListCtrl', ['$scope', 'Falcon', 'X2jsService', function($scope, Falcon, X2jsService) {
+    $scope.downloadEntity = function(type, name) {
+      Falcon.getEntityDefinition(type, name)
+        .success(function (data) {
+        })
+        .error(function (err) {
+          var error = X2jsService.xml_str2json(err);
+          Falcon.success = false;
+          Falcon.serverResponse = error.result;
+        });
+    };
+  }]);
 	
 	
   app.directive('entitiesList', function() {
@@ -55,6 +68,7 @@
         entityDetails:"=",
         resume:"="
       },
+      controller: 'EntitiesListCtrl',
       restrict: "EA",
       templateUrl: 'html/directives/entitiesListDv.html',
       link: function (scope) {
@@ -113,39 +127,46 @@
             scope.resume(scope.selectedRows[i].type, scope.selectedRows[i].name);
           }
         };
+
+        scope.download = function() {
+          var i;
+          for(i = 0; i < scope.selectedRows.length; i++) {
+            scope.downloadEntity(scope.selectedRows[i].type, scope.selectedRows[i].name);
+          }
+        };
    
       }
     };
   });
 
-    app.directive('frequency', function() {
-      return {
-        replace: false,
-        scope: {
-          value: "=",
-          prefix: "@"
-        },
-        restrict: 'E',
-        template: '{{output}}',
-        link: function(scope) {
-          if(scope.value.quantity) {
-            scope.output = scope.prefix + ' ' + scope.value.quantity + ' ' + scope.value.unit;
-          } else {
-            scope.output = 'Not specified';
-          }
+  app.directive('frequency', function() {
+    return {
+      replace: false,
+      scope: {
+        value: "=",
+        prefix: "@"
+      },
+      restrict: 'E',
+      template: '{{output}}',
+      link: function(scope) {
+        if(scope.value.quantity) {
+          scope.output = scope.prefix + ' ' + scope.value.quantity + ' ' + scope.value.unit;
+        } else {
+          scope.output = 'Not specified';
         }
-      };
-    });
+      }
+    };
+  });
     
-    app.directive('timeZoneSelect', function() {
-      return {
-        restrict: 'E',
-        replace: false,
-        scope: {
-          ngModel: '='
-        },
-        templateUrl: 'html/directives/timeZoneSelectDv.html'
-      };
-    });
+  app.directive('timeZoneSelect', function() {
+    return {
+      restrict: 'E',
+      replace: false,
+      scope: {
+        ngModel: '='
+      },
+      templateUrl: 'html/directives/timeZoneSelectDv.html'
+    };
+  });
     
 })();

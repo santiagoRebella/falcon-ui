@@ -55,9 +55,6 @@
           $scope.statusCount[entity.status] = $scope.statusCount[entity.status]+1;
         });
       }
-      else {
-        //empty data - maybe do something here
-      }
     };
 
   }]);
