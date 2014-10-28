@@ -20,14 +20,22 @@
 
   describe('Frequency Directive', function () {
 
-    var element, scope, compile;
+    var element, scope, compile, falconServiceMock, entitiesListController;
 
     beforeEach(module('app.directives'));
 
 
-    beforeEach(inject(function($rootScope, $compile) {
+    beforeEach(inject(function($rootScope, $compile, $controller) {
+      falconServiceMock = jasmine.createSpyObj('Falcon', ['getEntityDefinition']);
+
       scope = $rootScope.$new();
       compile = $compile;
+
+      entitiesListController = $controller('EntitiesListCtrl', {
+        $scope: scope,
+        Falcon: falconServiceMock
+      });
+
     }));
 
     it('Should render 2 hours', function() {
@@ -43,6 +51,28 @@
 
       expect(element.text()).toBe('Not specified');
     });
+
+    describe('EntitiesListController', function() {
+      it('Should invoke the entity definition service', function() {
+        falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
+        var type = 'feed';
+        var name = 'FeedOne';
+
+        scope.downloadEntity(type, name);
+
+        expect(falconServiceMock.getEntityDefinition).toHaveBeenCalledWith(type, name);
+      });
+    });
+
+    function successResponse(value) {
+      var fakePromise = {};
+      fakePromise.success = function(callback) {
+        callback(value);
+        return fakePromise;
+      };
+      fakePromise.error = angular.noop;
+      return fakePromise;
+    }
 
     function newElement(html) {
       var element = compile(html)(scope);
