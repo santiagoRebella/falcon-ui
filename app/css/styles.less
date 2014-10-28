@@ -514,6 +514,7 @@
     font-size: 36px;
     margin: -13px -15px 0 0!important;  
   }  
+
   .progressBar {
     padding: 10px 6% 0 6%;
     >div {
@@ -522,7 +523,10 @@
         width: 24%;
         margin: -11px 0 0 0;
         &:first-child {
-          margin: -10px 0 0 -4%;    
+          margin: -10px 0 0 -4%;  
+          h6 {
+            font-weight: normal;
+          }  
         }
         &:last-child {
           margin: -10px -21% 0 0;    
@@ -536,17 +540,19 @@
       }
       h6 {
         margin-left: -7px;
-        font-weight: bold;
+        font-weight: normal;
       }
     }
   }
   &.general {
     .fir {
-      background-color: @gray-dark;       
+      background-color: @gray-dark;    
+      & + h6 { font-weight: bold!important; }   
     }
     .sec, .thi, .fou, .fif {
       background-color: @gray-light;
     }  
+    
   }
   &.properties {
     .fir {   
@@ -554,8 +560,9 @@
       border-color: @gray-dark;
       color: @gray-dark;
     }
+    .sec + h6 { font-weight: bold; }  
     .fir, .sec {
-      background-color: @gray-dark;
+      background-color: @gray-dark;  
     }
     .thi, .fou, .fif {
       background-color: @gray-light;
@@ -563,6 +570,7 @@
     }
   }
   &.location {
+    .thi + h6 { font-weight: bold; }     
     .fir, .sec {
       .entypo {display: block;}      
       border-color: @gray-dark;
@@ -576,6 +584,7 @@
     }
   }
   &.clusters {
+    .fou + h6 { font-weight: bold; }  
     .fir, .sec, .thi {
       .entypo {display: block;}      
       border-color: @gray-dark;
@@ -589,6 +598,7 @@
     }
   }
   &.summary {
+    .fif + h6 { font-weight: bold; }  
     .fir, .sec, .thi, .fou {
       .entypo {display: block;}      
       border-color: @gray-dark;
