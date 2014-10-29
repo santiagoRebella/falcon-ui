@@ -17,16 +17,29 @@
  * limitations under the License.
  */
 -->
-<table class="listTable">
+<table class="listTable table">
   <thead>
     <tr ng-if="info.empty">
       <th> There are no {{ type }}s </td>
     </tr>
-    <tr ng-if="!info.empty" colspan="4">
-      <th>
-        <div class="filtersBox">Filter by Name <input type="text" class="form-control" ng-model="simpleFilter.name"/></div> 
-        <div ng-if="type !== 'cluster'" class="filtersBox">Filter by Status <input type="text" class="form-control" ng-model="simpleFilter.status"/></div> 
-        <div ng-if="type !== 'cluster'" class="filtersBox">Filter by Tags <input type="text" class="form-control" ng-model="simpleFilter.tags"/></div> 
+    <tr ng-if="!info.empty">
+      <th colspan="3">
+        <div class="filtersBox">Name <input type="text" class="form-control" ng-model="simpleFilter.name"/></div> 
+       
+        <div ng-if="type !== 'cluster'" class="filtersBox">Tags <input type="text" class="form-control" ng-model="simpleFilter.tags"/></div> 
+      
+        <div ng-if="type !== 'cluster'" class="filtersSelectBox">Status 
+          
+          <select class="form-control" ng-model="simpleFilter.status">
+            <option value="" selected="true">ALL</option>
+            <option>SUBMITTED</option>
+            <option>RUNNING</option>
+            <option>SUSPENDED</option>
+            <option>UNKNOWN</option>           
+          </select>
+     
+        </div>
+      
       </th>
     </tr>
   </thead>
@@ -69,9 +82,7 @@
       <td class="stateCell">
           <span ng-if="type !== 'cluster'" ng-class="{'text-success': item.status === 'RUNNING', 'text-warning': item.status === 'SUSPENDED', 'text-danger': item.status === 'UNKNOWN'}">{{ item.status }}</span>
       </td>
-      <td class="dateCell">
-          10/10/2014
-      </td>
+      
     </tr>
   </tbody>
 </table>
