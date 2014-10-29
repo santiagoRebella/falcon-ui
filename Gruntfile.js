@@ -160,7 +160,7 @@ module.exports = function (grunt) {
             src: '**',
             filter: 'isFile',
             // path on the server
-            dest: '/var/lib/falcon/webapp/falcon'
+            dest: '/usr/hdp/2.2.0.0-913/falcon/webapp/falcon/'
           }
         ]
       }

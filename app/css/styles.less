@@ -404,23 +404,52 @@
     font-size: 10px;
   }
 }
-
+//---------------------------------//
+//---------progress Bar------------//
+//---------------------------------//
 .progressBar {
   overflow: hidden;
-  padding: 5px;
+  padding: 10px 35px;
   div {
-    .transition(margin, 0.5s, ease-out);
-    background-color: @gray-dark;
-    height: 3px;
-    width: 100%;
-    margin-left: -66%;
+    .transition(background-color, 0.5s, ease-out);
+    background-color: @gray-light;
+    height: 10px;
+    border-top:2px solid @gray-light;
+    border-bottom:2px solid @gray-light;    
+    span {
+      display: block;
+      width: 55px;
+      span { display: none;}
+      &:first-child {
+        float: left;
+        margin: -10px 0 0 -17px;     
+        h6 {
+          font-weight: bold;
+        }
+      }
+      &:last-child {
+        float: right;
+        margin: -10px -15px 0 0;    
+        div {
+          background-color: @gray-light;
+        } 
+      } 
+      h6 {
+        margin: 0;
+        font-size: 10px;
+      }
+    }   
     div {
-      border-radius: 10px;
-      width: 10px;
-      height: 10px;
-      background-color: @gray-dark;
-      float: right;
-      margin: -4px -5px 0 0;
+      display: inline-block;
+      border-radius: 30px;      
+      line-height: 27px;    
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      background-color: #333;
+      color: white;
+      border: 3px solid @gray-light;
+ 
     }
   }
 }
@@ -434,7 +463,34 @@
   &.summary {
     .progressBar {
       div {
-        margin-left: -33%;
+        background-color: @gray-dark;
+        border-color: @gray-dark;
+        span {
+          &:first-child {           
+            span {
+              color: white;
+              display: block;           
+              z-index:2;
+              position: relative;
+              margin-top: -13px;
+            }
+            div {
+              color: @gray-dark;
+              border-color: @gray-dark;
+            }
+            h6 {
+              font-weight: normal;
+            }
+          }
+          &:last-child {
+            div {
+              border-color: @gray-light;
+            }
+            h6 {
+              font-weight: bold;
+            }
+          }       
+        }
       }
     }
   }
@@ -450,43 +506,111 @@
 
 .feedProgressBox {
   font-size: 14px;
-  &.general {
-    .progressBar {
+  .entypo {     
+    color: white;                 
+    z-index:2;
+    position: relative;
+    display: none;
+    font-size: 36px;
+    margin: -13px -15px 0 0!important;  
+  }  
+
+  .progressBar {
+    padding: 10px 6% 0 6%;
+    >div {
+      >span {
+        display: inline-block;
+        width: 24%;
+        margin: -11px 0 0 0;
+        &:first-child {
+          margin: -10px 0 0 -4%;  
+          h6 {
+            font-weight: normal;
+          }  
+        }
+        &:last-child {
+          margin: -10px -21% 0 0;    
+        }
+        div {       
+          background-color: @gray-dark;
+        } 
+      }       
       div {
-        margin-left: -95%;
+        border-color: @gray-light;
+      }
+      h6 {
+        margin-left: -7px;
+        font-weight: normal;
       }
     }
   }
+  &.general {
+    .fir {
+      background-color: @gray-dark;    
+      & + h6 { font-weight: bold!important; }   
+    }
+    .sec, .thi, .fou, .fif {
+      background-color: @gray-light;
+    }  
+    
+  }
   &.properties {
-    .progressBar {
-      div {
-        margin-left: -70%;
-      }
+    .fir {   
+      .entypo {display: block;}      
+      border-color: @gray-dark;
+      color: @gray-dark;
+    }
+    .sec + h6 { font-weight: bold; }  
+    .fir, .sec {
+      background-color: @gray-dark;  
+    }
+    .thi, .fou, .fif {
+      background-color: @gray-light;
+      
     }
   }
   &.location {
-    .progressBar {
-      div {
-        margin-left: -50%;
-      }
+    .thi + h6 { font-weight: bold; }     
+    .fir, .sec {
+      .entypo {display: block;}      
+      border-color: @gray-dark;
+      color: @gray-dark;
+    }
+    .fir, .sec, .thi {
+      background-color: @gray-dark;
+    }
+    .fou, .fif {
+      background-color: @gray-light;
     }
   }
   &.clusters {
-    .progressBar {
-      div {
-        margin-left: -30%;
-      }
+    .fou + h6 { font-weight: bold; }  
+    .fir, .sec, .thi {
+      .entypo {display: block;}      
+      border-color: @gray-dark;
+      color: @gray-dark;
+    }
+    .fir, .sec, .thi, .fou {
+      background-color: @gray-dark;
+    }
+    .fif {
+      background-color: @gray-light;
     }
   }
   &.summary {
-    .progressBar {
-      div {
-        margin-left: -5%;
-      }
+    .fif + h6 { font-weight: bold; }  
+    .fir, .sec, .thi, .fou {
+      .entypo {display: block;}      
+      border-color: @gray-dark;
+      color: @gray-dark;
+    }
+    .fir, .sec, .thi, .fou, .fif {
+      background-color: @gray-dark;
     }
   }
 }
-
+//---------------------------------//
+//---------------------------------//
 .feedForm {
 
   .small {

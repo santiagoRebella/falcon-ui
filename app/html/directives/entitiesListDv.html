@@ -26,6 +26,7 @@
       <th>
         <div class="filtersBox">Filter by Name <input type="text" class="form-control" ng-model="simpleFilter.name"/></div> 
         <div ng-if="type !== 'cluster'" class="filtersBox">Filter by Status <input type="text" class="form-control" ng-model="simpleFilter.status"/></div> 
+        <div ng-if="type !== 'cluster'" class="filtersBox">Filter by Tags <input type="text" class="form-control" ng-model="simpleFilter.tags"/></div> 
       </th>
     </tr>
   </thead>
@@ -58,7 +59,7 @@
         </div>
       </td>
     </tr>
-    <tr ng-repeat="item in input | filter:{'name':simpleFilter.name} | filter:{'status':simpleFilter.status}" class="entityRow">
+    <tr ng-repeat="item in input | filter:{'name':simpleFilter.name} | filter:{'status':simpleFilter.status} | filter:{'list':simpleFilter.tags}" class="entityRow">
       <td class="checkboxCell">
           <input type="checkbox" checklist-model="selectedRows" checklist-value="{name:item.name, type:item.type}"/>
       </td>

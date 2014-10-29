@@ -146,6 +146,9 @@
           });
       };
       $scope.cloneEntity = function (type, name) {
+
+        var type = type.toLowerCase(); //new sandbox returns uppercase type
+
         Falcon.getEntityDefinition(type, name)
           .success(function (data) {
             var modelName = type + "Model";
@@ -162,7 +165,9 @@
           });
       };
       $scope.editEntity = function (type, name) {
-
+        
+        var type = type.toLowerCase(); //new sandbox returns uppercase type
+        
         Falcon.getEntityDefinition(type, name)
           .success(function (data) {
             var entityModel = X2jsService.xml_str2json(data);

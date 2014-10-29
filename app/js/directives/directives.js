@@ -53,7 +53,6 @@
     };
   }]);
 	
-	
   app.directive('entitiesList', function() {
     return {
       scope: {
