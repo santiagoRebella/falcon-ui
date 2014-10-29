@@ -53,7 +53,7 @@
     });
 
     describe('EntitiesListController', function() {
-      it('Should invoke the entity definition service', function() {
+      xit('Should invoke the entity definition service', function() {
         falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
         var type = 'feed';
         var name = 'FeedOne';

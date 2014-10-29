@@ -42,14 +42,14 @@
 
   app.controller('EntitiesListCtrl', ['$scope', 'Falcon', 'X2jsService', function($scope, Falcon, X2jsService) {
     $scope.downloadEntity = function(type, name) {
-      Falcon.getEntityDefinition(type, name)
-        .success(function (data) {
-        })
-        .error(function (err) {
-          var error = X2jsService.xml_str2json(err);
-          Falcon.success = false;
-          Falcon.serverResponse = error.result;
-        });
+      Falcon.getEntityDefinition(type, name) .success(function (data) {
+        var uriContent = "data:application/octet-stream," + encodeURIComponent(data);
+        location.href = uriContent;
+      }).error(function (err) {
+        var error = X2jsService.xml_str2json(err);
+        Falcon.success = false;
+        Falcon.serverResponse = error.result;
+      });
     };
   }]);
 	
