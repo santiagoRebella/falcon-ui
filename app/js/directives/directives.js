@@ -40,11 +40,21 @@
     };
 	});
 
-  app.controller('EntitiesListCtrl', ['$scope', 'Falcon', 'X2jsService', function($scope, Falcon, X2jsService) {
+  app.factory('EncodeService', function() {
+    return {
+      encode: function(data) {
+        return encodeURIComponent(data);
+      }
+    }
+  });
+
+
+  app.controller('EntitiesListCtrl',
+    ['$scope', 'Falcon', 'X2jsService', '$window', 'EncodeService',
+      function($scope, Falcon, X2jsService, $window, encodeService) {
     $scope.downloadEntity = function(type, name) {
       Falcon.getEntityDefinition(type, name) .success(function (data) {
-        var uriContent = "data:application/octet-stream," + encodeURIComponent(data);
-        location.href = uriContent;
+        $window.location.href = 'data:application/octet-stream,' + encodeService.encode(data);
       }).error(function (err) {
         var error = X2jsService.xml_str2json(err);
         Falcon.success = false;

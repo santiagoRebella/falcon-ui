@@ -21,19 +21,24 @@
   describe('Frequency Directive', function () {
 
     var element, scope, compile, falconServiceMock, entitiesListController;
+    var windowMock, encoderServiceMock;
 
     beforeEach(module('app.directives'));
 
 
     beforeEach(inject(function($rootScope, $compile, $controller) {
       falconServiceMock = jasmine.createSpyObj('Falcon', ['getEntityDefinition']);
+      encoderServiceMock = jasmine.createSpyObj('EncoderService', ['encode']);
+      windowMock = createWindowMock();
 
       scope = $rootScope.$new();
       compile = $compile;
 
       entitiesListController = $controller('EntitiesListCtrl', {
         $scope: scope,
-        Falcon: falconServiceMock
+        Falcon: falconServiceMock,
+        EncodeService: encoderServiceMock,
+        $window: windowMock
       });
 
     }));
@@ -53,7 +58,7 @@
     });
 
     describe('EntitiesListController', function() {
-      xit('Should invoke the entity definition service', function() {
+      it('Should invoke the entity definition service', function() {
         falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
         var type = 'feed';
         var name = 'FeedOne';
@@ -61,6 +66,27 @@
         scope.downloadEntity(type, name);
 
         expect(falconServiceMock.getEntityDefinition).toHaveBeenCalledWith(type, name);
+      });
+
+      it('Should encode the response', function() {
+        var type = 'feed';
+        var name = 'FeedOne';
+        falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
+
+
+        scope.downloadEntity(type, name);
+
+        expect(encoderServiceMock.encode).toHaveBeenCalled();
+      });
+
+      it('Should do a full page reload to a data uri to trigger the download', function() {
+        falconServiceMock.getEntityDefinition.andReturn(successResponse({}));
+        encoderServiceMock.encode.andReturn('[encodedResponse]');
+        windowMock.location.href = '';
+
+        scope.downloadEntity('feed', 'FeedOne');
+
+        expect(windowMock.location.href).toBe('data:application/octet-stream,[encodedResponse]');
       });
     });
 
@@ -78,6 +104,14 @@
       var element = compile(html)(scope);
       scope.$digest();
       return element;
+    }
+
+    function createWindowMock() {
+     return {
+       location: {
+         href: ''
+       }
+     };
     }
 
   });
